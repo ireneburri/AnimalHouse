@@ -37,7 +37,7 @@ const mymongo = require(global.rootDir + '/scripts/mongo.js') ;
 const express = require('express') ;
 const cors = require('cors')
 
-
+const MONGO_psw = process.env.MONGO_psw
 
 
 
@@ -120,9 +120,9 @@ app.post('/info', info )
 
 /* Replace these info with the ones you were given when activating mongoDB */ 
 const mongoCredentials = {
-        user: "siteXXXXXX",
-        pwd: "YYYYYY",
-        site: "mongo_siteXXXXXX"
+        user: "site212224",
+        pwd: "${MONGO_psw}",
+        site: "mongo_site212224"
 }  
 /* end */
 
