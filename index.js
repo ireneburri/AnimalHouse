@@ -1,4 +1,4 @@
-global.rootDir = __dirname ;
+//global.rootDir = __dirname ;
 //.env
 require('dotenv').config();
 
@@ -9,10 +9,10 @@ const express = require('express');
 const app = express();
 
 
-const cors = require('cors');
-const path = require('path');
+//const cors = require('cors');
+//const path = require('path');
 
-app.use(cors());
+//app.use(cors());
 app.use(express.json());
 
 const mongoCredentials = {
@@ -44,7 +44,12 @@ db.once('open', () => {console.log('Connected to the database')})
 app.use(express.json())
 
 const animalRouter = require('./routes/animal')
+const itemRouter = require('./routes/item')
+const userRouter = require('./routes/user')
+
 app.use('/animal', animalRouter)
+app.use('/item', itemRouter)
+app.use('/user', userRouter)
 
 app.listen(8000,()=>console.log("server started"))
 

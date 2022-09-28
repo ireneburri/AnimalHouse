@@ -4,8 +4,17 @@ const animalSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    img: {
+        type: String,
+        required: false,
+    },
     age:{
         type: Number,
+        required: false,
+    },
+    sex:{
+        type: String,
+        enum: ["M", "F"],
         required: false,
     }
 })
