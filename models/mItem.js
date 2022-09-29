@@ -13,6 +13,10 @@ const itemSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    category: {
+        type: String,
+        enum: ["Cibo", "Prodotti Sanitari", "accessoristica"]
+    },
     quantity: {
         type: Number,
         required: true,

@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
     },
     preferences: {
         type: String,
-        enum: ["Dog", "Cat", "Fish", "Bird", "Hamster"],
+        enum: ["Cane", "Gatto", "Pesce", "Uccello", "Criceto"],
         required: false,
     }
 })

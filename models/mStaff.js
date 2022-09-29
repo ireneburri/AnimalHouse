@@ -23,11 +23,11 @@ const staffSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['employee', 'vet', 'Dog Sitter'],
+        enum: ['impiegato', 'veterinario', 'Dog Sitter'],
         required: true,
     },
     location: {
-        type : String,
+        type : [String],
         required: true,
     },
 });

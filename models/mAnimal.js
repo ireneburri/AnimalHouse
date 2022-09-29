@@ -14,7 +14,7 @@ const animalSchema = new mongoose.Schema({
     },
     sex:{
         type: String,
-        enum: ["M", "F"],
+        enum: ["Maschio", "Femmina"],
         required: false,
     }
 })
