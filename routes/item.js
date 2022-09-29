@@ -23,7 +23,7 @@ router.post('/', async (req, res)=> {
         name: req.body.name,
         price: req.body.price,
         img: req.body.img,
-        disponibility: req.body.disponibility,
+        quantity: req.body.quantity,
         description: req.body.description,
     })
     try{
@@ -44,8 +44,8 @@ router.patch('/:id', getItem, async (req, res)=> {
     if(req.body.img != null){
         res.item.img=req.body.img
     }
-    if(req.body.disponibility != null){
-        res.item.disponibility=req.body.disponibility
+    if(req.body.quantity != null){
+        res.item.quantity=req.body.quantity
     }
     if(req.body.description != null){
         res.item.description=req.body.description

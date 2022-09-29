@@ -27,6 +27,7 @@ router.post('/', async (req, res)=> {
         password:req.body.password,
         paymentmethod:req.body.paymentmethod,
         residence:req.body.residence,
+        preferences: req.body.preferences,
     })
     try{
         const newUser = await user.save()
@@ -58,6 +59,9 @@ router.patch('/:id', getUser, async (req, res)=> {
     }
     if(req.body.residence != null){
         res.user.residence=req.body.residence
+    }
+    if(req.body.preferences != null){
+        res.user.preferences=req.body.preferences
     }
     try{
         const updateUser = await res.user.save()

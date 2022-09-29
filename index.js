@@ -46,10 +46,12 @@ app.use(express.json())
 const animalRouter = require('./routes/animal')
 const itemRouter = require('./routes/item')
 const userRouter = require('./routes/user')
+const staffRouter = require('./routes/staff')
 
 app.use('/animal', animalRouter)
 app.use('/item', itemRouter)
 app.use('/user', userRouter)
+app.use('/staff', staffRouter)
 
 app.listen(8000,()=>console.log("server started"))
 

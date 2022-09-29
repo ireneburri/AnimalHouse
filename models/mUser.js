@@ -31,9 +31,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    preferences: {
+        type: String,
+        enum: ["Dog", "Cat", "Fish", "Bird", "Hamster"],
+        required: false,
+    }
 })
 
 
-const MUser = mongoose.model('user', userSchema);
+const User = mongoose.model('user', userSchema);
 
-module.exports= MUser;
+module.exports= User;

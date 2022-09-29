@@ -13,9 +13,8 @@ const itemSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    disponibility: {
-        type: String,
-        enum: ['available', 'available soon', 'unavailable'],
+    quantity: {
+        type: Number,
         required: true,
     },
     description: {
