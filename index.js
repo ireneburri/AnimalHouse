@@ -22,12 +22,13 @@ const mongoCredentials = {
 }
 
 //vero server mongodb
+/*
 const uri = `mongodb://site212224:${mongoCredentials.pwd}@mongo_site212224?writeConcern=majority`
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true})
-
+*/
 
 //per connettere la tua applicazione ad un database locale
-// mongoose.connect('mongodb://127.0.0.1/animalHouse', { useNewUrlParser: true});
+mongoose.connect('mongodb://127.0.0.1/animalHouse', { useNewUrlParser: true});
 
 //feedback se la connessione riesce
 const db= mongoose.connection
