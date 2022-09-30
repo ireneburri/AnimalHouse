@@ -22,18 +22,14 @@ const mongoCredentials = {
 }
 
 //vero server mongodb
-/*
-const uri = `mongodb://site212224:${mongoCredentials.pwd}@$site212224?writeConcern=majority`
+const uri = `mongodb://site212224:${mongoCredentials.pwd}@$mongo_site212224?writeConcern=majority`
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true})
-*/
 
-//per connettere la tua applicazione locale al database (?)
-mongoose.connect('mongodb://127.0.0.1/animalHouse', { useNewUrlParser: true});
 
-// vero url per il progetto
-//mongoose.connect(mongoURI, {useNewUrlParser: true, useUnifiedTopology: true}) //comando per connsessione
+//per connettere la tua applicazione ad un database locale
+// mongoose.connect('mongodb://127.0.0.1/animalHouse', { useNewUrlParser: true});
 
-//prove (?)
+//feedback se la connessione riesce
 const db= mongoose.connection
 db.on('error', (error)=> console.log(error))
 db.once('open', () => {console.log('Connected to the database')})
