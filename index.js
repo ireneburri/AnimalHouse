@@ -27,6 +27,7 @@ const uri = `mongodb://site212224:${mongoCredentials.pwd}@mongo_site212224?write
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true})
 */
 
+
 //per connettere la tua applicazione ad un database locale
 mongoose.connect('mongodb://127.0.0.1/animalHouse', { useNewUrlParser: true});
 
