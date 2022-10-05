@@ -1,6 +1,10 @@
 //global.rootDir = __dirname ;
 //.env
-require('dotenv').config();
+
+//const cors = require('cors');
+const path = require('path');
+
+require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 
 const mongoose = require('mongoose');
 
@@ -8,9 +12,6 @@ const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 
-
-//const cors = require('cors');
-//const path = require('path');
 
 //app.use(cors());
 app.use(express.json());
@@ -20,7 +21,7 @@ const mongoCredentials = {
     pwd: process.env.MONGO_PSW,
     site: process.env.MONGO_SITE
 }
-
+console.log(mongoCredentials.pwd);
 //vero server mongodb
 
 const uri = `mongodb://site212224:${mongoCredentials.pwd}@mongo_site212224?writeConcern=majority`
