@@ -23,7 +23,7 @@ const mongoCredentials = {
 
 //vero server mongodb
 
-const uri = `mongodb://site212224:Ooboot0d@mongo_site212224?writeConcern=majority`
+const uri = `mongodb://site212224:${mongoCredentials.pwd}@mongo_site212224?writeConcern=majority`
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true})
 
 

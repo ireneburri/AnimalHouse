@@ -42,7 +42,7 @@ router.patch('/:id', getAnimal, async (req, res)=> {
         res.animal.img=req.body.img
     }
     if(req.body.age != null){
-        res.animal.name=req.body.name
+        res.animal.age=req.body.age
     }
     if(req.body.sex != null){
         res.animal.sex=req.body.sex
