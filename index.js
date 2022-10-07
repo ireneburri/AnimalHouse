@@ -1,7 +1,7 @@
 //global.rootDir = __dirname ;
 //.env
 
-//const cors = require('cors');
+const cors = require('cors');
 //const path = require('path');
 
 require('dotenv').config();
@@ -12,8 +12,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 
-
-//app.use(cors());
+app.use(cors());
 app.use(express.json());
 
 const mongoCredentials = {
