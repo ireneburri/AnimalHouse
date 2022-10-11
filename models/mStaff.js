@@ -13,6 +13,10 @@ const staffSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    email: {
+        type: String,
+        require: true,
+    },
     password: {
         type: String,
         required: true,
@@ -22,8 +26,7 @@ const staffSchema = new mongoose.Schema({
         require: false,
     },
     role: {
-        type: String,
-        enum: ['impiegato', 'veterinario', 'Dog Sitter'],
+        type: [String],
         required: true,
     },
     location: {

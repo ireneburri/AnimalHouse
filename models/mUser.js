@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    tel: {
+        type: String,
+        required: false,
+    },
     paymentmethod: {
         /*type: mongoose.Schema.Types.String,
         ref: 'Payment_Methods.name',*/
@@ -32,8 +36,11 @@ const userSchema = new mongoose.Schema({
         required: false,
     },
     preferences: {
-        type: String,
-        enum: ["Cane", "Gatto", "Pesce", "Uccello", "Criceto"],
+        type: [String],
+        required: true,
+    },
+    myanimal: {
+        type: [String],
         required: false,
     }
 })

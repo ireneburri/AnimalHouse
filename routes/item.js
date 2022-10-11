@@ -23,8 +23,11 @@ router.post('/', async (req, res)=> {
         name: req.body.name,
         price: req.body.price,
         img: req.body.img,
+        category: req.body.category,
+        animal: req.body.animal,
         quantity: req.body.quantity,
         description: req.body.description,
+        brand: req.body.brand,
     })
     try{
         const newItem = await item.save()
@@ -44,11 +47,20 @@ router.patch('/:id', getItem, async (req, res)=> {
     if(req.body.img != null){
         res.item.img=req.body.img
     }
+    if(req.body.category != null){
+        res.item.category=req.body.caegory
+    }
+    if(req.body.animal != null){
+        res.item.animal=req.body.animal
+    }
     if(req.body.quantity != null){
         res.item.quantity=req.body.quantity
     }
     if(req.body.description != null){
         res.item.description=req.body.description
+    }
+    if(req.body.brand != null){
+        res.item.brand=req.body.brand
     }
 
     try{

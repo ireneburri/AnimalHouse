@@ -11,11 +11,17 @@ const itemSchema = new mongoose.Schema({
     },
     img: {
         type: String,
-        required: false,
+        required: true,
     },
     category: {
         type: String,
-        enum: ["Cibo", "Prodotti Sanitari", "accessoristica"]
+        enum: ["Cibo", "Prodotti Sanitari", "Giochi", "Accessori", "Case e Cucce", "Per Cuccioli"],
+        required: true,
+    },
+    animal: {
+        type: String,
+        enum: ["Per Tutti", "Mammiferi", "Uccelli", "Rettili", "Anfibi", "Pesci", "Insetti", "Altro"],
+        required: true,
     },
     quantity: {
         type: Number,
@@ -24,7 +30,11 @@ const itemSchema = new mongoose.Schema({
     description: {
         type: String,
         required: false,
-    }
+    },
+    brand: {
+        type: String,
+        required: false,
+    },
 })
 
 

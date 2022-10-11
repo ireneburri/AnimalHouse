@@ -21,8 +21,9 @@ router.get('/:id', getStaff, (req, res)=> {
 router.post('/', async (req, res)=> {
     const staff = new Staff({
         username: req.body.username,
-        surname: req.body.surname,
         name: req.body.name,
+        surname: req.body.surname,
+        email: req.body.email,
         img: req.body.img,
         password:req.body.password,
         role:req.body.role,
@@ -46,6 +47,9 @@ router.patch('/:id', getStaff, async (req, res)=> {
     }
     if(req.body.surname != null){
         res.staff.surname=req.body.surname
+    }
+    if(req.body.email != null){
+        res.staff.email=req.body.email
     }
     if(req.body.img != null){
         res.staff.img=req.body.img

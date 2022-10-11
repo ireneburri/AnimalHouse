@@ -24,6 +24,8 @@ router.post('/', async (req, res)=> {
         img: req.body.img,
         age: req.body.age,
         sex: req.body.sex,
+        breed: req.body.breed,
+        description: req.body.description,
 
     })
     try{
@@ -46,6 +48,12 @@ router.patch('/:id', getAnimal, async (req, res)=> {
     }
     if(req.body.sex != null){
         res.animal.sex=req.body.sex
+    }
+    if(req.body.breed != null){
+        res.animal.breed=req.body.breed
+    }
+    if(req.body.description != null){
+        res.animal.description=req.body.description
     }
     try{
         const updateAnimal = await res.animal.save()

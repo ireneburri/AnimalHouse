@@ -23,6 +23,7 @@ router.post('/', async (req, res)=> {
         name: req.body.name,
         img: req.body.img,
         address: req.body.address,
+        tel: req.body.tel,
         staff: req.body.staff,
         services: req.body.services,
         description: req.body.description
@@ -45,6 +46,9 @@ router.patch('/:id', getLocation, async (req, res)=> {
     }
     if(req.body.address != null){
         res.location.address=req.body.address
+    }
+    if(req.body.tel != null){
+        res.location.tel=req.body.tel
     }
     if(req.body.staff != null){
         res.location.staff=req.body.staff

@@ -13,13 +13,18 @@ const locationSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    tel: {
+        type: String,
+        required: false,
+    },
     services: {
         type: [String],
+        enum: ["Animal Sitter", "Vet & Doctors", "Grooming", "Pension", "Training", "Store"],
         required: true,
     },
     img: {
         type: String,
-        required: false
+        required: false,
     },
     description: {
         type: String,

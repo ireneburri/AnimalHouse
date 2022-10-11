@@ -20,12 +20,14 @@ router.get('/:id', getService, (req, res)=> {
 //create one
 router.post('/', async (req, res)=> {
     const service = new Service({
+        mode: req.body.mode,
         name: req.body.name,
         img: req.body.img,
         location: req.body.location,
         category: req.body.category,
         price: req.body.price,
-        description: req.body.description
+        description: req.body.description,
+        availability: req.body.availability,
     })
     try{
         const newService = await service.save()
@@ -37,6 +39,9 @@ router.post('/', async (req, res)=> {
 //update one
 router.patch('/:id', getService, async (req, res)=> {
 
+    if(req.body.mode != null){
+        res.service.mode=req.body.mode
+    }
     if(req.body.name != null){
         res.service.name=req.body.name
     }
@@ -55,6 +60,10 @@ router.patch('/:id', getService, async (req, res)=> {
     if(req.body.description != null){
         res.service.description=req.body.description
     }
+    if(req.body.availability != null){
+        res.service.availability=req.body.availability
+    }
+
     try{
         const updateService = await res.service.save()
         res.json(updateService)

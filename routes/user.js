@@ -24,10 +24,12 @@ router.post('/', async (req, res)=> {
         surname: req.body.surname,
         name: req.body.name,
         img: req.body.img,
-        password:req.body.password,
-        paymentmethod:req.body.paymentmethod,
-        residence:req.body.residence,
+        password: req.body.password,
+        tel: req.body.tel,
+        paymentmethod: req.body.paymentmethod,
+        residence: req.body.residence,
         preferences: req.body.preferences,
+        myanimal: req.body.myanimal,
     })
     try{
         const newUser = await user.save()
@@ -54,6 +56,9 @@ router.patch('/:id', getUser, async (req, res)=> {
     if(req.body.password != null){
         res.user.password=req.body.password
     }
+    if(req.body.tel != null){
+        res.user.tel=req.body.tel
+    }
     if(req.body.paymentmethod != null){
         res.user.paymentmethod=req.body.paymentmethod
     }
@@ -63,6 +68,10 @@ router.patch('/:id', getUser, async (req, res)=> {
     if(req.body.preferences != null){
         res.user.preferences=req.body.preferences
     }
+    if(req.body.myanimal != null){
+        res.user.myanimal=req.body.myanimal
+    }
+
     try{
         const updateUser = await res.user.save()
         res.json(updateUser)

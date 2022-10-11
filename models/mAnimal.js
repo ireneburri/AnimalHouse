@@ -16,7 +16,15 @@ const animalSchema = new mongoose.Schema({
         type: String,
         enum: ["Maschio", "Femmina"],
         required: false,
-    }
+    },
+    breed:{
+        type: String,
+        required: true,
+    },
+    description:{
+        type: String,
+        required: false,
+    },
 })
 
 
