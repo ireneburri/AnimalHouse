@@ -48,7 +48,7 @@ router.patch('/:id', getItem, async (req, res)=> {
         res.item.img=req.body.img
     }
     if(req.body.category != null){
-        res.item.category=req.body.caegory
+        res.item.category=req.body.category
     }
     if(req.body.animal != null){
         res.item.animal=req.body.animal

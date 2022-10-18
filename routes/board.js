@@ -25,6 +25,7 @@ router.post('/', async (req, res)=> {
         text: req.body.text,
         data: req.body.data,
         img: req.body.img,
+        post_id: req.body.post_id,
     })
     try{
         const newBoard = await board.save()
@@ -49,6 +50,9 @@ router.patch('/:id', getBoard, async (req, res)=> {
     }
     if(req.body.img != null){
         res.board.img=req.body.img
+    }
+    if(req.body.post_id != null){
+        res.board.post_id=req.body.post_id
     }
     
     try{
