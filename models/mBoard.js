@@ -20,6 +20,10 @@ const boardSchema = new mongoose.Schema({
     img: {
         type: String,
         required: false,
+    },
+    post_id: {
+        type: String,
+        required: false,
     }
 })
 

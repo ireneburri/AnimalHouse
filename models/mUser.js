@@ -26,9 +26,8 @@ const userSchema = new mongoose.Schema({
         required: false,
     },
     paymentmethod: {
-        /*type: mongoose.Schema.Types.String,
-        ref: 'Payment_Methods.name',*/
         type: String,
+        enum: ["Card", "PayPal", "In Store", "None"],
         required: false,
     },
     residence: {
