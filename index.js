@@ -46,6 +46,7 @@ const userRouter = require('./routes/user')
 const staffRouter = require('./routes/staff')
 const serviceRouter = require('./routes/service')
 const locationRouter = require('./routes/location')
+const boardRouter = require('./routes/board')
 
 app.use('/animal', animalRouter)
 app.use('/item', itemRouter)
@@ -53,6 +54,7 @@ app.use('/user', userRouter)
 app.use('/staff', staffRouter)
 app.use('/service', serviceRouter)
 app.use('/location', locationRouter)
+app.use('/board', boardRouter)
 
 app.listen(8000,()=>console.log("server started"))
 
