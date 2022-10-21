@@ -10,9 +10,21 @@ router.get('/', async(req, res)=> {
     } catch(err) {
         res.status(500).json({message: err.message})
     }
-
-
 })
+
+//get service filtered by mode
+router.get("/:mode", async (request , response) => {
+    const mode = request.params.mode
+    const services = await Service.find({mode: mode});
+
+    try {
+      response.send(services);
+    } catch (error) {
+      response.status(500).send(error);
+    }
+});
+
+
 //get one
 router.get('/:id', getService, (req, res)=> {
     res.json(res.service)
