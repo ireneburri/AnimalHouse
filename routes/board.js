@@ -12,12 +12,26 @@ router.get('/', async(req, res) => {
         }
 
 
-    })
-    //get one
+})
+
+//get posts filtered by category
+router.get("/:category", async (request , response) => {
+    const category = request.params.category
+    const boards = await Board.find({category: category});
+
+    try {
+      response.send(boards);
+    } catch (error) {
+      response.status(500).send(error);
+    }
+});
+
+//get one
 router.get('/:id', getBoard, (req, res) => {
         res.json(res.board)
-    })
-    //create one
+})
+
+//create one
 router.post('/', async(req, res) => {
         const board = new Board({
             author: req.body.author,
@@ -35,8 +49,9 @@ router.post('/', async(req, res) => {
         } catch (err) {
             res.status(400).json({ message: err.message })
         }
-    })
-    //update one
+})
+
+//update one
 router.patch('/:id', getBoard, async(req, res) => {
         if (req.body.author != null) {
             res.board.author = req.body.author
@@ -70,8 +85,9 @@ router.patch('/:id', getBoard, async(req, res) => {
             res.status(400).json({ message: err.message }) //parametro non accettabile
         }
 
-    })
-    //delete one
+})
+
+//delete one
 router.delete('/:id', getBoard, async(req, res) => {
     try {
         await res.board.remove()
@@ -88,7 +104,7 @@ async function getBoard(req, res, next) {
     try {
         board = await Board.findById(req.params.id)
         if (board == null) {
-            return res.status(404).json({ message: 'Cannot find animal' })
+            return res.status(404).json({ message: 'Cannot find board' })
         }
     } catch (err) {
         return res.status(500).json({ message: err.message })
