@@ -27,11 +27,11 @@ const boardSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        required: true,
+        required: false,
     },
     comment: {
         type: Boolean,
-        required: true,
+        required: false,
     }
 })
 
