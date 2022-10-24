@@ -24,10 +24,18 @@ const boardSchema = new mongoose.Schema({
     post_id: {
         type: String,
         required: false,
+    },
+    category: {
+        type: String,
+        required: true,
+    },
+    comment: {
+        type: Boolean,
+        required: true,
     }
 })
 
 
 const board = mongoose.model('board', boardSchema);
 
-module.exports= board;
+module.exports = board;
