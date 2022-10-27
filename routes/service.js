@@ -13,7 +13,7 @@ router.get('/', async(req, res)=> {
 })
 
 //get service filtered by mode
-router.get("/:mode", async (request , response) => {
+router.get("/mode/:mode", async (request , response) => {
     const mode = request.params.mode
     const services = await Service.find({mode: mode});
 
@@ -26,7 +26,7 @@ router.get("/:mode", async (request , response) => {
 
 
 //get one
-router.get('/:id', getService, (req, res)=> {
+router.get('/id/:id', getService, (req, res)=> {
     res.json(res.service)
 })
 //create one
