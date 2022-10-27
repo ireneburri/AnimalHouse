@@ -15,7 +15,7 @@ router.get('/', async(req, res) => {
 })
 
 //get posts filtered by category
-router.get("/:category", async (request , response) => {
+router.get("/category/:category", async (request , response) => {
     const category = request.params.category
     const boards = await Board.find({category: category});
 
@@ -27,9 +27,21 @@ router.get("/:category", async (request , response) => {
 });
 
 //get one
-router.get('/:id', getBoard, (req, res) => {
+router.get('/id/:id', getBoard, (req, res) => {
         res.json(res.board)
 })
+
+//get posts that are comments of another post
+router.get("/comments/:id", async(request, response) => {
+    const id = request.params.id
+    const boards = await Board.find({ post_id: id });
+
+    try {
+        response.send(boards);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
 
 //create one
 router.post('/', async(req, res) => {
