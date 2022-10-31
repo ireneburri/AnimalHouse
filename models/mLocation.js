@@ -19,7 +19,7 @@ const locationSchema = new mongoose.Schema({
     },
     services: {
         type: [String],
-        enum: ["Animal Sitter", "Vet & Doctors", "Grooming", "Pension", "Training", "Store"],
+        enum: ["Animal Sitter", "Vet and Doctors", "Grooming", "Pension", "Training", "Store"],
         required: true,
     },
     img: {
