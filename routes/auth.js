@@ -1,4 +1,4 @@
-const express = require('express');
+/*const express = require('express');
 const User = require('../models/mUser');
 const Staff = require('../models/mStaff');
 const fs = require('fs');
@@ -206,4 +206,4 @@ module.exports.verifyAuth = verifyAuth
 module.exports.verifyLogin = verifyLogin
 module.exports.checkUser = checkUser
 module.exports.generateToken = generateToken
-module.exports.authLevelDict = authLevelDict
+module.exports.authLevelDict = authLevelDict*/
