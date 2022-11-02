@@ -10,7 +10,8 @@ const ENCRIPTION_KEY = process.env.CRYPT_KEY
 router.get('/', async(req, res)=> {
     try{
         const users = await User.find()
-        users.password = AES.decrypt(users.password, ENCRIPTION_KEY).toString(enc.Utf8)
+        //users.password = AES.decrypt(users.password, ENCRIPTION_KEY).toString()
+        console.log(users)
         res.json(users)
     } catch(err) {
         res.status(500).json({message: err.message})
@@ -21,7 +22,7 @@ router.get('/', async(req, res)=> {
 
 //get one
 router.get('/:id', getUser, (req, res)=> {
-    res.user.password = AES.decrypt(res.user.password, ENCRIPTION_KEY).toString(enc.Utf8)
+    //res.user.password = AES.decrypt(res.user.password, ENCRIPTION_KEY).toString()
     res.json(res.user)
 })
 
