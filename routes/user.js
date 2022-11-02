@@ -1,16 +1,20 @@
 const express = require('express')
+const mongoose = require('mongoose');
 const router = express.Router()
-const User = require("../models/mUser")
 
 const CryptoJS = require("crypto-js");
 const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, './.env') })
+
+const User = require("../models/mUser")
+
 const ENCRIPTION_KEY = process.env.CRYPT_KEY
 
 //get all
 router.get('/', async(req, res)=> {
     try{
         const users = await User.find()
-        //users.password = AES.decrypt(users.password, ENCRIPTION_KEY).toString()
+        //FOR users.password = AES.decrypt(users.password, ENCRIPTION_KEY).toString()
         console.log(users)
         res.json(users)
     } catch(err) {
@@ -33,6 +37,7 @@ router.post('/', async (req, res)=> {
         surname: req.body.surname,
         name: req.body.name,
         img: req.body.img,
+        //password: req.body.password,
         password: CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY),
         tel: req.body.tel,
         paymentmethod: req.body.paymentmethod,
@@ -64,6 +69,7 @@ router.patch('/:id', getUser, async (req, res)=> {
         res.user.img=req.body.img
     }
     if(req.body.password != null){
+        //res.user.password=req.body.password
         res.user.password=CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY).toString()
     }
     if(req.body.tel != null){
