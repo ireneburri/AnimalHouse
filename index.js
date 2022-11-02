@@ -1,10 +1,10 @@
-//global.rootDir = __dirname ;
+global.rootDir = __dirname ;
 //.env
 
 const cors = require('cors');
-//const path = require('path');
+const path = require('path');
 
-require('dotenv').config();
+require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 
 const mongoose = require('mongoose');
 
@@ -15,14 +15,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const mongoCredentials = {
+/*const mongoCredentials = {
     user: process.env.MONGO_USER,
-    pwd: process.env.MONGO_PSW,
+    pwd: process.env.MONGO_PWD,
     site: process.env.MONGO_SITE
-}
-//vero server mongodb
+}*/
+const MONGO_PWD = process.env.MONGO_PWD
 
-const uri = `mongodb://site212224:Ooboot0d@mongo_site212224?writeConcern=majority`
+const uri = `mongodb://site212224:${MONGO_PWD}@mongo_site212224?writeConcern=majority`
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true})
 
 
