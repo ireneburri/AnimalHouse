@@ -2,6 +2,10 @@ const express = require('express')
 const router = express.Router()
 const User = require("../models/mUser")
 
+const CryptoJS = require("crypto-js");
+const path = require('path');
+const ENCRIPTION_KEY = process.env.CRYPT_KEY
+
 //get all
 router.get('/', async(req, res)=> {
     try{
@@ -13,10 +17,12 @@ router.get('/', async(req, res)=> {
 
 
 })
+
 //get one
 router.get('/:id', getUser, (req, res)=> {
     res.json(res.user)
 })
+
 //create one
 router.post('/', async (req, res)=> {
     const user = new User({
@@ -24,7 +30,7 @@ router.post('/', async (req, res)=> {
         surname: req.body.surname,
         name: req.body.name,
         img: req.body.img,
-        password: req.body.password,
+        password: CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY),
         tel: req.body.tel,
         paymentmethod: req.body.paymentmethod,
         residence: req.body.residence,
@@ -38,6 +44,7 @@ router.post('/', async (req, res)=> {
         res.status(400).json({message: err.message})
     }
 })
+
 //update one
 router.patch('/:id', getUser, async (req, res)=> {
 
@@ -54,7 +61,7 @@ router.patch('/:id', getUser, async (req, res)=> {
         res.user.img=req.body.img
     }
     if(req.body.password != null){
-        res.user.password=req.body.password
+        res.user.password=CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY).toString()
     }
     if(req.body.tel != null){
         res.user.tel=req.body.tel
@@ -80,6 +87,7 @@ router.patch('/:id', getUser, async (req, res)=> {
     }
 
 })
+
 //delete one
 router.delete('/:id', getUser, async (req, res)=> {
     try{

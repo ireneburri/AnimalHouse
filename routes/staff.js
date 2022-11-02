@@ -2,6 +2,11 @@ const express = require('express')
 const router = express.Router()
 const Staff = require("../models/mStaff")
 
+const CryptoJS = require("crypto-js");
+const path = require('path');
+const ENCRIPTION_KEY = process.env.CRYPT_KEY
+
+
 //get all
 router.get('/', async(req, res)=> {
     try{
@@ -13,10 +18,12 @@ router.get('/', async(req, res)=> {
 
 
 })
+
 //get one
 router.get('/:id', getStaff, (req, res)=> {
     res.json(res.staff)
 })
+
 //create one
 router.post('/', async (req, res)=> {
     const staff = new Staff({
@@ -25,7 +32,7 @@ router.post('/', async (req, res)=> {
         surname: req.body.surname,
         email: req.body.email,
         img: req.body.img,
-        password:req.body.password,
+        password:CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY),
         role:req.body.role,
         location:req.body.location,
     })
@@ -36,6 +43,7 @@ router.post('/', async (req, res)=> {
         res.status(400).json({message: err.message})
     }
 })
+
 //update one
 router.patch('/:id', getStaff, async (req, res)=> {
 
@@ -55,7 +63,7 @@ router.patch('/:id', getStaff, async (req, res)=> {
         res.staff.img=req.body.img
     }
     if(req.body.password != null){
-        res.staff.password=req.body.password
+        res.staff.password=CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY).toString()
     }
     if(req.body.role != null){
         res.staff.role=req.body.role
@@ -71,6 +79,7 @@ router.patch('/:id', getStaff, async (req, res)=> {
     }
 
 })
+
 //delete one
 router.delete('/:id', getStaff, async (req, res)=> {
     try{
