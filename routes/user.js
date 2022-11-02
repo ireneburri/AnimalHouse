@@ -15,7 +15,10 @@ router.get('/', async(req, res)=> {
     try{
         const users = await User.find()
         //FOR users.password = AES.decrypt(users.password, ENCRIPTION_KEY).toString()
-        console.log(users)
+        for (let key in users) {
+            users[key].password = AES.decrypt(users[key].password, ENCRIPTION_KEY).toString()
+        }
+        //console.log(users)
         res.json(users)
     } catch(err) {
         res.status(500).json({message: err.message})
