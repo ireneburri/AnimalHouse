@@ -16,7 +16,7 @@ router.get('/', async(req, res)=> {
         const users = await User.find()
         //FOR users.password = CryptoJS.AES.decrypt(users.password, ENCRIPTION_KEY).toString()
         for (let key in users) {
-            users[key].password = CryptoJS.AES.decrypt(users[key].password, ENCRIPTION_KEY).toString()
+            users[key].password = CryptoJS.AES.decrypt(users[key].password, ENCRIPTION_KEY).toString(CryptoJS.enc.Utf8)
         }
         //console.log(users)
         res.json(users)
@@ -41,7 +41,7 @@ router.post('/', async (req, res)=> {
         name: req.body.name,
         img: req.body.img,
         //password: req.body.password,
-        password: CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY),
+        password: CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY).toString(),
         tel: req.body.tel,
         paymentmethod: req.body.paymentmethod,
         residence: req.body.residence,
