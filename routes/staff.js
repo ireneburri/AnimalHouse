@@ -6,7 +6,6 @@ const CryptoJS = require("crypto-js");
 const path = require('path');
 const ENCRIPTION_KEY = process.env.CRYPT_KEY
 
-
 //get all
 router.get('/', async(req, res)=> {
     try{
@@ -19,8 +18,20 @@ router.get('/', async(req, res)=> {
 
 })
 
+//get all
+router.get('username/:username', async(req, res)=> {
+    const username = request.params.username
+    const staff = await Staff.find({username: username});
+
+    try {
+      response.send(staff);
+    } catch (error) {
+      response.status(500).send(error);
+    }
+})
+
 //get one
-router.get('/:id', getStaff, (req, res)=> {
+router.get('id/:id', getStaff, (req, res)=> {
     res.json(res.staff)
 })
 
