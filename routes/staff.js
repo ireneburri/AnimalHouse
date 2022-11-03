@@ -19,7 +19,7 @@ router.get('/', async(req, res)=> {
 })
 
 //get all
-router.get('username/:username', async(req, res)=> {
+router.get('/username/:username', async(req, res)=> {
     const username = request.params.username
     const staff = await Staff.find({username: username});
 
@@ -31,7 +31,7 @@ router.get('username/:username', async(req, res)=> {
 })
 
 //get one
-router.get('id/:id', getStaff, (req, res)=> {
+router.get('/id/:id', getStaff, (req, res)=> {
     res.json(res.staff)
 })
 
