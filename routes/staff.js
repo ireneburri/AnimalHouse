@@ -33,7 +33,7 @@ router.get('/username/:username', async(req, res)=> {
             return res.status(404).json({message : 'Cannot find staff'})
         }
         else {
-            staff.password = CryptoJS.AES.decrypt(res.staff.password, ENCRIPTION_KEY).toString(CryptoJS.enc.Utf8)
+            staff.password = CryptoJS.AES.decrypt(staff.password, ENCRIPTION_KEY).toString(CryptoJS.enc.Utf8)
             res.status(201).json(staff)
         }
     } catch(err){
