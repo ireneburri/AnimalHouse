@@ -4,12 +4,17 @@ const Staff = require("../models/mStaff")
 
 const CryptoJS = require("crypto-js");
 const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, './.env') })
+
 const ENCRIPTION_KEY = process.env.CRYPT_KEY
 
 //get all
 router.get('/', async(req, res)=> {
     try{
         const staffs = await Staff.find()
+        for (let key in users) {
+            users[key].password = CryptoJS.AES.decrypt(users[key].password, ENCRIPTION_KEY).toString(CryptoJS.enc.Utf8)
+        }
         res.json(staffs)
     } catch(err) {
         res.status(500).json({message: err.message})
@@ -28,6 +33,7 @@ router.get('/username/:username', async(req, res)=> {
             return res.status(404).json({message : 'Cannot find staff'})
         }
         else {
+            res.staff.password = CryptoJS.AES.decrypt(res.staff.password, ENCRIPTION_KEY).toString(CryptoJS.enc.Utf8)
             res.status(201).json(staff)
         }
     } catch(err){
@@ -37,6 +43,7 @@ router.get('/username/:username', async(req, res)=> {
 
 //get one by id
 router.get('/id/:id', getStaff, (req, res)=> {
+    res.staff.password = CryptoJS.AES.decrypt(res.staff.password, ENCRIPTION_KEY).toString(CryptoJS.enc.Utf8)
     res.json(res.staff)
 })
 
@@ -48,7 +55,7 @@ router.post('/', async (req, res)=> {
         surname: req.body.surname,
         email: req.body.email,
         img: req.body.img,
-        password:CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY),
+        password: CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY).toString(),
         role:req.body.role,
         location:req.body.location,
     })
