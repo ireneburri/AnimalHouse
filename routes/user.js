@@ -29,7 +29,7 @@ router.get('/', async(req, res)=> {
 
 //get one
 router.get('/:id', getUser, (req, res)=> {
-    //res.user.password = CryptoJS.AES.decrypt(res.user.password, ENCRIPTION_KEY).toString()
+    res.user.password = CryptoJS.AES.decrypt(res.user.password, ENCRIPTION_KEY).toString(CryptoJS.enc.Utf8)
     res.json(res.user)
 })
 
