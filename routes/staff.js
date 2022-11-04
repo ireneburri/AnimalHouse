@@ -12,8 +12,8 @@ const ENCRIPTION_KEY = process.env.CRYPT_KEY
 router.get('/', async(req, res)=> {
     try{
         const staffs = await Staff.find()
-        for (let key in users) {
-            users[key].password = CryptoJS.AES.decrypt(users[key].password, ENCRIPTION_KEY).toString(CryptoJS.enc.Utf8)
+        for (let key in staffs) {
+            staffs[key].password = CryptoJS.AES.decrypt(staffs[key].password, ENCRIPTION_KEY).toString(CryptoJS.enc.Utf8)
         }
         res.json(staffs)
     } catch(err) {
@@ -33,7 +33,7 @@ router.get('/username/:username', async(req, res)=> {
             return res.status(404).json({message : 'Cannot find staff'})
         }
         else {
-            staff.password = CryptoJS.AES.decrypt(staff.password, ENCRIPTION_KEY).toString(CryptoJS.enc.Utf8)
+            staff[0].password = CryptoJS.AES.decrypt(staff[0].password, ENCRIPTION_KEY).toString(CryptoJS.enc.Utf8)
             res.status(201).json(staff)
         }
     } catch(err){
