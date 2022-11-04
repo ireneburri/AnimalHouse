@@ -18,19 +18,24 @@ router.get('/', async(req, res)=> {
 
 })
 
-//get all
-/*router.get('/username/:username', async(req, res)=> {
-    const username = request.params.username
-    const staff = await Staff.find({username: username});
-
-    try {
-      response.send(staff);
-    } catch (error) {
-      response.status(500).send(error);
+//get one by username
+router.get('/username/:username', async(req, res)=> {
+    const username = req.params.username
+    let staff 
+    try{
+        staff = await Staff.find({username: username});
+        if(staff==null){
+            return res.status(404).json({message : 'Cannot find staff'})
+        }
+        else {
+            response.send(staff);
+        }
+    } catch(err){
+        return res.status(500).json({message : err.message})
     }
-})*/
+})
 
-//get one
+//get one by id
 router.get('/id/:id', getStaff, (req, res)=> {
     res.json(res.staff)
 })
