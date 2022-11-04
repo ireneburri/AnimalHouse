@@ -28,7 +28,7 @@ router.get('/username/:username', async(req, res)=> {
             return res.status(404).json({message : 'Cannot find staff'})
         }
         else {
-            response.send(staff);
+            res.status(201).json(staff)
         }
     } catch(err){
         return res.status(500).json({message : err.message})
