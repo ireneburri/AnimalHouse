@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Item = require("../models/mItem")
+const auth = require("./auth")
 
 //get all
 router.get('/', async(req, res)=> {
@@ -18,7 +19,7 @@ router.get('/:id', getItem, (req, res)=> {
     res.json(res.item)
 })
 //create one
-router.post('/', async (req, res)=> {
+router.post('/', auth.verifyLogin, auth.verifyAuth(auth.authLevelDict["staff"]), async (req, res)=> {
     const item = new Item({
         name: req.body.name,
         price: req.body.price,
