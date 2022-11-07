@@ -49,12 +49,12 @@ router.get('/:id', getUser, (req, res)=> {
 
 //create one
 router.post('/', upload.single("profileImg"), async (req, res)=> {
-    console.log(req.file)
+    console.log(req)
     const user = new User({
         username: req.body.username,
         surname: req.body.surname,
         name: req.body.name,
-        img: req.file.path,
+        img: req.img,
         password: CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY).toString(),
         tel: req.body.tel,
         paymentmethod: req.body.paymentmethod,
