@@ -2,23 +2,35 @@ const express = require('express')
 const mongoose = require('mongoose');
 const router = express.Router()
 
-const CryptoJS = require("crypto-js");
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, './.env') })
 
+//per criptare e decriptare le password nel database:
+const CryptoJS = require("crypto-js");
+const ENCRIPTION_KEY = process.env.CRYPT_KEY
+
 const User = require("../models/mUser")
 
-const ENCRIPTION_KEY = process.env.CRYPT_KEY
+//per caricare le immagini sul server:
+const multer = require('multer')
+const storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, '../uploads')        
+    },
+    filename: function (req, file, callback){
+        callback(null, file.originalname)
+    }
+});
+const upload = multer({storage: storage})
+
 
 //get all
 router.get('/', async(req, res)=> {
     try{
         const users = await User.find()
-        //FOR users.password = CryptoJS.AES.decrypt(users.password, ENCRIPTION_KEY).toString()
         for (let key in users) {
             users[key].password = CryptoJS.AES.decrypt(users[key].password, ENCRIPTION_KEY).toString(CryptoJS.enc.Utf8)
         }
-        //console.log(users)
         res.json(users)
     } catch(err) {
         res.status(500).json({message: err.message})
@@ -27,20 +39,22 @@ router.get('/', async(req, res)=> {
 
 })
 
+
 //get one
 router.get('/:id', getUser, (req, res)=> {
     res.user.password = CryptoJS.AES.decrypt(res.user.password, ENCRIPTION_KEY).toString(CryptoJS.enc.Utf8)
     res.json(res.user)
 })
 
+
 //create one
-router.post('/', async (req, res)=> {
+router.post('/', upload.single("profileImg"), async (req, res)=> {
+    console.log(req.file)
     const user = new User({
         username: req.body.username,
         surname: req.body.surname,
         name: req.body.name,
-        img: req.body.img,
-        //password: req.body.password,
+        img: req.file.path,
         password: CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY).toString(),
         tel: req.body.tel,
         paymentmethod: req.body.paymentmethod,
@@ -55,6 +69,7 @@ router.post('/', async (req, res)=> {
         res.status(400).json({message: err.message})
     }
 })
+
 
 //update one
 router.patch('/:id', getUser, async (req, res)=> {
@@ -100,6 +115,7 @@ router.patch('/:id', getUser, async (req, res)=> {
 
 })
 
+
 //delete one
 router.delete('/:id', getUser, async (req, res)=> {
     try{
@@ -125,5 +141,6 @@ async function getUser (req, res, next){
     res.user=user
     next()
 }
+
 
 module.exports = router
