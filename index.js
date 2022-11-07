@@ -57,6 +57,7 @@ app.use('/service', serviceRouter)
 app.use('/location', locationRouter)
 app.use('/board', boardRouter)
 app.use('/auth', authRouter)
+app.use('/uploads', express.static('uploads'));
 
 app.listen(8000,()=>console.log("server started"))
 
