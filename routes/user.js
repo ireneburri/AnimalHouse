@@ -13,9 +13,10 @@ const User = require("../models/mUser")
 
 //per caricare le immagini sul server:
 const multer = require('multer')
+var upload = multer({dest:'uploads/'});
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './uploads/')        
+        cb(null, './uploads')        
     },
     filename: function (req, file, cb){
         cb(null, file.originalname)
@@ -49,7 +50,7 @@ router.get('/:id', getUser, (req, res)=> {
 
 //create one
 router.post('/', upload.single("profileImg"), async (req, res)=> {
-    console.log(req.file.originalname, req.body)
+    console.log(req.profileImg, req.body)
     const user = new User({
         username: req.body.username,
         surname: req.body.surname,
