@@ -49,7 +49,7 @@ router.get('/:id', getUser, (req, res)=> {
 
 //create one
 router.post('/', upload.single("profileImg"), async (req, res)=> {
-    console.log(req.files + " " + req.body)
+    console.log(req.file.originalname, req.body)
     const user = new User({
         username: req.body.username,
         surname: req.body.surname,
