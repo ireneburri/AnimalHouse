@@ -15,7 +15,7 @@ const User = require("../models/mUser")
 const multer = require('multer')
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, '../uploads')        
+        callback(null, './uploads')        
     },
     filename: function (req, file, callback){
         callback(null, file.originalname)
@@ -49,12 +49,12 @@ router.get('/:id', getUser, (req, res)=> {
 
 //create one
 router.post('/', upload.single("profileImg"), async (req, res)=> {
-    console.log(req.file[0])
+    console.log(req.file, req.body)
     const user = new User({
         username: req.body.username,
         surname: req.body.surname,
         name: req.body.name,
-        img: req.file[0],
+        img: req.file,
         password: CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY).toString(),
         tel: req.body.tel,
         paymentmethod: req.body.paymentmethod,
