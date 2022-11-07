@@ -14,11 +14,11 @@ const User = require("../models/mUser")
 //per caricare le immagini sul server:
 const multer = require('multer')
 const storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, './uploads')        
+    destination: function (req, file, cb) {
+        cb(null, './uploads/')        
     },
-    filename: function (req, file, callback){
-        callback(null, file.originalname)
+    filename: function (req, file, cb){
+        cb(null, file.originalname)
     }
 });
 const upload = multer({storage: storage})
