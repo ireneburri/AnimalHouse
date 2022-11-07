@@ -49,7 +49,7 @@ router.get('/:id', getUser, (req, res)=> {
 
 //create one
 router.post('/', upload.single("file"), async (req, res)=> {
-    console.log(JSON.stringify(req.file), req.body)
+    console.log(req.file, req.body)
     const user = new User({
         username: req.body.username,
         surname: req.body.surname,
