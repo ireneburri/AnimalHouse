@@ -48,7 +48,7 @@ router.get('/:id', getUser, (req, res)=> {
 
 
 //create one
-router.post('/', upload.single("file"), async (req, res)=> {
+router.post('/', async (req, res)=> {
     console.log(req.file, req.body)
     const user = new User({
         username: req.body.username,
@@ -68,6 +68,10 @@ router.post('/', upload.single("file"), async (req, res)=> {
     } catch(err) {
         res.status(400).json({message: err.message})
     }
+})
+
+router.post('/img', upload.single("file"), async (req, res)=> {
+    console.log(req.file, req.body)
 })
 
 
