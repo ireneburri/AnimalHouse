@@ -15,6 +15,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
 /*const mongoCredentials = {
     user: process.env.MONGO_USER,
     pwd: process.env.MONGO_PWD,
@@ -24,7 +25,6 @@ const MONGO_PWD = process.env.MONGO_PWD
 
 const uri = `mongodb://site212224:${MONGO_PWD}@mongo_site212224?writeConcern=majority`
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true})
-
 
 
 //per connettere la tua applicazione ad un database locale
@@ -48,6 +48,7 @@ const serviceRouter = require('./routes/service')
 const locationRouter = require('./routes/location')
 const boardRouter = require('./routes/board')
 const authRouter = require('./routes/auth')
+const imageRouter = require('./routes/image')
 
 app.use('/animal', animalRouter)
 app.use('/item', itemRouter)
@@ -57,9 +58,11 @@ app.use('/service', serviceRouter)
 app.use('/location', locationRouter)
 app.use('/board', boardRouter)
 app.use('/auth', authRouter)
+app.use('/image', imageRouter)
 app.use('/uploads', express.static('uploads'));
 
 app.listen(8000,()=>console.log("server started"))
+
 
 /*
 app.get('/', (req, res) => {
