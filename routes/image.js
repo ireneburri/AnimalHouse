@@ -5,11 +5,11 @@ const router = express.Router()
 const path = require('path');
 //require('dotenv').config({ path: path.resolve(__dirname, './.env') })
 
-const Image = require("./uploads")
-
 
 //per caricare le immagini sul server nella giusta cartella col nome completo:
-const multer = require('multer')
+const multer = require('multer');
+const { unlink } = require('fs/promises');
+const { unlinkSync } = require('fs');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null,  path.join(__dirname, './uploads'))        
@@ -34,29 +34,14 @@ router.post('/', upload.single("file"), async (req, res)=> {
 
 
 //DELETE ONE IMAGE
-router.delete('/:name', getImage, async (req, res)=> {
+router.delete('/:path', async (req, res)=> {
     try{
-        await res.image.remove()
+        await unlink(request.params.path)
         res.json({message: 'Deleted Successfully'})
     } catch(err){
         res.status(500).json({message : err.message})
     }
 })
-
-
-async function getImage (req, res, next){
-    let image
-    try{
-        image = await Image.filename(req.params.name)
-        if(image==null){
-            return res.status(404).json({message : 'Cannot find image'})
-        }
-    } catch(err){
-        return res.status(500).json({message : err.message})
-    }
-    res.image=image
-    next()
-}
 
 
 module.exports = router
