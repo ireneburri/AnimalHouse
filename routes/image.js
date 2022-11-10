@@ -39,7 +39,7 @@ router.post('/', upload.single("file"), async (req, res)=> {
 router.delete('/:name', async (req, res)=> {
     const path = path.join(__dirname, './uploads/' + req.params.name);
     try{
-        fs.unlink(path)
+        fs.unlinkSync(path)
         res.json({message: 'Deleted Successfully'})
     } catch(err){
         res.status(500).json({message : err.message})
