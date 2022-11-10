@@ -11,18 +11,6 @@ const ENCRIPTION_KEY = process.env.CRYPT_KEY
 
 const User = require("../models/mUser")
 
-//per caricare le immagini sul server:
-const multer = require('multer')
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null,  path.join(__dirname, './uploads'))        
-    },
-    filename: function (req, file, cb){
-        cb(null, file.originalname)
-    }
-});
-const upload = multer({storage: storage})
-
 
 //get all
 router.get('/', async(req, res)=> {
@@ -68,10 +56,6 @@ router.post('/', async (req, res)=> {
     } catch(err) {
         res.status(400).json({message: err.message})
     }
-})
-
-router.post('/img', upload.single("file"), async (req, res)=> {
-    console.log(req.file, req.body)
 })
 
 
