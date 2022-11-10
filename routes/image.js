@@ -22,3 +22,6 @@ const upload = multer({storage: storage})
 router.post('/', upload.single("file"), async (req, res)=> {
     console.log(req.file, req.body)
 })
+
+
+module.exports = router
