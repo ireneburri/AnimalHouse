@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 const animalSchema = new mongoose.Schema({
+    sale:{
+        type: Boolean,
+        required: true,
+    },
+    client_id:{
+        type: String,
+        required: false,
+    },
     name:{
         type: String,
         required: true,
@@ -24,7 +32,7 @@ const animalSchema = new mongoose.Schema({
     description:{
         type: String,
         required: false,
-    },
+    }
 })
 
 

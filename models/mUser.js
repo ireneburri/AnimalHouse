@@ -41,7 +41,12 @@ const userSchema = new mongoose.Schema({
     myanimal: {
         type: [String],
         required: false,
-    }
+    },
+    vip: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
 })
 
 

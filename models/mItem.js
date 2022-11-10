@@ -35,6 +35,10 @@ const itemSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    vip: {
+        type: Boolean,
+        required: false,
+    },
 })
 
 

@@ -36,6 +36,10 @@ const serviceSchema = new mongoose.Schema({
         required: false,
         default: true,
     },
+    vip: {
+        type: Boolean,
+        required: false,
+    },
 });
 
 const Service = mongoose.model('service', serviceSchema);
