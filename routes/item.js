@@ -29,6 +29,7 @@ router.post('/', auth.verifyLogin, auth.verifyAuth(auth.authLevelDict["staff"]),
         quantity: req.body.quantity,
         description: req.body.description,
         brand: req.body.brand,
+        vip: req.body.vip,
     })
     try{
         const newItem = await item.save()
@@ -62,6 +63,9 @@ router.patch('/:id', getItem, async (req, res)=> {
     }
     if(req.body.brand != null){
         res.item.brand=req.body.brand
+    }
+    if(req.body.vip != null){
+        res.item.vip=req.body.vip
     }
 
     try{

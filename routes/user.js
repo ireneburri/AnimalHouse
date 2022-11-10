@@ -109,6 +109,9 @@ router.patch('/:id', getUser, async (req, res)=> {
     if(req.body.myanimal != null){
         res.user.myanimal=req.body.myanimal
     }
+    if(req.body.vip != null){
+        res.user.vip=req.body.vip
+    }
 
     try{
         const updateUser = await res.user.save()

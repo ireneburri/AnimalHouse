@@ -40,6 +40,7 @@ router.post('/', async (req, res)=> {
         price: req.body.price,
         description: req.body.description,
         availability: req.body.availability,
+        vip: req.body.vip,
     })
     try{
         const newService = await service.save()
@@ -74,6 +75,9 @@ router.patch('/:id', getService, async (req, res)=> {
     }
     if(req.body.availability != null){
         res.service.availability=req.body.availability
+    }
+    if(req.body.vip != null){
+        res.service.vip=req.body.vip
     }
 
     try{

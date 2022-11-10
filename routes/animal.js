@@ -20,6 +20,8 @@ router.get('/:id', getAnimal, (req, res)=> {
 //create one
 router.post('/', async (req, res)=> {
     const animal = new Animal({
+        sale: req.body.sale,
+        client_id: req.body.client_id,
         name: req.body.name,
         img: req.body.img,
         age: req.body.age,
@@ -37,6 +39,12 @@ router.post('/', async (req, res)=> {
 })
 //update one
 router.patch('/:id', getAnimal, async (req, res)=> {
+    if(req.body.sale != null){
+        res.animal.sale=req.body.sale
+    }
+    if(req.body.client_id != null){
+        res.animal.client_id=req.body.client_id
+    }
     if(req.body.name != null){
         res.animal.name=req.body.name
     }
