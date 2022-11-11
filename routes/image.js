@@ -23,13 +23,26 @@ const upload = multer({storage: storage})
 //UPLOAD DI UN IMMAGINE
 //da rivedere
 router.post('/', upload.single("file"), async (req, res)=> {
-    console.log(req.file, req.body)
+    console.log(req.file)
     try{
         const newimg = await req.file.save()
         res.status(201).json(newimg)
     } catch(err) {
         res.status(400).json({message: err.message})
     }
+})
+
+
+//MODIFY AD IMAGE
+router.patch('/:name', upload.single("file"), async (req, res)=> {
+    console.log(req.file)
+    try{
+        const newimg = await req.file.save()
+        res.json(newimg)
+    } catch(err) {
+        res.status(400).json({message: err.message})
+    }
+
 })
 
 
