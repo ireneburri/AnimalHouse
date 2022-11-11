@@ -39,8 +39,11 @@ router.delete('/:name', async (req, res)=> {
     const fullpath = path.join(__dirname, './uploads/' + req.params['name']);
     console.log(fullpath)
     try{
-        fs.unlinkSync(fullpath)
-        res.json({message: 'Deleted Successfully'})
+        if (fs.existsSync( fullpath )) {
+            fs.unlinkSync(fullpath)
+            res.json({message: "Deleted Successfully"})
+        }
+        else res.json({message: "The file doesn't exits"})        
     } catch(err){
         res.status(500).json({message : err.message})
     }
