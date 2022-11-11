@@ -37,7 +37,7 @@ router.post('/', upload.single("file"), async (req, res)=> {
 
 //DELETE ONE IMAGE
 router.delete('/:name', async (req, res)=> {
-    const path = path.join(__dirname, './uploads/' + req.params.name);
+    const path = path.join(__dirname, './uploads/' + request.params.name);
     console.log(path)
     try{
         fs.unlinkSync(path)
