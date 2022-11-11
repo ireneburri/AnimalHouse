@@ -9,8 +9,6 @@ const path = require('path');
 
 //per caricare le immagini sul server nella giusta cartella col nome completo:
 const multer = require('multer');
-const { unlink } = require('fs/promises');
-const { unlinkSync } = require('fs');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null,  path.join(__dirname, './uploads'))        
@@ -37,7 +35,7 @@ router.post('/', upload.single("file"), async (req, res)=> {
 
 //DELETE ONE IMAGE
 router.delete('/:name', async (req, res)=> {
-    console.log(request.params['name'])
+    console.log(req.params['name'])
     const fullpath = path.join(__dirname, './uploads/' + request.params['name']);
     console.log(fullpath)
     try{
