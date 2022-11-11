@@ -37,10 +37,10 @@ router.post('/', upload.single("file"), async (req, res)=> {
 
 //DELETE ONE IMAGE
 router.delete('/:name', async (req, res)=> {
-    const path = path.join(__dirname, './uploads/' + request.params.name);
-    console.log(path)
+    const fullpath = path.join(__dirname, './uploads/' + request.params.name);
+    console.log(fullpath)
     try{
-        fs.unlinkSync(path)
+        fs.unlinkSync(fullpath)
         res.json({message: 'Deleted Successfully'})
     } catch(err){
         res.status(500).json({message : err.message})
