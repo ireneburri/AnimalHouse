@@ -3,13 +3,13 @@ const mongoose = require('mongoose');
 const router = express.Router()
 const fs = require("fs");
 
-const fileUpload = require('express-fileupload')
-router.use(fileUpload());
+//const fileUpload = require('express-fileupload')
+//router.use(fileUpload());
 
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, './.env') })
 
-/*
+
 //per caricare le immagini sul server nella giusta cartella col nome completo:
 const multer = require('multer');
 const storage = multer.diskStorage({
@@ -21,8 +21,8 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({storage: storage})
-*/
 
+/*
 // For handling the upload request
 router.post("/upload", function (req, res) {
   
@@ -49,20 +49,20 @@ router.post("/upload", function (req, res) {
 
     } else res.status(400).send("No files were uploaded");
 });
+*/
 
-/*UPLOAD DI UN IMMAGINE
+//UPLOAD DI UN IMMAGINE
 //da rivedere
 router.post('/', upload.single("file"), async (req, res)=> {
-    console.log(req.file)
     try{
-        const newimg = await req.file.save()
-        res.status(201).json(newimg)
+        res.status(200).json(req.file)
     } catch(err) {
         res.status(400).json({message: err.message})
     }
 })
 
 
+/*
 //MODIFY AD IMAGE
 router.patch('/:name', upload.single("file"), async (req, res)=> {
     console.log(req.file)
