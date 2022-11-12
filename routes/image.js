@@ -4,7 +4,7 @@ const router = express.Router()
 const fs = require("fs");
 
 const path = require('path');
-//require('dotenv').config({ path: path.resolve(__dirname, './.env') })
+require('dotenv').config({ path: path.resolve(__dirname, './.env') })
 
 /*
 //per caricare le immagini sul server nella giusta cartella col nome completo:
@@ -21,7 +21,7 @@ const upload = multer({storage: storage})
 */
 
 // For handling the upload request
-app.post("/upload", function (req, res) {
+router.post("/upload", function (req, res) {
   
     // When a file has been uploaded
     if (req.files && Object.keys(req.files).length !== 0) {
@@ -44,7 +44,7 @@ app.post("/upload", function (req, res) {
       });
 
     } else res.status(400).send("No files were uploaded");
-  });
+});
 
 /*UPLOAD DI UN IMMAGINE
 //da rivedere
