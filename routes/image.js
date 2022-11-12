@@ -76,7 +76,7 @@ router.patch('/:name', upload.single("file"), async (req, res)=> {
     }
 
 })
-
+*/
 
 //DELETE ONE IMAGE
 router.delete('/:name', async (req, res)=> {
@@ -86,13 +86,13 @@ router.delete('/:name', async (req, res)=> {
     try{
         if (fs.existsSync( fullpath )) {
             fs.unlinkSync(fullpath)
-            res.json({message: "Deleted Successfully"})
+            res.json({message: "File deleted Successfully"})
         }
         else res.json({message: "The file doesn't exits"})        
     } catch(err){
         res.status(500).json({message : err.message})
     }
 })
-*/
+
 
 module.exports = router
