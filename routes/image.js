@@ -7,7 +7,7 @@ const fs = require("fs");
 //router.use(fileUpload());
 
 const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, './.env') })
+//require('dotenv').config({ path: path.resolve(__dirname, './.env') })
 
 
 //per caricare le immagini sul server nella giusta cartella col nome completo:
