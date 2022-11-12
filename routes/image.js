@@ -3,9 +3,6 @@ const mongoose = require('mongoose');
 const router = express.Router()
 const fs = require("fs");
 
-const fileUpload = require('express-fileupload')
-app.use(fileUpload());
-
 const path = require('path');
 //require('dotenv').config({ path: path.resolve(__dirname, './.env') })
 
