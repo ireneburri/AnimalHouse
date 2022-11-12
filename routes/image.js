@@ -3,10 +3,13 @@ const mongoose = require('mongoose');
 const router = express.Router()
 const fs = require("fs");
 
+const fileUpload = require('express-fileupload')
+app.use(fileUpload());
+
 const path = require('path');
 //require('dotenv').config({ path: path.resolve(__dirname, './.env') })
 
-
+/*
 //per caricare le immagini sul server nella giusta cartella col nome completo:
 const multer = require('multer');
 const storage = multer.diskStorage({
@@ -18,9 +21,35 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({storage: storage})
+*/
 
+// For handling the upload request
+app.post("/upload", function (req, res) {
+  
+    // When a file has been uploaded
+    if (req.files && Object.keys(req.files).length !== 0) {
+        
+        // Uploaded path
+        const uploadedFile = req.files.uploadFile;
 
-//UPLOAD DI UN IMMAGINE
+        // Logging uploading file
+        console.log(uploadedFile);
+
+        // Upload path
+        const uploadPath = __dirname + "/uploads/" + uploadedFile.name;
+
+        // To save the file using mv() function
+        uploadedFile.mv(uploadPath, function (err) {
+            if (err) {
+                console.log(err);
+                res.status(500).send("Failed");
+            } else res.send({ status: "Success", path: path, message: "Successfully Uploaded"});
+      });
+
+    } else res.status(400).send("No files were uploaded");
+  });
+
+/*UPLOAD DI UN IMMAGINE
 //da rivedere
 router.post('/', upload.single("file"), async (req, res)=> {
     console.log(req.file)
@@ -61,6 +90,6 @@ router.delete('/:name', async (req, res)=> {
         res.status(500).json({message : err.message})
     }
 })
-
+*/
 
 module.exports = router
