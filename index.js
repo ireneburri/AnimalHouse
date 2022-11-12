@@ -15,9 +15,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const fileUpload = require('express-fileupload')
-app.use(fileUpload());
-
 /*const mongoCredentials = {
     user: process.env.MONGO_USER,
     pwd: process.env.MONGO_PWD,
