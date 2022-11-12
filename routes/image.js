@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 const router = express.Router()
 const fs = require("fs");
 
+const fileUpload = require('express-fileupload')
+router.use(fileUpload());
+
 const path = require('path');
+const { Router } = require('express');
 require('dotenv').config({ path: path.resolve(__dirname, './.env') })
 
 /*
@@ -26,6 +30,7 @@ router.post("/upload", function (req, res) {
     // When a file has been uploaded
     if (req.files && Object.keys(req.files).length !== 0) {
         
+        console.log(req.files.uploadedFile);
         // Uploaded path
         const uploadedFile = req.files.uploadFile;
 
