@@ -7,7 +7,6 @@ const fileUpload = require('express-fileupload')
 router.use(fileUpload());
 
 const path = require('path');
-const { Router } = require('express');
 require('dotenv').config({ path: path.resolve(__dirname, './.env') })
 
 /*
