@@ -56,6 +56,8 @@ router.post("/upload", function (req, res) {
 router.post('/', upload.single("file"), async (req, res)=> {
     try{
         res.status(200).json(req.file)
+        console.log(req.file);
+        res.json({ message: "Successfully uploaded files" });
     } catch(err) {
         res.status(400).json({message: err.message})
     }
