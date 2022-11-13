@@ -39,7 +39,7 @@ router.get('/username/:username', async(req, res) => {
     const username = req.params.username
     let user
     try {
-        user = await user.find({ username: username });
+        user = await User.find({ username: username });
         if (user == null) {
             return res.status(404).json({ message: 'Cannot find user' })
         } else {
