@@ -13,15 +13,15 @@ const User = require("../models/mUser")
 
 
 //get all
-router.get('/', async(req, res)=> {
-    try{
+router.get('/', async(req, res) => {
+    try {
         const users = await User.find()
         for (let key in users) {
             users[key].password = CryptoJS.AES.decrypt(users[key].password, ENCRIPTION_KEY).toString(CryptoJS.enc.Utf8)
         }
         res.json(users)
-    } catch(err) {
-        res.status(500).json({message: err.message})
+    } catch (err) {
+        res.status(500).json({ message: err.message })
     }
 
 
@@ -29,14 +29,31 @@ router.get('/', async(req, res)=> {
 
 
 //get one
-router.get('/:id', getUser, (req, res)=> {
+router.get('/:id', getUser, (req, res) => {
     res.user.password = CryptoJS.AES.decrypt(res.user.password, ENCRIPTION_KEY).toString(CryptoJS.enc.Utf8)
     res.json(res.user)
 })
 
+//get one by username
+router.get('/username/:username', async(req, res) => {
+    const username = req.params.username
+    let user
+    try {
+        user = await user.find({ username: username });
+        if (user == null) {
+            return res.status(404).json({ message: 'Cannot find user' })
+        } else {
+            user[0].password = CryptoJS.AES.decrypt(user[0].password, ENCRIPTION_KEY).toString(CryptoJS.enc.Utf8)
+            res.status(201).json(user)
+        }
+    } catch (err) {
+        return res.status(500).json({ message: err.message })
+    }
+})
+
 
 //create one
-router.post('/', async (req, res)=> {
+router.post('/', async(req, res) => {
     console.log(req.file, req.body)
     const user = new User({
         username: req.body.username,
@@ -50,86 +67,86 @@ router.post('/', async (req, res)=> {
         preferences: req.body.preferences,
         myanimal: req.body.myanimal,
     })
-    try{
+    try {
         const newUser = await user.save()
         res.status(201).json(newUser)
-    } catch(err) {
-        res.status(400).json({message: err.message})
+    } catch (err) {
+        res.status(400).json({ message: err.message })
     }
 })
 
 
 //update one
-router.patch('/:id', getUser, async (req, res)=> {
+router.patch('/:id', getUser, async(req, res) => {
 
-    if(req.body.username != null){
-        res.user.username=req.body.username
+    if (req.body.username != null) {
+        res.user.username = req.body.username
     }
-    if(req.body.name != null){
-        res.user.name=req.body.name
+    if (req.body.name != null) {
+        res.user.name = req.body.name
     }
-    if(req.body.surname != null){
-        res.user.surname=req.body.surname
+    if (req.body.surname != null) {
+        res.user.surname = req.body.surname
     }
-    if(req.body.img != null){
-        res.user.img=req.body.img
+    if (req.body.img != null) {
+        res.user.img = req.body.img
     }
-    if(req.body.password != null){
+    if (req.body.password != null) {
         //res.user.password=req.body.password
-        res.user.password=CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY).toString()
+        res.user.password = CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY).toString()
     }
-    if(req.body.tel != null){
-        res.user.tel=req.body.tel
+    if (req.body.tel != null) {
+        res.user.tel = req.body.tel
     }
-    if(req.body.paymentmethod != null){
-        res.user.paymentmethod=req.body.paymentmethod
+    if (req.body.paymentmethod != null) {
+        res.user.paymentmethod = req.body.paymentmethod
     }
-    if(req.body.residence != null){
-        res.user.residence=req.body.residence
+    if (req.body.residence != null) {
+        res.user.residence = req.body.residence
     }
-    if(req.body.preferences != null){
-        res.user.preferences=req.body.preferences
+    if (req.body.preferences != null) {
+        res.user.preferences = req.body.preferences
     }
-    if(req.body.myanimal != null){
-        res.user.myanimal=req.body.myanimal
+    if (req.body.myanimal != null) {
+        res.user.myanimal = req.body.myanimal
     }
-    if(req.body.vip != null){
-        res.user.vip=req.body.vip
+    if (req.body.vip != null) {
+        res.user.vip = req.body.vip
     }
 
-    try{
+    try {
         const updateUser = await res.user.save()
         res.json(updateUser)
-    } catch(err){
-        res.status(400).json({message: err.message}) //parametro non accettabile
+    } catch (err) {
+        res.status(400).json({ message: err.message }) //parametro non accettabile
     }
 
 })
 
 
 //delete one
-router.delete('/:id', getUser, async (req, res)=> {
-    try{
+router.delete('/:id', getUser, async(req, res) => {
+    try {
         await res.user.remove()
-        res.json({message: 'Deleted Successfully'})
-    } catch(err){
-        res.status(500).json({message : err.message})
+        res.json({ message: 'Deleted Successfully' })
+    } catch (err) {
+        res.status(500).json({ message: err.message })
     }
 
 
 })
 
-async function getUser (req, res, next){
+async function getUser(req, res, next) {
     let user
-    try{
-        user= await User.findById(req.params.id)
-        if(user==null){
-            return res.status(404).json({message : 'Cannot find user'})
+    try {
+        user = await User.findById(req.params.id)
+        if (user == null) {
+            return res.status(404).json({ message: 'Cannot find user' })
         }
-    } catch(err){
-        return res.status(500).json({message : err.message})
+    } catch (err) {
+        return res.status(500).json({ message: err.message })
     }
-    res.user=user
+    res.user = user
     next()
 }
 
