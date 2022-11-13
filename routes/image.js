@@ -86,7 +86,7 @@ router.delete('/:name', async (req, res)=> {
     try{
         if (fs.existsSync( fullpath )) {
             fs.unlinkSync(fullpath)
-            res.json({message: "File deleted Successfully"})
+            res.json({message: "File deleted successfully"})
         }
         else res.json({message: "The file doesn't exits"})        
     } catch(err){
