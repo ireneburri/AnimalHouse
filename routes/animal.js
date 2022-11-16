@@ -13,10 +13,24 @@ router.get('/', async(req, res)=> {
 
 
 })
+
 //get one
 router.get('/:id', getAnimal, (req, res)=> {
     res.json(res.animal)
 })
+
+//get posts filtered by sale
+router.get("/sale/:sale", async (request , response) => {
+    const sale = request.params.sale
+    const animals = await Animal.find({sale: sale});
+
+    try {
+      response.send(animals);
+    } catch (error) {
+      response.status(500).send(error);
+    }
+});
+
 //create one
 router.post('/', async (req, res)=> {
     const animal = new Animal({
@@ -37,6 +51,7 @@ router.post('/', async (req, res)=> {
         res.status(400).json({message: err.message})
     }
 })
+
 //update one
 router.patch('/:id', getAnimal, async (req, res)=> {
     if(req.body.sale != null){
@@ -71,6 +86,7 @@ router.patch('/:id', getAnimal, async (req, res)=> {
     }
 
 })
+
 //delete one
 router.delete('/:id', getAnimal, async (req, res)=> {
     try{
