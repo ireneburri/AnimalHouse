@@ -15,7 +15,7 @@ router.get('/', async(req, res)=> {
 })
 
 //get one
-router.get('/:id', getAnimal, (req, res)=> {
+router.get('/id/:id', getAnimal, (req, res)=> {
     res.json(res.animal)
 })
 
