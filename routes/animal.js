@@ -40,6 +40,7 @@ router.post('/', async (req, res)=> {
         img: req.body.img,
         age: req.body.age,
         sex: req.body.sex,
+        species: req.body.species,
         breed: req.body.breed,
         description: req.body.description,
 
@@ -71,6 +72,9 @@ router.patch('/:id', getAnimal, async (req, res)=> {
     }
     if(req.body.sex != null){
         res.animal.sex=req.body.sex
+    }
+    if(req.body.species != null){
+        res.animal.species=req.body.species
     }
     if(req.body.breed != null){
         res.animal.breed=req.body.breed
