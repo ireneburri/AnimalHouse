@@ -1,0 +1,8 @@
+@font-face {
+    font-family: Rubik;
+    src: url(/Users/beatricezamagna/Desktop/Animal/front/src/font/Rubik/static/Rubik-Light.ttf);
+}
+
+* {
+    font-family: Rubik;
+}
