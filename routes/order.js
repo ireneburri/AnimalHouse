@@ -63,6 +63,7 @@ router.post('/', async(req, res) => {
     console.log(req.file, req.body)
     const order = new Order({
         client_id: req.body.client_id,
+        username: req.body.username,
         name: req.body.name,
         type: req.body.type,
         category: req.body.category,
@@ -84,6 +85,9 @@ router.patch('/:id', getOrder, async(req, res) => {
 
     if (req.body.client_id != null) {
         res.order.client_id = req.body.client_id
+    }
+    if (req.body.username != null) {
+        res.order.username = req.body.username
     }
     if (req.body.name != null) {
         res.order.name = req.body.name
