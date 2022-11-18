@@ -71,7 +71,7 @@ app.get('/backOffice', (req, res) => {
 
 app.get('/front', (req, res) => {
     res.sendFile(
-        global.rootDir + '/front/src/pages/homePage.jsx'
+        global.rootDir + '/front/src/pages/HomePage.jsx'
     )
 })
 
