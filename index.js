@@ -63,24 +63,16 @@ app.use('/uploads', express.static('uploads'));
 app.listen(8000,()=>console.log("server started"))
 
 
-/*
-app.get('/', (req, res) => {
+app.get('/backOffice', (req, res) => {
     res.sendFile(
-        global.rootDir + '/public/front-office/index.html'
+        global.rootDir + '/backOffice/login.html'
     )
 })
 
-app.get('/staff', (req, res) => {
+app.get('/front', (req, res) => {
     res.sendFile(
-        global.rootDir + '/public/back-office/index.html'
+        global.rootDir + '/front/src/pages/homePage.jsx'
     )
 })
-
-app.get('/dashboard', (req, res) => {
-    res.sendFile(
-        global.rootDir + '/public/html/dashboard/index.html'
-    )
-})
-*/
 
 
