@@ -48,6 +48,7 @@ const locationRouter = require('./routes/location')
 const boardRouter = require('./routes/board')
 const authRouter = require('./routes/auth')
 const imageRouter = require('./routes/image')
+const orderRouter = require('./routes/order')
 
 app.use('/animal', animalRouter)
 app.use('/item', itemRouter)
@@ -58,6 +59,7 @@ app.use('/location', locationRouter)
 app.use('/board', boardRouter)
 app.use('/auth', authRouter)
 app.use('/image', imageRouter)
+app.use('/image', orderRouter)
 app.use('/uploads', express.static('uploads'));
 
 app.listen(8000,()=>console.log("server started"))
