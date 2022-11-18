@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+        <title>Log In Dipendenti</title>
+    </head>
+    <body  style="background-color: rgb(103, 73, 54); display: flex;
+    justify-content: center;
+    align-items: center;">
+
+        <div class="d-flex justify-content-center" >
+        <div class="card text-center " style="background-color: rgb(236, 227, 205);">
+            <div class="card-header">
+                <h2 class="card-title">Login as an Employee</h2>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Enter your credentials:</p>
+                <form action="/login" method="POST">
+                    <input id="usernameAuth" class="form-control mb-2" style="display:inline" type="text" name="username" placeholder="username" required>
+                    <input id="passwordAuth" class="form-control  mb-4" style="display:inline" type="password" name="password" placeholder="password" required>
+                    <a href="#" class="btn" style="display:inline; background-color: rgb(103, 73, 54); color: rgb(236, 227, 205);" onclick=login()>login</a>
+                </form>
+            </div>
+            <div class="card-footer text-muted" id="clock">
+            </div>
+        </div>
+        </div>
+        <script language="Javascript">
+            today = new Date()
+            document.getElementById("clock").append(today.getDate(),"/",today.getMonth()+1,"/",today.getFullYear());
+        </script>
+                
+        <script src="login.js"></script>
+        <script src="style.css"></script>
+    </body>
+</html>

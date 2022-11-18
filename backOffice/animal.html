@@ -1,0 +1,164 @@
+<!--Gestione e-commerce: 
+  per aggiungere e togliere prodotti, prezzi, descrizioni. 
+  Ogni prodotto appartiene ad una categoria (e ad una o più sottocategorie) 
+  ha sempre un'immagine (con URI online o uploadata sul file system del server)  -->
+
+  <html>
+    <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+      <link href="style.css" rel="stylesheet" type="text/css">
+          
+      <title>Animal Shop</title>
+    </head>
+    <body>
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(236, 227, 205);">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="home.html">Animal House</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-animal">
+                <a class="nav-link" href="user.html">Costumer Data</a>
+              </li>
+              <li class="nav-animal">
+                <a class="nav-link" href="item.html">E-commerce Management</a>
+              </li>
+              <li class="nav-animal">
+                <a class="nav-link" href="animal.html" style="color: rgb(103, 73, 54); font-size: large">Animal Shop</a>
+              </li>
+              <li class="nav-animal">
+                <a class="nav-link" href="service.html">Services</a>
+              </li>
+              <li class="nav-animal">
+                <a class="nav-link" href="bacheca.html">Boards Management</a>
+              </li>
+              <li class="nav-animal">
+                <a class="nav-link" href="location.html">Locations</a>
+              </li>
+              <li class="nav-animal">
+                <a class="nav-link" href="staff.html">Staff Management</a>
+              </li>
+              <li class="nav-animal" >
+                <a class="nav-link" href="#" onclick=logout()>Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+        
+  
+      <div class="container" >
+        <div class="row mt-1">
+          <div class="col">
+            <h2 class="mt-2" style="text-align: left;">Animals</h2>
+          </div>
+          <div class="col">
+            <!-- Button trigger modal -->
+            <div class="mb-2 mt-2" style="display: flex; justify-content: right; align-items: right;">
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#Modal" >
+                Add a new animal
+              </button> 
+            </div>
+          </div>
+        </div>
+  
+        <!--div class="mb-2" style="display: flex; justify-content: center; align-animals: center;" >
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="checkVip" onchange=filteredByVip()>
+            <label class="form-check-label" for="checkVip">Only Vip</label>
+          </div>
+        </div-->
+  
+        <div class="input-group" style="margin-bottom: 6px;">
+          <input type="search" class="form-control rounded" id="searchAnimal" placeholder="Search by Species or Breed" aria-label="Search" aria-describedby="search-addon">
+          <button type="button" class="btn" style="border-color: rgb(103, 73, 54);" onclick=searchBySpeciesBreed()>search</button>
+        </div>
+  
+        <!-- Modal -->
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  
+          <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="ModalLabel">New animal</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+  
+                <!-- Body -->
+                <div class="modal-body">
+                <form id="FormAnimal">
+  
+                  <div class="row mb-2">
+                    <label class="col-sm-2 col-form-label">Name*</label>
+                    <div class="col">
+                      <input id="inputName" type="text" class="form-control" placeholder="Name" aria-label="Animal name" required>
+                    </div>
+                    <div class="col">
+                      <div class="input-group">
+                        <span class="input-group-text">Age</span>
+                        <input type="number" class="form-control" id="inputAge" aria-label="Age" placeholder="Age">
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="row mb-2">
+                    <label class="col-sm-2 col-form-label">Species*</label>
+                    <div class="col">
+                        <input id="inputSpecies" type="text" class="form-control" placeholder="Species" aria-label="Species" required>
+                    </div>
+                    <div class="col">
+                        <div class="input-group">
+                            <span class="input-group-text">Sex</span>
+                            <select id="inputSex" class="form-select" aria-label="Sex">
+                                <option>Maschio</option>
+                                <option>Femmina</option>
+                            </select>  
+                        </div> 
+                    </div>
+                  </div> 
+
+                  <div class="row mb-2">
+                    <label class="col-sm-2 col-form-label">Breed</label>
+                    <div class="col-sm-10">
+                      <input id="inputBreed" type="text" class="form-control" placeholder="Breed" aria-label="Breed">
+                    </div>
+                  </div>
+  
+                  <div class="mb-2">
+                    <label for="inputDescription" class="form-label">Description</label>
+                    <textarea class="form-control" id="inputDescription" rows="2" aria-label="Description of the animal"></textarea>
+                  </div>
+  
+                  <div class="mb-2">
+                    <label for="inputImg" class="form-label">Select a immagine</label>
+                    <input type='file' class="form-control" name='file' id='inputImg' value='Choose Photo' accept='image/png'>
+                  </div>
+                
+                </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="reset" form="FormAnimal" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+                  <button type="button" class="btn btn-primary" onclick=createAnimal()>Save new animal</button>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+        
+        </div>
+        <div id="myDIV">
+          <!-- ANIMAL CARD -->
+        </div>
+        
+  
+      </div>
+  
+      <script src="animal.js"></script>
+      <script src="image.js"></script> 
+    </body>
+  </html>

@@ -62,10 +62,9 @@ router.post('/', async(req, res) => {
         img: req.body.img,
         password: CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY).toString(),
         tel: req.body.tel,
-        paymentmethod: req.body.paymentmethod,
         residence: req.body.residence,
         preferences: req.body.preferences,
-        myanimal: req.body.myanimal,
+        vip: req.body.vip,
     })
     try {
         const newUser = await user.save()
@@ -98,17 +97,11 @@ router.patch('/:id', getUser, async(req, res) => {
     if (req.body.tel != null) {
         res.user.tel = req.body.tel
     }
-    if (req.body.paymentmethod != null) {
-        res.user.paymentmethod = req.body.paymentmethod
-    }
     if (req.body.residence != null) {
         res.user.residence = req.body.residence
     }
     if (req.body.preferences != null) {
         res.user.preferences = req.body.preferences
-    }
-    if (req.body.myanimal != null) {
-        res.user.myanimal = req.body.myanimal
     }
     if (req.body.vip != null) {
         res.user.vip = req.body.vip

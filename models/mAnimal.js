@@ -36,6 +36,10 @@ const animalSchema = new mongoose.Schema({
     description:{
         type: String,
         required: false,
+    },
+    price:{
+        type: String,
+        required: false,
     }
 })
 

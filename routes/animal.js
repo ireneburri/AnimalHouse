@@ -43,6 +43,7 @@ router.post('/', async (req, res)=> {
         species: req.body.species,
         breed: req.body.breed,
         description: req.body.description,
+        price: req.body.price,
 
     })
     try{
@@ -81,6 +82,9 @@ router.patch('/:id', getAnimal, async (req, res)=> {
     }
     if(req.body.description != null){
         res.animal.description=req.body.description
+    }
+    if(req.body.price != null){
+        res.animal.price=req.body.price
     }
     try{
         const updateAnimal = await res.animal.save()

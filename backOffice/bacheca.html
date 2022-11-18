@@ -1,0 +1,135 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+    <title>Boards Management</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(236, 227, 205);">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="home.html">Animal House</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="user.html">Costumer Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="item.html">E-commerce Management</a>
+            </li>            
+            <li class="nav-item">
+              <a class="nav-link" href="animal.html">Animal Shop</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="service.html">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="bacheca.html" style="color: rgb(103, 73, 54); font-size: large">Boards Management</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="location.html">Locations</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="staff.html">Staff Management</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick=logout()>Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!--h2 class="mt-2" id="T" style="text-align: center;">HomeBoard</h2-->
+
+    <div class="container">
+    
+      <div class="mb-2 mt-2" style="display: flex; justify-content: left; align-items: left;">   
+
+        <div>
+          <select class="form-select"  id="categoryPost" aria-label="select the category" onchange=boardCategory()>
+            <span id="categoryPost">
+              <option value="None">HomeBoard</option>
+              <option value="Eccolo qua">Eccolo Qua</option>
+              <option value="Cerco Partner">Cerco Partner</option>
+            </span>
+          </select>
+        </div>
+
+        <!--div style="margin-left: 4px;">
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#Modal">
+            Register a new category
+          </button>
+        </div-->
+        
+      </div>
+      <!-- Modal -->
+      <!--div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+        <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">New category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+
+              <  Body -->
+              <!--div class="modal-body">
+                <form id="fform">
+                  <div class="mb-2">
+                    <input class="form-control" id="createCategory" aria-label="Category name" placeholder="Category name"></input>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="reset" form="fform"  class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+                <button type="button" class="btn btn-primary" onclick=createCategory()>Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      </div-->
+
+      <div class="card mb-2" >
+        <div class="row g-0" >
+          <div class="col-md-1 mt-3" >
+              <img src="../routes/uploads/logoPic.png" class="img-fluid rounded" alt="Logo" style="width: 100%; height: auto;">
+          </div>
+          <div class="col-md-11">
+            <div class="card-body">
+              <div class="row g-0" > 
+                 
+                <div class="col-md-11">
+                  <form id="FormPost"> 
+                    <input id="inputTitle" type="text" class="form-control" placeholder="Title" aria-label="Post's title"> <br>
+                    <textarea class="form-control" id="inputText" rows="2" aria-label="Text of the post" placeholder="Post"></textarea>
+                  </form> 
+                </div>
+                <div class="col-md-1">
+                  <button type="button" style="float:right; margin:1px;" class="btn btn-success" onclick=createPost()>Post</button>
+                  <button type="reset" id="btn_x" form="FormPost" style="float:right; margin:1px;" class="btn btn-danger">X</button>
+                </div>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="myDIV">
+        <!-- BACHECA -->
+      </div>
+      
+    </div>
+
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <script src="bacheca.js"></script> 
+    <script src="image.js"></script> 
+
+  </body>
+</html>

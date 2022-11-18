@@ -25,11 +25,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    paymentmethod: {
-        type: String,
-        enum: ["Card", "PayPal", "In Store", "None"],
-        required: false,
-    },
     residence: {
         type: String,
         required: false,
@@ -38,15 +33,11 @@ const userSchema = new mongoose.Schema({
         type: [String],
         required: true,
     },
-    myanimal: {
-        type: [String],
-        required: false,
-    },
     vip: {
         type: Boolean,
         required: false,
         default: false,
-    },
+    }
 })
 
 
