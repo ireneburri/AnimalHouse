@@ -12,8 +12,12 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    quantity:{
+        type: String,
+        required: false,
+    },
     type:{
-        type: [String],
+        type: String,
         enum: ["Item", "Service", "Animal"],
         required: false,
     },
