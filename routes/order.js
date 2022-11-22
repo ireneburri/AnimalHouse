@@ -26,7 +26,7 @@ router.get('/id/:id', getOrder, (req, res) => {
     res.json(res.order)
 })
 
-//get one by client_id
+//get by client_id
 router.get('/client_id/:client_id', async(req, res) => {
     const client_id = req.params.client_id
     let order
@@ -42,7 +42,24 @@ router.get('/client_id/:client_id', async(req, res) => {
     }
 })
 
-//get one by name
+//get by client_id
+router.get('/username/:username', async(req, res) => {
+    const username = req.params.username
+    let order
+    try {
+        order = await Order.find({ username: username });
+        if (order == null) {
+            return res.status(404).json({ message: 'Cannot find order' })
+        } else {
+            res.status(201).json(order)
+        }
+    } catch (err) {
+        return res.status(500).json({ message: err.message })
+    }
+})
+
+
+//get by name
 router.get('/name/:name', async(req, res) => {
     const name = req.params.name
     let order
