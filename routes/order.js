@@ -20,7 +20,6 @@ router.get('/', async(req, res) => {
 
 })
 
-
 //get one
 router.get('/id/:id', getOrder, (req, res) => {
     res.json(res.order)
@@ -58,32 +57,13 @@ router.get('/username/:username', async(req, res) => {
     }
 })
 
-
-//get by name
-router.get('/name/:name', async(req, res) => {
-    const name = req.params.name
-    let order
-    try {
-        order = await Order.find({ name: name });
-        if (order == null) {
-            return res.status(404).json({ message: 'Cannot find order' })
-        } else {
-            res.status(201).json(order)
-        }
-    } catch (err) {
-        return res.status(500).json({ message: err.message })
-    }
-})
-
 //create one
 router.post('/', async(req, res) => {
     console.log(req.file, req.body)
     const order = new Order({
         client_id: req.body.client_id,
         username: req.body.username,
-        name: req.body.name,
-        type: req.body.type,
-        category: req.body.category,
+        products: req.body.products,
         price: req.body.price,
         date: req.body.date,
         vip: req.body.vip,
@@ -106,14 +86,8 @@ router.patch('/:id', getOrder, async(req, res) => {
     if (req.body.username != null) {
         res.order.username = req.body.username
     }
-    if (req.body.name != null) {
-        res.order.name = req.body.name
-    }
-    if (req.body.type != null) {
-        res.order.type = req.body.type
-    }
-    if (req.body.category != null) {
-        res.order.category = req.body.category
+    if (req.body.products != null) {
+        res.order.products = req.body.products
     }
     if (req.body.price != null) {
         res.order.price = req.body.price
