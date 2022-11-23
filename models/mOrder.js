@@ -8,7 +8,23 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    name:{
+    products:{
+        type: [String],
+        required: true,
+    },
+    price: {
+        type: String,
+        required: false,
+    },
+    date: {
+        type: Date,
+        required: false,
+    },
+    vip: {
+        type: Boolean,
+        required: false,
+    }
+    /*name:{
         type: String,
         required: false,
     },
@@ -24,19 +40,7 @@ const orderSchema = new mongoose.Schema({
     category:{
         type: String,
         required: false,
-    },
-    price: {
-        type: String,
-        required: false,
-    },
-    date: {
-        type: Date,
-        required: false,
-    },
-    vip: {
-        type: Boolean,
-        required: false,
-    }
+    }*/
 })
 
 
