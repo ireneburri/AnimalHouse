@@ -8,6 +8,10 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    address:{
+        type: String,
+        required: false,
+    },
     products:{
         type: [String],
         required: true,
@@ -23,24 +27,12 @@ const orderSchema = new mongoose.Schema({
     vip: {
         type: Boolean,
         required: false,
+    },
+    completed: {
+        type: Boolean,
+        required: true,
+        default: true,
     }
-    /*name:{
-        type: String,
-        required: false,
-    },
-    quantity:{
-        type: String,
-        required: false,
-    },
-    type:{
-        type: String,
-        enum: ["Item", "Service", "Animal"],
-        required: false,
-    },
-    category:{
-        type: String,
-        required: false,
-    }*/
 })
 
 
