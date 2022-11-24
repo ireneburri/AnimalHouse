@@ -63,10 +63,12 @@ router.post('/', async(req, res) => {
     const order = new Order({
         client_id: req.body.client_id,
         username: req.body.username,
+        address: req.body.address,
         products: req.body.products,
         price: req.body.price,
         date: req.body.date,
         vip: req.body.vip,
+        completed: req.body.completed,
     })
     try {
         const neworder = await order.save()
@@ -86,6 +88,9 @@ router.patch('/:id', getOrder, async(req, res) => {
     if (req.body.username != null) {
         res.order.username = req.body.username
     }
+    if (req.body.address != null) {
+        res.order.address = req.body.address
+    }
     if (req.body.products != null) {
         res.order.products = req.body.products
     }
@@ -97,6 +102,9 @@ router.patch('/:id', getOrder, async(req, res) => {
     }
     if (req.body.vip != null) {
         res.order.vip = req.body.vip
+    }
+    if (req.body.completed != null) {
+        res.order.completed = req.body.completed
     }
 
     try {
