@@ -1,4 +1,4 @@
-const url = "https://site212224.tw.cs.unibo.it"
+const url = "https://site212224.tw.cs.unibo.it/backOffice"
 var postsList = []
 var commentsList = []
 var categoryList = []

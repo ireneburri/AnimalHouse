@@ -1,5 +1,5 @@
 
-const url = "https://site212224.tw.cs.unibo.it"
+const url = "https://site212224.tw.cs.unibo.it/backOffice"
 var clientsList = []
 var animalList = []
 
@@ -98,17 +98,19 @@ function showClient(client){
                             <small>
                                 <span class="clientUsername"> ${client.username} </span> <br> 
                                 <span class="clientPassword" style="color: gray;" id="false-${client._id}" role="button" onclick=showPassword("${client._id}","${client.password}")> Password </span> <br>
-                                <span class="clientVip" style="color: gold">${vip} </span>
+                                <span class="clientVip" style="color: rgb(103, 73, 54);">${vip} </span>
                             </small>
                         </div>
                         <div class="col-md-7">
                             <p class="card-text">
                                 <small>
                                 &phone;<span class="clientTel"> ${client.tel} </span><br> 
-                                <span style="color: gray">Payment method:</span> <span class="clientPaymentmethod">${client.paymentmethod} </span><br>
                                 <span style="color: gray">Residence: </span>
-                                <span class="clientResidence">${client.residence} </span> <br><br>
+                                <span class="clientResidence">${client.residence} </span> <br>
+                                <a  href="./order.html"  target="_blank" onclick="setSearch('${client.username}')" style="color: rgb(103, 73, 54);"> <span >Orders</span></a> <br>
+                                <br>
                                 </small>
+
                                 <span style="color: gray">Favourite animals: </span> 
                                 <span class="clientPreferences">${client.preferences} </span> <br>  
                                 <a href="#" onclick=openAnimal("${client._id}") id="falseAnimal-${client._id}" style="color: rgb(103, 73, 54);"> <span >Own animals</span></a>
@@ -156,57 +158,29 @@ function showClient(client){
                                             </div>
                                         </div>  
                                         
-                                        <div class="row">
-                                            <div class="col-sm-8">
-                                                <div class="row mb-2">
-                                                    <label for="modAdd-${client._id}" class="col-sm-4 col-form-label">Address</label>
-                                                    <div class="col-sm-8">
-                                                        <input type="address" class="form-control" id="modAdd-${client._id}" placeholder="${client.residence}" aria-label="Residential address">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="col-sm-12">
-                                                    <select id="modPay-${client._id}" class="form-select">
-                                                        <option style="color:gray" disabled selected>${client.paymentmethod}</option>                                                        
-                                                        <option>Card</option>
-                                                        <option>PayPal</option>
-                                                        <option>None</option>
-                                                        <option>In Store</option>
-                                                    </select>                          
-                                                </div> 
-                                            </div>                                        
+                                        <div class="row mb-2">
+                                            <label for="modAdd-${client._id}" class="col-sm-3 col-form-label">Address</label>
+                                            <div class="col-sm-9">
+                                                <input type="address" class="form-control" id="modAdd-${client._id}" placeholder="${client.residence}" aria-label="Residential address">
+                                            </div>                           
                                         </div> 
 
                                         <div class="row mb-2">
-                                            <div class="col-sm-8">
-                                                <div class="row mb-2">
-                                                    <label for="modUsername-${client._id}" class="col-sm-4 col-form-label">Username*</label>
-                                                    <div class="col-sm-8">
-                                                        <input type="username" class="form-control" id="modUsername-${client._id}" placeholder="${client.username}" aria-label="Username">
-                                                    </div>
-                                                </div>
+                                            <label for="modUsername-${client._id}" class="col-sm-3 col-form-label">Username</label>
+                                            <div class="col-sm-9">
+                                                <input type="username" class="form-control" id="modUsername-${client._id}" placeholder="${client.username}" aria-label="Username">
                                             </div>
-                                            <div class="col-sm-4">
-                                                <div class="col-sm-12">
-                                                    <select id="modVip-${client._id}" class="form-select">
-                                                        <option style="color:gray" disabled selected>${notvip}</option>                                                        
-                                                        <option>VIP</option>
-                                                        <option>NOT VIP</option>
-                                                    </select>                          
-                                                </div> 
-                                            </div> 
                                         </div>
 
                                         <div class="row mb-2">
-                                            <label for="modPass-${client._id}" class="col-sm-3 col-form-label">Password*</label>
+                                            <label for="modPass-${client._id}" class="col-sm-3 col-form-label">Password</label>
                                             <div class="col-sm-9">
                                                 <input type="password" class="form-control" id="modPass-${client._id}" placeholder="${client.password}" aria-label="Password">
                                             </div>
                                         </div>                                                                       
 
                                         <div class="row mb-2">
-                                            <label for="modPref-${client._id}" class="col-sm-3 col-form-label">Preferences*</label>
+                                            <label for="modPref-${client._id}" class="col-sm-3 col-form-label">Preferences</label>
                                             <div class="col-sm-9">
                                                 <input type="string" class="form-control" id="modPref-${client._id}" placeholder="${client.preferences}" aria-label="Client's preferences">
                                             </div>
@@ -248,7 +222,7 @@ function showClient(client){
                                     <div class="modal-body">
                                     <form id="FormModifyAnimal-${client._id}">
                                         <div class="row mb-2">
-                                            <label class="col-sm-2 col-form-label">Name*</label>
+                                            <label class="col-sm-2 col-form-label">Name</label>
                                             <div class="col-sm-6">
                                                 <input id="inputName-${client._id}" type="text" class="form-control" aria-label="Name" required>
                                             </div>
@@ -321,6 +295,9 @@ function showClient(client){
     )
 }
 
+function setSearch(username){
+    localStorage.setItem("search", username) ;
+}
 
 function showPassword(id, pass){
     if ($("#false-"+id).length) { 
@@ -612,10 +589,8 @@ function createClient(){
     }
     data.password = $("#inputPass").val()
     data.tel = $("#inputTel").val()
-    data.paymentmethod = $("#inputPay").val()
     data.residence = $("#inputAdd").val()
     data.preferences = $("#inputPref").val().replace(/\s+/g, "").split(",")
-    data.myanimal = $("#inputMyA").val().replace(/\s+/g, "").split(",")
     
     if (data.username.length==0 || data.password.length==0 || data.preferences.length==0){
         alert("Fill the mandatory fields")
@@ -637,10 +612,8 @@ function createClient(){
             img: data.img,
             password: data.password,
             tel: data.tel,
-            paymentmethod: data.paymentmethod,
             residence: data.residence,
             preferences: data.preferences,
-            myanimal: data.myanimal,
         }),
         success: function(result) {
             console.log("yay");
@@ -718,11 +691,8 @@ async function modifyClient(id){
 
     }
     if ($("#modTel-"+id).val()!="") {data.tel = $("#modTel-"+id).val()}
-    if ($("#modPay-"+id).val()!="") {data.paymentmethod = $("#modPay-"+id).val()}
     if ($("#modAdd-"+id).val()!="") {data.residence = $("#modAdd-"+id).val()}
     if ($("#modPref-"+id).val()!="") {data.preferences = $("#modPref-"+id).val().replace(/\s+/g, "").split(",")}
-    if ($("#modMyA-"+id).val()!="") {data.myanimal = $("#modMyA-"+id).val().replace(/\s+/g, "").split(",")}
-    if ($("#modVip-"+id).val()=="VIP") {data.vip = true} else {data.vip = false}
 
     $.ajax({
         type: 'PATCH',

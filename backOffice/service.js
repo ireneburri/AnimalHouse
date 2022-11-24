@@ -1,4 +1,4 @@
-const url = "https://site212224.tw.cs.unibo.it"
+const url = "https://site212224.tw.cs.unibo.it/backOffice"
 var servicesList = []
 locationList = []
 
@@ -147,7 +147,7 @@ function showService(service){
                                 <span class="serviceMode"> ${service.mode}</span> <br> 
                                 <span style="color: gray">Availability: </span>
                                 <span class="serviceAvailability">${service.availability} </span> <br>
-                                <span class="serviceVip" style="color: gold">${vip} </span>
+                                <span class="serviceVip" style="color: rgb(103, 73, 54);">${vip} </span>
                             </small>                 
                         </div>
                         <div class="col-md-7">

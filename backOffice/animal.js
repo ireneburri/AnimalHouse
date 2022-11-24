@@ -1,4 +1,4 @@
-const url = "https://site212224.tw.cs.unibo.it"
+const url = "https://site212224.tw.cs.unibo.it/backOffice"
 var animalsList = []
 
 function logout(){
@@ -200,7 +200,7 @@ function createAnimal(){
 
     data.sale = true
     data.name = $("#inputName").val()
-    //data.price = $("#inputPrice").val()
+    data.price = $("#inputPrice").val()
     if ($("#inputImg").val() != "") {
         data.img = fileInput.files.item(0).name
     }
@@ -227,7 +227,7 @@ function createAnimal(){
             sale: data.sale,
             client_id: data.client_id,
             name: data.name,
-            //price: data.price,
+            price: data.price,
             img: data.img,
             age: data.age,
             sex: data.sex,
@@ -259,7 +259,7 @@ function modifyAnimal(id){
     let data = {}
 
     if ($("#modName-"+id).val()!="") {data.name = $("#modName-"+id).val()}
-    //if ($("#modPrice-"+id).val()!="") {data.price = $("#modPrice-"+id).val()}
+    if ($("#modPrice-"+id).val()!="") {data.price = $("#modPrice-"+id).val()}
     if ($("#modImg-"+id).val()!="") {
 
         let imm = document.getElementById("modImg-"+id).files.item(0);

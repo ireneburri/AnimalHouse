@@ -1,4 +1,4 @@
-const url = "https://site212224.tw.cs.unibo.it"
+const url = "https://site212224.tw.cs.unibo.it/backOffice"
 var itemsList = []
 
 function logout(){
@@ -95,7 +95,7 @@ function showItem(item){
                             <small> 
                                 <span style="color: gray">Category: </span>
                                 <span class="itemCategory"> ${item.category} </span> <br> 
-                                <span class="itemVip" style="color: gold">${vip} </span>
+                                <span class="itemVip" style="color: rgb(103, 73, 54);">${vip} </span>
                             </small>
                         </div>
                         <div class="col-md-7">
@@ -110,7 +110,7 @@ function showItem(item){
                                 <span class="itemBrand">${item.brand} </span> <br>
                                 
                                 <span style="color: gray">Description: </span>
-                                <span class="itemDescription">${item.description} </span>
+                                <span class="itemDescription">${item.description} </span> <br>
                             </p>
                         </div>
                         <div class="col-md-2">
@@ -237,7 +237,6 @@ function showItem(item){
     `
     )
 }
-
 
 //MODIFY
 function modifyItem(id){
