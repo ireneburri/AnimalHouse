@@ -1,26 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import Navbar from '../components/Navbar/navbar';
 import Announcement from '../components/Announcement/announcement';
 import Footer from '../components/Footer/footer';
+import { useState } from 'react';
 
 
 function Thanks() {
     const getCurrentCart = window.localStorage.getItem('cart');
+    const username = window.localStorage.getItem('username');
     const currentCart = JSON.parse(getCurrentCart);
+    var vipItem = false
 
-    if (!currentCart) {
-        return (
-            <div>
-                <Navbar />
-                <div> nulla da vedere </div>
-                <Footer />
-            </div>
-        )
-    }
-    
-    const sendOrder = () => {
-        if (currentCart) {
+    useEffect(() => {
+        if (!currentCart) {
+            return (
+                console.log('nulla da vedere')
+            )
+        }
+
+        if (currentCart.filter(item => item.items.vip === true).length > 0) {
+            vipItem = true;
+        }
+
+        if (currentCart) { //diminuisce la quantità di elementi disponibili per un certo prodotto
             currentCart.forEach((item) => {
                 item.items.quantity = item.items.quantity - item.quantity
                 console.log(item.items)
@@ -30,21 +33,35 @@ function Thanks() {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify(item.items),
-                }).then((res) => {
-                    localStorage.removeItem('cart')
                 })
             })
+
+            
+
+            if (vipItem) { //imposta l'utente a vip se ha acquistato qualcosa di vip
+                fetch(`http://site212224.tw.cs.unibo.it/username/${username}`, { //per farlo funzionare va cambiata la patch
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ vip: "true" }),
+                }).then((res) => {
+                    localStorage.removeItem('cart')
+                }
+                )
+            }
         }
-    }
+
+    }, [])
 
     return (
         <div>
             <Navbar />
             Thanks for shopping with us
-            {sendOrder()}
             <Footer />
         </div>
     );
 }
+
 
 export default Thanks;

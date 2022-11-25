@@ -1,17 +1,12 @@
-import React, { useState, useEffect, useFetch } from 'react';
+import React, { useState, useEffect, useFetch, useCallback } from 'react';
 import styled from 'styled-components';
+import AnimalCard from '../Card/animalCard';
 import profileimg from '/Users/beatricezamagna/Desktop/Animal/front/src/img/profile.jpg'
 
 const Body = styled.div`
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(
-        to top,
-        white 0%,
-        lightblue 70%,
-        lightblue 30%,
-        white 100%
-    );
+    background-color: #95d6bb;
     display: flex;
     /* justify-content: center; */
     align-items: center;
@@ -19,7 +14,7 @@ const Body = styled.div`
     `
 
 const Container = styled.div`
-    width: 60%;
+    width: 80%;
     background: #ffffff;
     border-radius: 20px;
     margin: none;
@@ -58,7 +53,7 @@ const ProfileButton = styled.button`
     }
 `
 const Labels = styled.div`
-    font-size: 11px;
+    font-size: 1em;
 `
 
 const Vip = styled.button`
@@ -80,89 +75,135 @@ const Vip = styled.button`
 `
 
 const Img = styled.img`
-    font-size: 11px;
+    font-size: 1em;
     border-radius: 100%;
-    width: 55%;
+    width: 40%;
+    padding-top: 1em;
 `
 
 function Profile() {
 
     const [profile, setProfile] = useState('');
     const user = localStorage.getItem("username");
+    const [vip, setVip] = useState('');
+    const [animal, setAnimals] = useState([]);
 
-    
+
     useEffect(() => {
         fetchProfile();
-        // eslint-disable-next-line
+        fetchAnimal();
     }, []);
 
     const fetchProfile = async () => {
         const data = await fetch(`http://site212224.tw.cs.unibo.it/User/username/${user}`);
         const fetched = await data.json();
-        console.log(fetched[0]);
         setProfile(fetched[0]);
+        setVip(fetched[0].vip)
+        localStorage.setItem("userid", JSON.stringify(fetched[0]._id))
     }
+
+    const fetchAnimal = useCallback(
+        async () => {
+            const data = await fetch("https://site212224.tw.cs.unibo.it/animal");
+            const items = await data.json();
+            const filtered = items.filter((item) => item.client_id === user);
+            console.log(filtered);
+            setAnimals(filtered);
+        })
+
+    let vipcontainer;
+    if (vip) {
+        vipcontainer = <Vip className=''> VIP </Vip>
+    } else {
+        vipcontainer = null;
+    }
+
 
     return (
         <Body>
-            <div className='mt-4'>
-                <h3 className="font-weight-bold">My Profile</h3>
-            </div>
-            <Container>
-
+            <Container className='mt-5'>
                 <div className="row">
-                    <div className="col-md-4 border-right">
-                        <div className="d-flex flex-column align-items-center text-center p-3 py-5">
+                    {/* colonna profilo */}
+                    <div className="col-md-3 border-right">
+                        <div className="d-flex flex-column align-items-center py-4">
+                            MY PROFILE
                             <Img
                                 src={profileimg}
                             />
                             <div className='mt-3'>
                                 <div className="font-weight-bold"> @{user} </div>
                             </div>
-                            <span> </span>
+                            <div className="col-md-7 border-right">
+                                <ProfileContainer className="">
+                                    {vipcontainer}
+                                    <div className="row mt-2">
+                                        <div className="col col-md-6">
+                                            <Labels>Name</Labels>
+                                            <Labels> {profile.name} </Labels>
+                                        </div>
+                                        <div className="col col-md-6">
+                                            <Labels>Surname</Labels>
+                                            <Labels> {profile.surname} </Labels>
+                                        </div>
+                                    </div>
+
+                                    <div className="row mt-2">
+                                        <div className="col col-md-6">
+                                            <Labels>Addess</Labels>
+                                            <Labels> {profile.residence} </Labels>
+                                        </div>
+                                        <div className="col col-md-6">
+                                            <Labels>Number</Labels>
+                                            <Labels> {profile.tel} </Labels>
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-4">
+                                        <ProfileButton type="button">
+                                            MODIFY INFO
+                                        </ProfileButton>
+                                    </div>
+
+                                </ProfileContainer>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="col-md-7 border-right">
-                        <ProfileContainer className="p-3 py-5">
-                            <div className="mb-3">
-                                <h4 className="text-right"> Profile Settings </h4>
-                                <Vip className=''> VIP </Vip>
-                            </div>
-                            <div className="row mt-2">
-                                <div className="col-md-6">
-                                    <Labels>Name</Labels>
-                                    <h4> {profile.name} </h4>
-                                </div>
-                                <div className="col-md-6">
-                                    <Labels>Surname</Labels>
-                                    <h4> {profile.surname} </h4>
-                                </div>
-                            </div>
-
-                            <div className="row mt-2">
-                                <div className="col-md-6">
-                                    <Labels>Addess</Labels>
-                                    <h4> {profile.residence} </h4>
-                                </div>
-                                <div className="col-md-6">
-                                    <Labels>Number</Labels>
-                                    <h4> {profile.tel} </h4>
+                    <div className="col-md-6 center">
+                        <div className="d-flex flex-column align-items-center py-4">
+                            MY ANIMALS
+                            <div style={{ height: '17em', overflowY: 'scroll' }}>
+                                <div className="row">
+                                    {animal.map(animal => (
+                                        <AnimalCard
+                                            key={animal._id}
+                                            id={animal._id}
+                                            name={animal.name}
+                                            breed={animal.breed}
+                                            age={animal.age}
+                                            sex={animal.sex}
+                                        />
+                                    ))}
                                 </div>
                             </div>
-
                             <div className="mt-4">
                                 <ProfileButton type="button">
-                                    Modify Profile
+                                    Add Animal
                                 </ProfileButton>
                             </div>
-
-                        </ProfileContainer>
+                        </div>
                     </div>
 
-                </div>
-            </Container>
+                    <div className="col-md-3 border-left">
+                        <div className="d-flex flex-column align-items-center py-4">
+                            MY RESERVATION
+                        </div>
+                    </div>
 
+
+                </div>
+
+            </Container>
         </Body>
     );
 }

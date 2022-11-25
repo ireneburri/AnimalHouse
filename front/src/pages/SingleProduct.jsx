@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 // import Newsletter from '../components/Newsletter/newsletter';
 import Footer from '../components/Footer/footer';
 import { ButtonGroup } from 'react-bootstrap';
+import SimilarProducts from '../components/Similar/similarProducts';
 // import {CartContext} from '../UserContext';
 
 
@@ -158,6 +159,9 @@ function SingleProduct() {
                 </InfoContainer>
 
             </Wrapper>
+            
+            <SimilarProducts category={items.category} id={id}/>
+            
             <Footer />
 
         </Container>

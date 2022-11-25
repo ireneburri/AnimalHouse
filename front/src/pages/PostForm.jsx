@@ -59,11 +59,12 @@ function PostForm() {
     return (
         <Container>
             <Navbar />
+            <div style={{ textAlign: 'center', justifyContent: 'center', marginTop: '1rem', fontSize: '30px' }}> YOU ARE CURRENTLY PUBLISHING ON THE '{category.substring(1).toUpperCase()}' PINBOARD </div>
             <Form>
                 <form onSubmit={(e) => submit(e)}>
                     <div className="mb-3">
                         <label htmlFor="author" className="form-label">Author</label>
-                        <input defaultValue={username} type="text" className="form-control" id="author" aria-describedby="emailHelp" onChange={(e) => handle(e)} />
+                        <input value={window.localStorage.getItem('username')} type="text" className="form-control" id="author" aria-describedby="emailHelp" onChange={(e) => handle(e)} readonly/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="title" className="form-label">Title</label>
