@@ -7,6 +7,7 @@ router.post('/post', async (req, res)=> {
     const reservation = new Reservation({
         username: req.body.username,
         service: req.body.service,
+        time: req.body.time,
         date_start: req.body.date_start,
         date_end: req.body.date_end,
         location: req.body.location,
@@ -82,6 +83,9 @@ router.patch('/:id', getReservation, async (req, res)=> {
     }
     if(req.body.service != null){
         res.reservation.service=req.body.service
+    }
+    if(req.body.time != null){
+        res.reservation.time=req.body.time
     }
     if(req.body.date_start != null){
         res.reservation.date_start=req.body.date_start
