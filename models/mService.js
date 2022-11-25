@@ -31,10 +31,9 @@ const serviceSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    availability: {
-        type: Boolean,
+    time: {
+        type: String,
         required: false,
-        default: true,
     },
     vip: {
         type: Boolean,
