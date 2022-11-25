@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Service = require("../models/mService")
 
-//get all
+//Get all
 router.get('/', async(req, res)=> {
     try{
         const services = await Service.find()
@@ -12,7 +12,7 @@ router.get('/', async(req, res)=> {
     }
 })
 
-//get service filtered by mode
+//Get service filtered by mode
 router.get("/mode/:mode", async (request , response) => {
     const mode = request.params.mode
     const services = await Service.find({mode: mode});
@@ -24,12 +24,12 @@ router.get("/mode/:mode", async (request , response) => {
     }
 });
 
-
-//get one
+//Get one
 router.get('/id/:id', getService, (req, res)=> {
     res.json(res.service)
 })
-//create one
+
+//Create one
 router.post('/', async (req, res)=> {
     const service = new Service({
         mode: req.body.mode,
@@ -39,7 +39,7 @@ router.post('/', async (req, res)=> {
         category: req.body.category,
         price: req.body.price,
         description: req.body.description,
-        availability: req.body.availability,
+        time: req.body.time,
         vip: req.body.vip,
     })
     try{
@@ -49,7 +49,8 @@ router.post('/', async (req, res)=> {
         res.status(400).json({message: err.message})
     }
 })
-//update one
+
+//Update one
 router.patch('/:id', getService, async (req, res)=> {
 
     if(req.body.mode != null){
@@ -73,8 +74,8 @@ router.patch('/:id', getService, async (req, res)=> {
     if(req.body.description != null){
         res.service.description=req.body.description
     }
-    if(req.body.availability != null){
-        res.service.availability=req.body.availability
+    if(req.body.time != null){
+        res.service.time=req.body.time
     }
     if(req.body.vip != null){
         res.service.vip=req.body.vip
@@ -88,7 +89,8 @@ router.patch('/:id', getService, async (req, res)=> {
     }
 
 })
-//delete one
+
+//Delete one
 router.delete('/:id', getService, async (req, res)=> {
     try{
         await res.service.remove()
