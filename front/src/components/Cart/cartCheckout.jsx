@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Checkout from "./checkout";
 import {
@@ -32,9 +32,25 @@ const MyButton = styled.a`
         font-weight: 900;
         transition: all 0.4s ease;
     }
-    @media (max-width: 1024px) {
-        font-size: 8px;
-}
+`
+
+const SaveButton = styled.button`
+    border: 1px solid teal;
+    font-size: 0.8em;
+    background-color: white;
+    color: teal;
+    cursor: pointer;
+    font-weight: 900;
+    border-radius: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+    &:hover{
+        background-color: teal;
+        color: white;
+        font-weight: 900;
+        transition: all 0.4s ease;
+    }
 `
 
 const Myth = styled.th`
@@ -53,8 +69,12 @@ export default function SummaryPage() {
     const getCurrentCart = window.localStorage.getItem('cart');
     const currentCart = JSON.parse(getCurrentCart);
 
-    if(currentCart === null || currentCart.length === 0 ){
-        return(
+    function saveChanges(e){
+        window.location.reload(false);
+    }
+
+    if (currentCart === null || currentCart.length === 0) {
+        return (
             <div>
                 il tuo carrello è vuoto
             </div>
@@ -163,13 +183,11 @@ export default function SummaryPage() {
                                     <MDBRow>
                                         <MDBCol size="12" xl="6">
                                             <MDBInput
-                                                className="mb-4 mb-xl-5"
                                                 label="Name on card"
                                                 placeholder="John Smiths"
                                                 size="lg"
                                             />
                                             <MDBInput
-                                                className="mb-4 mb-xl-5"
                                                 label="Expiration"
                                                 placeholder="MM/YY"
                                                 size="lg"
@@ -180,7 +198,6 @@ export default function SummaryPage() {
 
                                         <MDBCol size="12" xl="6">
                                             <MDBInput
-                                                className="mb-4 mb-xl-5"
                                                 label="Card Number"
                                                 placeholder="1111 2222 3333 4444"
                                                 size="lg"
@@ -188,7 +205,6 @@ export default function SummaryPage() {
                                                 maxLength="19"
                                             />
                                             <MDBInput
-                                                className="mb-4 mb-xl-5"
                                                 label="Cvv"
                                                 placeholder="&#9679;&#9679;&#9679;"
                                                 size="lg"
@@ -200,10 +216,15 @@ export default function SummaryPage() {
                                     </MDBRow>
                                 </MDBCol>
                                 <MDBCol lg="4" xl="3">
+                                    <div className="d-flex justify-content-center ">
+                                        <SaveButton onClick={(e) => saveChanges()}>Save changes and calculate total </SaveButton>
+                                    </div>
+
+                                    <hr className="my-4" />
+
                                     <div
                                         className="d-flex justify-content-between"
-                                        style={{ fontWeight: "500" }}
-                                    >
+                                        style={{ fontWeight: "500" }}>
                                         <p className="mb-2">Subtotal</p>
                                         <p className="mb-2"> € {sum}</p>
                                     </div>
@@ -212,15 +233,14 @@ export default function SummaryPage() {
 
                                     <div
                                         className="d-flex justify-content-between mb-4"
-                                        style={{ fontWeight: "500" }}
-                                    >
+                                        style={{ fontWeight: "500" }}>
                                         <p className="mb-2">Total (tax included)</p>
                                         <p className="mb-2"> € {sum}</p>
                                     </div>
 
-                                        <div className="d-flex justify-content-between">
-                                            <MyButton href="/thanks">Checkout</MyButton>
-                                        </div>
+                                    <div className="d-flex justify-content-between">
+                                        <MyButton href="/thanks">Checkout</MyButton>
+                                    </div>
                                 </MDBCol>
                             </MDBRow>
                         </MDBCardBody>

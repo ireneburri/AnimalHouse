@@ -12,6 +12,7 @@ export default function Login() {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
     const [user, setUser] = useState()
+    const [error,setError]=useState();
 
     const cred = {
         username: username,
@@ -27,7 +28,7 @@ export default function Login() {
         }
     }, []);
 
-    const handleSubmit = async e => {
+    async function handleSubmit (e) {
         e.preventDefault();
         axios.post('https://site212224.tw.cs.unibo.it/auth/login/user', {
             username: cred.username,
@@ -35,9 +36,9 @@ export default function Login() {
         })
             .then((res) => {
                 console.log(res);
-                // console.log(res);
                 localStorage.setItem("username", cred.username)
                 localStorage.setItem("token", res.data.authority)
+                
 
                 //permette di tornare nella pagina che ti ha reindireizzato alla pagina di login
                 if (location.state?.from) {
@@ -46,13 +47,12 @@ export default function Login() {
                 else{
                     navigate('/account')
                 }
-
             }, (err) => {
-                console.log(err);
+                setError('Invalid Username or Password')
             });
     }
 
-    // se c'è uno user verrà mostrato questo messaggio
+    // se c'è uno user verrà mostrato il profilo
     if (user) {
         return <div> 
             < ProfilePage />
@@ -78,6 +78,7 @@ export default function Login() {
                         <button type="submit">Submit</button>
                     </div>
                 </form>
+                {error?<div>{error}</div>:null} 
             </div>
         </div>
     )
