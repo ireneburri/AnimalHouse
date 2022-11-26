@@ -39,6 +39,7 @@ router.post('/', async (req, res)=> {
         category: req.body.category,
         price: req.body.price,
         description: req.body.description,
+        allday: req.body.allday,
         time: req.body.time,
         vip: req.body.vip,
     })
@@ -73,6 +74,9 @@ router.patch('/:id', getService, async (req, res)=> {
     }
     if(req.body.description != null){
         res.service.description=req.body.description
+    }
+    if(req.body.allday != null){
+        res.service.allday=req.body.allday
     }
     if(req.body.time != null){
         res.service.time=req.body.time
