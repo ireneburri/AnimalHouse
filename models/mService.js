@@ -31,6 +31,10 @@ const serviceSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    allday: {
+        type: Boolean,
+        required: false,
+    },
     time: {
         type: String,
         required: false,

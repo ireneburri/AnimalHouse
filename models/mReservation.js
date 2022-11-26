@@ -9,9 +9,13 @@ const reservationSchema= new mongoose.Schema({
         type: String,
         required: true
     },
+    allday: {
+        type: Boolean,
+        required: true,
+    },
     time: { //durata
         type: String,
-        required: true
+        required: false
     },
     date_start: {
         type: Date,
