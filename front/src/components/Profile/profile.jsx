@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useFetch, useCallback } from 'react';
 import styled from 'styled-components';
 import AnimalCard from '../Card/animalCard';
+import AnimalModal from '../Modal/animalModal';
+import ProfileModal from '../Modal/profileModal';
 import profileimg from '/Users/beatricezamagna/Desktop/Animal/front/src/img/profile.jpg'
 
 const Body = styled.div`
@@ -87,7 +89,8 @@ function Profile() {
     const user = localStorage.getItem("username");
     const [vip, setVip] = useState('');
     const [animal, setAnimals] = useState([]);
-
+    const [show, setShow] = useState(false);
+    const [secondShow, setSecondShow] = useState(false);
 
     useEffect(() => {
         fetchProfile();
@@ -159,9 +162,10 @@ function Profile() {
                                     </div>
 
                                     <div className="mt-4">
-                                        <ProfileButton type="button">
+                                        <ProfileButton type="button" onClick={(e) => setShow(true)}>
                                             MODIFY INFO
                                         </ProfileButton>
+                                        <ProfileModal show={show} onClose={() => setShow(false)} />
                                     </div>
 
                                 </ProfileContainer>
@@ -187,9 +191,10 @@ function Profile() {
                                 </div>
                             </div>
                             <div className="mt-4">
-                                <ProfileButton type="button">
-                                    Add Animal
+                                <ProfileButton type="button" onClick={(e) => setSecondShow(true)}>
+                                    ADD ANIMAL
                                 </ProfileButton>
+                                <AnimalModal secondShow={secondShow} onClose={() => setSecondShow(false)} />
                             </div>
                         </div>
                     </div>
@@ -204,6 +209,7 @@ function Profile() {
                 </div>
 
             </Container>
+
         </Body>
     );
 }
