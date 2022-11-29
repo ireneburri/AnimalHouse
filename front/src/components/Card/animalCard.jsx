@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import dogimg from '../../img/dog.jpg'
 
+
 class AnimalCard extends Component {
 
     render() {
