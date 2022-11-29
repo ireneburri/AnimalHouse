@@ -29,7 +29,11 @@ const locationSchema = new mongoose.Schema({
     description: {
         type: String,
         required: false,
-    }
+    },
+    disponibility: [{
+        service: { type: String },
+        quantity: { type: Number }
+    }]
 });
 
 const Location = mongoose.model('location', locationSchema);
