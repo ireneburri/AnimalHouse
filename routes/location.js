@@ -25,7 +25,6 @@ router.post('/', async (req, res)=> {
         address: req.body.address,
         tel: req.body.tel,
         staff: req.body.staff,
-        services: req.body.services,
         description: req.body.description,
         disponibility: req.body.disponibility
     })
@@ -54,9 +53,6 @@ router.patch('/:id', getLocation, async (req, res)=> {
     }
     if(req.body.staff != null){
         res.location.staff=req.body.staff
-    }
-    if(req.body.services != null){
-        res.location.services=req.body.services
     }
     if(req.body.description != null){
         res.location.description=req.body.description
