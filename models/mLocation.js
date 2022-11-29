@@ -31,8 +31,8 @@ const locationSchema = new mongoose.Schema({
         required: false,
     },
     disponibility: [{
-        service: { type: String },
-        quantity: { type: Number }
+        service: String,
+        quantity: Number
     }]
 });
 
