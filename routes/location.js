@@ -10,13 +10,13 @@ router.get('/', async(req, res)=> {
     } catch(err) {
         res.status(500).json({message: err.message})
     }
-
-
 })
+
 //get one
 router.get('/:id', getLocation, (req, res)=> {
     res.json(res.location)
 })
+
 //create one
 router.post('/', async (req, res)=> {
     const location = new Location({
@@ -36,6 +36,7 @@ router.post('/', async (req, res)=> {
         res.status(400).json({message: err.message})
     }
 })
+
 //update one
 router.patch('/:id', getLocation, async (req, res)=> {
 
@@ -71,6 +72,7 @@ router.patch('/:id', getLocation, async (req, res)=> {
     }
 
 })
+
 //delete one
 router.delete('/:id', getLocation, async (req, res)=> {
     try{
@@ -79,8 +81,6 @@ router.delete('/:id', getLocation, async (req, res)=> {
     } catch(err){
         res.status(500).json({message : err.message})
     }
-
-
 })
 
 async function getLocation (req, res, next){
@@ -96,5 +96,23 @@ async function getLocation (req, res, next){
     res.location=location
     next()
 }
+
+//aggiungi una disponibilità nuova (nuovo servizio + quantity = 1)
+router.patch('/disponibility/:name', async (req, res)=> {
+    let loc
+    loc = await Location.findOne({ name: req.params.name })
+
+    if(req.body.disponibility != null){
+        loc.disponibility.push(req.body.disponibility)
+    }
+    
+    try{
+        const updateLocation = await loc.save()
+        res.json(updateLocation)
+    } catch(err) {
+        res.status(400).json({message: err.message})
+    }
+})
+
 
 module.exports = router
