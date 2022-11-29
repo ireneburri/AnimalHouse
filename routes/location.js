@@ -26,7 +26,8 @@ router.post('/', async (req, res)=> {
         tel: req.body.tel,
         staff: req.body.staff,
         services: req.body.services,
-        description: req.body.description
+        description: req.body.description,
+        disponibility: req.body.disponibility
     })
     try{
         const newLocation = await location.save()
@@ -58,6 +59,9 @@ router.patch('/:id', getLocation, async (req, res)=> {
     }
     if(req.body.description != null){
         res.location.description=req.body.description
+    }
+    if(req.body.disponibility != null){
+        res.location.disponibility=req.body.disponibility
     }
     try{
         const updateLocation = await res.location.save()
