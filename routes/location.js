@@ -110,5 +110,22 @@ router.patch('/disponibility/:name', async (req, res)=> {
     }
 })
 
+//rimuovi una disponibilità 
+router.patch('/rmdisponibility/:name', async (req, res)=> {
+    let loc
+    loc = await Location.findOne({ name: req.params.name })
+
+    if(req.body.disponibility.service != null){
+        loc.disponibility.splice(arr.indexOf(req.body.disponibility.service), 1);
+    }
+    
+    try{
+        const updateLocation = await loc.save()
+        res.json(updateLocation)
+    } catch(err) {
+        res.status(400).json({message: err.message})
+    }
+})
+
 
 module.exports = router
