@@ -120,7 +120,7 @@ router.patch('/rmdisponibility/:name', async (req, res)=> {
         console.log(req.body.disponibility.service)
         console.log(loc.disponibility)
         
-        const index = -1;
+        let index = -1;
         for (let k in loc.disponibility){
             if (loc.disponibility[k].service === req.body.disponibility.service){
                 index = k;
