@@ -29,6 +29,22 @@ router.get('/id/:id', getService, (req, res)=> {
     res.json(res.service)
 })
 
+//get one by name
+router.get('/name/:name', async(req, res) => {
+    const name = req.params.name
+    let service
+    try {
+        service = await Service.find({ name: name });
+        if (service == null) {
+            return res.status(404).json({ message: 'Cannot find service' })
+        } else {
+            res.status(201).json(service)
+        }
+    } catch (err) {
+        return res.status(500).json({ message: err.message })
+    }
+})
+
 //Create one
 router.post('/', async (req, res)=> {
     const service = new Service({
