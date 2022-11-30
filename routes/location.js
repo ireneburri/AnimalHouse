@@ -116,8 +116,12 @@ router.patch('/rmdisponibility/:name', async (req, res)=> {
     loc = await Location.findOne({ name: req.params.name })
 
     if(req.body.disponibility.service != null){
+
+        console.log(req.body.disponibility.service)
         console.log(loc.disponibility)
-        loc.disponibility.splice(loc.disponibility.indexOf(req.body.disponibility.service), 1);
+        
+        const index = loc.disponibility.indexOf(req.body.disponibility.service);
+        loc.disponibility.splice(index, 1);
         console.log(loc.disponibility)
     }
     
