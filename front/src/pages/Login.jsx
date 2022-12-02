@@ -1,9 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar/navbar';
-// import { UserContext } from '../UserContext';
 import axios from 'axios';
 import { useLocation, useNavigate, Navigate } from 'react-router-dom';
 import ProfilePage from './ProfilePage';
+import LoginForm from '../components/Login/login';
+import Footer from '../components/Footer/footer';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function Login() {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
     const [user, setUser] = useState()
-    const [error,setError]=useState();
+    const [error, setError] = useState();
 
     const cred = {
         username: username,
@@ -28,7 +29,7 @@ export default function Login() {
         }
     }, []);
 
-    async function handleSubmit (e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         axios.post('https://site212224.tw.cs.unibo.it/auth/login/user', {
             username: cred.username,
@@ -38,13 +39,13 @@ export default function Login() {
                 console.log(res);
                 localStorage.setItem("username", cred.username)
                 localStorage.setItem("token", res.data.authority)
-                
+
 
                 //permette di tornare nella pagina che ti ha reindireizzato alla pagina di login
                 if (location.state?.from) {
                     navigate(location.state.from)
                 }
-                else{
+                else {
                     navigate('/account')
                 }
             }, (err) => {
@@ -54,16 +55,18 @@ export default function Login() {
 
     // se c'è uno user verrà mostrato il profilo
     if (user) {
-        return <div> 
+        return <div>
             < ProfilePage />
-            </div>;
+        </div>;
     }
 
     // altrimenti viene mostrata la pagian di login
     return (
         <div>
             <Navbar />
-            <div className="login-wrapper">
+            <LoginForm />
+            <Footer />
+
                 <h1>Please Log In DIOACN</h1>
                 <form onSubmit={handleSubmit}>
                     <label>
@@ -80,6 +83,5 @@ export default function Login() {
                 </form>
                 {error?<div>{error}</div>:null} 
             </div>
-        </div>
     )
 }
