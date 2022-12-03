@@ -14,16 +14,16 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #472D2D;">
+    <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="home.html">Animal House</a>
+        <a class="navbar-brand" href="home.html" style="color: white;">Animal House</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="user.html" style="color: #A77979; font-size: large">Costumer Data</a>
+              <a class="nav-link" href="user.html" style="color: white;font-size: large">Costumer Data</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="staff.html">Staff Data</a>
@@ -65,7 +65,7 @@
         <div class="col">
           <!-- Button trigger modal -->
           <div class="mb-2 mt-2" style="display: flex; justify-content: right; align-items: right;">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#Modal">
+            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#Modal" style="color: white; background-color: #f56ea5;" >
               Register a new customer
             </button>
           </div>
@@ -74,7 +74,7 @@
 
       <div class="input-group mb-2">
         <input type="search" class="form-control rounded" id="searchClient" placeholder="Search by Name or Username" aria-label="Search" aria-describedby="search-addon">
-        <button type="button" class="btn" style="border-color: #472D2D;" onclick=searchByNameUsername()>search</button>
+        <button type="button" class="btn" style="color: white; background-color: #A77979;" onclick=searchByNameUsername()>search</button>
       </div>
 
       <!-- Modal -->
