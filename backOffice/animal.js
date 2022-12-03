@@ -1,4 +1,4 @@
-const url = "https://site212224.tw.cs.unibo.it/backOffice"
+const url = "https://site212224.tw.cs.unibo.it"
 var animalsList = []
 
 function logout(){
@@ -76,7 +76,7 @@ function showAnimal(animal){
                         <div class="col-md-5">
                             <p class="card-text">  
                                 <small> 
-                                    <span style="color: gray" id="animalAge"> ${animal.age} </span> years old <br>
+                                    <span id="animalAge"> ${animal.age} </span> years old <br>
                                     <!--span style="color: gray">Sex: </span-->
                                     <span class="animalSex"> ${animal.sex}</span> <br>
                                 </small> <br>      

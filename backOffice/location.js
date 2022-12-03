@@ -1,5 +1,6 @@
-const url = "https://site212224.tw.cs.unibo.it/backOffice"
+const url = "https://site212224.tw.cs.unibo.it"
 var locationList = []
+var serviceList = []
 var loc 
 
 //document ready => getAllLocation
@@ -13,6 +14,7 @@ function verifyToken(){
         console.log(localStorage.username)
 
         getAllLocation()
+        getAllService()
     }
 }
 
@@ -26,6 +28,22 @@ function getAllLocation(){
             console.log(data);
             locationList = data;
             locations(locationList);
+        },
+        error: function(err) {
+            console.log(err);
+        }
+    })
+}
+
+//GET all services
+function getAllService(){
+    $.ajax({
+        type: 'GET',
+        url: url + "/service",
+        crossDomain: true,
+        success: function(data) {
+            console.log(data);
+            serviceList = data;
         },
         error: function(err) {
             console.log(err);
@@ -52,8 +70,8 @@ function showLocation(location){
 
     $("#myDIV").append(
     `
-    <div class="col">
-        <div class="card h-100"  id="${location.name}" >
+    <div class="col h-100">
+        <div class="card "  id="${location.name}" >
             <img src="../routes/uploads/${img}" class="img-fluid rounded" alt="Image of location: ${location.name}" style="width: 100%;  height: auto;">
             <div class="card-body">    
                 <h5 class="card-title"> 
@@ -64,7 +82,7 @@ function showLocation(location){
                         <!--span style="color: gray">Address: </span-->
                         <span class="locationAddress"> ${location.address} - </span>   
                         <span class="locationTel">${location.tel}</span>
-                        <span style="color: green">&phone;</span>                
+                        <span style="color: green">&phone;</span>  <br>              
                     </small>  
                     <!--span style="color: gray">Description: </span-->
                     <span class="locationDescription">${location.description} </span>  
@@ -76,15 +94,16 @@ function showLocation(location){
                     <span class="locationStaff"> ${location.staff}</span>
                 </li>
                 <li class="list-group-item">
-                    <span style="color: gray">Services: </span>
-                    <span class="locationServices">${location.services} </span> 
+                    <span style="color: gray">Services: </span> <br>
+                    <ul id="services-${location._id}">
+                    </ul> 
                 </li>
             </ul>
             <div class="card-body">
                 
                 
                 <!--a href="#" class="btn btn-danger" style="float:right; margin:1px;" onclick=deleteLocation("${location._id}")><small>Delete</small></a-->
-                <a href="#" id="openModal"  onclick="verifyMod('${location.name}', '${location._id}')" style="color: rgb(103, 73, 54);"><small>Modify</small></a>
+                <a href="#" id="openModal"  onclick="verifyMod('${location.name}', '${location._id}')"  class="btn btn-primary" style="float:left; margin:1px;"><small>Modify</small></a>
             </div>     
                     
 
@@ -107,7 +126,7 @@ function showLocation(location){
                             <div class="row mb-2">                                               
                                 <label class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-10">
-                                    <input id="modName-${location._id}" type="text" class="form-control" placeholder="${location.name}" aria-label="location name">
+                                    <input id="modName-${location._id}" type="text" class="form-control" placeholder="${location.name}" aria-label="location name" disabled>
                                 </div>
                             </div>   
 
@@ -133,8 +152,24 @@ function showLocation(location){
                                 <label for="modStaff-${location._id}" style="color:gray;" class="col-sm-2 form-label">Staff</label>
                                 <textarea class="form-control" id="modStaff-${location._id}" rows="1" aria-label="Staff of the store" disabled>${location.staff}</textarea>
                             </div>  
+
+                            <div class="mb-3">
+                                <label for="modImg-${location._id}" class="form-label">Select new immagine</label>
+                                <input class="form-control" type="file" name="file" value='Choose Photo' accept='image/png' id="modImg-${location._id}" placeholder="${location.img}">
+                            </div>  
+
+                            <div class="mb-2" >
+                                <label class="col-sm-12 col-form-label">Services and disponibility:</label> <br>
+                                <div class="container" id="SD-${location._id}">
+                                
+                                </div>
+                                <div class="container" id="Add-${location._id}">
+                                    
+                                </div>
+                                <a href="#" class="btn" style="border-color: green; color: green;" onclick="ShowAddServiceLocation('${location._id}', '${location.name}')"><small>Add a service</small></a>
+                            </div>  
                             
-                            <div class="row mb-2">
+                            <!--div class="row mb-2">
                                 <label class="col-sm-3 col-form-label">Services</label>
                                 <div class="col-sm-5">
                                     <form id="modServices-${location._id}">
@@ -179,12 +214,7 @@ function showLocation(location){
                                             </label>
                                         </div>
                                     </form>   
-                                </div>
-                                <div class="mb-2">
-                                    <label for="modImg-${location._id}" class="form-label">Select new immagine</label>
-                                    <input class="form-control" type="file" name="file" value='Choose Photo' accept='image/png' id="modImg-${location._id}" placeholder="${location.img}">
-                                </div> 
-                            </div> 
+                            </div-->
                         </form>
                         </div>
 
@@ -202,11 +232,37 @@ function showLocation(location){
 
     `    
     )
-    for (let k in location.services) {
+
+    /*for (let k in location.services) {
         let x = location.services[k]
         x = x.replace(/\s+/g, "")
         $("#"+x+"-"+location._id).attr("checked", true)
+    }*/
+
+    for (let c in location.disponibility){
+        $("#services-"+location._id).append(
+            `
+            <li> ${location.disponibility[c].service} 
+            <span style="color: gray;" data-bs-toggle="tooltip" data-bs-placement="right" title="Disponibility at a time"> &times;${location.disponibility[c].quantity}</span>
+            </li>
+            `
+        )
+        $("#SD-"+location._id).append(
+            `
+            <li class="mb-2" id="${location.disponibility[c]._id}">   
+                <span id="modServiceName-${location.disponibility[c]._id}" value="${location.disponibility[c].service}">${location.disponibility[c].service} </span>
+                <input id="modServiceQuantity-${location.disponibility[c]._id}" type="number" min="0" value="${location.disponibility[c].quantity}" style="border-radius: 7px; border-width: thin;">    
+                <a href="#" class="btn" style="border-color: red; color: red;" onclick="deleteServiceLocation('${location.name}', '${location.disponibility[c].service}')"><small>Remove</small></a>
+            </li>
+            `
+        )
     }
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
 }
 
 
@@ -242,6 +298,20 @@ function modifyLocation(id){
     if ($("#modTel-"+id).val()!="") {data.tel = $("#modTel-"+id).val()}
     if ($("#modDescription-"+id).val()!="") {data.description = $("#modDescription-"+id).val()}
     if ($("#modStaff-"+id).val()!="") {data.staff = $("#modStaff-"+id).val().replace(/\s+/g, "").split(",")}
+    
+    let listLocService = []
+    data.disponibility = []
+    $("#SD-"+id).children("li").each(function(){
+        listLocService.push($(this).attr("id"))
+    });
+    console.log(listLocService)
+    for (const key in listLocService) {
+        console.log($("#modServiceName-"+listLocService[key]).attr("value"))
+        let disp = { "service": $("#modServiceName-"+listLocService[key]).attr("value"), 
+                     "quantity": $("#modServiceQuantity-"+listLocService[key]).val() }
+        data.disponibility.push(disp)
+    }
+
     if ($("#modImg-"+id).val()!="") {
 
         let imm = document.getElementById("modImg-"+id).files.item(0);
@@ -255,14 +325,14 @@ function modifyLocation(id){
 
     }
     data.services=[]
-    if ($("#AnimalSitter-"+id).is(':checked')) {data.services.push($("#AnimalSitter-"+id).val())}
+    /*if ($("#AnimalSitter-"+id).is(':checked')) {data.services.push($("#AnimalSitter-"+id).val())}
     if ($("#VetandDoctors-"+id).is(':checked')) {data.services.push($("#VetandDoctors-"+id).val())}
     if ($("#Grooming-"+id).is(':checked')) {data.services.push($("#Grooming-"+id).val())}
     if ($("#Pension-"+id).is(':checked')) {data.services.push($("#Pension-"+id).val())}
     if ($("#Training-"+id).is(':checked')) {data.services.push($("#Training-"+id).val())}
-    if ($("#Store-"+id).is(':checked')) {data.services.push($("#Store-"+id).val())}
+    if ($("#Store-"+id).is(':checked')) {data.services.push($("#Store-"+id).val())}*/
 
-    for(let i in data.services)  {  console.log(data.services[i])}
+    for(let i in data.services)  {console.log(data.services[i])}
     $.ajax({
         type: 'PATCH',
         url: url + "/location/" + id,
@@ -278,14 +348,14 @@ function modifyLocation(id){
             console.log(err);
         }
 
-    }).then( ()=> window.location.reload());    
+    })//.then( ()=> window.location.reload());    
     return false;
 }
 
 
-//IN VERITA' NON PERMETTO DI ELIMINARE UN FILE:
+//IN VERITA' NON PERMETTO DI ELIMINARE UNA LOCATION:
 
-//VERIFA se vuoi eliminare un servizio
+//VERIFA se vuoi eliminare una location
 function deleteLocation(id){
     var result = confirm("Are you sure you want to delete this location?");
     if (result) {
@@ -294,7 +364,7 @@ function deleteLocation(id){
 }
 
 
-//ELIMINA un servizio
+//ELIMINA una location
 function sureDeleteLocation(id){
     $.ajax({
         type: 'DELETE',
@@ -325,4 +395,187 @@ function searchByName(){
         }
     }
     locations(searchLists);
+}
+
+function deleteServiceLocation(locName, serviceName){
+    var result = confirm("Are you sure you want to delete this service?");
+    if (result) {
+        sureDeleteServiceLocation(locName, serviceName);
+    }
+}
+
+async function sureDeleteServiceLocation(locName, serviceName){
+    let service = {}
+    await $.ajax({
+        type: 'GET',
+        url: url + "/service/name/" + serviceName,
+        crossDomain: true,
+        success: function(data) {
+            console.log(data);
+            service = data[0];
+        },
+        error: function(err) {
+            console.log(err);
+        },
+    });
+    console.log(service.name)
+    console.log(serviceName)
+
+    service.location.splice(service.location.indexOf(locName), 1);
+    //if (service.location.length>0){
+        console.log(service.location)
+        $.ajax({
+            type: 'PATCH',
+            url: url + "/service/" + service._id,
+            crossDomain: true,
+            contentType: "application/json",
+            data: JSON.stringify(service),        
+            success: function(result) {
+                console.log("yay");
+                console.log(result);
+            },
+            error: function(err) {
+                console.log("nuu");
+                console.log(err);
+            }
+        })
+    /*} else {
+        $.ajax({
+            type: 'DELETE',
+            url: url + "/service/" + service._id,
+            crossDomain: true,
+            success: function(res) {
+                console.log(res);
+            },
+            error: function(err) {
+                console.log(err);
+            },
+    
+        })
+    }*/
+
+    let data = {}
+    data.disponibility = {}
+    data.disponibility.service = serviceName
+    console.log(service.name)
+    console.log(serviceName)
+
+    $.ajax({
+        type: 'PATCH',
+        url: url + "/location/rmdisponibility/" + locName,
+        crossDomain: true,
+        contentType: "application/json",
+        data: JSON.stringify(data),  
+        success: function(res) {
+            console.log("yay");
+            console.log(res);
+        },
+        error: function(err) {
+            console.log("nuu");
+            console.log(err);
+        },
+
+    });
+}
+
+function ShowAddServiceLocation(locId, locName){
+    $("#Add-"+locId).empty()
+    $("#Add-"+locId).append(
+        ` 
+            <hr>
+            <input id="AddS-${locId}" type="text" placeholder="Service name" style="border-radius: 7px; border-width: thin;" required>    
+            <input id="AddQ-${locId}" type="number" min="0" placeholder="Quantity at a time" style="border-radius: 7px; border-width: thin;" required>    
+            <a href="#" class="btn btn-primary" onclick="AddServiceLocation('${locId}', '${locName}')"><small>&check;</small></a>
+            <hr>
+        `
+    )
+}
+
+async function AddServiceLocation(locId, locName){
+
+    let data = {}
+    data.disponibility = []
+    let name = $("#AddS-"+locId).val()
+    let quantity = $("#AddQ-"+locId).val()
+
+    let listLocService = []
+    data.disponibility = []
+    $("#SD-"+locId).children("li").each(function(){
+        listLocService.push($(this).attr("id"))
+    });
+    console.log(listLocService)
+    for (const key in listLocService) {
+        if($("#modServiceName-"+listLocService[key]).attr("value") == name){
+            alert("You can't add a service that is already provided");
+            return
+        }
+    }
+
+    if (name!="" && quantity!="") {
+        let disp = { "service": name, "quantity": quantity}
+        data.disponibility = disp
+    }else{
+        alert("You have to fill the forms")
+        return
+    }
+
+    let verify = false;
+    for (let c in serviceList) {
+        if (serviceList[c].name==name) {
+            verify = true;
+        }
+    }
+    if (verify == false){
+        alert("The service name should exist")
+        return}
+
+    await $.ajax({
+        type: 'PATCH',
+        url: url + "/location/disponibility/" + locName,
+        crossDomain: true,
+        contentType: "application/json",
+        data: JSON.stringify(data),  
+        success: function(res) {
+            console.log("yay");
+            console.log(res);
+        },
+        error: function(err) {
+            console.log("nuu");
+            console.log(err);
+        },
+
+    });
+
+    let service = {}
+    await $.ajax({
+        type: 'GET',
+        url: url + "/service/name/" + data.disponibility.service,
+        crossDomain: true,
+        success: function(data) {
+            console.log(data);
+            service = data[0];
+        },
+        error: function(err) {
+            console.log(err);
+        },
+    });
+
+    service.location.push(locName)
+    console.log(service.location)
+    $.ajax({
+        type: 'PATCH',
+        url: url + "/service/" + service._id,
+        crossDomain: true,
+        contentType: "application/json",
+        data: JSON.stringify(service),        
+        success: function(result) {
+            console.log("yay");
+            console.log(result);
+        },
+        error: function(err) {
+            console.log("nuu");
+            console.log(err);
+        }
+    })
+
 }

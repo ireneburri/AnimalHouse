@@ -1,4 +1,4 @@
-const url = "https://site212224.tw.cs.unibo.it/backOffice"
+const url = "https://site212224.tw.cs.unibo.it"
 var servicesList = []
 locationList = []
 
@@ -128,6 +128,11 @@ function showService(service){
         img = service._id + ".png"
     }
 
+    let time = service.time
+    if(service.allday){
+        time = "All day"
+    }
+
     $("#myDIV").append(
     `
     <div class="card mb-3"  id="${service.name}" >
@@ -145,8 +150,8 @@ function showService(service){
                             <small>                         
                                 <span style="color: gray">Mode: </span>
                                 <span class="serviceMode"> ${service.mode}</span> <br> 
-                                <span style="color: gray">Availability: </span>
-                                <span class="serviceAvailability">${service.availability} </span> <br>
+                                <span style="color: gray">Time: </span>
+                                <span class="serviceTime">${time} </span> <br>
                                 <span class="serviceVip" style="color: rgb(103, 73, 54);">${vip} </span>
                             </small>                 
                         </div>
@@ -155,7 +160,7 @@ function showService(service){
                                 <span style="color: green">&nbsp;&euro;&nbsp;</span>
                                 <span class="servicePrice">${service.price} </span> <br> 
                                 <span style="color: gray">Location: </span>
-                                <span class="serviceLocation"> ${service.location}</span> <br>
+                                <span class="serviceLocation" id="serviceLocation-${service._id}" value="${service.location}"> ${service.location}</span> <br>
                                 <span style="color: gray">Category: </span>
                                 <span class="serviceCategory">${service.category} </span> <br>
                                 <span style="color: gray">Description: </span>
@@ -164,7 +169,7 @@ function showService(service){
                             </p>
                         </div>
                         <div class="col-md-2">
-                            <a href="#" class="btn btn-danger" style="float:right; margin:1px;" onclick=deleteService("${service._id}")><small>Delete</small></a>
+                            <a href="#" class="btn btn-danger" style="float:right; margin:1px;" onclick="deleteService('${service._id}', '${service.name}')"><small>Delete</small></a>
                             <a href="#" class="btn btn-primary" style="float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#Modal-${service._id}"><small>Modify</small></a>
                             
 
@@ -185,32 +190,62 @@ function showService(service){
                                         <form id="FormModify-${service._id}">
 
                                             <div class="row mb-2">
+                                                <label for="modName-${service._id}" class="col-sm-2 col-form-label">Name</label>
+                                                <div class="col-sm-10">
+                                                    <input id="modName-${service._id}" type="text" class="form-control" value="${service.name}" aria-label="Service name" disabled>
+                                                </div>
+                                            </div>  
+
+                                            <div class="row mb-2">
+                                                <label for="modLocation-${service._id}" class="col-sm-2 col-form-label">Locatio</label>
+                                                <div class="col-sm-10">
+                                                    <input id="modLocation-${service._id}" type="text" class="form-control" value="${service.location}" aria-label="Service location" disabled>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-2">
+                                                <label class="col-sm-2 col-form-label">Mode</label>
+                                                <div class="col-sm-5">
+                                                    <select id="modMode-${service._id}" class="form-select" aria-label="Quantity" placeholder="${service.mode}">
+                                                        <option selected>${service.mode}</option>
+                                                        <option>In Store</option>
+                                                        <option>Online</option>
+                                                        <option>At Home</option>
+                                                    </select>  
+                                                </div>
+                                                <div class="col-sm-5">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="modPrice-${service._id}" aria-label="Price" placeholder="${service.price}">
+                                                    <span class="input-group-text">&euro;</span>
+                                                </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-2">
                                                 <div class="col">
                                                     <div class="row">
-                                                        <label class="col-sm-4 col-form-label">Name</label>
+                                                        <label class="col-sm-4 col-form-label" for="modAllday-${service._id}">All day</label>
                                                         <div class="col-sm-8">
-                                                            <input id="modName-${service._id}" type="text" class="form-control" placeholder="${service.name}" aria-label="Service name">
+                                                            <select id="modAllday-${service._id}" class="form-select" aria-label="Allday">     
+                                                                <option>true</option>                                                
+                                                                <option>false</option>                                                
+                                                            </select>     
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="row">
-                                                        <label class="col-sm-4 col-form-label">&nbsp;&nbsp;Mode</label>
-                                                        <div class="col-sm-8">
-                                                            <select id="modMode-${service._id}" class="form-select" aria-label="Quantity" placeholder="${service.mode}">
-                                                                <option selected>${service.mode}</option>
-                                                                <option>In Store</option>
-                                                                <option>Online</option>
-                                                                <option>At Home</option>
-                                                            </select>       
+                                                        <label class="col-sm-3 col-form-label" for="modTime-${service._id}">Time</label>
+                                                        <div class="col-sm-9">
+                                                            <input id="modTime-${service._id}" type="time" placeholder="${service.time}" class="form-control" aria-label="Time">  
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>                                     
+                                            </div>   
 
                                             <div class="row mb-2">
                                                 <label class="col-sm-3 col-form-label">Category</label>
-                                                <div class="col-sm-5">
+                                                <div class="col-sm-4">
                                                     <select id="modCategory-${service._id}" class="form-select" aria-label="Category">
                                                         <option selected>${service.category}</option>
                                                         <option>Animal Sitter</option>
@@ -219,45 +254,21 @@ function showService(service){
                                                         <option>Pension</option>
                                                         <option>Training</option>
                                                         <option>Store</option>
-                                                    </select>   
-                                                </div>    
-                                                <div class="col-sm-4">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" id="modPrice-${service._id}" aria-label="Price" placeholder="${service.price}">
-                                                        <span class="input-group-text">&euro;</span>
+                                                    </select> 
+                                                </div>
+                                                <div class="col-sm-5">
+                                                <div class="row">
+                                                    <label class="col-sm-3 col-form-label" for="modVip-${service._id}">Vip</label>
+                                                    <div class="col-sm-9">
+                                                        <select id="modVip-${service._id}" class="form-select">
+                                                            <option style="color:gray" disabled selected>${notvip}</option>                                                        
+                                                            <option>VIP</option>
+                                                            <option>NOT VIP</option>
+                                                        </select>   
                                                     </div>
-                                                </div>                   
+                                                </div>
+                                                </div>
                                             </div> 
-
-                                            <div class="row mb-2">
-                                                <label for="modLocation-${service._id}" class="col-sm-3 col-form-label">Location</label>
-                                                <div class="col-sm-9">
-                                                    <input id="modLocation-${service._id}" type="text" class="form-control" value="${service.location}" aria-label="Service location">
-                                                </div>
-                                                
-                                            </div>
-
-                                            <div class="row mb-2">
-                                                <label class="col-sm-3 col-form-label" for="modAvailability-${service._id}">Availability</label>
-                                                <div class="col-sm-9">
-                                                    <select id="modAvailability-${service._id}" class=" form-select" aria-label="Availability">
-                                                        <option selected>${service.availability}</option>
-                                                        <option>false</option>
-                                                        <option>true</option>
-                                                    </select>   
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-2">
-                                                <label class="col-sm-2 col-form-label" for="modVip-${service._id}">Vip</label>
-                                                <div class="col-sm-10">
-                                                    <select id="modVip-${service._id}" class="form-select">
-                                                        <option style="color:gray" disabled selected>${notvip}</option>                                                        
-                                                        <option>VIP</option>
-                                                        <option>NOT VIP</option>
-                                                    </select>    
-                                                </div>
-                                            </div>
 
                                             <div class="mb-2">
                                                 <label for="modDescription-${service._id}" class="form-label">Description</label>
@@ -312,11 +323,11 @@ function createService(){
     data.category = $("#inputCategory").val()
     data.price = $("#inputPrice").val()
     data.description = $("#inputDescription").val()
-    data.availability = $("#inputAvailability").val()
+    data.allday = $("#inputAllday").val()
+    data.time = $("#inputTime").val()
     data.vip = $("#inputVip").val();
 
-
-    if (data.mode=="" || data.name=="" || data.location=="" || data.category=="" || data.price=="" || data.availability==""){
+    if (data.mode=="" || data.name=="" || data.location=="" || data.category=="" || data.price=="" ){
         alert("Fill the mandatory fields")
         return
     }    
@@ -352,7 +363,8 @@ function createService(){
             category: data.category,
             price: data.price,
             description: data.description,
-            availability: data.availability,
+            allday: data.allday,
+            time: data.time,
             vip: data.vip,
         }),
         success: function(result) {
@@ -367,9 +379,30 @@ function createService(){
 
     }).then( ()=> {
         uploadImg(fileInput.files.item(0) , result_id);
-    }).then( ()=> {
+    }).then( ()=>{
+        for (const key in data.location) {
+            let body = {}
+            body.disponibility = { "service": data.name, "quantity": 1}
+            $.ajax({
+                type: 'PATCH',
+                url: url + "/location/disponibility/" + data.location[key],
+                crossDomain: true,
+                contentType: "application/json",
+                data: JSON.stringify(body),        
+                success: function(result) {
+                    console.log("yay");
+                    console.log(result);
+                },
+                error: function(err) {
+                    console.log("nuu");
+                    console.log(err);
+                }
+        
+            })
+        }
+    });/*.then( ()=> {
         window.location.reload()
-    }); 
+    });*/
     return false;
 }
 
@@ -396,7 +429,15 @@ function modifyService(id){
 
     }
     if ($("#modDescription-"+id).val()!="") {data.description = $("#modDescription-"+id).val()}
-    if ($("#modAvailability-"+id).val()!="") {data.availability = $("#modAvailability-"+id).val()}
+
+    if ($("#modAllday-"+id).val()=="false") {
+        data.allday = false;
+        data.time = $("#modTime-"+id).val()
+    }else if ($("#modAllday-"+id).val()=="true"){
+            data.allday = true;
+            data.time = ""
+    }
+
     if ($("#modVip-"+id).val()=="VIP") {data.vip = true} else {data.vip = false}
 
     //Controllo per verificare che per OGNI service location corrisponda ad una vera location
@@ -431,22 +472,47 @@ function modifyService(id){
             console.log(err);
         }
 
-    }).then( ()=> window.location.reload());    
+    })//.then( ()=> window.location.reload());    
     return false;
 }
 
 
 //VERIFA se vuoi eliminare un servizio
-function deleteService(id){
+function deleteService(id, name){
     var result = confirm("Are you sure you want to delete this service?");
     if (result) {
-        sureDeleteService(id);
+        sureDeleteService(id, name);
     }
 }
 
 
 //ELIMINA un servizio
-function sureDeleteService(id){
+function sureDeleteService(id, name){
+    let locations = []
+    locations = $("#serviceLocation-"+id).attr("value").replace(/\s+/g, "").split(",")
+    console.log(locations)
+    for (const key in locations) {
+        let data = {}
+        data.disponibility = {}
+        data.disponibility.service = name
+        $.ajax({
+            type: 'PATCH',
+            url: url + "/location/rmdisponibility/" + locations[key],
+            crossDomain: true,
+            contentType: "application/json",
+            data: JSON.stringify(data),  
+            success: function(res) {
+                console.log("yay");
+                console.log(res);
+            },
+            error: function(err) {
+                console.log("nuu");
+                console.log(err);
+            },
+    
+        });
+    }
+
     $.ajax({
         type: 'DELETE',
         url: url + "/service/" + id,

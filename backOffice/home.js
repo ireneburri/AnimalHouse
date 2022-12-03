@@ -1,22 +1,5 @@
-const url = "https://site212224.tw.cs.unibo.it/backOffice"
+const url = "https://site212224.tw.cs.unibo.it"
 var staff 
-
-function logout(){
-    swal("Are you sure you want to logout?", {
-        buttons: ["Cancel", "Yes"],
-        icon: "warning",
-    })
-    .then((willDelete) => {
-        if (willDelete) {
-            localStorage.clear(),
-            $(location).attr('href','./login.html')} 
-    });
-    //var result = dialog("Are you sure you want to logout?");
-    //if (result) {
-     //   localStorage.clear();
-     //   $(location).attr('href','./login.html');
-    //}
-}
 
 $(document).ready( verifyToken())
 

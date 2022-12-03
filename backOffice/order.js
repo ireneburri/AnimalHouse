@@ -1,4 +1,4 @@
-const url = "https://site212224.tw.cs.unibo.it/backOffice"
+const url = "https://site212224.tw.cs.unibo.it"
 var orderList = [] 
 
 //document ready => getAllLocation
@@ -59,28 +59,29 @@ function showOrder(order){
 
     $("#myDIV").append(
     ` 
-    <div class="card h-100">
+    <div class=" h-100 ">
+    <div class="card" style="background-color: rgb(236, 227, 205); border-color: rgb(103, 73, 54);">
     <div class="card-body mx-1">
         <div class="container">
-            <p class="my-2 mx-2" style="font-size: 20px;">Receipt of ${data} ${hour}</p>
-            <div class="row">
-                <!--ul class="list-unstyled">
+            <p class="my-2 mx-2" style="font-size: 20px; text-align: center;">Receipt of <br> ${data} ${hour}</p>
+            <!--div class="row">
+                <ul class="list-unstyled">
                     <li style="color:gray;">Username: <span class="my-1 mx-1" style="font-size: 20px; color:black;">${order.username}</span></li>
                     <li  style="color: gray"> ${vip} </li>
-                </ul-->
+                </ul>
                 <hr>
-            </div> 
-            
+            </div--> 
+            <br>
             <div id="receipt-${order._id}"></div>
             
             <div class="row text-black">
-
+                <hr style="border: 2px solid black;">
                 <div class="col-xl-12">
                     <p class="float-end fw-bold">Total: &euro;${order.price}</p>
                 </div>
-                <hr style="border: 2px solid black;">
             </div>
         </div>
+    </div>
     </div>
     </div>
     `)
@@ -97,6 +98,7 @@ function showProducts(id, product){
 
     $("#receipt-"+id).append(
     ` 
+        <hr>
         <div class="row">
             <div class="col-xl-10">
                 <p>${product.name}</p>
@@ -104,7 +106,6 @@ function showProducts(id, product){
             <div class="col-xl-2">
                 <p class="float-end">&euro;${product.price}</p>
             </div>
-            <hr>
         </div>
     `)
 }

@@ -1,4 +1,4 @@
-const url = "https://site212224.tw.cs.unibo.it/backOffice"
+const url = "https://site212224.tw.cs.unibo.it"
 var itemsList = []
 
 function logout(){
@@ -192,8 +192,8 @@ function showItem(item){
                                                 </div>
 
                                                 <div class="row mb-2">
-                                                    <label class="col-sm-2 col-form-label" for="modVip-${item._id}">Vip</label>
-                                                    <div class="col-sm-10">
+                                                    <label class="col-sm-3 col-form-label" for="modVip-${item._id}">Vip</label>
+                                                    <div class="col-sm-9">
                                                         <select id="modVip-${item._id}" class="form-select">
                                                             <option style="color:gray" disabled selected>${notvip}</option>                                                        
                                                             <option>VIP</option>

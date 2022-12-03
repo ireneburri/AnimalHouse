@@ -1,4 +1,4 @@
-const url = "https://site212224.tw.cs.unibo.it/backOffice"
+const url = "https://site212224.tw.cs.unibo.it"
 staffList = []
 
 $( document ).ready( getAllStaff );

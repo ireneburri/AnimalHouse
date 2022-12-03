@@ -13,7 +13,7 @@
     <title>Services</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(236, 227, 205);">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #472D2D;">
       <div class="container-fluid">
         <a class="navbar-brand" href="home.html">Animal House</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,22 +25,25 @@
               <a class="nav-link" href="user.html">Costumer Data</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="item.html">E-commerce Management</a>
+              <a class="nav-link" href="staff.html">Staff Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="item.html">E-commerce</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="animal.html">Animal Shop</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="service.html" style="color: rgb(103, 73, 54); font-size: large">Services</a>
+              <a class="nav-link" href="service.html" style="color: #A77979; font-size: large">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reservation.html">Reservations</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="bacheca.html">Boards Management</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="location.html">Locations</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="staff.html">Staff Management</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#" onclick=logout()>Logout</a>
@@ -57,7 +60,7 @@
 
           <div class="dropdown dropdown-bg-red" style="display: inline-block;">
             <button class="btn dropdown-toggle mb-1" type="button"  style="border-color:rgb(180, 179, 179); margin-right: 5px;" data-bs-toggle="dropdown" aria-expanded="false">
-              Category
+              Mode
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="modeService">
               <li><a class="dropdown-item" href="#" onclick='serviceMode("All")' value="All">All</a></li>
@@ -104,8 +107,20 @@
 
                   <div class="row mb-2">
                     <label class="col-sm-2 col-form-label">Name*</label>
-                    <div class="col-sm-5">
+                    <div class="col-sm-10">
                       <input id="inputName" type="text" class="form-control" placeholder="Name" aria-label="Service name">
+                    </div>
+                  </div>
+
+                  <div class="row mb-2">
+                    <label class="col-sm-2 col-form-label">Mode*</label>
+                    <div class="col-sm-5">
+                      <select id="inputMode" class="form-select" aria-label="Mode">
+                        <option selected></option>
+                        <option>In Store</option>
+                        <option>Online</option>
+                        <option>At Home</option>
+                      </select> 
                     </div>
                     <div class="col-sm-5">
                       <div class="input-group">
@@ -116,20 +131,8 @@
                   </div>
 
                   <div class="row mb-2">
-                    <label class="col-sm-2 col-form-label">Mode*</label>
-                    <div class="col-sm-10">
-                      <select id="inputMode" class="form-select" aria-label="Mode">
-                        <option selected></option>
-                        <option>In Store</option>
-                        <option>Online</option>
-                        <option>At Home</option>
-                      </select>   
-                    </div> 
-                  </div>
-
-                  <div class="row mb-2">
                     <label class="col-sm-2 col-form-label">Category*</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-5">
                       <select id="inputCategory" class="form-select" aria-label="Category">
                         <option selected></option>
                         <option>Animal Sitter</option>
@@ -138,21 +141,44 @@
                         <option>Pension</option>
                         <option>Training</option>
                         <option>Store</option>
-                      </select>   
-                    </div> 
+                      </select> 
+                    </div>
+                    <div class="col-sm-5">
+                      <div class="row">
+                        <label class="col-sm-3 col-form-label" for="inputVip">Vip</label>
+                        <div class="col-sm-9">
+                          <select id="inputVip" class="form-select" aria-label="Vip">
+                            <option value="true">VIP</option>
+                            <option value="false" selected>NOT VIP</option>
+                          </select>   
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div class="row mb-2">
-                      <div class="col-sm-4">
-                        <select id="inputVip" class="form-select" aria-label="Vip">
-                          <option value="true">VIP</option>
-                          <option value="false" selected>NOT VIP</option>
-                        </select>   
-                      </div> 
-                      <label class="col-sm-2 col-form-label"> Location*</label>
-                      <div class="col-sm-6">
-                        <input id="inputLocation" type="text" class="form-control" placeholder="Location" aria-label="Location">
+                    <label class="col-sm-2 col-form-label" for="Allday">All day*</label>
+                    <div class="col-sm-5">
+                        <select id="inputAllday" class="form-select" aria-label="Allday">     
+                            <option>true</option>                                                
+                            <option>false</option>                                                
+                        </select>
+                    </div>
+                    <div class="col-sm-5">
+                      <div class="row">
+                        <label class="col-sm-3 col-form-label" for="inputVip">Time</label>
+                        <div class="col-sm-9">
+                          <input id="inputTime" type="time"class="form-control" aria-label="Time">  
+                        </div>
                       </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-2">
+                    <label class="col-sm-2 col-form-label"> Location*</label>
+                    <div class="col-sm-10">
+                      <input id="inputLocation" type="text" class="form-control" placeholder="Location" aria-label="Location">
+                    </div>
                   </div>
 
                   <div class="mb-2">
