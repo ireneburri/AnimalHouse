@@ -90,7 +90,7 @@ function showStaff(staff){
     `)
 
     if (localStorage.username == staff.username){
-        $("#titleCard-"+staff._id).html("<a href='home.html' class='staffName' style='color: #425664;'>" + staff.name + " " + staff.surname + "</a>")
+        $("#titleCard-"+staff._id).html("<a href='home.html' class='staffName' style='color: #A0AECD;'>" + staff.name + " " + staff.surname + "</a>")
     }
 }
 

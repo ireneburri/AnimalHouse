@@ -44,25 +44,25 @@ function showStaff(staff){
     )
     $("#myDIV").append(
         ` 
-        <div class="container" style="background-color: rgb(236, 227, 205); border-radius:0.5ex;">
+        <div class="container" style="background-color: #A0AECD; border-radius:0.5ex;">
           <div class="row" style="padding:10px">
             <div class="col-md-4">
               <img src="../routes/uploads/${img}" class="img-fluid rounded" alt="Image of item: ${staff.username}" style="width: 100%; height: auto;">
             </div>
             <div class="col-md-6">                        
               <div class="col">
-                <span style="color:gray">Username:</span> <span id="Username" style="font-size:large;"> ${staff.username} </span> <br>
-                <span style="color:gray">Name: </span> <span id="Name" style="font-size:large;">${staff.name} ${staff.surname} </span> <br>
-                <span style="color:gray">Email: </span><span id="Email" style="font-size:large;">${staff.email} </span> <br>
-                <span class="clientPassword" style="color: gray;" id="false-password" role="button" onclick=showPassword("${staff.password}")> Password </span><br>
-                <span style="color:gray">Role: </span><span id="Role" style="font-size:large;">${staff.role} </span> <br>
-                <span style="color:gray">Location: </span><span id="Location" style="font-size:large;">${staff.location} </span>
+                <span style="color:#425664">Username:</span> <span id="Username" style="font-size:large;"> ${staff.username} </span> <br>
+                <span style="color:#425664">Name: </span> <span id="Name" style="font-size:large;">${staff.name} ${staff.surname} </span> <br>
+                <span style="color:#425664">Email: </span><span id="Email" style="font-size:large;">${staff.email} </span> <br>
+                <span class="clientPassword" style="color: #425664;" id="false-password" role="button" onclick=showPassword("${staff.password}")> Password </span><br>
+                <span style="color:#425664">Role: </span><span id="Role" style="font-size:large;">${staff.role} </span> <br>
+                <span style="color:#425664">Location: </span><span id="Location" style="font-size:large;">${staff.location} </span>
               </div>
             </div>
 
 
             <div class="col-md-2">
-                <a href="#" class="btn btn-primary" style="float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#Modal-${staff._id}"><small>Modify</small></a>
+                <a href="#" class="btn" style="float:right; margin:1px;background-color: #425664; border-color: #425664; color:white;" data-bs-toggle="modal" data-bs-target="#Modal-${staff._id}"><small>Modify</small></a>
                 <!-- Modal -->
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
@@ -93,8 +93,8 @@ function showStaff(staff){
                                 </form>
 
                                 <div class="modal-footer">
-                                    <button type="reset" form="FormModify-${staff._id}" class="btn btn-secondary" data-bs-dismiss="modal" >Discard</button>
-                                    <button type="button" class="btn btn-primary" onclick=modifyStaff("${staff._id}")>Save changes</button>
+                                    <button type="reset" form="FormModify-${staff._id}" class="btn" style="background-color: #A0AECD; border-color: #A0AECD; color:white;" data-bs-dismiss="modal" >Discard</button>
+                                    <button type="button" class="btn" style="margin:1px;background-color: #849531;color:white;" onclick=modifyStaff("${staff._id}")>Save changes</button>
                                     
                                 </div>
 

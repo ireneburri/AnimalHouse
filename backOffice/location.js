@@ -102,8 +102,8 @@ function showLocation(location){
             <div class="card-body">
                 
                 
-                <!--a href="#" class="btn btn-danger" style="float:right; margin:1px;" onclick=deleteLocation("${location._id}")><small>Delete</small></a-->
-                <a href="#" id="openModal"  onclick="verifyMod('${location.name}', '${location._id}')"  class="btn btn-primary" style="float:left; margin:1px;"><small>Modify</small></a>
+                <!--a href="#" class="btn" style="float:right; margin:1px;background-color: #A0AECD; border-color: #A0AECD; color:white;" onclick=deleteLocation("${location._id}")><small>Delete</small></a-->
+                <a href="#" id="openModal"  onclick="verifyMod('${location.name}', '${location._id}')"  class="btn" style="float:left; margin:1px;background-color: #425664; border-color: #425664; color:white;"><small>Modify</small></a>
             </div>     
                     
 
@@ -166,7 +166,7 @@ function showLocation(location){
                                 <div class="container" id="Add-${location._id}">
                                     
                                 </div>
-                                <a href="#" class="btn" style="border-color: green; color: green;" onclick="ShowAddServiceLocation('${location._id}', '${location.name}')"><small>Add a service</small></a>
+                                <a href="#" class="btn" style="border-color: #849531;color:#849531;" onclick="ShowAddServiceLocation('${location._id}', '${location.name}')"><small>Add a service</small></a>
                             </div>  
                             
                             <!--div class="row mb-2">
@@ -219,8 +219,8 @@ function showLocation(location){
                         </div>
 
                         <div class="modal-footer">
-                            <button type="reset" form="FormModify-${location._id}" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-                            <button type="button" class="btn btn-primary" onclick=modifyLocation("${location._id}")>Save changes</button>
+                            <button type="reset" form="FormModify-${location._id}" class="btn" style="background-color: #A0AECD; border-color: #A0AECD; color:white;" data-bs-dismiss="modal">Discard</button>
+                            <button type="button" class="btn" style="background-color: #849531;color:white;" onclick=modifyLocation("${location._id}")>Save changes</button>
                             
                         </div>
                         </div>
@@ -252,7 +252,7 @@ function showLocation(location){
             <li class="mb-2" id="${location.disponibility[c]._id}">   
                 <span id="modServiceName-${location.disponibility[c]._id}" value="${location.disponibility[c].service}">${location.disponibility[c].service} </span>
                 <input id="modServiceQuantity-${location.disponibility[c]._id}" type="number" min="0" value="${location.disponibility[c].quantity}" style="border-radius: 7px; border-width: thin;">    
-                <a href="#" class="btn" style="border-color: red; color: red;" onclick="deleteServiceLocation('${location.name}', '${location.disponibility[c].service}')"><small>Remove</small></a>
+                <a href="#" class="btn" style="border-color: #A0AECD; color:#A0AECD;" onclick="deleteServiceLocation('${location.name}', '${location.disponibility[c].service}')"><small>Remove</small></a>
             </li>
             `
         )

@@ -184,7 +184,7 @@ function showPost(post){
 
                                                 <div class="modal-footer">
                                                     <button type="reset" form="FormModify-${post._id}" class="btn btn-secondary" data-bs-dismiss="modal" >Discard</button>
-                                                    <button type="button" class="btn btn-primary" onclick=modifyPost("${post._id}")>Save changes</button>
+                                                    <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color:white;" onclick=modifyPost("${post._id}")>Save changes</button>
                                                     
                                                 </div>
 
@@ -238,8 +238,8 @@ function writeComment(id, category){
                                     </form>
                                 </div>
                                 <div class="col-md-1">
-                                    <button type="button" style="float:right; margin:1px;" class="btn btn-success" onclick='createCom("${id}","${category}")'>Post</button>
-                                    <button type="reset" form="formComm-${id}" style="float:right; margin:1px;" class="btn btn-danger" >X</button> 
+                                    <button type="button" style="float:right; margin:1px;background-color: #849531;color:white;" class="btn" onclick='createCom("${id}","${category}")'>Post</button>
+                                    <button type="reset" form="formComm-${id}" style="float:right; margin:1px;background-color: #A0AECD; border-color: #A0AECD; color:white;" class="btn" >X</button> 
                                 </div>
                             </div>
                         </div>
@@ -336,8 +336,8 @@ function showComments(id, comment){
                                 </p>
                             </div>
                             <div class="col-md-2">
-                                <a href="#" class="btn btn-danger" style="float:right; margin:1px;" onclick=deletePost("${comment._id}")><small>Delete</small></a>
-                                <a href="#" class="btn btn-primary" style="float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#Modal-${comment._id}"><small>Modify</small></a>
+                                <a href="#" class="btn" style="float:right; margin:1px;background-color: #A0AECD; border-color: #A0AECD; color:white;" onclick=deletePost("${comment._id}")><small>Delete</small></a>
+                                <a href="#" class="btn" style="float:right; margin:1px;background-color: #425664; border-color: #425664; color:white;" data-bs-toggle="modal" data-bs-target="#Modal-${comment._id}"><small>Modify</small></a>
                                 
                                 <!-- Modal -->
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -376,8 +376,8 @@ function showComments(id, comment){
 
 
                                                 <div class="modal-footer">
-                                                    <button type="reset" form="FormModify-${comment._id}" class="btn btn-secondary" data-bs-dismiss="modal" >Discard</button>
-                                                    <button type="button" class="btn btn-primary" onclick=modifyPost("${comment._id}")>Save changes</button>
+                                                    <button type="reset" form="FormModify-${comment._id}" class="btn" style="background-color: #A0AECD; border-color: #A0AECD; color:white;" data-bs-dismiss="modal" >Discard</button>
+                                                    <button type="button" class="btn" style="background-color: #849531;color:white;" onclick=modifyPost("${comment._id}")>Save changes</button>
                                                     
                                                 </div>
 
