@@ -41,7 +41,16 @@ function LocationCard(props) {
                             <Modal.Header closeButton>
                                 <Modal.Title> {props.name} </Modal.Title>
                             </Modal.Header>
-                            <Modal.Body> {props.services} </Modal.Body>
+                            <Modal.Body> 
+                                <ul>
+                                    {props.disponibility.map(ser => (
+                                        <li key={ser.service}> {ser.service} </li>
+                                    ))}
+                                </ul>
+                            
+                            
+                            
+                            </Modal.Body>
                             <Modal.Footer>
                                 {props.tel} - {props.address}
                             </Modal.Footer>

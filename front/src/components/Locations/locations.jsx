@@ -40,7 +40,7 @@ function Locations() {
                             description={location.description}
                             address={location.address}
                             tel={location.tel}
-                            services = {location.services}
+                            disponibility = {location.disponibility}
                         />
                     ))}
                 </LocationContainer>

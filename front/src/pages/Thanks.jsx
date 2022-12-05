@@ -10,12 +10,13 @@ function Thanks() {
     const getCurrentCart = window.localStorage.getItem('cart');
     const username = window.localStorage.getItem('username');
     const currentCart = JSON.parse(getCurrentCart);
+    const [nothing, setNothing] = useState(null)
     var vipItem = false
 
     useEffect(() => {
         if (!currentCart) {
-            return (
-                console.log('nulla da vedere')
+            return(
+            setNothing('Nothing to see')
             )
         }
 
@@ -57,7 +58,7 @@ function Thanks() {
     return (
         <div>
             <Navbar />
-            Thanks for shopping with us
+            {nothing?<div>{nothing}</div>:'Thanks for shopping with us'} 
             <Footer />
         </div>
     );

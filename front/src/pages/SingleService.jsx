@@ -130,7 +130,7 @@ function SingleService() {
                     <Price> Price: €{datas.price} </Price>
 
                     <LocationContainer>
-                        <select class="form-select" aria-label="Default select example">
+                        <select className="form-select" aria-label="Default select example">
                             {locations.map(loc => (
                                 <option value={loc} key={loc}>{loc}</option>
                             ))};

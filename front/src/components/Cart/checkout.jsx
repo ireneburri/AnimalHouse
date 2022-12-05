@@ -38,8 +38,6 @@ const Mytd = styled.td`
     padding: none;
 }
 `
-
-
 function Checkout(props) {
 
     const id = props.id

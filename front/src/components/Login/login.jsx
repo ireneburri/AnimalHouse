@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate, Navigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -66,9 +66,6 @@ const Button = styled.button`
         background-color: rgba(97, 196, 229, 0.6);
     }
 `
-
-
-
 function Login() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -132,8 +129,20 @@ function Login() {
             tel: credRegistration.telephone,
             residence: credRegistration.residence
         }).then(res => {
-            console.log(res)
-        })
+            console.log(res);
+                localStorage.setItem("username", credRegistration.username)
+
+                //permette di tornare nella pagina che ti ha reindireizzato alla pagina di login
+                if (location.state?.from) {
+                    navigate('/login')
+                }
+                else {
+                    navigate('/account')
+                }
+                window.location.reload(false);
+            }, (err) => {
+                setError('Invalid Username or Password')
+            });
     }
 
 
@@ -166,37 +175,37 @@ function Login() {
                 <div className="form-group col-md-6" style={{ marginBottom: '14px' }}>
                     <label htmlFor="name">Name</label>
                     <div className="input-group">
-                        <Input type="text" id="name" placeholder="name" onChange={e => setnameReg(e.target.value)}/>
+                        <Input required type="text" id="name" placeholder="name" onChange={e => setnameReg(e.target.value)}/>
                     </div>
                 </div>
                 <div className="form-group col-md-6">
                     <label htmlFor="surname">Surname</label>
                     <div className="input-group">
-                        <Input type="text" id="surname" placeholder="surname" onChange={e => setsurnameReg(e.target.value)}/>
+                        <Input required type="text" id="surname" placeholder="surname" onChange={e => setsurnameReg(e.target.value)}/>
                     </div>
                 </div>
                 <div className="form-group col-md-6" style={{ marginBottom: '14px' }}>
                     <label htmlFor="username">username</label>
                     <div className="input-group">
-                        <Input type="text" id="username" placeholder="username" onChange={e => setusernameReg(e.target.value)}/>
+                        <Input required type="text" id="username" placeholder="username" onChange={e => setusernameReg(e.target.value)}/>
                     </div>
                 </div>
                 <div className="form-group col-md-6">
                     <label htmlFor="password">Password</label>
                     <div className="input-group">
-                        <Input type="password" pattern=".{8,}" id="password" placeholder="Your password" onChange={e => setpasswordReg(e.target.value)}/>
+                        <Input required type="password" pattern=".{8,}" id="password" placeholder="Your password" onChange={e => setpasswordReg(e.target.value)}/>
                     </div>
                 </div>
                 <div className="form-group col-md-6" style={{ marginBottom: '14px' }}>
                     <label htmlFor="residence">Residence</label>
                     <div className="input-group">
-                        <Input type="text" id="residence" placeholder="residence" onChange={e => setresidenceReg(e.target.value)}/>
+                        <Input required type="text" id="residence" placeholder="residence" onChange={e => setresidenceReg(e.target.value)}/>
                     </div>
                 </div>
                 <div className="form-group col-md-6">
                     <label htmlFor="telephone">Telephone</label>
                     <div className="input-group">
-                        <Input type="text" id="telehone" placeholder="telephone" onChange={e => settelephoneReg(e.target.value)}/>
+                        <Input required type="text" id="telehone" placeholder="telephone" onChange={e => settelephoneReg(e.target.value)}/>
                     </div>
                 </div>
                 <hr />
