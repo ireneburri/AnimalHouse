@@ -95,7 +95,7 @@ function showItem(item){
                             <small> 
                                 <span style="color: gray">Category: </span>
                                 <span class="itemCategory"> ${item.category} </span> <br> 
-                                <span class="itemVip" style="color: rgb(103, 73, 54);">${vip} </span>
+                                <span class="itemVip" style="color: #A0AECD;">${vip} </span>
                             </small>
                         </div>
                         <div class="col-md-7">
@@ -114,8 +114,8 @@ function showItem(item){
                             </p>
                         </div>
                         <div class="col-md-2">
-                            <a href="#" class="btn btn-danger" style="float:right; margin:1px;" onclick=deleteItem("${item._id}")><small>Delete</small></a>
-                            <a href="#" class="btn btn-primary" style="float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#Modal-${item._id}"><small>Modify</small></a>
+                            <a href="#" class="btn btn-danger" style="background-color: #A0AECD; border-color: #A0AECD; float:right; margin:1px;" onclick=deleteItem("${item._id}")><small>Delete</small></a>
+                            <a href="#" class="btn btn-primary" style="background-color: #425664; border-color: #425664; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#Modal-${item._id}"><small>Modify</small></a>
                             
                             <!-- Modal -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -216,8 +216,8 @@ function showItem(item){
 
 
                                         <div class="modal-footer">
-                                            <button type="reset" form="FormModify-${item._id}" class="btn btn-secondary" data-bs-dismiss="modal" >Discard</button>
-                                            <button type="button" class="btn btn-primary" onclick=modifyItem("${item._id}")>Save changes</button>
+                                            <button type="reset" form="FormModify-${item._id}" class="btn" data-bs-dismiss="modal" style="background-color: #A0AECD; border-color: #A0AECD;">Discard</button>
+                                            <button type="button" class="btn" onclick=modifyItem("${item._id}") style="background-color: #849531; border-color: #849531;">Save changes</button>
                                             
                                         </div>
 

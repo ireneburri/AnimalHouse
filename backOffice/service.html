@@ -59,7 +59,7 @@
           <h2 id="serviceTitle" class="mt-2" style="text-align: left; margin-right:10px; display: inline-block;">All Services</h2>
 
           <div class="dropdown dropdown-bg-red" style="display: inline-block;">
-            <button class="btn dropdown-toggle mb-1" type="button"  style="color: white; background-color: #A77979; margin-right: 5px;" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn dropdown-toggle mb-1" type="button"  style="color: white; background-color: #425664; margin-right: 5px;" data-bs-toggle="dropdown" aria-expanded="false">
               Mode
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="modeService">
@@ -77,7 +77,7 @@
         </div>
         <div class="col">
           <div class="mb-2 mt-2" style="display: flex; justify-content: right; align-items: right;">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#Modal">
+            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#Modal" style="background-color: #849531; border-color: #849531;">
               Register a new service
             </button>
           </div>
@@ -86,7 +86,7 @@
 
       <div class="input-group mb-2" >
         <input type="search" class="form-control rounded" id="searchService" placeholder="Search by Name or Category" aria-label="Search" aria-describedby="search-addon">
-        <button type="button" class="btn" style="border-color: rgb(103, 73, 54);" onclick=searchByNameCategory()>search</button>
+        <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color: white" onclick=searchByNameCategory()>search</button>
       </div>
       
 
@@ -194,8 +194,8 @@
 
               </div>
               <div class="modal-footer">
-                <button type="reset" form="FormPost"  class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-                <button type="button" class="btn btn-primary" onclick=createService()>Save new service</button>
+                <button type="reset" form="FormPost"  class="btn" data-bs-dismiss="modal" style="background-color: #A0AECD; border-color: #A0AECD;">Discard</button>
+                <button type="button" class="btn" onclick=createService() style="background-color: #849531; border-color: #849531;">Save new service</button>
               </div>
 
             </div>

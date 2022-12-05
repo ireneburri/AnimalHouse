@@ -152,7 +152,7 @@ function showService(service){
                                 <span class="serviceMode"> ${service.mode}</span> <br> 
                                 <span style="color: gray">Time: </span>
                                 <span class="serviceTime">${time} </span> <br>
-                                <span class="serviceVip" style="color: rgb(103, 73, 54);">${vip} </span>
+                                <span class="serviceVip" style="color: #A0AECD;">${vip} </span>
                             </small>                 
                         </div>
                         <div class="col-md-7">
@@ -169,8 +169,8 @@ function showService(service){
                             </p>
                         </div>
                         <div class="col-md-2">
-                            <a href="#" class="btn btn-danger" style="float:right; margin:1px;" onclick="deleteService('${service._id}', '${service.name}')"><small>Delete</small></a>
-                            <a href="#" class="btn btn-primary" style="float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#Modal-${service._id}"><small>Modify</small></a>
+                            <a href="#" class="btn btn-danger" style="float:right; margin:1px; background-color: #A0AECD; border-color: #A0AECD;" onclick="deleteService('${service._id}', '${service.name}')"><small>Delete</small></a>
+                            <a href="#" class="btn btn-primary" style="float:right; margin:1px;background-color: #425664; border-color: #425664;" data-bs-toggle="modal" data-bs-target="#Modal-${service._id}"><small>Modify</small></a>
                             
 
                             <!-- Modal -->
@@ -286,8 +286,8 @@ function showService(service){
 
 
                                         <div class="modal-footer">
-                                            <button type="reset" form="FormModify-${service._id}" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-                                            <button type="button" class="btn btn-primary" onclick=modifyService("${service._id}")>Save changes</button>
+                                            <button type="reset" form="FormModify-${service._id}" class="btn" data-bs-dismiss="modal" style="background-color: #A0AECD; border-color: #A0AECD;">Discard</button>
+                                            <button type="button" class="btn" onclick=modifyService("${service._id}") style="background-color: #849531; border-color: #849531;">Save changes</button>
                                             
                                         </div>
 

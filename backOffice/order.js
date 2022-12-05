@@ -38,7 +38,7 @@ function getAllOrder(){
 function orders(orderList){
     $("#myDIV").empty()
     if (orderList.length == 0){
-        $("#myDIV").append("<span style='text-align:center'>No orders yet</span>")
+        $("#myDIV").append("<span style='text-align:center; color: white;'>No orders yet</span>")
     } else {
         for (let i in orderList) {
             showOrder(orderList[i]);
@@ -60,7 +60,7 @@ function showOrder(order){
     $("#myDIV").append(
     ` 
     <div class=" h-100 ">
-    <div class="card" style="background-color: rgb(236, 227, 205); border-color: rgb(103, 73, 54);">
+    <div class="card" style="border-color: #A0AECD">
     <div class="card-body mx-1">
         <div class="container">
             <p class="my-2 mx-2" style="font-size: 20px; text-align: center;">Receipt of <br> ${data} ${hour}</p>

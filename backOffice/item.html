@@ -72,7 +72,7 @@
 
               <!-- Button trigger modal -->
               <div  style="display:flex; justify-content: right; align-items: right; margin-bottom: 6px;">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#Modal" style="margin-right:6px">
+                <button type="button" class="btn btn" data-bs-toggle="modal" data-bs-target="#Modal" style="margin-right:6px; background-color: #849531; color:white;">
                   Register a new item
                 </button> 
               </div>
@@ -82,7 +82,7 @@
 
       <div class="input-group" style="margin-bottom: 6px;">
         <input type="search" class="form-control rounded" id="searchItem" placeholder="Search by Name" aria-label="Search" aria-describedby="search-addon">
-        <button type="button" class="btn" style="color: white; background-color: #A77979;" onclick=searchByName()>search</button>
+        <button type="button" class="btn" style="color: white; background-color: #425664;" onclick=searchByName()>search</button>
       </div>
 
       <!-- Modal -->
@@ -178,8 +178,8 @@
               </form>
               </div>
               <div class="modal-footer">
-                <button type="reset" form="FormItem" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-                <button type="button" class="btn btn-primary" onclick=createItem()>Save new item</button>
+                <button type="reset" form="FormItem" class="btn" data-bs-dismiss="modal" style="background-color: #A0AECD; border-color: #A0AECD;">Discard</button>
+                <button type="button" class="btn" onclick=createItem() style="background-color: #849531; border-color: #849531;">Save new item</button>
               </div>
 
             </div>

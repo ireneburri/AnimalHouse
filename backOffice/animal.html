@@ -62,7 +62,7 @@
           <div class="col">
             <!-- Button trigger modal -->
             <div class="mb-2 mt-2" style="display: flex; justify-content: right; align-items: right;">
-              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#Modal" >
+              <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#Modal" style="background-color: #849531; color: white;">
                 Add a new animal
               </button> 
             </div>
@@ -78,7 +78,7 @@
   
         <div class="input-group" style="margin-bottom: 6px;">
           <input type="search" class="form-control rounded" id="searchAnimal" placeholder="Search by Species or Breed" aria-label="Search" aria-describedby="search-addon">
-          <button type="button" class="btn" style="color: white; background-color: #A77979;" onclick=searchBySpeciesBreed()>search</button>
+          <button type="button" class="btn" style="color: white; background-color: #425664;" onclick=searchBySpeciesBreed()>search</button>
         </div>
   
         <!-- Modal -->
@@ -152,8 +152,8 @@
                 </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="reset" form="FormAnimal" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-                  <button type="button" class="btn btn-primary" onclick=createAnimal()>Save new animal</button>
+                  <button type="reset" form="FormAnimal" class="btn" data-bs-dismiss="modal" style="background-color: #A0AECD; border-color: #A0AECD;">Discard</button>
+                  <button type="button" class="btn" onclick=createAnimal() style="background-color: #849531; border-color: #849531;">Save new animal</button>
                 </div>
   
               </div>

@@ -75,8 +75,8 @@ function showRes(reservation){
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item" id="btn-${reservation._id}">
-                    <a href="#" id="modifybtn-${reservation._id}" class="btn btn-primary" style="float:left; margin:1px;" onclick="modifyRes('${reservation._id}', '${reservation.allday}', '${reservation.time}', '${reservation.date_start}', '${reservation.date_end}')"><small>Modify</small></a>
-                    <a href="#" id="deletebtn-${reservation._id}" class="btn btn-danger" style="float:right; margin:1px;" onclick="deleteRes('${reservation._id}')"><small>Delete</small></a>
+                    <a href="#" id="modifybtn-${reservation._id}" class="btn btn-primary" style="float:left; margin:1px;background-color:#425664; border-color: #425664;color:white;" onclick="modifyRes('${reservation._id}', '${reservation.allday}', '${reservation.time}', '${reservation.date_start}', '${reservation.date_end}')"><small>Modify</small></a>
+                    <a href="#" id="deletebtn-${reservation._id}" class="btn btn-danger" style="float:right; margin:1px;background-color:#A0AECD; border-color: #A0AECD;color:white;" onclick="deleteRes('${reservation._id}')"><small>Delete</small></a>
                 </li>
             </ul>
         </div>
@@ -133,8 +133,8 @@ function modifyRes(id, allday, time, dateS, dateE){
     $("#btn-"+id).empty()
     $("#btn-"+id).append(
         `
-        <a href="#" id="modifybtn-${id}" class="btn btn-secondary" style="float:left; margin:1px;" onclick="sureModifyRes('false', '0')"><small>Discard</small></a>
-        <a href="#" id="deletebtn-${id}" class="btn btn-warning" style="float:right; margin:1px;" onclick="sureModifyRes('${id}', '${allday}', '${time}')"><small>Confirm</small></a>    
+        <a href="#" id="modifybtn-${id}" class="btn" style="float:left; margin:1px;background-color: #A0AECD; border-color: #A0AECD; color:white;" onclick="sureModifyRes('false', '0')"><small>Discard</small></a>
+        <a href="#" id="deletebtn-${id}" class="btn" style="float:right; margin:1px;background-color: #849531; border-color: #849531; color:white;" onclick="sureModifyRes('${id}', '${allday}', '${time}')"><small>Confirm</small></a>    
         `       
     )   
     

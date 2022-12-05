@@ -92,8 +92,8 @@ function showAnimal(animal){
                         </div>
 
                         <div class="col-md-1">
-                            <a href="#" class="btn btn-danger" style="float:right; margin:1px;" onclick=deleteAnimal("${animal._id}")><small>Delete</small></a>
-                            <a href="#" class="btn btn-primary" style="float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#Modal-${animal._id}"><small>Modify</small></a>
+                            <a href="#" class="btn btn-danger" style="float:right; margin:1px; background-color: #A0AECD; border-color: #A0AECD;" onclick=deleteAnimal("${animal._id}")><small>Delete</small></a>
+                            <a href="#" class="btn btn-primary" style="float:right; margin:1px;background-color: #425664; border-color: #425664;" data-bs-toggle="modal" data-bs-target="#Modal-${animal._id}"><small>Modify</small></a>
                             
                             <!-- Modal -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -169,8 +169,8 @@ function showAnimal(animal){
 
 
                                         <div class="modal-footer">
-                                            <button type="reset" form="FormModify-${animal._id}" class="btn btn-secondary" data-bs-dismiss="modal" >Discard</button>
-                                            <button type="button" class="btn btn-primary" onclick=modifyAnimal("${animal._id}")>Save changes</button>
+                                            <button type="reset" form="FormModify-${animal._id}" class="btn" data-bs-dismiss="modal" style="background-color: #A0AECD; border-color: #A0AECD;">Discard</button>
+                                            <button type="button" class="btn" onclick=modifyAnimal("${animal._id}") style="background-color: #849531; border-color: #849531;">Save changes</button>
                                             
                                         </div>
 

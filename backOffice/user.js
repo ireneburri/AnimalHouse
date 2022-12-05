@@ -98,7 +98,7 @@ function showClient(client){
                             <small>
                                 <span class="clientUsername"> ${client.username} </span> <br> 
                                 <span class="clientPassword" style="color: gray;" id="false-${client._id}" role="button" onclick=showPassword("${client._id}","${client.password}")> Password </span> <br>
-                                <span class="clientVip" style="color: rgb(103, 73, 54);">${vip} </span>
+                                <span class="clientVip" style="color: #A0AECD;">${vip} </span>
                             </small>
                         </div>
                         <div class="col-md-7">
@@ -107,19 +107,19 @@ function showClient(client){
                                 &phone;<span class="clientTel"> ${client.tel} </span><br> 
                                 <span style="color: gray">Residence: </span>
                                 <span class="clientResidence">${client.residence} </span> <br>
-                                <a  href="./order.html"  target="_blank" onclick="setSearch('${client.username}')" style="color: rgb(103, 73, 54);"> <span >Orders</span></a> <br>
+                                <a  href="./order.html"  target="_blank" onclick="setSearch('${client.username}')" style="color: #A0AECD;"> <span >Orders</span></a> <br>
                                 <br>
                                 </small>
 
                                 <span style="color: gray">Favourite animals: </span> 
                                 <span class="clientPreferences">${client.preferences} </span> <br>  
-                                <a href="#" onclick=openAnimal("${client._id}") id="falseAnimal-${client._id}" style="color: rgb(103, 73, 54);"> <span >Own animals</span></a>
+                                <a href="#" onclick=openAnimal("${client._id}") id="falseAnimal-${client._id}" style="color: #A0AECD"> <span >Own animals</span></a>
                             </p>
                         </div>
                         <div class="col-md-2">
-                            <a href="#" class="btn btn-danger" style="float:right; margin:1px;" onclick=deleteClient("${client._id}")><small>Delete</small></a>
-                            <a href="#" class="btn btn-primary" style="float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#Modal-${client._id}"><small>Modify</small></a><br>
-                            <a href="#" class="btn btn-success" style="float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#ModalAnimal-${client._id}"><small>Add animal</small></a>  
+                            <a href="#" class="btn btn" style="background-color: #A0AECD; color: white; float:right; margin:1px;" onclick=deleteClient("${client._id}")><small>Delete</small></a>
+                            <a href="#" class="btn btn-primary" style="background-color: #425664; border-color: #425664; color: white; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#Modal-${client._id}"><small>Modify</small></a><br>
+                            <a href="#" class="btn btn" style="background-color: #849531; color: white; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#ModalAnimal-${client._id}"><small>Add animal</small></a>  
                             
                             <!-- Modal -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -197,8 +197,8 @@ function showClient(client){
                                     </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="reset" form="FormModify-${client._id}" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-                                        <button type="button" class="btn btn-primary" onclick=modifyClient("${client._id}")>Save changes</button>
+                                        <button type="reset" form="FormModify-${client._id}" class="btn" data-bs-dismiss="modal" style="background-color: #A0AECD; border-color: #A0AECD;">Discard</button>
+                                        <button type="button" class="btn" onclick=modifyClient("${client._id}") style="background-color: #849531; border-color: #849531;">Save changes</button>
                                     </div>
 
                                     </div>
@@ -272,8 +272,8 @@ function showClient(client){
                                     </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="reset" form="FormModifyAnimal-${client._id}" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-                                        <button type="button" class="btn btn-primary" onclick=addClientAnimal("${client._id}")>Save changes</button>
+                                        <button type="reset" form="FormModifyAnimal-${client._id}" class="btn" data-bs-dismiss="modal" style="background-color: #A0AECD; border-color: #A0AECD;">Discard</button>
+                                        <button type="button" class="btn" onclick=addClientAnimal("${client._id}") style="background-color: #849531; border-color: #849531;">Save changes</button>
                                     </div>
 
                                     </div>
@@ -350,8 +350,8 @@ function openAnimal(id){
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <a href="#" class="btn btn-danger" style="float:right; margin:3px;" onclick=deleteAnimal("${animal._id}")><small>Delete</small></a>
-                            <a href="#" class="btn btn-primary" style="float:right; margin:3px;" data-bs-toggle="modal" data-bs-target="#ModalAnimal-${animal._id}"><small>Modify</small></a><br>
+                            <a href="#" class="btn btn-danger" style="background-color: #A0AECD; border-color: #A0AECD; float:right; margin:3px;" onclick=deleteAnimal("${animal._id}")><small>Delete</small></a>
+                            <a href="#" class="btn btn-primary" style="background-color: #425664; border-color: #425664; float:right; margin:3px;" data-bs-toggle="modal" data-bs-target="#ModalAnimal-${animal._id}"><small>Modify</small></a><br>
                             
                             <!-- Modal 3 -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -419,8 +419,8 @@ function openAnimal(id){
                                     </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="reset" form="FormModifyAnimal-${animal._id}" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-                                        <button type="button" class="btn btn-primary" onclick=changeClientAnimal("${animal._id}")>Save changes</button>
+                                        <button type="reset" form="FormModifyAnimal-${animal._id}" class="btn btn" data-bs-dismiss="modal" style="background-color: #A0AECD; border-color: #A0AECD;">Discard</button>
+                                        <button type="button" class="btn" onclick=changeClientAnimal("${animal._id}") style="background-color: #849531; border-color: #849531;">Save changes</button>
                                     </div>
 
                                     </div>

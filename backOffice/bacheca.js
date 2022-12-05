@@ -142,11 +142,11 @@ function showPost(post){
                                 </p>
                             </div>
                             <div class="col-md-2">
-                                <a href="#" class="btn btn-danger" style="float:right; margin:1px;" onclick=deletePost("${post._id}")><small>Delete</small></a>
-                                <a href="#" class="btn btn-primary" style="float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#Modal-${post._id}"><small>Modify</small></a>
+                                <a href="#" class="btn btn-danger" style="float:right; margin:1px;background-color: #A0AECD; border-color: #A0AECD; color:white;" onclick=deletePost("${post._id}")><small>Delete</small></a>
+                                <a href="#" class="btn btn-primary" style="float:right; margin:1px;background-color: #425664; border-color: #425664; color:white;" data-bs-toggle="modal" data-bs-target="#Modal-${post._id}"><small>Modify</small></a>
                                 <br> <br>
-                                <a href="#" style="float:right; margin:1px; color: green;" id="falseWri-${post._id}" onclick="writeComment('${post._id}', '${post.category}')"><small>Write a comments</small></a>
-                                <a href="#" style="float:right; margin:1px;" id="falseCom-${post._id}" onclick=findComments("${post._id}")><small>Show comments</small></a>
+                                <a href="#" style="float:right; margin:1px; color: 849531;" id="falseWri-${post._id}" onclick="writeComment('${post._id}', '${post.category}')"><small>Write a comments</small></a>
+                                <a href="#" style="float:right; margin:1px;color:425664;" id="falseCom-${post._id}" onclick=findComments("${post._id}")><small>Show comments</small></a>
 
                                 <!-- Modal -->
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
