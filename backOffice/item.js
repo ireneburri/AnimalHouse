@@ -114,13 +114,31 @@ function showItem(item){
                             </p>
                         </div>
                         <div class="col-md-2">
-                            <a href="#" class="btn btn-danger" style="background-color: #A0AECD; border-color: #A0AECD; float:right; margin:1px;" onclick=deleteItem("${item._id}")><small>Delete</small></a>
-                            <a href="#" class="btn btn-primary" style="background-color: #425664; border-color: #425664; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#Modal-${item._id}"><small>Modify</small></a>
+                            <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#Modal-${item._id}" style="background-color: #A0AECD; border-color: #A0AECD; color:white; float:right; margin:1px;"><small>Delete</small></a>
+                            <!-- Modal -->
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+                                <div class="modal fade" id="Modal-${item._id}" tabindex="-1" aria-labelledby="ModalLabel-${item._id}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content" style="background-color:#A0AECD;color: white;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="ModalLabel">Are you sure you want to delete this item?</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
+                                            <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=sureDeleteItem("${item._id}")>Yes</button>                             
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-primary" style="background-color: #425664; border-color: #425664; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#ModalMOD-${item._id}"><small>Modify</small></a>
                             
                             <!-- Modal -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
-                                <div class="modal fade" id="Modal-${item._id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="ModalMOD-${item._id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                         <div class="modal-header">
@@ -252,7 +270,7 @@ function modifyItem(id){
 
         console.log("mod")
         //DA RIVEDERE
-        deleteImg(id + ".png");
+        //deleteImg(id + ".png");
         uploadImg(imm, id);
 
     }
@@ -303,7 +321,9 @@ function createItem(){
     data.vip = $("#inputVip").val();
     
     if (data.name=="" || data.price=="" || data.img=="" || data.category=="" || data.animal=="" || data.quantity==""){
-        alert("Fill the mandatory fields")
+        //alert("Fill the mandatory fields")
+        $('#callout').attr('style', 'display: block')
+        $('.callout-header').text('Fill the mandatory fields')
         return
     }
 
@@ -342,14 +362,6 @@ function createItem(){
         window.location.reload()
     });  */   
     return false;
-}
-
-
-function deleteItem(id){
-    var result = confirm("Are you sure you want to delete this item?");
-    if (result) {
-        sureDeleteItem(id);
-    }
 }
 
 

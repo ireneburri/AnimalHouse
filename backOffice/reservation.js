@@ -76,7 +76,25 @@ function showRes(reservation){
             <ul class="list-group list-group-flush">
                 <li class="list-group-item" id="btn-${reservation._id}">
                     <a href="#" id="modifybtn-${reservation._id}" class="btn btn-primary" style="float:left; margin:1px;background-color:#425664; border-color: #425664;color:white;" onclick="modifyRes('${reservation._id}', '${reservation.allday}', '${reservation.time}', '${reservation.date_start}', '${reservation.date_end}')"><small>Modify</small></a>
-                    <a href="#" id="deletebtn-${reservation._id}" class="btn btn-danger" style="float:right; margin:1px;background-color:#A0AECD; border-color: #A0AECD;color:white;" onclick="deleteRes('${reservation._id}')"><small>Delete</small></a>
+                    <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#ModalD-${reservation._id}" style="background-color: #A0AECD; color: white; float:right; margin:1px;"><small>Delete</small></a>
+                    <!-- Modal -->
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+                        <div class="modal fade" id="ModalD-${reservation._id}" tabindex="-1" aria-labelledby="ModalLabelD-${reservation._id}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="background-color:#A0AECD;color: white;">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ModalLabel">Are you sure you want to delete this reservation?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
+                                    <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=sureDeleteRes("${reservation._id}")>Yes</button>                             
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -168,7 +186,9 @@ function sureModifyRes(id, allday, time){
                     (data.date_start.getHours() - parseInt(fuso) ) > 20 || 
                     (data.date_end.getHours() - parseInt(fuso) ) < 8 ||
                     (data.date_end.getHours() - parseInt(fuso) ) > 20 ) {
-                        alert("You have to choose time between 8-20")
+                        //alert("You have to choose time between 8-20")
+                        $('#callout').attr('style', 'display: block')
+                        $('.callout-header').text('You have to choose time between 8-20')
                         return
                 }
             }
@@ -205,15 +225,6 @@ function sureModifyRes(id, allday, time){
     //ho cliccato discard, non voglio modificare nessun orario
     else { 
         window.location.reload();
-    }
-}
-
-
-//VERIFA se vuoi eliminare una prenotazione
-function deleteRes(id){
-    var result = confirm("Are you sure you want to delete this reservation?");
-    if (result) {
-        sureDeleteRes(id);
     }
 }
 

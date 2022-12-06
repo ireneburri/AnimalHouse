@@ -142,7 +142,25 @@ function showPost(post){
                                 </p>
                             </div>
                             <div class="col-md-2">
-                                <a href="#" class="btn btn-danger" style="float:right; margin:1px;background-color: #A0AECD; border-color: #A0AECD; color:white;" onclick=deletePost("${post._id}")><small>Delete</small></a>
+                                <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#ModalD-${post._id}" style="background-color: #A0AECD; color: white; float:right; margin:1px;"><small>Delete</small></a>
+                                <!-- Modal -->
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+                                    <div class="modal fade" id="ModalD-${post._id}" tabindex="-1" aria-labelledby="ModalLabelD-${post._id}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content" style="background-color:#A0AECD;color: white;">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="ModalLabel">Are you sure you want to delete this post?</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
+                                                <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=sureDeletePost("${post._id}")>Yes</button>                             
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <a href="#" class="btn btn-primary" style="float:right; margin:1px;background-color: #425664; border-color: #425664; color:white;" data-bs-toggle="modal" data-bs-target="#Modal-${post._id}"><small>Modify</small></a>
                                 <br> <br>
                                 <a href="#" style="float:right; margin:1px; color: 849531;" id="falseWri-${post._id}" onclick="writeComment('${post._id}', '${post.category}')"><small>Write a comments</small></a>
@@ -183,8 +201,8 @@ function showPost(post){
                                                 </form>
 
                                                 <div class="modal-footer">
-                                                    <button type="reset" form="FormModify-${post._id}" class="btn btn-secondary" data-bs-dismiss="modal" >Discard</button>
-                                                    <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color:white;" onclick=modifyPost("${post._id}")>Save changes</button>
+                                                    <button type="reset" form="FormModify-${post._id}" class="btn" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal" >Discard</button>
+                                                    <button type="button" class="btn" style="background-color: #849531; border-color: #849531;" onclick=modifyPost("${post._id}")>Save changes</button>
                                                     
                                                 </div>
 
@@ -336,7 +354,25 @@ function showComments(id, comment){
                                 </p>
                             </div>
                             <div class="col-md-2">
-                                <a href="#" class="btn" style="float:right; margin:1px;background-color: #A0AECD; border-color: #A0AECD; color:white;" onclick=deletePost("${comment._id}")><small>Delete</small></a>
+                                <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#ModalD-${comment._id}" style="background-color: #A0AECD; color: white; float:right; margin:1px;"><small>Delete</small></a>
+                                <!-- Modal -->
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+                                    <div class="modal fade" id="ModalD-${comment._id}" tabindex="-1" aria-labelledby="ModalLabelD-${comment._id}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content" style="background-color:#A0AECD;color: white;">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="ModalLabel">Are you sure you want to delete this comment?</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
+                                                <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=sureDeletePost("${comment._id}")>Yes</button>                             
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <a href="#" class="btn" style="float:right; margin:1px;background-color: #425664; border-color: #425664; color:white;" data-bs-toggle="modal" data-bs-target="#Modal-${comment._id}"><small>Modify</small></a>
                                 
                                 <!-- Modal -->
@@ -376,8 +412,8 @@ function showComments(id, comment){
 
 
                                                 <div class="modal-footer">
-                                                    <button type="reset" form="FormModify-${comment._id}" class="btn" style="background-color: #A0AECD; border-color: #A0AECD; color:white;" data-bs-dismiss="modal" >Discard</button>
-                                                    <button type="button" class="btn" style="background-color: #849531;color:white;" onclick=modifyPost("${comment._id}")>Save changes</button>
+                                                    <button type="reset" form="FormModify-${comment._id}" class="btn" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal" >Discard</button>
+                                                    <button type="button" class="btn" style="background-color: #849531;" onclick=modifyPost("${comment._id}")>Save changes</button>
                                                     
                                                 </div>
 
@@ -415,11 +451,15 @@ function createPost(){
     data.category = $("#categoryPost").val()
     
     if (data.title==""){
-        alert("Choose a title")
+        //alert("Choose a title")
+        $('#callout').attr('style', 'display: block')
+        $('.callout-header').text('Choose a title')
         return
     }
     if (data.text==""){
-        alert("Write something in the post")
+        //alert("Write something in the post")
+        $('#callout').attr('style', 'display: block')
+        $('.callout-header').text('Write something in the post')
         return
     }
 
@@ -469,11 +509,15 @@ function createCom(id, category){
     data.category = category
     
     if (data.title==""){
-        alert("Choose a title")
+        //alert("Choose a title")
+        $('#callout').attr('style', 'display: block')
+        $('.callout-header').text('Choose a title')
         return
     }
     if (data.text==""){
-        alert("Write something in the post")
+        //alert("Write something in the post")
+        $('#callout').attr('style', 'display: block')
+        $('.callout-header').text('Write something in the post')
         return
     }
 
@@ -511,6 +555,7 @@ function modifyPost(id){
         if (result) {
             sureModifyPost(id);
         }
+        
     } else {sureModifyPost(id);}
 }
 
@@ -543,19 +588,10 @@ function sureModifyPost(id){
     }).then( ()=> //window.location.reload()
     {
         $('#Modal-' + id).modal('hide');
+        $('#ModalD-' + id).modal('hide');
         //boardCategory()
     }); 
     return false;
-}
-
-
-//VERIFICA prima di eliminare un post
-function deletePost(id){
-    var result = confirm("Are you sure you want to delete this post?");
-    if (result) {
-        sureDeletePost(id);
-        deleteImg(id + ".png"); 
-    }
 }
 
 
@@ -573,7 +609,9 @@ function sureDeletePost(id){
         },
 
     }).then( ()=>// window.location.reload()
-    boardCategory()); 
+    {boardCategory()
+    $('#ModalD-' + id).modal('hide');}
+    ); 
 
 
     //ELIMINA eventuali commenti al post appena rimosso

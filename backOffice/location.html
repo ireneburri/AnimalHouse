@@ -5,7 +5,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-
+    <script src="alert/dist/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="alert/dist/sweetalert.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>Locations</title>
   </head>
 
@@ -43,13 +45,30 @@
               <a class="nav-link" href="location.html" style="color: white;font-size: large">Locations</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" onclick=logout()>Logout</a>
+              <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#Modal">Logout</a>
+                <!-- Modal -->
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+                    <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content" style="background-color:#A0AECD;color: white;">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ModalLabel">Are you sure you want to logout?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="reset" form="FormModify-${staff._id}" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
+                                <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=logout()>Yes</button>                             
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-
 
     <div  class="container"> 
       <h2 class="mt-2" style="text-align: left;">Locations</h1>
@@ -65,7 +84,13 @@
       </div>
       
     </div>
+    
+    <div class="callout" id="callout" style="display: none;">
+      <div class="callout-header">You can't modify this location</div>
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
+    </div>
 
+    
     
     
     <link href="style.css" rel="stylesheet" type="text/css">

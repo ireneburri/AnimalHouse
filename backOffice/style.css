@@ -10,3 +10,45 @@ nav {
 body {
     background-color: #F6F4F2;
 }
+
+/* Callout box - fixed position at the bottom of the page */
+.callout {
+    position: fixed;
+    top: 35px;
+    right: 20px;
+    margin-left: 20px;
+    max-width: 300px;
+    z-index: 1000;
+  }
+  
+  /* Callout header */
+  .callout-header {
+    padding: 25px 15px;
+    background: #849531;
+    opacity: 0.8;
+    font-size: 22px;
+    color: white;
+    border-radius: 10px; 
+  }
+  
+  /* Callout container/body */
+  .callout-container {
+    padding: 15px;
+    background-color: #ccc;
+    color: black
+  }
+  
+  /* Close button */
+  .closebtn {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+  }
+  
+  /* Change color on mouse-over */
+  .closebtn:hover {
+    color: lightgrey;
+  }

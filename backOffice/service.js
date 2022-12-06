@@ -152,7 +152,7 @@ function showService(service){
                                 <span class="serviceMode"> ${service.mode}</span> <br> 
                                 <span style="color: gray">Time: </span>
                                 <span class="serviceTime">${time} </span> <br>
-                                <span class="serviceVip" style="color: #A0AECD;">${vip} </span>
+                                <span class="serviceVip" style="color: #849531;">${vip} </span>
                             </small>                 
                         </div>
                         <div class="col-md-7">
@@ -169,13 +169,31 @@ function showService(service){
                             </p>
                         </div>
                         <div class="col-md-2">
-                            <a href="#" class="btn btn-danger" style="float:right; margin:1px; background-color: #A0AECD; border-color: #A0AECD;" onclick="deleteService('${service._id}', '${service.name}')"><small>Delete</small></a>
+                            <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#ModalD-${service._id}" style="background-color: #A0AECD; color: white; float:right; margin:1px;"><small>Delete</small></a>
+                            <!-- Modal -->
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+                                <div class="modal fade" id="ModalD-${service._id}" tabindex="-1" aria-labelledby="ModalLabelD-${service._id}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content" style="background-color:#A0AECD;color: white;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="ModalLabel">Are you sure you want to delete this service?</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
+                                            <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=sureDeleteService("${service._id}")>Yes</button>                             
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <a href="#" class="btn btn-primary" style="float:right; margin:1px;background-color: #425664; border-color: #425664;" data-bs-toggle="modal" data-bs-target="#Modal-${service._id}"><small>Modify</small></a>
                             
 
                             <!-- Modal -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-
+                            
                                 <div class="modal fade" id="Modal-${service._id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -187,6 +205,12 @@ function showService(service){
                                         <!-- Body -->
                                         
                                         <div class="modal-body">
+                                        
+                                        <div class="callout" id="callout" style="display: none;">
+                                            <div class="callout-header"></div>
+                                            <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
+                                        </div>
+
                                         <form id="FormModify-${service._id}">
 
                                             <div class="row mb-2">
@@ -328,7 +352,9 @@ function createService(){
     data.vip = $("#inputVip").val();
 
     if (data.mode=="" || data.name=="" || data.location=="" || data.category=="" || data.price=="" ){
-        alert("Fill the mandatory fields")
+        //alert("Fill the mandatory fields")        
+        $('.callout').attr('style', 'display: block')
+        $('.callout-header').text('Fill the mandatory fields')
         return
     }    
 
@@ -344,7 +370,10 @@ function createService(){
         if(verify == false) {break}
     }
     if (verify == false) {
-        alert("The location's name doesn't mach any real location")
+        //alert("The location's name doesn't mach any real location")
+        
+        $('.callout').attr('style', 'display: block')
+        $('.callout-header').text("The location's name doesn't match any existing location")
         return
     }
     
@@ -424,7 +453,7 @@ function modifyService(id){
 
         console.log("mod")
         //DA RIVEDERE
-        deleteImg(id + ".png");
+        //deleteImg(id + ".png");
         uploadImg(imm, id)
 
     }
@@ -452,7 +481,10 @@ function modifyService(id){
         if(verify == false) {break}
     }
     if (verify == false) {
-        alert("The location's name doesn't mach any real location")
+        //alert("The location's name doesn't mach any real location")
+        
+        $('.callout').attr('style', 'display: block')
+        $('.callout-header').text("The location's name dowsn't match any existing location")
         return
     }
 
@@ -474,15 +506,6 @@ function modifyService(id){
 
     })//.then( ()=> window.location.reload());    
     return false;
-}
-
-
-//VERIFA se vuoi eliminare un servizio
-function deleteService(id, name){
-    var result = confirm("Are you sure you want to delete this service?");
-    if (result) {
-        sureDeleteService(id, name);
-    }
 }
 
 

@@ -92,13 +92,31 @@ function showAnimal(animal){
                         </div>
 
                         <div class="col-md-1">
-                            <a href="#" class="btn btn-danger" style="float:right; margin:1px; background-color: #A0AECD; border-color: #A0AECD;" onclick=deleteAnimal("${animal._id}")><small>Delete</small></a>
-                            <a href="#" class="btn btn-primary" style="float:right; margin:1px;background-color: #425664; border-color: #425664;" data-bs-toggle="modal" data-bs-target="#Modal-${animal._id}"><small>Modify</small></a>
+                            <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#Modal-${animal._id}" style="background-color: #A0AECD; border-color: #A0AECD; color:white; float:right; margin:1px;"><small>Delete</small></a>
+                            <!-- Modal -->
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+                                <div class="modal fade" id="Modal-${animal._id}" tabindex="-1" aria-labelledby="ModalLabel-${animal._id}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content" style="background-color:#A0AECD;color: white;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="ModalLabel">Are you sure you want to delete this animal?</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
+                                            <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=sureDeleteAnimal("${animal._id}")>Yes</button>                             
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-primary" style="float:right; margin:1px;background-color: #425664; border-color: #425664;" data-bs-toggle="modal" data-bs-target="#ModalMOD-${animal._id}"><small>Modify</small></a>
                             
                             <!-- Modal -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
-                                <div class="modal fade" id="Modal-${animal._id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="ModalMOD-${animal._id}" tabindex="-1" aria-labelledby="ModalLabelMOD" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                         <div class="modal-header">
@@ -211,7 +229,9 @@ function createAnimal(){
     data.sex = $("#inputSex").val()
     
     if (data.name=="" || data.species==""){
-        alert("Fill the mandatory fields")
+        //alert("Fill the mandatory fields")
+        $('#callout').attr('style', 'display: block')
+        $('.callout-header').text('Fill the mandatory fields')
         return
     }
 
@@ -268,7 +288,7 @@ function modifyAnimal(id){
 
         console.log("mod")
         //DA RIVEDERE
-        deleteImg(id + ".png");
+        //deleteImg(id + ".png");
         uploadImg(imm, id);
 
     }
@@ -295,14 +315,6 @@ function modifyAnimal(id){
 
     })//.then( ()=> window.location.reload());    
     return false;
-}
-
-
-function deleteAnimal(id){
-    var result = confirm("Are you sure you want to remove this animal?");
-    if (result) {
-        sureDeleteAnimal(id);
-    }
 }
 
 

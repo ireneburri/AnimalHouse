@@ -43,7 +43,25 @@
               <a class="nav-link" href="location.html">Locations</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" onclick=logout()>Logout</a>
+              <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#Modal">Logout</a>
+                <!-- Modal -->
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+                    <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content" style="background-color:#A0AECD;color: white;">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ModalLabel">Are you sure you want to logout?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="reset" form="FormModify-${staff._id}" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
+                                <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=logout()>Yes</button>                             
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
             </li>
           </ul>
         </div>

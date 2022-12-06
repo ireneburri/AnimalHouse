@@ -93,8 +93,8 @@ function showStaff(staff){
                                 </form>
 
                                 <div class="modal-footer">
-                                    <button type="reset" form="FormModify-${staff._id}" class="btn" style="background-color: #A0AECD; border-color: #A0AECD; color:white;" data-bs-dismiss="modal" >Discard</button>
-                                    <button type="button" class="btn" style="margin:1px;background-color: #849531;color:white;" onclick=modifyStaff("${staff._id}")>Save changes</button>
+                                    <button type="reset" form="FormModify-${staff._id}" class="btn" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal" >Discard</button>
+                                    <button type="button" class="btn" style="margin:1px;background-color: #849531;" onclick=modifyStaff("${staff._id}")>Save changes</button>
                                     
                                 </div>
 
@@ -133,7 +133,7 @@ function modifyStaff(id){
         data.img = imm.name;
 
         //DA RIVEDERE
-        deleteImg(id + ".png");
+        //deleteImg(id + ".png");
         uploadImg(imm, id)
 
     }

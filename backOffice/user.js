@@ -117,14 +117,33 @@ function showClient(client){
                             </p>
                         </div>
                         <div class="col-md-2">
-                            <a href="#" class="btn btn" style="background-color: #A0AECD; color: white; float:right; margin:1px;" onclick=deleteClient("${client._id}")><small>Delete</small></a>
-                            <a href="#" class="btn btn-primary" style="background-color: #425664; border-color: #425664; color: white; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#Modal-${client._id}"><small>Modify</small></a><br>
+                            <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#Modal-${client._id}" style="background-color: #A0AECD; color: white; float:right; margin:1px;">Delete</a>
+                            <!-- Modal -->
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+                                <div class="modal fade" id="Modal-${client._id}" tabindex="-1" aria-labelledby="ModalLabel-${client._id}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content" style="background-color:#A0AECD;color: white;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="ModalLabel">Are you sure you want to delete this user?</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
+                                            <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=sureDeleteClient("${client._id}")>Yes</button>                             
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="#" class="btn btn-primary" style="background-color: #425664; border-color: #425664; color: white; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#ModalU-${client._id}"><small>Modify</small></a><br>
                             <a href="#" class="btn btn" style="background-color: #849531; color: white; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#ModalAnimal-${client._id}"><small>Add animal</small></a>  
                             
                             <!-- Modal -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
-                                <div class="modal fade" id="Modal-${client._id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="ModalU-${client._id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                     <div class="modal-header">
@@ -220,6 +239,10 @@ function showClient(client){
 
                                     <!-- Body -->
                                     <div class="modal-body">
+                                    <div class="callout" id="calloutmod" style="display: none;">
+                                    <div class="callout-header"></div>
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
+                                    </div>
                                     <form id="FormModifyAnimal-${client._id}">
                                         <div class="row mb-2">
                                             <label class="col-sm-2 col-form-label">Name</label>
@@ -313,6 +336,160 @@ function showPassword(id, pass){
 }
 
 
+//CREATE
+function createClient(){
+    let data = {}
+    const fileInput = document.querySelector('input[type="file"]');
+
+    data.name = $("#inputName").val()
+    data.surname = $("#inputSurname").val()
+    data.username = $("#inputUsername").val()
+    if ($("#inputImg").val() != "") {
+        data.img = fileInput.files.item(0).name
+    }
+    data.password = $("#inputPass").val()
+    data.tel = $("#inputTel").val()
+    data.residence = $("#inputAdd").val()
+    data.preferences = $("#inputPref").val().replace(/\s+/g, "").split(",")
+    
+    if (data.username.length==0 || data.password.length==0 || data.preferences.length==0){
+        //alert("Fill the mandatory fields")
+        $('#callout').attr('style', 'display: block')
+        $('.callout-header').text('Fill the mandatory fields')
+        return
+    }
+
+    let result_id = ""
+
+    $.ajax({
+        type: 'POST',
+        url: url + "/user",
+        crossDomain: true,
+        contentType: "application/json",
+
+        data: JSON.stringify({
+            username: data.username,
+            surname: data.surname,
+            name: data.name,
+            img: data.img,
+            password: data.password,
+            tel: data.tel,
+            residence: data.residence,
+            preferences: data.preferences,
+        }),
+        success: function(result) {
+            console.log("yay");
+            console.log(result);
+            result_id = result._id;
+        },
+        error: function(err) {
+            console.log("nuu");
+            console.log(err);
+        }
+
+    }).then( ()=>{
+        uploadImg(fileInput.files.item(0) , result_id);
+        //window.location.reload()
+    }
+    );    
+    return false;
+}
+
+
+function sureDeleteClient(id){
+    $.ajax({
+        type: 'DELETE',
+        url: url + "/user/" + id,
+        crossDomain: true,
+        success: function(res) {
+            console.log(res);
+        },
+        error: function(err) {
+            console.log(err);
+        },
+
+    }).then( ()=> {
+        for (let key in animalList) {
+            if (animalList[key].client_id == id) {
+                sureDeleteAnimal(animalList[key]._id)
+            }
+        };
+        deleteImg(id + ".png");
+        
+    })/*.then( ()=>{
+        window.location.reload();
+    })   */
+    return false;
+}
+
+
+//MODIFY
+async function modifyClient(id){
+    let data = {}
+
+    if ($("#modName-"+id).val()!="") {data.name = $("#modName-"+id).val()}
+    if ($("#modSurname-"+id).val()!="") {data.surname = $("#modSurname-"+id).val()}
+    if ($("#modUsername-"+id).val()!="") {data.username = $("#modUsername-"+id).val()}
+    if ($("#modPass-"+id).val()!="") {data.password = $("#modPass-"+id).val()}
+    if ($("#modImg-"+id).val()!="") {
+        let imm = document.getElementById("modImg-"+id).files.item(0);
+        console.log(imm)
+        data.img = imm.name;
+
+        console.log("mod")
+        //DA RIVEDERE
+        //deleteImg(id + ".png");
+        uploadImg(imm, id)
+
+    }
+    if ($("#modTel-"+id).val()!="") {data.tel = $("#modTel-"+id).val()}
+    if ($("#modAdd-"+id).val()!="") {data.residence = $("#modAdd-"+id).val()}
+    if ($("#modPref-"+id).val()!="") {data.preferences = $("#modPref-"+id).val().replace(/\s+/g, "").split(",")}
+
+    $.ajax({
+        type: 'PATCH',
+        url: url + "/user/" + id,
+        crossDomain: true,
+        contentType: "application/json",
+        data: JSON.stringify(data),        
+        success: function(result) {
+            console.log("yay");
+            console.log(result);
+        },
+        error: function(err) {
+            console.log("nuu");
+            console.log(err);
+        }
+
+    })//.then( ()=> window.location.reload());    
+    return false;
+}
+
+
+function searchByNameUsername(){
+    var searchLists = []
+    let search = $("#searchClient").val().toLowerCase()
+    console.log(search)
+    
+    for (let i in clientsList){
+        console.log(i)
+        let name = ""
+        if (clientsList[i].name != undefined){
+            name = clientsList[i].name.toLowerCase()
+        }
+        let surname = ""
+        if (clientsList[i].surname != undefined){
+            surname = clientsList[i].surname.toLowerCase()
+        }
+        let username = clientsList[i].username.toLowerCase()
+        if (name.includes(search) || surname.includes(search) || username.includes(search)){
+            searchLists.push(clientsList[i])
+        }
+    }
+    clients(searchLists);
+}
+
+
 function openAnimal(id){
     $("#ownAnimal-"+id).empty()
     if ($("#falseAnimal-"+id).length) {
@@ -350,13 +527,31 @@ function openAnimal(id){
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <a href="#" class="btn btn-danger" style="background-color: #A0AECD; border-color: #A0AECD; float:right; margin:3px;" onclick=deleteAnimal("${animal._id}")><small>Delete</small></a>
-                            <a href="#" class="btn btn-primary" style="background-color: #425664; border-color: #425664; float:right; margin:3px;" data-bs-toggle="modal" data-bs-target="#ModalAnimal-${animal._id}"><small>Modify</small></a><br>
+                            <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#Modal-${animal._id}" style="background-color: #A0AECD; color: white; float:right; margin:3px;"><small>Delete</small></a>
+                            <!-- Modal -->
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+                                <div class="modal fade" id="Modal-${animal._id}" tabindex="-1" aria-labelledby="ModalLabel-${animal._id}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content" style="background-color:#A0AECD;color: white;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="ModalLabel">Are you sure you want to delete this animal's user?</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
+                                            <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=sureDeleteAnimal("${animal._id}")>Yes</button>                             
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-primary" style="background-color: #425664; border-color: #425664; float:right; margin:3px;" data-bs-toggle="modal" data-bs-target="#ModalAnimalMOD-${animal._id}"><small>Modify</small></a><br>
                             
                             <!-- Modal 3 -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
-                                <div class="modal fade" id="ModalAnimal-${animal._id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="ModalAnimalMOD-${animal._id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                     <div class="modal-header">
@@ -462,7 +657,7 @@ function changeClientAnimal(id){
 
         console.log("mod")
         //DA RIVEDERE
-        deleteImg(id + ".png");
+        //deleteImg(id + ".png");
         uploadImg(imm, id)
 
     }
@@ -505,7 +700,9 @@ function addClientAnimal(id){
     data.client_id = id
     
     if (data.name.length==0 || data.species.length==0 ){
-        alert("Fill the mandatory fields")
+        //alert("Fill the mandatory fields")
+        $('#calloutmod').attr('style', 'display: block')
+        $('.callout-header').text('Fill the mandatory fields')
         return
     }
 
@@ -546,13 +743,6 @@ function addClientAnimal(id){
     return false;
 }
 
-function deleteAnimal(id){
-    
-    var result = confirm("Are you sure you want to delete this client?");
-    if (result) {
-        sureDeleteAnimal(id);
-    }
-}
 
 function sureDeleteAnimal(id){
     $.ajax({
@@ -574,166 +764,3 @@ function sureDeleteAnimal(id){
     })   ; */
     return false;
 }
-
-
-//CREATE
-function createClient(){
-    let data = {}
-    const fileInput = document.querySelector('input[type="file"]');
-
-    data.name = $("#inputName").val()
-    data.surname = $("#inputSurname").val()
-    data.username = $("#inputUsername").val()
-    if ($("#inputImg").val() != "") {
-        data.img = fileInput.files.item(0).name
-    }
-    data.password = $("#inputPass").val()
-    data.tel = $("#inputTel").val()
-    data.residence = $("#inputAdd").val()
-    data.preferences = $("#inputPref").val().replace(/\s+/g, "").split(",")
-    
-    if (data.username.length==0 || data.password.length==0 || data.preferences.length==0){
-        alert("Fill the mandatory fields")
-        return
-    }
-
-    let result_id = ""
-
-    $.ajax({
-        type: 'POST',
-        url: url + "/user",
-        crossDomain: true,
-        contentType: "application/json",
-
-        data: JSON.stringify({
-            username: data.username,
-            surname: data.surname,
-            name: data.name,
-            img: data.img,
-            password: data.password,
-            tel: data.tel,
-            residence: data.residence,
-            preferences: data.preferences,
-        }),
-        success: function(result) {
-            console.log("yay");
-            console.log(result);
-            result_id = result._id;
-        },
-        error: function(err) {
-            console.log("nuu");
-            console.log(err);
-        }
-
-    }).then( ()=>{
-        uploadImg(fileInput.files.item(0) , result_id);
-        //window.location.reload()
-    }
-    );    
-    return false;
-}
-
-
-//DELETE
-function deleteClient(id){
-    
-    var result = confirm("Are you sure you want to delete this client?");
-    if (result) {
-        sureDeleteClient(id);
-    }
-}
-
-
-function sureDeleteClient(id){
-    $.ajax({
-        type: 'DELETE',
-        url: url + "/user/" + id,
-        crossDomain: true,
-        success: function(res) {
-            console.log(res);
-        },
-        error: function(err) {
-            console.log(err);
-        },
-
-    }).then( ()=> {
-        for (let key in animalList) {
-            if (animalList[key].client_id == id) {
-                sureDeleteAnimal(animalList[key]._id)
-            }
-        };
-        deleteImg(id + ".png");
-        
-    })/*.then( ()=>{
-        window.location.reload();
-    })   */
-    return false;
-}
-
-
-//MODIFY
-async function modifyClient(id){
-    let data = {}
-
-    if ($("#modName-"+id).val()!="") {data.name = $("#modName-"+id).val()}
-    if ($("#modSurname-"+id).val()!="") {data.surname = $("#modSurname-"+id).val()}
-    if ($("#modUsername-"+id).val()!="") {data.username = $("#modUsername-"+id).val()}
-    if ($("#modPass-"+id).val()!="") {data.password = $("#modPass-"+id).val()}
-    if ($("#modImg-"+id).val()!="") {
-        let imm = document.getElementById("modImg-"+id).files.item(0);
-        console.log(imm)
-        data.img = imm.name;
-
-        console.log("mod")
-        //DA RIVEDERE
-        deleteImg(id + ".png");
-        uploadImg(imm, id)
-
-    }
-    if ($("#modTel-"+id).val()!="") {data.tel = $("#modTel-"+id).val()}
-    if ($("#modAdd-"+id).val()!="") {data.residence = $("#modAdd-"+id).val()}
-    if ($("#modPref-"+id).val()!="") {data.preferences = $("#modPref-"+id).val().replace(/\s+/g, "").split(",")}
-
-    $.ajax({
-        type: 'PATCH',
-        url: url + "/user/" + id,
-        crossDomain: true,
-        contentType: "application/json",
-        data: JSON.stringify(data),        
-        success: function(result) {
-            console.log("yay");
-            console.log(result);
-        },
-        error: function(err) {
-            console.log("nuu");
-            console.log(err);
-        }
-
-    })//.then( ()=> window.location.reload());    
-    return false;
-}
-
-
-function searchByNameUsername(){
-    var searchLists = []
-    let search = $("#searchClient").val().toLowerCase()
-    console.log(search)
-    
-    for (let i in clientsList){
-        console.log(i)
-        let name = ""
-        if (clientsList[i].name != undefined){
-            name = clientsList[i].name.toLowerCase()
-        }
-        let surname = ""
-        if (clientsList[i].surname != undefined){
-            surname = clientsList[i].surname.toLowerCase()
-        }
-        let username = clientsList[i].username.toLowerCase()
-        if (name.includes(search) || surname.includes(search) || username.includes(search)){
-            searchLists.push(clientsList[i])
-        }
-    }
-    clients(searchLists);
-}
-
