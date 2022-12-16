@@ -60,7 +60,7 @@ const Labels = styled.div`
     font-size: 1em;
 `
 
-const Vip = styled.button`
+const Vip = styled.div`
     font-size: 0.8em;
     border-radius: 10px;
     background-color: #dfbe00;
@@ -135,7 +135,7 @@ function Profile() {
                                 src={profileimg}
                             />
                             <div className='mt-3'>
-                                <div className="font-weight-bold"> @{user} {profile.vip ? <Vip type="button" className="btn" data-container="body" data-toggle="popover" data-placement="right" data-content="After buying some VIP products you are officially one of our VIP clients!"> VIP </Vip> : null}</div>
+                                <div className="font-weight-bold"> @{user} {profile.vip ? <Vip> VIP </Vip> : null}</div>
                             </div>
                             <div className="col-md-7 border-right">
                                 <ProfileContainer className="">

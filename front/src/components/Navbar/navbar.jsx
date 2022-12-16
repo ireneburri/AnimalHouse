@@ -69,7 +69,10 @@ function Navbar() {
         <MyNavbar.Toggle aria-controls="basic-navbar-nav" />
         <MyNavbar.Collapse className='collapse'>
           <Nav className="me-auto">
-            <Nav.Link className="menuItems" href="/commerce">ECOMMERCE</Nav.Link >
+            <NavDropdown className="menuItems" id="nav-dropdown-light-example" title="ECOMMERCE">
+              <NavDropdown.Item href="/commerce"> PRODUCTS </NavDropdown.Item>
+              <NavDropdown.Item href="/animalcommerce"> CUBS </NavDropdown.Item>
+            </NavDropdown>
             <Nav.Link className="menuItems" href="/pinboards">PINBOARDS</Nav.Link >
             <Nav.Link className="menuItems" href="/locations">LOCATIONS</Nav.Link >
             <NavDropdown className="menuItems" id="nav-dropdown-light-example" title="SERVICES">

@@ -19,6 +19,7 @@ import Login from './pages/Login';
 import ProfilePage from './pages/ProfilePage';
 import Cart from './pages/Cart';
 import Thanks from './pages/Thanks';
+import AnimalCommerce from './pages/AnimalCommerce';
 
 function App() {
 	return (
@@ -29,6 +30,7 @@ function App() {
 						<Route exact path="/" element={<HomePage />} />
 						<Route exact path="/signup" element={<SignUp />} />
 						<Route exact path="/commerce" element={<Commerce />} />
+						<Route exact path="/animalcommerce" element={<AnimalCommerce />} />
 						<Route exact path="/singleproduct:id" element={<SingleProduct />} />
 						<Route exact path="/pinboards" element={<Pinboards />} />
 						<Route exact path="/services:service" element={<Services />} />
