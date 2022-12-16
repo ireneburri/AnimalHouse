@@ -118,6 +118,7 @@ function AnimalModal(props) {
                         <div className="form-group col-lg-6 col-md-6" style={{ padding: '1em' }}>
                             <label htmlFor="inputEmail4">sex</label>
                             <select type="text" className="form-control" id="sex" placeholder="sex" onChange={(e) => handle(e)} >
+                                <option value='' key=''> sex </option>
                                 <option value='Maschio' key='Maschio'> male </option>
                                 <option value='Femmina' key='Femmina'> female </option>
                             </select>

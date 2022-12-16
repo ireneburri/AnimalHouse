@@ -69,7 +69,7 @@ const Button = styled.button`
 function Login() {
     const navigate = useNavigate();
     const location = useLocation();
-    
+
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
     const [error, setError] = useState();
@@ -81,7 +81,7 @@ function Login() {
     const [residenceReg, setresidenceReg] = useState();
     const [telephoneReg, settelephoneReg] = useState();
 
-    
+
     const credLoginIn = {
         username: username,
         password: password
@@ -101,25 +101,39 @@ function Login() {
         axios.post('https://site212224.tw.cs.unibo.it/auth/login/user', {
             username: credLoginIn.username,
             password: credLoginIn.password
-        })
-            .then((res) => {
-                console.log(res);
-                localStorage.setItem("username", credLoginIn.username)
-                localStorage.setItem("token", res.data.authority)
+        }).then((res) => {
+            console.log(res);
+            localStorage.setItem("username", credLoginIn.username)
+            localStorage.setItem("token", res.data.authority)
 
-                //permette di tornare nella pagina che ti ha reindireizzato alla pagina di login
-                if (location.state?.from) {
-                    navigate(location.state.from)
-                }
-                else {
-                    navigate('/account')
-                }
-            }, (err) => {
-                setError('Invalid Username or Password')
-            });
+            //permette di tornare nella pagina che ti ha reindireizzato alla pagina di login
+            if (location.state?.from) {
+                navigate(location.state.from)
+            }
+            else {
+                navigate('/account')
+            }
+        }, (err) => {
+            setError('Invalid Username or Password')
+        });
+
+        const getCurrentCart = window.localStorage.getItem('cart');
+        const currentCart = JSON.parse(getCurrentCart);
+
+        const data = await fetch("https://site212224.tw.cs.unibo.it/Order");
+        const items = await data.json();
+        const filtered = items.filter((item) => item.username === credLoginIn.username && item.completed === false);
+
+        if (filtered.length > 0) {
+            window.localStorage.setItem('cart', filtered[0].products[0])
+            axios.delete(`http://site212224.tw.cs.unibo.it/Order/${filtered[0]._id}`
+            ).then(res => {
+                console.log(res)
+            })
+        }
     }
 
-    async function hangleRegistration(e){
+    async function hangleRegistration(e) {
         e.preventDefault()
         axios.post('http://site212224.tw.cs.unibo.it/user/', {
             name: credRegistration.name,
@@ -130,19 +144,19 @@ function Login() {
             residence: credRegistration.residence
         }).then(res => {
             console.log(res);
-                localStorage.setItem("username", credRegistration.username)
+            localStorage.setItem("username", credRegistration.username)
 
-                //permette di tornare nella pagina che ti ha reindireizzato alla pagina di login
-                if (location.state?.from) {
-                    navigate('/login')
-                }
-                else {
-                    navigate('/account')
-                }
-                window.location.reload(false);
-            }, (err) => {
-                setError('Invalid Username or Password')
-            });
+            //permette di tornare nella pagina che ti ha reindireizzato alla pagina di login
+            if (location.state?.from) {
+                navigate('/login')
+            }
+            else {
+                navigate('/account')
+            }
+            window.location.reload(false);
+        }, (err) => {
+            setError('Invalid Username or Password')
+        });
     }
 
 
@@ -153,13 +167,13 @@ function Login() {
                 <div className="form-group col-md-6" style={{ marginBottom: '14px' }}>
                     <label htmlFor="username">Username</label>
                     <div className="input-group">
-                        <Input type="text" id="username" placeholder="username" onChange={e => setUserName(e.target.value)}/>
+                        <Input type="text" id="username" placeholder="username" onChange={e => setUserName(e.target.value)} />
                     </div>
                 </div>
                 <div className="form-group col-md-6">
                     <label htmlFor="password">Password</label>
                     <div className="input-group">
-                        <Input type="password" id="password" placeholder="password" onChange={e => setPassword(e.target.value)}/>
+                        <Input type="password" id="password" placeholder="password" onChange={e => setPassword(e.target.value)} />
                     </div>
                 </div>
                 <hr />
@@ -167,7 +181,7 @@ function Login() {
                     <Button type="submit" className="btn-submit">Login</Button>
                 </div>
 
-                {error?<div>{error}</div>:null} 
+                {error ? <div>{error}</div> : null}
             </Form>
 
             <Form action="#" className="register col-lg-6 row" onSubmit={hangleRegistration}>
@@ -175,37 +189,37 @@ function Login() {
                 <div className="form-group col-md-6" style={{ marginBottom: '14px' }}>
                     <label htmlFor="name">Name</label>
                     <div className="input-group">
-                        <Input required type="text" id="name" placeholder="name" onChange={e => setnameReg(e.target.value)}/>
+                        <Input required type="text" id="name" placeholder="name" onChange={e => setnameReg(e.target.value)} />
                     </div>
                 </div>
                 <div className="form-group col-md-6">
                     <label htmlFor="surname">Surname</label>
                     <div className="input-group">
-                        <Input required type="text" id="surname" placeholder="surname" onChange={e => setsurnameReg(e.target.value)}/>
+                        <Input required type="text" id="surname" placeholder="surname" onChange={e => setsurnameReg(e.target.value)} />
                     </div>
                 </div>
                 <div className="form-group col-md-6" style={{ marginBottom: '14px' }}>
                     <label htmlFor="username">username</label>
                     <div className="input-group">
-                        <Input required type="text" id="username" placeholder="username" onChange={e => setusernameReg(e.target.value)}/>
+                        <Input required type="text" id="username" placeholder="username" onChange={e => setusernameReg(e.target.value)} />
                     </div>
                 </div>
                 <div className="form-group col-md-6">
                     <label htmlFor="password">Password</label>
                     <div className="input-group">
-                        <Input required type="password" pattern=".{8,}" id="password" placeholder="Your password" onChange={e => setpasswordReg(e.target.value)}/>
+                        <Input required type="password" pattern=".{8,}" id="password" placeholder="Your password" onChange={e => setpasswordReg(e.target.value)} />
                     </div>
                 </div>
                 <div className="form-group col-md-6" style={{ marginBottom: '14px' }}>
                     <label htmlFor="residence">Residence</label>
                     <div className="input-group">
-                        <Input required type="text" id="residence" placeholder="residence" onChange={e => setresidenceReg(e.target.value)}/>
+                        <Input required type="text" id="residence" placeholder="residence" onChange={e => setresidenceReg(e.target.value)} />
                     </div>
                 </div>
                 <div className="form-group col-md-6">
                     <label htmlFor="telephone">Telephone</label>
                     <div className="input-group">
-                        <Input required type="text" id="telehone" placeholder="telephone" onChange={e => settelephoneReg(e.target.value)}/>
+                        <Input required type="text" id="telehone" placeholder="telephone" onChange={e => settelephoneReg(e.target.value)} />
                     </div>
                 </div>
                 <hr />

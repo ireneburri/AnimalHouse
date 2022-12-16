@@ -52,6 +52,7 @@ function Products() {
                                 nome={item.name}
                                 prezzo={item.price}
                                 immagine={item.img}
+                                vip = {item.vip}
                             />
                         ))}
                     </div>

@@ -4,6 +4,8 @@ import AnimalCard from '../Card/animalCard';
 import AnimalModal from '../Modal/animalModal';
 import ProfileModal from '../Modal/profileModal';
 import profileimg from '/Users/beatricezamagna/Desktop/Animal/front/src/img/profile.jpg'
+import Popover from "react-bootstrap/Popover"
+import OrderCard from '../Card/orderCard';
 
 const Body = styled.div`
     width: 100%;
@@ -89,12 +91,14 @@ function Profile() {
     const user = localStorage.getItem("username");
     const [vip, setVip] = useState('');
     const [animal, setAnimals] = useState([]);
+    const [order, setOrder] = useState([]);
     const [show, setShow] = useState(false);
     const [secondShow, setSecondShow] = useState(false);
 
     useEffect(() => {
         fetchProfile();
         fetchAnimal();
+        fetchOrder();
     }, []);
 
     const fetchProfile = async () => {
@@ -105,22 +109,19 @@ function Profile() {
         localStorage.setItem("userid", JSON.stringify(fetched[0]._id))
     }
 
-    const fetchAnimal = useCallback(
-        async () => {
-            const data = await fetch("https://site212224.tw.cs.unibo.it/animal");
-            const items = await data.json();
-            const filtered = items.filter((item) => item.client_id === user);
-            console.log(filtered);
-            setAnimals(filtered);
-        })
-
-    let vipcontainer;
-    if (vip) {
-        vipcontainer = <Vip className=''> VIP </Vip>
-    } else {
-        vipcontainer = null;
+    const fetchAnimal = async () => {
+        const data = await fetch("https://site212224.tw.cs.unibo.it/animal");
+        const items = await data.json();
+        const filtered = items.filter((item) => item.client_id === user);
+        setAnimals(filtered);
     }
 
+    const fetchOrder = async () => {
+        const data = await fetch("https://site212224.tw.cs.unibo.it/Order");
+        const items = await data.json();
+        const filtered = items.filter((item) => item.username === user && item.completed === true);
+        setOrder(filtered);
+    }
 
     return (
         <Body>
@@ -134,11 +135,10 @@ function Profile() {
                                 src={profileimg}
                             />
                             <div className='mt-3'>
-                                <div className="font-weight-bold"> @{user} </div>
+                                <div className="font-weight-bold"> @{user} {profile.vip ? <Vip type="button" className="btn" data-container="body" data-toggle="popover" data-placement="right" data-content="After buying some VIP products you are officially one of our VIP clients!"> VIP </Vip> : null}</div>
                             </div>
                             <div className="col-md-7 border-right">
                                 <ProfileContainer className="">
-                                    {vipcontainer}
                                     <div className="row mt-2">
                                         <div className="col col-md-6">
                                             <Labels>Name</Labels>
@@ -173,7 +173,7 @@ function Profile() {
                         </div>
                     </div>
 
-                    <div className="col-md-6 center">
+                    <div className="col-md-5 center">
                         <div className="d-flex flex-column align-items-center py-4">
                             MY ANIMALS
                             <div style={{ height: '17em', overflowY: 'scroll' }}>
@@ -199,15 +199,32 @@ function Profile() {
                         </div>
                     </div>
 
-                    <div className="col-md-3 border-left">
+                    <div className="col-md-4 border-left">
                         <div className="d-flex flex-column align-items-center py-4">
-                            MY RESERVATION
+                            MY ORDERS
+                            <div style={{ height: '17em', overflowY: 'scroll' }}>
+                                <div className="row">
+                                    {order.map(ord => (
+                                        <OrderCard
+                                            key={ord._id}
+                                            id={ord._id}
+                                            products={ord.products}
+                                            price={ord.price}
+                                            date={ord.date}
+                                        />
+                                    ))}
+                                    
+                                </div>
+                            </div>
                         </div>
                     </div>
 
 
                 </div>
 
+                <div className='row'>
+
+                </div>
             </Container>
 
         </Body>

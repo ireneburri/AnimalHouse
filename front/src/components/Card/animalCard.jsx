@@ -31,9 +31,9 @@ function AnimalCard (props){
         }
 
         return (
-            <div className="min-h-screen w-full bg-gray-300" style={{ margin: "1em", width: "90%" }}>
-                <div className="max-w-screen-md mx-auto px-10 pt-20">
-                    <div className="bg-white md:h-48 rounded-lg shadow-md flex flex-wrap flex-col-reverse md:flex-col" style={{ display: "flex" }}>
+            <div className="min-h-screen w-full bg-gray-300" style={{ margin: "1em", width: "90%"}}>
+                <div className="max-w-screen-md mx-auto px-10 pt-20" >
+                    <div className="bg-white md:h-48 rounded-lg shadow-md flex flex-wrap flex-col-reverse md:flex-col" style={{ display: "flex", borderRadius: "20px" }}>
                         
                         <div className="col-lg-6" style={{ padding: '2em' }}>
                             <h5>{props.name}</h5>

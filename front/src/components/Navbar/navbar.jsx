@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 // import styled from 'styled-components';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -8,10 +9,42 @@ import './navbar.css'
 
 
 function Navbar() {
+  const getCurrentCart = window.localStorage.getItem('cart');
+  const currentCart = JSON.parse(getCurrentCart);
+  const username = window.localStorage.getItem('username');
+  const [listItems, setListItems] = useState([]);
+  const date = new Date()
+  var vipItem = false
 
   const handleLogout = () => {
-    localStorage.clear();
-    window.location.reload(false);
+    console.log(currentCart)
+    if (currentCart !== null && currentCart !== []) {
+      console.log('sticazzi')
+      var sum = currentCart.reduce(function (acc, obj) { return acc + obj.items.price * obj.quantity; }, 0);
+
+      var strcart = JSON.stringify(currentCart);
+      listItems.push(strcart);
+      console.log(strcart);
+
+      console.log(listItems);
+      axios.post('http://site212224.tw.cs.unibo.it/Order/', {
+        client_id: '638a43569d836700070fa273',
+        username: username,
+        products: listItems,
+        price: sum,
+        date: date,
+        vip: vipItem,
+        completed: 'false'
+      }).then((res) => {
+        console.log(res);
+        localStorage.clear();
+        window.location.reload(false);
+      })
+    }
+    else {
+      localStorage.clear();
+      window.location.reload(false);
+    }
   }
 
   let button;

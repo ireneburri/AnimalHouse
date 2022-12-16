@@ -16,6 +16,14 @@ const MyCard = styled.div`
 }
 `
 
+const Vip = styled.span`
+    background-color: gold;
+    color: white;
+    border-radius: 20px;
+    padding-left: 1em;
+    padding-right: 1em;
+`
+
 class ProductCard extends Component {
     
     render() {
@@ -27,7 +35,7 @@ class ProductCard extends Component {
                         <div className="card-body" >
                             <hr />
                             <h5 className="card-title" > {this.props.nome} </h5>
-                            <p className="card-text" > €{this.props.prezzo} </p>
+                            <div className="card-text" > €{this.props.prezzo} {this.props.vip?<Vip>VIP</Vip>:null} </div>
                         </div>
                     </a>
                 </MyCard>

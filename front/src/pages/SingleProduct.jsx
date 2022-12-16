@@ -92,6 +92,14 @@ const Button = styled.button`
         transition: all 0.4s ease;
     }
 `
+const Vip = styled.span`
+    background-color: gold;
+    color: white;
+    border-radius: 20px;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 15px;
+`
 
 function SingleProduct() {
     const data = useParams();
@@ -147,7 +155,7 @@ function SingleProduct() {
                 </ImgContainer>
                 <InfoContainer>
                     <Category> {items.category} </Category>
-                    <Title style={{ marginTop: '20px', marginBottom: '0px' }}> {items.name} </Title>
+                    <Title style={{ marginTop: '20px', marginBottom: '0px' }}> {items.name} {items.vip?<Vip>VIP</Vip>:null}</Title>
                     <Brand style={{ marginTop: '0px' }}> {items.brand} </Brand>
                     <Desc> Product description: {items.description} </Desc>
                     <Price> Price: €{items.price} </Price>
