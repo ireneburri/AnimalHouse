@@ -37,6 +37,11 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         required: false,
         default: false,
+    },
+    score:{
+        type:Number,
+        required: false,
+        default: 0,
     }
 })
 
