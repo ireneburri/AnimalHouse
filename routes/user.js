@@ -76,7 +76,7 @@ router.post('/', async(req, res) => {
 
 
 //update one
-router.patch('/:id', getUser, async(req, res) => {
+router.patch('/:id/:username', getUserByIdOrUsername, async(req, res) => {
 
     if (req.body.username != null) {
         res.user.username = req.body.username
@@ -143,5 +143,29 @@ async function getUser(req, res, next) {
     next()
 }
 
+async function getUserByIdOrUsername (req, res, next){
+    let user
+    try{
+        let id=null
+        if(req.params.id!==':id')       id=req.params.id
+        //console.log(id)
+
+        let username=null
+        if(req.params.username!==':username')       username=req.params.username
+        //console.log(username)
+
+        user= await User.find({ $or: [ { _id:id }, { username:username } ] })
+        //console.log(user)
+        if(user==null){
+            return res.status(404).json({message : 'Cannot find user'})
+        }
+        user[0].password = CryptoJS.AES.decrypt(user[0].password, ENCRIPTION_KEY).toString(CryptoJS.enc.Utf8)
+    } catch(err){
+        return res.status(500).json({message : err.message})
+    }
+    res.user=user[0]
+    console.log(res.user)
+    next()
+}
 
 module.exports = router
