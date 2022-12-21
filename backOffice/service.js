@@ -214,16 +214,16 @@ function showService(service){
                                         <form id="FormModify-${service._id}">
 
                                             <div class="row mb-2">
-                                                <label for="modName-${service._id}" class="col-sm-2 col-form-label">Name</label>
+                                                <label for="modName-${service._id}" class="col-sm-2 col-form-label" style="color: gray">Name</label>
                                                 <div class="col-sm-10">
-                                                    <input id="modName-${service._id}" type="text" class="form-control" value="${service.name}" aria-label="Service name" disabled>
+                                                    <input id="modName-${service._id}" type="text" class="form-control" placeholder="${service.name}" aria-label="Service name" disabled>
                                                 </div>
                                             </div>  
 
                                             <div class="row mb-2">
-                                                <label for="modLocation-${service._id}" class="col-sm-2 col-form-label">Locatio</label>
+                                                <label for="modLocation-${service._id}" class="col-sm-2 col-form-label" style="color:gray">Store</label>
                                                 <div class="col-sm-10">
-                                                    <input id="modLocation-${service._id}" type="text" class="form-control" value="${service.location}" aria-label="Service location" disabled>
+                                                    <input id="modLocation-${service._id}" type="text" class="form-control" placeholder="${service.location}" aria-label="Service location" disabled>
                                                 </div>
                                             </div>
 
@@ -446,14 +446,10 @@ function modifyService(id){
     if ($("#modCategory-"+id).val()!="") {data.category = $("#modCategory-"+id).val()}
     if ($("#modPrice-"+id).val()!="") {data.price = $("#modPrice-"+id).val()}
     if ($("#modImg-"+id).val()!="") {
-
-        let imm = document.getElementById("modImg-"+id).files.item(0);
-        console.log(imm)
         data.img = imm.name;
 
-        console.log("mod")
-        //DA RIVEDERE
-        //deleteImg(id + ".png");
+
+        let imm = document.getElementById("modImg-"+id).files.item(0);
         uploadImg(imm, id)
 
     }

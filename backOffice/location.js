@@ -103,7 +103,8 @@ function showLocation(location){
                 
                 
                 <!--a href="#" class="btn" style="float:right; margin:1px;background-color: #A0AECD; border-color: #A0AECD; color:white;" onclick=deleteLocation("${location._id}")><small>Delete</small></a-->
-                <button id="openModal"  onclick="verifyMod('${location.name}', '${location._id}')"  class="btn" style="float:left; margin:1px;background-color: #425664; border-color: #425664; color:white;"><small>Modify</small></button>
+                <button id="openModal"  onclick="verifyMod('${location.name}', '${location._id}', 'true')"  class="btn" style="float:left; margin:1px;background-color: #425664; border-color: #425664; color:white;"><small>Modify Info</small></button>
+                <button id="openModal"  onclick="verifyMod('${location.name}', '${location._id}', 'false')"  class="btn" style="float:left; margin:1px;background-color: #425664; border-color: #425664; color:white;"><small>Modify Services</small></button>
             </div>     
                     
 
@@ -124,7 +125,7 @@ function showLocation(location){
                         <form id="FormModify-${location._id}">
 
                             <div class="row mb-2">                                               
-                                <label class="col-sm-2 col-form-label">Name</label>
+                                <label class="col-sm-2 col-form-label" style="color:gray;">Name</label>
                                 <div class="col-sm-10">
                                     <input id="modName-${location._id}" type="text" class="form-control" placeholder="${location.name}" aria-label="location name" disabled>
                                 </div>
@@ -157,64 +158,6 @@ function showLocation(location){
                                 <label for="modImg-${location._id}" class="form-label">Select new immagine</label>
                                 <input class="form-control" type="file" name="file" value='Choose Photo' accept='image/png' id="modImg-${location._id}" placeholder="${location.img}">
                             </div>  
-
-                            <div class="mb-2" >
-                                <label class="col-sm-12 col-form-label">Services and disponibility:</label> <br>
-                                <div class="container" id="SD-${location._id}">
-                                
-                                </div>
-                                <div class="container" id="Add-${location._id}">
-                                    
-                                </div>
-                                <a href="#" class="btn" style="border-color: #849531;color:#849531;" onclick="ShowAddServiceLocation('${location._id}', '${location.name}')"><small>Add a service</small></a>
-                            </div>  
-                            
-                            <!--div class="row mb-2">
-                                <label class="col-sm-3 col-form-label">Services</label>
-                                <div class="col-sm-5">
-                                    <form id="modServices-${location._id}">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Animal Sitter" id="AnimalSitter-${location._id}">
-                                            <label class="form-check-label" for="Animal Sitter-${location._id}">
-                                                Animal Sitter
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Vet and Doctors" id="VetandDoctors-${location._id}">
-                                            <label class="form-check-label" for="Vet and Doctors-${location._id}">
-                                                Vet and Doctors
-                                            </label>
-                                        </div> 
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Grooming" id="Grooming-${location._id}">
-                                            <label class="form-check-label" for="Grooming-${location._id}">
-                                                Grooming
-                                            </label>
-                                        </div> 
-                                    </form>
-                                </div>
-                                <div class="col-sm-4">
-                                    <form id="modServices2-${location._id}">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Pension" id="Pension-${location._id}">
-                                            <label class="form-check-label" for="Pension-${location._id}">
-                                                Pension
-                                            </label>
-                                        </div>                                                        
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Training" id="Training-${location._id}">
-                                            <label class="form-check-label" for="Training-${location._id}">
-                                                Training
-                                            </label>
-                                        </div> 
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Store" id="Store-${location._id}">
-                                            <label class="form-check-label" for="Store-${location._id}">
-                                                Store
-                                            </label>
-                                        </div>
-                                    </form>   
-                            </div-->
                         </form>
                         </div>
 
@@ -222,6 +165,47 @@ function showLocation(location){
                             <button type="reset" form="FormModify-${location._id}" class="btn" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal">Discard</button>
                             <button type="button" class="btn" style="background-color: #849531;" onclick=modifyLocation("${location._id}")>Save changes</button>
                             
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+                <div class="modal fade" id="ModalSe-${location._id}" tabindex="-1" aria-labelledby="ModalSeLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModalSeLabel-${location._id}">Services of ${location.name}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <!-- Body -->
+                        
+                        <div class="modal-body">
+                        <form id="FormModify-${location._id}">
+
+                            <div class="mb-2" >
+                                <label class="col-sm-12 col-form-label">Services and disponibility:</label> <br>
+                                <div class="container" id="SD-${location._id}">
+                                
+                                </div>
+                                <div class="container" id="SDnew-${location._id}">
+                                
+                                </div>
+                                <div class="container" id="Add-${location._id}">
+                                    
+                                </div>
+                                <a href="#" class="btn" id="showAdd-${location._id}" style="border-color: #849531;color:#849531;" onclick="ShowAddServiceLocation('${location._id}', '${location.name}')"><small>Add a service</small></a>
+                            </div>  
+                        </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="reset" form="FormModify-${location._id}" class="btn" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal">Discard</button>
+                            <button type="button" class="btn" style="background-color: #849531;" onclick='modifyServiceLocation("${location._id}", "${location.name}")'>Save changes</button>
                         </div>
                         </div>
                     </div>
@@ -252,7 +236,7 @@ function showLocation(location){
             <li class="mb-2" id="${location.disponibility[c]._id}">   
                 <span id="modServiceName-${location.disponibility[c]._id}" value="${location.disponibility[c].service}">${location.disponibility[c].service} </span>
                 <input id="modServiceQuantity-${location.disponibility[c]._id}" type="number" min="0" value="${location.disponibility[c].quantity}" style="border-radius: 7px; border-width: thin;">    
-                <a href="#" class="btn" style="border-color: #A0AECD; color:#A0AECD;" onclick="deleteServiceLocation('${location.name}', '${location.disponibility[c].service}')"><small>Remove</small></a>
+                <a href="#" class="btn" style="border-color: #A0AECD; color:#A0AECD;" onclick="deleteServiceLocation('${location.name}', '${location.disponibility[c].service}', '${location.disponibility[c]._id}')"><small>Remove</small></a>
             </li>
             `
         )
@@ -260,7 +244,7 @@ function showLocation(location){
 }
 
 
-async function verifyMod(locName, id){
+async function verifyMod(locName, id, info){
     await $.ajax({
         type: 'GET',
         url: url + "/staff/username/"+ localStorage.username,
@@ -280,7 +264,11 @@ async function verifyMod(locName, id){
         $('#callout').attr('style', 'display: block')
     }  
     else{
-        $('#Modal-'+id).modal('show');
+        if (info == "true") {
+            $('#Modal-'+id).modal('show');
+        } else {
+            $('#ModalSe-'+id).modal('show');
+        }
     }
 }
 
@@ -294,7 +282,7 @@ function modifyLocation(id){
     if ($("#modDescription-"+id).val()!="") {data.description = $("#modDescription-"+id).val()}
     if ($("#modStaff-"+id).val()!="") {data.staff = $("#modStaff-"+id).val().replace(/\s+/g, "").split(",")}
     
-    let listLocService = []
+    /*let listLocService = []
     data.disponibility = []
     $("#SD-"+id).children("li").each(function(){
         listLocService.push($(this).attr("id"))
@@ -305,7 +293,7 @@ function modifyLocation(id){
         let disp = { "service": $("#modServiceName-"+listLocService[key]).attr("value"), 
                      "quantity": $("#modServiceQuantity-"+listLocService[key]).val() }
         data.disponibility.push(disp)
-    }
+    }*/
 
     if ($("#modImg-"+id).val()!="") {
 
@@ -319,7 +307,7 @@ function modifyLocation(id){
         uploadImg(imm, id)
 
     }
-    data.services=[]
+    //data.services=[]
     /*if ($("#AnimalSitter-"+id).is(':checked')) {data.services.push($("#AnimalSitter-"+id).val())}
     if ($("#VetandDoctors-"+id).is(':checked')) {data.services.push($("#VetandDoctors-"+id).val())}
     if ($("#Grooming-"+id).is(':checked')) {data.services.push($("#Grooming-"+id).val())}
@@ -327,7 +315,7 @@ function modifyLocation(id){
     if ($("#Training-"+id).is(':checked')) {data.services.push($("#Training-"+id).val())}
     if ($("#Store-"+id).is(':checked')) {data.services.push($("#Store-"+id).val())}*/
 
-    for(let i in data.services)  {console.log(data.services[i])}
+    //for(let i in data.services)  {console.log(data.services[i])}
     $.ajax({
         type: 'PATCH',
         url: url + "/location/" + id,
@@ -344,6 +332,102 @@ function modifyLocation(id){
         }
 
     })//.then( ()=> window.location.reload());    
+    return false;
+}
+
+//MODIFICA una location
+async function modifyServiceLocation(id, locName){
+    let data = {}
+
+    let listLocService = []
+    data.disponibility = []
+    $("#SD-"+id).children("li").each(function(){
+        listLocService.push($(this).attr("id"))
+    });
+    console.log(listLocService)
+    for (const key in listLocService) {
+        console.log($("#modServiceName-"+listLocService[key]).attr("value"))
+        let disp = { "service": $("#modServiceName-"+listLocService[key]).attr("value"), 
+                     "quantity": $("#modServiceQuantity-"+listLocService[key]).val() }
+        data.disponibility.push(disp)
+    }
+
+    await $.ajax({
+        type: 'PATCH',
+        url: url + "/location/" + id,
+        crossDomain: true,
+        contentType: "application/json",
+        data: JSON.stringify(data),        
+        success: function(result) {
+            console.log("yay");
+            console.log(result);
+        },
+        error: function(err) {
+            console.log("nuu");
+            console.log(err);
+        }
+
+    })//.then( ()=> window.location.reload()); 
+
+    let newData = {}
+    newData.disponibility = []
+    $("#SDnew-"+id).children("li").each(function(){
+        let disp = { "service": $(".newServiceName").attr("value"), 
+        "quantity": $(".newServiceQuantity").val() }
+        newData.disponibility.push(disp)
+    });
+    console.log(newData);
+
+    $("#SDnew-"+id).children("li").each(async function(){
+        await $.ajax({
+            type: 'PATCH',
+            url: url + "/location/disponibility/" + locName,
+            crossDomain: true,
+            contentType: "application/json",
+            data: JSON.stringify(newData),  
+            success: function(res) {
+                console.log("yay");
+                console.log(res);
+            },
+            error: function(err) {
+                console.log("nuu");
+                console.log(err);
+            },
+    
+        });
+    
+        let service = {}
+        await $.ajax({
+            type: 'GET',
+            url: url + "/service/name/" + $(".newServiceName").attr("value"),
+            crossDomain: true,
+            success: function(data) {
+                console.log(data);
+                service = data[0];
+            },
+            error: function(err) {
+                console.log(err);
+            },
+        });
+    
+        service.location.push(locName)
+        console.log(service.location)
+        $.ajax({
+            type: 'PATCH',
+            url: url + "/service/" + service._id,
+            crossDomain: true,
+            contentType: "application/json",
+            data: JSON.stringify(service),        
+            success: function(result) {
+                console.log("yay");
+                console.log(result);
+            },
+            error: function(err) {
+                console.log("nuu");
+                console.log(err);
+            }
+        })
+    });
     return false;
 }
 
@@ -392,14 +476,14 @@ function searchByName(){
     locations(searchLists);
 }
 
-function deleteServiceLocation(locName, serviceName){
+function deleteServiceLocation(locName, serviceName, id){
     var result = confirm("Are you sure you want to delete this service?");
     if (result) {
-        sureDeleteServiceLocation(locName, serviceName);
+        sureDeleteServiceLocation(locName, serviceName, id);
     }
 }
 
-async function sureDeleteServiceLocation(locName, serviceName){
+/*async function sureDeleteServiceLocation(locName, serviceName, id){
     let service = {}
     await $.ajax({
         type: 'GET',
@@ -413,8 +497,8 @@ async function sureDeleteServiceLocation(locName, serviceName){
             console.log(err);
         },
     });
-    console.log(service.name)
-    console.log(serviceName)
+    //console.log(service.name)
+    //console.log(serviceName)
 
     service.location.splice(service.location.indexOf(locName), 1);
     //if (service.location.length>0){
@@ -434,6 +518,7 @@ async function sureDeleteServiceLocation(locName, serviceName){
                 console.log(err);
             }
         })
+    */
     /*} else {
         $.ajax({
             type: 'DELETE',
@@ -448,7 +533,7 @@ async function sureDeleteServiceLocation(locName, serviceName){
     
         })
     }*/
-
+/*
     let data = {}
     data.disponibility = {}
     data.disponibility.service = serviceName
@@ -471,7 +556,7 @@ async function sureDeleteServiceLocation(locName, serviceName){
         },
 
     });
-}
+}*/
 
 function ShowAddServiceLocation(locId, locName){
     $("#Add-"+locId).empty()
@@ -480,14 +565,56 @@ function ShowAddServiceLocation(locId, locName){
             <hr>
             <input id="AddS-${locId}" type="text" placeholder="Service name" style="border-radius: 7px; border-width: thin;" required>    
             <input id="AddQ-${locId}" type="number" min="0" placeholder="Quantity at a time" style="border-radius: 7px; border-width: thin;" required>    
-            <a href="#" class="btn btn-primary" onclick="AddServiceLocation('${locId}', '${locName}')"><small>&check;</small></a>
+            <a href="#" class="btn" onclick="AddServiceLocation('${locId}', '${locName}')" style="background-color: #849531;"><small>&check;</small></a>
             <hr>
         `
     )
+    $("#showAdd-"+locId).hide()
 }
 
 async function AddServiceLocation(locId, locName){
+    let name = $("#AddS-"+locId).val()
+    let quantity = $("#AddQ-"+locId).val()
+    console.log(name);
 
+    let listLocService = []
+    $("#SD-"+locId).children("li").each(function(){
+        listLocService.push($(this).attr("id"))
+    });
+    console.log(listLocService)
+    for (const key in listLocService) {
+        if($("#modServiceName-"+listLocService[key]).attr("value") == name){
+            alert("You can't add a service that is already provided");
+            return
+        }
+    }
+    if (name=="" || quantity=="") {
+        alert("You have to fill both forms if you want to add a service")
+        return
+    }
+    let verify = false;
+    for (let c in serviceList) {
+        if (serviceList[c].name==name) {
+            verify = true;
+        }
+    }
+    if (verify == false){
+        alert("The service name should exist")
+        return
+    }
+    $("#SDnew-"+locId).append(
+        ` 
+        <li class="mb-2" class="withoutId">   
+            <span class="newServiceName" value="${name}">${name} </span>
+            <input class="newServiceQuantity" type="number" min="0" value="${quantity}" style="border-radius: 7px; border-width: thin;">
+        </li>
+        `
+    )
+
+    console.log("PROVA");
+}
+
+/*async function AddServiceLocation(locId, locName){
     let data = {}
     data.disponibility = []
     let name = $("#AddS-"+locId).val()
@@ -522,7 +649,8 @@ async function AddServiceLocation(locId, locName){
     }
     if (verify == false){
         alert("The service name should exist")
-        return}
+        return
+    }
 
     await $.ajax({
         type: 'PATCH',
@@ -572,5 +700,4 @@ async function AddServiceLocation(locId, locName){
             console.log(err);
         }
     })
-
-}
+}*/
