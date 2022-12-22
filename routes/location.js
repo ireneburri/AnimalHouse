@@ -99,7 +99,9 @@ router.patch('/disponibility/:name', async (req, res)=> {
     loc = await Location.findOne({ name: req.params.name })
 
     if(req.body.disponibility != null){
-        loc.disponibility.push(req.body.disponibility[0])
+        for (const key in req.body.disponibility) {
+            loc.disponibility.push(req.body.disponibility[key])
+        }
     }
     
     try{
