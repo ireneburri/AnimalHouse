@@ -104,7 +104,7 @@ router.patch('/:id', getReservation, async (req, res)=> {
         res.reservation.total=req.body.total
     }
 
-    if(dateOverlap(res.reservation.date_start, res.reservation.date_end, req.params.id, req.body.reservationList, req.body.time)){
+    if(dateOverlap(res.reservation.date_start, res.reservation.date_end, req.params.id, req.body.reservationList, req.body.allday)){
         console.log('fata');
         return res.status(500).json('Le date richieste si sovrappongo con un altra prenotazione');
     }
@@ -132,7 +132,7 @@ async function getReservation (req, res, next){
     next()
 }
 
-//controlla sovrapposizione solo dell'ora
+//controlla sovrapposizione solo dell'ora (forse non c'è neanche bisogno di distinguere i casi allday e non)
 function dateOverlap(start, end, id, reservationList, allday){
     console.log("sono in dateOverlap");
     start = new Date(start).getTime()
@@ -143,30 +143,60 @@ function dateOverlap(start, end, id, reservationList, allday){
     let bEnd
     let bStart
     if (allday == "true"){
-        console.log("prova")
+        if (start < end) {
+            return true
+        } else {
+            for(let key in reservationList){
+                if (reservationList[key]['allday'] == "true"){
+                    bStart = new Date(reservationList[key]['date_start']).getTime()
+                    bEnd = new Date(reservationList[key]['date_end']).getTime()
+                    console.log(bStart);
+                    console.log(bEnd);
+                    console.log('idOrigine: '+ id +' idLisato: '+ reservationList[key]['_id']);
+            
+                    if(id == reservationList[key]['_id']){
+                        continue
+                    }
+                    if(start >= bStart && start <= bEnd){ //a tra c e d
+                        return true
+                    }
+                    if(end >= bStart && end <= bEnd){//b tra c e d
+                        return true
+                    }
+                    if(bStart >= start && bStart <= end){//c tra a e b
+                        return true
+                    }
+                    if(bEnd >= start && bEnd <= end){//d tra a e b
+                        return true
+                    }
+                }
+            }
+        }        
     }
     else{
         for(let key in reservationList){
-            bStart = new Date(reservationList[key]['date_start']).getTime()
-            bEnd = new Date(reservationList[key]['date_end']).getTime()
-            console.log(bStart);
-            console.log(bEnd);
-            console.log('idOrigine: '+ id +' idLisato: '+ reservationList[key]['_id']);
-    
-            if(id == reservationList[key]['_id']){
-            continue
-            }
-            if(start >= bStart && start <= bEnd){ //a tra c e d
-                return true
-            }
-            if(start >= bStart && start <= bEnd){//b tra c e d
-                return true
-            }
-            if(bStart >= start && bStart <= end){//c tra a e b
-                return true
-            }
-            if(bEnd >= start && bEnd <= end){//d tra a e b
-                return true
+            if (reservationList[key]['allday'] == "false"){
+                bStart = new Date(reservationList[key]['date_start']).getTime()
+                bEnd = new Date(reservationList[key]['date_end']).getTime()
+                console.log(bStart);
+                console.log(bEnd);
+                console.log('idOrigine: '+ id +' idLisato: '+ reservationList[key]['_id']);
+        
+                if(id == reservationList[key]['_id']){
+                    continue
+                }
+                if(start >= bStart && start <= bEnd){ //a tra c e d
+                    return true
+                }
+                if(end >= bStart && end <= bEnd){//b tra c e d
+                    return true
+                }
+                if(bStart >= start && bStart <= end){//c tra a e b
+                    return true
+                }
+                if(bEnd >= start && bEnd <= end){//d tra a e b
+                    return true
+                }
             }
         }
     }
