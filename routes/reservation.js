@@ -142,10 +142,10 @@ function dateOverlap(start, end, id, reservationList, allday){
     console.log(end);
     let bEnd
     let bStart
-    if (allday == "true"){
+    //if (allday === "true"){
         if (start < end) {
             return true
-        } else {
+        } /*else {
             for(let key in reservationList){
                 if (reservationList[key]['allday'] == "true"){
                 console.log("sono in alldaytrue");
@@ -173,11 +173,11 @@ function dateOverlap(start, end, id, reservationList, allday){
                     }
                 }
             }
-        }        
-    }
-    else{
+        }       */ 
+    //}
+    //else{
         for(let key in reservationList){
-            if (reservationList[key]['allday'] == "false"){ //non funziona
+            //if (reservationList[key]['allday'] == "false"){ //non funziona
                 console.log("sono in alldayfalse");
                 bStart = new Date(reservationList[key]['date_start']).getTime()
                 bEnd = new Date(reservationList[key]['date_end']).getTime()
@@ -200,9 +200,9 @@ function dateOverlap(start, end, id, reservationList, allday){
                 if(bEnd >= start && bEnd <= end){//d tra a e b
                     return true
                 }
-            }
+            //}
         }
-    }
+    //}
     return false
 }
 
