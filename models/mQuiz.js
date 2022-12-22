@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const animalSchema = new mongoose.Schema({
+const quizSchema = new mongoose.Schema({
     name:{
         type: String,
         required: true,
@@ -55,6 +55,6 @@ const animalSchema = new mongoose.Schema({
 })
 
 
-const animal = mongoose.model('animal', animalSchema);
+const quiz = mongoose.model('quiz', quizSchema);
 
-module.exports= animal;
+module.exports= quiz;
