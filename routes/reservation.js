@@ -143,7 +143,7 @@ function dateOverlap(start, end, id, reservationList, allday){
     let bEnd
     let bStart
     //if (allday === "true"){
-        if (start < end) {
+        if (start > end) {
             return true
         } /*else {
             for(let key in reservationList){
