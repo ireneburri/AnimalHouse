@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 const quizSchema = new mongoose.Schema({
     name:{
         type: String,
         required: true,
     },
-    img: {
+    img:{
         type: String,
         required: true,
     },
@@ -33,7 +33,7 @@ const quizSchema = new mongoose.Schema({
         required: true,
     },
     lifespan:{
-        type: Number,
+        type: String,
         required: true,
     },
     habitat:{
@@ -44,17 +44,13 @@ const quizSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    geo_range:{
-        type: String,
-        required: true,
-    },
     curiosity:{
-        type: String,
-        required: true,
-    },
+        type:String,
+        required:true,
+    }
+
 })
 
+const Quiz = mongoose.model('quiz', quizSchema);
 
-const quiz = mongoose.model('quiz', quizSchema);
-
-module.exports= quiz;
+module.exports= Quiz;
