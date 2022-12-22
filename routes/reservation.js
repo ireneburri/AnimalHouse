@@ -148,6 +148,8 @@ function dateOverlap(start, end, id, reservationList, allday){
         } else {
             for(let key in reservationList){
                 if (reservationList[key]['allday'] == "true"){
+                console.log("sono in alldaytrue");
+
                     bStart = new Date(reservationList[key]['date_start']).getTime()
                     bEnd = new Date(reservationList[key]['date_end']).getTime()
                     console.log(bStart);
@@ -175,7 +177,8 @@ function dateOverlap(start, end, id, reservationList, allday){
     }
     else{
         for(let key in reservationList){
-            if (reservationList[key]['allday'] == "false"){
+            if (reservationList[key]['allday'] == "false"){ //non funziona
+                console.log("sono in alldayfalse");
                 bStart = new Date(reservationList[key]['date_start']).getTime()
                 bEnd = new Date(reservationList[key]['date_end']).getTime()
                 console.log(bStart);
