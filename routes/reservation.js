@@ -133,7 +133,7 @@ async function getReservation (req, res, next){
 }
 
 //controlla sovrapposizione solo dell'ora
-function dateOverlap(start, end, id, reservationList, time){
+function dateOverlap(start, end, id, reservationList, allday){
     console.log("sono in dateOverlap");
     start = new Date(start).getTime()
     end = new Date(end).getTime()
@@ -142,28 +142,32 @@ function dateOverlap(start, end, id, reservationList, time){
     console.log(end);
     let bEnd
     let bStart
-    console.log("time:" + time);
-    for(let key in reservationList){
-        bStart = new Date(reservationList[key]['date_start']).getTime()
-        bEnd = new Date(reservationList[key]['date_end']).getTime()
-        console.log(bStart);
-        console.log(bEnd);
-        console.log('idOrigine: '+ id +' idLisato: '+ reservationList[key]['_id']);
-  
-        if(id == reservationList[key]['_id']){
-          continue
-        }
-        if(start >= bStart && start <= bEnd){ //a tra c e d
-            return true
-        }
-        if(start >= bStart && start <= bEnd){//b tra c e d
-            return true
-        }
-        if(bStart >= start && bStart <= end){//c tra a e b
-            return true
-        }
-        if(bEnd >= start && bEnd <= end){//d tra a e b
-            return true
+    if (allday == "true"){
+        console.log("prova")
+    }
+    else{
+        for(let key in reservationList){
+            bStart = new Date(reservationList[key]['date_start']).getTime()
+            bEnd = new Date(reservationList[key]['date_end']).getTime()
+            console.log(bStart);
+            console.log(bEnd);
+            console.log('idOrigine: '+ id +' idLisato: '+ reservationList[key]['_id']);
+    
+            if(id == reservationList[key]['_id']){
+            continue
+            }
+            if(start >= bStart && start <= bEnd){ //a tra c e d
+                return true
+            }
+            if(start >= bStart && start <= bEnd){//b tra c e d
+                return true
+            }
+            if(bStart >= start && bStart <= end){//c tra a e b
+                return true
+            }
+            if(bEnd >= start && bEnd <= end){//d tra a e b
+                return true
+            }
         }
     }
     return false
