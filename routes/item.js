@@ -19,7 +19,7 @@ router.get('/:id', getItem, (req, res)=> {
     res.json(res.item)
 })
 
-//get 3 by type
+//get filtered
 router.get('/animal/:animal/species/:species/size/:size', async(req, res)=> {
     //console.log('ao')
     const animal = req.params.animal
@@ -31,7 +31,7 @@ router.get('/animal/:animal/species/:species/size/:size', async(req, res)=> {
     var items
     var moreItems
     items = await Item.aggregate([
-        {$match: {$and: [{species: species}, {quantity: {$gt: 0}}, {$or: [{size: size}, {size:'All'}]}]}},
+        {$match: {$and: [{species: species}, {quantity: {$gt: 0}}, {size: size}]}},
         { $sample: { size: 3}}])
     console.log(items)
 
@@ -50,7 +50,6 @@ router.get('/animal/:animal/species/:species/size/:size', async(req, res)=> {
         res.status(500).json({message: err.message})
     }
 })
-
 
 
 //create one
