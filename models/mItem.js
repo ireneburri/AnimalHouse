@@ -23,6 +23,12 @@ const itemSchema = new mongoose.Schema({
         enum: ["Per Tutti", "Mammiferi", "Uccelli", "Rettili", "Anfibi", "Pesci", "Insetti", "Altro"],
         required: true,
     },
+    size:{
+        type: String,
+        enum:["Small", "Medium", "Large", "All"],
+        required:false,
+        default:"All",
+    },
     quantity: {
         type: Number,
         required: true,
