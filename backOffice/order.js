@@ -104,7 +104,7 @@ function showProducts(id, product){
                 <p>${product.name}</p>
             </div>
             <div class="col-xl-2">
-                <p class="float-end">&euro;${product.price}</p>
+                <p class="float-end">&euro;${product.singleprice}</p>
             </div>
         </div>
     `)

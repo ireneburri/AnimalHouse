@@ -202,6 +202,9 @@ function sureModifyRes(id, allday, time){
             }
         }
 
+        data.reservationList = reservationList;
+        data.allday = allday; 
+
         $.ajax({
             type: 'PATCH',
             url: url + "/reservation/" + id,

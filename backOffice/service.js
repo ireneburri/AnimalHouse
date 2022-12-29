@@ -223,7 +223,7 @@ function showService(service){
                                             <div class="row mb-2">
                                                 <label for="modLocation-${service._id}" class="col-sm-2 col-form-label" style="color:gray">Store</label>
                                                 <div class="col-sm-10">
-                                                    <input id="modLocation-${service._id}" type="text" class="form-control" placeholder="${service.location}" aria-label="Service location" disabled>
+                                                    <input id="modLocation-${service._id}" type="text" class="form-control" placeholder="${service.location}" aria-label="Service location">
                                                 </div>
                                             </div>
 
