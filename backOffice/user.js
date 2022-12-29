@@ -96,9 +96,10 @@ function showClient(client){
                                 <span class="clientSurname"> ${client.surname} </span>  
                             </h5> 
                             <small>
-                                <span class="clientUsername"> ${client.username} </span> <br> 
+                                <span class="clientUsername"> ${client.username} </span> <span class="clientVip" style="color: #A0AECD;"> ${vip} </span> <br>
                                 <span class="clientPassword" style="color: gray;" id="false-${client._id}" role="button" onclick=showPassword("${client._id}","${client.password}")> Password </span> <br>
-                                <span class="clientVip" style="color: #A0AECD;">${vip} </span>
+                                <span style="color: gray">Game score:</span>
+                                <span class="clientScore">${client.score} </span> <br>  
                             </small>
                         </div>
                         <div class="col-md-7">
@@ -107,17 +108,26 @@ function showClient(client){
                                 &phone;<span class="clientTel"> ${client.tel} </span><br> 
                                 <span style="color: gray">Residence: </span>
                                 <span class="clientResidence">${client.residence} </span> <br>
-                                <a  href="./order.html"  target="_blank" onclick="setSearch('${client.username}')" style="color: #A0AECD;"> <span >Orders</span></a> <br>
-                                <br>
+                                <a  href="./order.html"  target="_blank" onclick="setSearch('${client.username}')" style="color: #A0AECD;"> <span >Orders</span></a> 
+                                <hr>
                                 </small>
 
                                 <span style="color: gray">Favourite animals: </span> 
-                                <span class="clientPreferences">${client.preferences} </span> <br>  
-                                <a href="#" onclick=openAnimal("${client._id}") id="falseAnimal-${client._id}" style="color: #A0AECD"> <span >Own animals</span></a>
+                                <span class="clientPreferences">${client.preferences} </span>  <br>
+                                <a href="#" onclick=openAnimal("${client._id}") id="falseAnimal-${client._id}" style="color: #A0AECD"> <span >Show costumer's animals</span></a>
                             </p>
                         </div>
                         <div class="col-md-2">
-                            <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#Modal-${client._id}" style="background-color: #A0AECD; color: white; float:right; margin:1px;">Delete</a>
+                        <div class="row g-0" >   
+                            <a href="#" class="btn" style="background-color: #A0AECD; border-color: #A0AECD; color: white; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#Modal-${client._id}">Delete</a> 
+                        </div>
+                        <div class="row g-0" >   
+                            <a href="#" class="btn" style="background-color: #425664; border-color: #425664; color: white; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#ModalU-${client._id}"><small>Modify</small></a>
+                        </div>
+                        <div class="row g-0" >   
+                            <a href="#" class="btn" style="background-color: #849531; border-color: #849531; color: white; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#ModalAnimal-${client._id}"><small>Add animal</small></a>  
+                        </div>
+                            
                             <!-- Modal -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
@@ -137,9 +147,6 @@ function showClient(client){
                                 </div>
                             </div>
 
-                            <a href="#" class="btn btn-primary" style="background-color: #425664; border-color: #425664; color: white; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#ModalU-${client._id}"><small>Modify</small></a><br>
-                            <a href="#" class="btn btn" style="background-color: #849531; color: white; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#ModalAnimal-${client._id}"><small>Add animal</small></a>  
-                            
                             <!-- Modal -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
@@ -630,12 +637,15 @@ function openAnimal(id){
             }
         }
         if (count == 0){
-            $("#ownAnimal-"+id).append(`<div class="container mt-2" style="color:gray">There are no animals </div>`);
+            $("#ownAnimal-"+id).append(`<div class="container mt-2" style="color:849531; text-align: center;">The costumer has no pets </div>`);
         }        
+        $("#falseAnimal-"+id).children("span").text("Hide costumer's animals");
         $("#falseAnimal-"+id).attr("id", "trueAnimal-"+id); 
+         
     }
     else if ($("#trueAnimal-"+id).length) {
         $("#ownAnimal-"+id).empty(); 
+        $("#trueAnimal-"+id).children("span").text("Show costumer's animals");
         $("#trueAnimal-"+id).attr("id", "falseAnimal-"+id);
     }
 }
