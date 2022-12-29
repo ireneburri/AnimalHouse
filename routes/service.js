@@ -45,6 +45,28 @@ router.get('/name/:name', async(req, res) => {
     }
 })
 
+
+//get one by location
+router.get('/location/:location?', async(req, res) => {
+    const location = req.params.location
+    let service
+    try {
+        service = await Service.aggregate([{ $match: { location: location } }, { $sample: { size: 3 }} ])
+
+        if(service.length<3){
+            const moreService = await Service.aggregate([{ $match: { location: {$not:{$eq:location}} } }, { $sample: { size: 3-service.length }}])
+            service.push(moreService)
+        }
+        if (service == null) {
+            return res.status(404).json({ message: 'Cannot find service' })
+        } else {
+            res.status(201).json(service)
+        }
+    } catch (err) {
+        return res.status(500).json({ message: err.message })
+    }
+})
+
 //Create one
 router.post('/', async (req, res)=> {
     const service = new Service({
