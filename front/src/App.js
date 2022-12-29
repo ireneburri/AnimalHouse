@@ -34,7 +34,7 @@ function App() {
 						<Route exact path="/singleproduct:id" element={<SingleProduct />} />
 						<Route exact path="/pinboards" element={<Pinboards />} />
 						<Route exact path="/services:service" element={<Services />} />
-						<Route exact path="/singleservice:id" element={<SingleService />} />
+						<Route exact path="/singleservice:name" element={<SingleService />} />
 						<Route exact path="/locations" element={<Locations />} />
 						<Route exact path="/login" element={<Login />} />
 						<Route exact path="/cart" element={<Cart />} />

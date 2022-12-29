@@ -18,6 +18,41 @@ router.get('/', async(req, res)=> {
 router.get('/:id', getItem, (req, res)=> {
     res.json(res.item)
 })
+
+//get 3 by type
+router.get('/animal/:animal/species/:species/size/:size', async(req, res)=> {
+    //console.log('ao')
+    const animal = req.params.animal
+    //console.log(animal)
+    const species = req.params.species
+    //console.log(species)
+    const size = req.params.size
+    //console.log(size)
+    var items
+    var moreItems
+    items = await Item.aggregate([
+        {$match: {$and: [{species: species}, {quantity: {$gt: 0}}, {$or: [{size: size}, {size:'All'}]}]}},
+        { $sample: { size: 3}}])
+    console.log(items)
+
+    if(items.length<3){
+        moreItems = await Item.aggregate([
+            {$match: {$and: [{animal: animal}, {quantity: {$gt: 0}}]}},
+            { $sample: { size: 3-items.length}}])
+        moreItems.forEach(moreItems => {
+            items.push(moreItems)
+        })
+    }
+    //console.log(items)
+    try{
+        res.json(items)
+    } catch(err) {
+        res.status(500).json({message: err.message})
+    }
+})
+
+
+
 //create one
 router.post('/', auth.verifyLogin, auth.verifyAuth(auth.authLevelDict["staff"]), async (req, res)=> {
     const item = new Item({

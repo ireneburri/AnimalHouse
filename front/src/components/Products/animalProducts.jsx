@@ -22,7 +22,7 @@ const Items = styled.div`
 
 function AnimalProducts() {
 
-    const [filtered, setFiltered] = useState([]); //con questo posso lavorare in modo più sicuro
+    const [filtered, setFiltered] = useState([]);
 
     useEffect(() => {
         fetchItems();

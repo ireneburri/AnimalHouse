@@ -31,6 +31,51 @@ router.get("/sale/:sale", async (request , response) => {
     }
 });
 
+
+//get by sale, species + breed
+router.get("/species/:species/breed/:breed?", async (request , response) => {
+    const species = request.params.species
+    const breed = request.params.breed
+    //console.log('breed: ', breed)
+    var animal=[]
+    //console.log('length:', animal.length)
+    if(breed !== null){
+        //console.log('ciao')
+        animal = await Animal.aggregate([
+            { $match: { $and: [ { breed:breed }, { sale:true } ] } },
+            { $sample: { size: 3 }} ])
+        //console.log(animal)
+    }
+    //console.log("animal ", animal)
+
+    if(animal.length<3){
+        const moreAnimals = await Animal.aggregate([
+            { $match: { $and: [ { species:species }, { sale:true } ] } },
+            { $sample: { size: 3-animal.length }} ])
+        //console.log("animals ", animals)
+        moreAnimals.forEach(moreAnimal=>{
+            animal.push(moreAnimal)})
+
+        //console.log(animal)
+        if(animal.length<3) {
+            const evenMoreAnimals = await Animal.aggregate([
+                {$match: {$and: [{species:{$not:{$eq:species}}}, {sale: true}]}},
+                {$sample: {size: 3 - animal.length}}])
+            //console.log("animals ", animals)
+            evenMoreAnimals.forEach(evenMoreAnimal => {
+                animal.push(evenMoreAnimal)
+            })
+        }
+    }
+    try {
+        response.send(animal);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
+
+
 //create one
 router.post('/', async (req, res)=> {
     const animal = new Animal({
