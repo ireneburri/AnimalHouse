@@ -32,7 +32,12 @@ const reservationSchema= new mongoose.Schema({
     total:{
         type: Number,
         required: true
-    }
+    },
+    mode: {
+        type: String,
+        enum: ['In Store', 'Online'],
+        required: false,
+    },
 })
 
 const Reservation = mongoose.model('reservation', reservationSchema);

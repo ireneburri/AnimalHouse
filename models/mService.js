@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const serviceSchema = new mongoose.Schema({
     mode: {
         type: String,
-        enum: ['In Store', 'Online', 'At Home'],
+        enum: ['In Store', 'Online'],
         required: true,
     },
     name: {
