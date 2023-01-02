@@ -27,7 +27,7 @@ const boardSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ["None", "Eccolo qua", "Cerco Partner"],
+        enum: ["None", "Review", "Stray Animals", "Finding Partners"],
         required: false,
         default: "None",
     },
