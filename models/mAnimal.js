@@ -22,7 +22,7 @@ const animalSchema = new mongoose.Schema({
     },
     sex:{
         type: String,
-        enum: ["Maschio", "Femmina"],
+        enum: ["Male", "Female"],
         required: false,
     },
     species:{
