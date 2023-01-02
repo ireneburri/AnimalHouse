@@ -12,7 +12,8 @@ router.post('/post', async (req, res)=> {
         date_start: req.body.date_start,
         date_end: req.body.date_end,
         location: req.body.location,
-        total: req.body.total
+        total: req.body.total,
+        mode: req.body.mode
     })
     try{
         const newReservation = await reservation.save()
@@ -102,6 +103,9 @@ router.patch('/:id', getReservation, async (req, res)=> {
     }
     if(req.body.total != null){
         res.reservation.total=req.body.total
+    }
+    if(req.body.mode != null){
+        res.reservation.mode=req.body.mode
     }
 
     if(dateOverlap(res.reservation.date_start, res.reservation.date_end, req.params.id, req.body.reservationList, req.body.allday)){
