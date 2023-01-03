@@ -173,13 +173,17 @@ async function dateOverlap(start, end, id, reservationList, serName, locName){
 
     for(let key in reservationList){
         if (reservationList[key].service == serName){ //controllo solo le reservation del mio stesso servizio
-            if (reservationList[key].location == locName){ //controllo solo le reservation del mio stesso negozio
-
+            console.log("siamo dentro a if reservationList[key].service == serName");
+            console.log("reservationList[key].service: ", reservationList[key].service);
+            if (reservationList[key].location == locName){ //controllo solo le reservation del mio stesso negozio   
+                console.log("siamo dentro a if reservationList[key].location == locName");
+                console.log("reservationList[key].location: ", reservationList[key].location);
                 bStart = new Date(reservationList[key]['date_start']).getTime()
                 bEnd = new Date(reservationList[key]['date_end']).getTime()
                 console.log("siamo nel for giro: " + key)
 
                 if(id != reservationList[key]['_id']){
+                    console.log("siamo dentro a if id != reservationList[key]['_id'] ");
                     if(start >= bStart && start < bEnd){ //a tra c e d
                         //return true
                         count = count + 1;
@@ -194,14 +198,16 @@ async function dateOverlap(start, end, id, reservationList, serName, locName){
                         count = count + 1;
                     }
                 }
-                console.log("count: " + count + ", giro: " + key)
+                console.log("count: " + count + ", giro: " + key);
                 if (count >= quantity){
-                    return true
+                    console.log("dentro a count>=quantity");
+                    console.log("quantity: " + quantity);
+                    return true;
                 }
             }
         }
     }
-    return false
+    return false;
 }
 
 module.exports = router
