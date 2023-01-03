@@ -202,7 +202,7 @@ function dateOverlap(start, end, id, reservationList, allday){
                 if(bStart >= start && bStart <= end){//c tra a e b
                     return true
                 }
-                if(bEnd >= start && bEnd <= end){//d tra a e b
+                if(bEnd >= start && bEnd < end){//d tra a e b
                     return true
                 }
             //}
