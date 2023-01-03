@@ -114,12 +114,13 @@ router.patch('/:id', getReservation, async (req, res)=> {
         return res.json({message: 'La prenotazione è sbagliata'})
         //return res.status(500).json('Le date richieste si sovrappongo con un altra prenotazione');
     }else{
-    try{
-        const updateReservation = await res.reservation.save()
-        res.json(updateReservation)
-    } catch(err){
-        res.status(400).json({message: err.message}) //parametro non accettabile
-    }
+        console.log("siamo in dateOverlap false");
+        try{
+            const updateReservation = await res.reservation.save()
+            res.json(updateReservation)
+        } catch(err){
+            res.status(400).json({message: err.message}) //parametro non accettabile
+        }
     }
 });
 
