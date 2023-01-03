@@ -159,14 +159,13 @@ async function dateOverlap(start, end, id, reservationList, serName, locName){
     let quantity = 0;
     console.log("location[0]['disponibility']: "+location[0]['disponibility'])
 
-    /*for (let k in location[0]['disponibility']) {
-        if (location[0]['disponibility'][k]['service'] == serName){
-            quantity = location['disponibility'][k]['quantity'];
-        }
-    }*/
-    location[0]['disponibility'].forEach(element => {
-        if ($(this).service) { console.log("prova");}
-    });
+    for (let k in location[0]['disponibility']) {
+        console.log("PROVA" + k);
+        //if (location[0]['disponibility'][k]['service'] == serName){
+            //quantity = location['disponibility'][k]['quantity'];
+        //}
+    }
+
     console.log("quantity of: " + serName + " in: " + locName + " quantity: " + quantity);
 
     for(let key in reservationList){
