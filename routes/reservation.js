@@ -157,13 +157,13 @@ async function dateOverlap(start, end, id, reservationList, serName, locName){
     const location = await Location.find({ name: locName });
     console.log("location: "+location);
     let quantity = 0;
-    console.log("loc['disponibility]': "+location['disponibility'])
+    console.log("location[0]['disponibility']: "+location[0]['disponibility'])
 
     for (const key in location.disponibility) {
         console.log("loc.disponibility["+ key + "] " + location.disponibility)
         if (location.disponibility[key].service == serName){
             console.log("loc.disponibility[key].service: "+location.disponibility[key].service)
-            quantity = location.disponibility[key].quantity;
+            quantity = location['disponibility'][key]['quantity'];
             console.log("loc.disponibility[key].quantity: "+location.disponibility[key].quantity)
         }
     }
