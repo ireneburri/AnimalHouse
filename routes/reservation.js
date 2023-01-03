@@ -164,7 +164,7 @@ async function dateOverlap(start, end, id, reservationList, serName, locName){
             quantity = location['disponibility'][k]['quantity'];
         }
     }*/
-
+    let element = location[0]['disponibility'];
     array.forEach(element => {
         if ($(this).service) { console.log("prova");}
     });
