@@ -109,8 +109,8 @@ router.patch('/:id', getReservation, async (req, res)=> {
     }
 
     if(dateOverlap(res.reservation.date_start, res.reservation.date_end, req.params.id, req.body.reservationList, req.body.allday)){
-        //console.log('fata');
-        res.json({message: 'Le date richieste si sovrappongo con un altra prenotazione'})
+        console.log('fata');
+        return res.json({message: 'Le date richieste si sovrappongo con un altra prenotazione'})
         //return res.status(500).json('Le date richieste si sovrappongo con un altra prenotazione');
     }
 
