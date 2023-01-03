@@ -202,16 +202,17 @@ async function dateOverlap(start, end, id, reservationList, serName, locName){
                     }
                 }
                 console.log("count: " + count + ", giro: " + key);
-                if (count >= quantity){
-                    console.log("dentro a count>=quantity");
-                    console.log("quantity: " + quantity);
-                    return true;
-                }
             }
         }
     }
-    console.log("ora dovrebbe ritornare false");
-    return false;
+    if (count >= quantity){
+        console.log("dentro a count>=quantity");
+        console.log("quantity: " + quantity);
+        return true;
+    } else {
+        console.log("else ora dovrebbe ritornare false");
+        return false;
+    }
 }
 
 module.exports = router
