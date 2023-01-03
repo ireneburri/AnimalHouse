@@ -216,7 +216,7 @@ function sureModifyRes(id, allday, time, serName, locName){
             success: function(result) {
                 console.log("yay");
                 console.log(result); 
-                if (result.message == "Le date richieste si sovrappongo con un altra prenotazione"){
+                if (result.message == "La prenotazione è sbagliata"){
                     $('#ModalOverlap').modal('toggle');
                 } else {
                     window.location.reload();
