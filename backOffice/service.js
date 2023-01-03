@@ -138,7 +138,7 @@ function showService(service){
     <div class="card mb-3"  id="${service.name}" >
         <div class="row g-0" >
             <div class="col-md-2">
-                <img src="../routes/uploads/${img}" class="img-fluid rounded" alt="Image of service: ${service.name}" style="width: 100%; height: auto;">
+                <img src="../routes/uploads/${img}" class="img-fluid rounded" alt="Image of the service: ${service.name}" style="width: 100%; height: auto;">
             </div>
             <div class="col-md-10">
                 <div class="card-body">
@@ -169,20 +169,23 @@ function showService(service){
                             </p>
                         </div>
                         <div class="col-md-2">
-                            <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#ModalD-${service._id}" style="background-color: #A0AECD; color: white; float:right; margin:1px;"><small>Delete</small></a>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalD-${service._id}" style="background-color: #A0AECD; border-color: #A0AECD; color: white; float:right; margin:1px;"><small>Delete</small></a>
                             <!-- Modal -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
                                 <div class="modal fade" id="ModalD-${service._id}" tabindex="-1" aria-labelledby="ModalLabelD-${service._id}" aria-hidden="true">
                                     <div class="modal-dialog">
-                                        <div class="modal-content" style="background-color:#A0AECD;color: white;">
+                                        <div class="modal-content" style="background-color:#A0AECD;">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="ModalLabel">Are you sure you want to delete this service?</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <h5 class="modal-title" id="ModalLabel" style="color: black;">Delete</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close the modal"></button>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
-                                            <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=sureDeleteService("${service._id}")>Yes</button>                             
+                                        <div class="modal-body">
+                                            <p style="color: black;">Are you sure you want to delete this service?</p>
+                                        </div>
+                                        <div class="modal-footer">                            
+                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="background-color: #425664; border-color: #425664;"  aria-label="Don't delete the service">No</button>
+                                            <button type="button" class="btn btn-primary" onclick=sureDeleteService("${service._id}") style="margin:1px; background-color: #849531; border-color: #849531;"  aria-label="Delete the service">Yes</button>
                                         </div>
                                         </div>
                                     </div>
@@ -223,55 +226,51 @@ function showService(service){
                                             <div class="row mb-2">
                                                 <label for="modLocation-${service._id}" class="col-sm-2 col-form-label" style="color:gray">Store</label>
                                                 <div class="col-sm-10">
-                                                    <input id="modLocation-${service._id}" type="text" class="form-control" placeholder="${service.location}" aria-label="Service location">
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-2">
-                                                <label class="col-sm-2 col-form-label">Mode</label>
-                                                <div class="col-sm-5">
-                                                    <select id="modMode-${service._id}" class="form-select" aria-label="Quantity" placeholder="${service.mode}">
-                                                        <option selected>${service.mode}</option>
-                                                        <option>In Store</option>
-                                                        <option>Online</option>
-                                                        <option>At Home</option>
-                                                    </select>  
-                                                </div>
-                                                <div class="col-sm-5">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" id="modPrice-${service._id}" aria-label="Price" placeholder="${service.price}">
-                                                    <span class="input-group-text">&euro;</span>
-                                                </div>
+                                                    <input id="modLocation-${service._id}" type="text" class="form-control" placeholder="${service.location}" aria-label="Service location" disabled>
                                                 </div>
                                             </div>
 
                                             <div class="row mb-2">
                                                 <div class="col">
                                                     <div class="row">
-                                                        <label class="col-sm-4 col-form-label" for="modAllday-${service._id}">All day</label>
+                                                        <label class="col-sm-4 col-form-label" for="modAllday-${service._id}" style="color: gray">All day</label>
                                                         <div class="col-sm-8">
-                                                            <select id="modAllday-${service._id}" class="form-select" aria-label="Allday">     
-                                                                <option>true</option>                                                
-                                                                <option>false</option>                                                
-                                                            </select>     
+                                                            <input id="modAllday-${service._id}" type="number" placeholder="${service.allday}" class="form-control" aria-label="Allday" disabled>    
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="row">
-                                                        <label class="col-sm-3 col-form-label" for="modTime-${service._id}">Time</label>
+                                                        <label class="col-sm-3 col-form-label" for="modTime-${service._id}" style="color: gray">Time</label>
                                                         <div class="col-sm-9">
-                                                            <input id="modTime-${service._id}" type="time" placeholder="${service.time}" class="form-control" aria-label="Time">  
+                                                            <input id="modTime-${service._id}" type="number" placeholder="${service.time}" class="form-control" aria-label="Time" disabled>  
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>   
 
                                             <div class="row mb-2">
+                                                <label class="col-sm-2 col-form-label">Mode</label>
+                                                <div class="col-sm-5">
+                                                    <select id="modMode-${service._id}" class="form-select" aria-label="Quantity" placeholder="${service.mode}">
+                                                        <option selected disabled>${service.mode}</option>
+                                                        <option>In Store</option>
+                                                        <option>Online</option>
+                                                    </select>  
+                                                </div>
+                                                <div class="col-sm-5">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="modPrice-${service._id}" aria-label="Price" value="${service.price}">
+                                                    <span class="input-group-text">&euro;</span>
+                                                </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-2">
                                                 <label class="col-sm-3 col-form-label">Category</label>
                                                 <div class="col-sm-4">
                                                     <select id="modCategory-${service._id}" class="form-select" aria-label="Category">
-                                                        <option selected>${service.category}</option>
+                                                        <option selected disabled>${service.category}</option>
                                                         <option>Animal Sitter</option>
                                                         <option>Vet & Doctors</option>
                                                         <option>Grooming</option>
@@ -310,8 +309,8 @@ function showService(service){
 
 
                                         <div class="modal-footer">
-                                            <button type="reset" form="FormModify-${service._id}" class="btn" data-bs-dismiss="modal" style="background-color: #A0AECD; border-color: #A0AECD;">Discard</button>
-                                            <button type="button" class="btn" onclick=modifyService("${service._id}") style="background-color: #849531; border-color: #849531;">Save changes</button>
+                                            <button type="reset" form="FormModify-${service._id}" class="btn" data-bs-dismiss="modal" style="background-color: #A0AECD; border-color: #A0AECD;"  aria-label="Close the modal without saving">Discard</button>
+                                            <button type="button" class="btn btn-primary" onclick=modifyService("${service._id}") style="background-color: #849531; border-color: #849531;"  aria-label="Close the modal and save changes">Save changes</button>
                                             
                                         </div>
 
@@ -358,7 +357,7 @@ function createService(){
         return
     }    
 
-    //Controllo per verificare che per OGNI service location corrisponda ad una vera location
+    //Controllo per verificare che per OGNI service location corrisponda ad una vera location 
     let verify = false
     for (const i in data.location) {
         verify = false
@@ -465,8 +464,8 @@ function modifyService(id){
 
     if ($("#modVip-"+id).val()=="VIP") {data.vip = true} else {data.vip = false}
 
-    //Controllo per verificare che per OGNI service location corrisponda ad una vera location
-    let verify = false
+    //Controllo per verificare che per OGNI service location corrisponda ad una vera location --> non dovrebbe servire perchè la location non si può modificare dalla pagina dei servizi
+    /*let verify = false
     for (const i in data.location) {
         verify = false
         for (let key in locationList) {
@@ -480,10 +479,10 @@ function modifyService(id){
         //alert("The location's name doesn't mach any real location")
         
         $('.callout').attr('style', 'display: block')
-        $('.callout-header').text("The location's name dowsn't match any existing location")
+        $('.callout-header').text("The location's name doesn't match any existing location")
         return
     }
-
+*/
 
     $.ajax({
         type: 'PATCH',

@@ -75,7 +75,7 @@ function showRes(reservation){
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item" id="btn-${reservation._id}">
-                    <a href="#" id="modifybtn-${reservation._id}" class="btn btn-primary" style="float:left; margin:1px;background-color:#425664; border-color: #425664;color:white;" onclick="modifyRes('${reservation._id}', '${reservation.allday}', '${reservation.time}', '${reservation.date_start}', '${reservation.date_end}')"><small>Modify</small></a>
+                    <a href="#" id="modifybtn-${reservation._id}" class="btn btn-primary" style="float:left; margin:1px;background-color:#425664; border-color: #425664;color:white;" onclick="modifyRes('${reservation._id}', '${reservation.allday}', '${reservation.time}', '${reservation.date_start}', '${reservation.date_end}', '${reservation.service}', '${reservation.location}')"><small>Modify</small></a>
                     <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#ModalD-${reservation._id}" style="background-color: #A0AECD; color: white; float:right; margin:1px;"><small>Delete</small></a>
                     <!-- Modal -->
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -119,7 +119,7 @@ function showRes(reservation){
     )}
 }
 
-function modifyRes(id, allday, time, dateS, dateE){
+function modifyRes(id, allday, time, dateS, dateE, service, location){
     console.log(allday);
     if (allday=="false"){
         dateS = dateS.substring(0, 16);
@@ -152,7 +152,7 @@ function modifyRes(id, allday, time, dateS, dateE){
     $("#btn-"+id).append(
         `
         <a href="#" id="modifybtn-${id}" class="btn" style="float:left; margin:1px;background-color: #A0AECD; border-color: #A0AECD; color:white;" onclick="sureModifyRes('false', '0')"><small>Discard</small></a>
-        <a href="#" id="deletebtn-${id}" class="btn" style="float:right; margin:1px;background-color: #849531; border-color: #849531; color:white;" onclick="sureModifyRes('${id}', '${allday}', '${time}')"><small>Confirm</small></a>    
+        <a href="#" id="deletebtn-${id}" class="btn" style="float:right; margin:1px;background-color: #849531; border-color: #849531; color:white;" onclick="sureModifyRes('${id}', '${allday}', '${time}', '${service}', '${location}')"><small>Confirm</small></a>    
         `       
     )   
     
@@ -160,7 +160,7 @@ function modifyRes(id, allday, time, dateS, dateE){
 
 
 //MODIFICA un servizio
-function sureModifyRes(id, allday, time){
+function sureModifyRes(id, allday, time, serName, locName){
     
     //voglio modificare la prenotazione
     if (id != "false"){
@@ -204,6 +204,8 @@ function sureModifyRes(id, allday, time){
 
         data.reservationList = reservationList;
         data.allday = allday; 
+        data.location = locName;
+        data.service = serName;
 
         $.ajax({
             type: 'PATCH',
@@ -213,14 +215,19 @@ function sureModifyRes(id, allday, time){
             data: JSON.stringify(data),        
             success: function(result) {
                 console.log("yay");
-                console.log(result);
+                console.log(result); 
+                if (result.message == "Le date richieste si sovrappongo con un altra prenotazione"){
+                    $('#ModalOverlap').modal('toggle');
+                } else {
+                    window.location.reload();
+                }
             },
             error: function(err) {
                 console.log("nuu");
                 console.log(err);
             }
 
-        }).then( ()=> window.location.reload());    
+        })//.then( ()=> window.location.reload());    
         return false;
 
     }

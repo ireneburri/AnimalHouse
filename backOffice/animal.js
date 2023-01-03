@@ -151,8 +151,8 @@ function showAnimal(animal){
                                                         <div class="input-group">
                                                             <span class="input-group-text">Sex</span>
                                                             <select id="modSex-${animal._id}" class="form-select" aria-label="Sex">
-                                                                <option>Maschio</option>
-                                                                <option>Femmina</option>
+                                                                <option>Male</option>
+                                                                <option>Female</option>
                                                             </select>  
                                                         </div> 
                                                     </div>

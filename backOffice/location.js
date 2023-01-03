@@ -678,10 +678,12 @@ function ShowAddServiceLocation(locId, locName){
     $("#Add-"+locId).append(
         ` 
             <hr>
+            <form>
             <input id="AddS-${locId}" type="text" placeholder="Service name" style="border-radius: 7px; border-width: thin;" required>    
             <input id="AddQ-${locId}" type="number" min="0" placeholder="Quantity at a time" style="border-radius: 7px; border-width: thin;" required>    
             <a href="#" class="btn" onclick="AddServiceLocation('${locId}', '${locName}')" style="background-color: #849531;"><small>&check;</small></a>
-            <!--a href="#" class="btn" type="reset" style="background-color: #849531;"><small>X</small></a-->
+            <!--button class="btn" type="reset" style="background-color: #849531;"><small>X</small></button-->
+            </form>
             <hr>
         `
     )
@@ -698,6 +700,15 @@ async function AddServiceLocation(locId, locName){
         listLocService.push($(this).attr("id"))
     });
     console.log(listLocService)
+    debugger
+
+    let listLocServiceNew = []
+    $("#SDnew-"+locId).children("li").each(function(){
+        listLocServiceNew.push($(this).children("span").attr("value"))
+    });
+    console.log(listLocServiceNew)
+    debugger
+
     for (const key in listLocService) {
         if($("#modServiceName-"+listLocService[key]).attr("value") == name){
             //alert("You can't add a service that is already provided");
@@ -706,6 +717,16 @@ async function AddServiceLocation(locId, locName){
             return
         }
     }
+
+    for (const count in listLocServiceNew) {
+        if(listLocServiceNew[count] == name){
+            //alert("You can't add a service that is already provided");
+            $('#callout2-'+locId).attr('style', 'display: block')
+            //$('.callout-header').text("You can't add a service that is already provided")
+            return
+        }
+    }
+
     if (name=="" || quantity=="") {
         //alert("You have to fill both forms if you want to add a service")
         $('#callout3-'+locId).attr('style', 'display: block')
@@ -732,6 +753,8 @@ async function AddServiceLocation(locId, locName){
         </li>
         `
     )
+    $("#Add-"+locId).empty()
+    $("#showAdd-"+locId).show()
 
     console.log("PROVA");
 }

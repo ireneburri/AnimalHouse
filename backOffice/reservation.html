@@ -47,7 +47,7 @@
 
                     <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
-                            <div class="modal-content" style="background-color:#A0AECD;color: white;">
+                            <div class="modal-content" style="background-color:#A0AECD;color: black;">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="ModalLabel">Are you sure you want to logout?</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -81,7 +81,28 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4  g-4" id="myDIV">
             <!-- RESERVATIONS CARDS -->
         </div>
-        
+        <!-- Modal -->
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal fade" id="ModalOverlap" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content" style="background-color:#A0AECD;color: black;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">Overlap</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>
+                    This reservation is in conflict with another one, you have to change hours or date
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <button type="reset" class="btn" style="margin:1px;background-color: #849531;color: white;" data-bs-dismiss="modal" >&check;</button>              
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div class="callout" id="callout" style="display: none;">
