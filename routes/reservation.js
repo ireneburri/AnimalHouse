@@ -109,7 +109,7 @@ router.patch('/:id', getReservation, async (req, res)=> {
         res.reservation.mode=req.body.mode
     }
 
-    let verify = dateOverlap(res.reservation.date_start, res.reservation.date_end, req.params.id, req.body.reservationList, req.body.service, req.body.location);
+    let verify = await dateOverlap(res.reservation.date_start, res.reservation.date_end, req.params.id, req.body.reservationList, req.body.service, req.body.location);
     console.log(verify);
     if( verify == true){
         console.log('fata');
