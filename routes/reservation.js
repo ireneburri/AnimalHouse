@@ -158,12 +158,16 @@ async function dateOverlap(start, end, id, reservationList, serName, locName){
     console.log("location: "+location);
     console.log("location[0]: "+location[0])
     let quantity = 0;
+    console.log("loc.disponibility: "+location.disponibility)
     for (const key in location.disponibility) {
+        console.log("loc.disponibility["+ key + "] " + location.disponibility)
         if (location.disponibility[key].service == serName){
+            console.log("loc.disponibility[key].service: "+location.disponibility[key].service)
             quantity = location.disponibility[key].quantity;
+            console.log("loc.disponibility[key].quantity: "+location.disponibility[key].quantity)
         }
     }
-    console.log("quantity of: " + serName + " in: " + locName + "quantity: " + quantity);
+    console.log("quantity of: " + serName + " in: " + locName + " quantity: " + quantity);
 
     for(let key in reservationList){
         if (reservationList[key].service == serName){ //controllo solo le reservation del mio stesso servizio
