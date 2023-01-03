@@ -154,7 +154,7 @@ async function dateOverlap(start, end, id, reservationList, serName, locName){
     } 
 
     let count = 0;
-    const location = await Location.findOne({ name: locName});
+    const location = await Location.find({ name: locName });
     console.log("location: "+location);
     console.log("location[0]: "+location[0])
     let quantity = 0;
