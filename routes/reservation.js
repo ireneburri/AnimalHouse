@@ -113,13 +113,13 @@ router.patch('/:id', getReservation, async (req, res)=> {
         console.log('fata');
         return res.json({message: 'La prenotazione è sbagliata'})
         //return res.status(500).json('Le date richieste si sovrappongo con un altra prenotazione');
-    }
-
+    }else{
     try{
         const updateReservation = await res.reservation.save()
         res.json(updateReservation)
     } catch(err){
         res.status(400).json({message: err.message}) //parametro non accettabile
+    }
     }
 });
 
@@ -207,6 +207,7 @@ async function dateOverlap(start, end, id, reservationList, serName, locName){
             }
         }
     }
+    console.log("ora dovrebbe ritornare false");
     return false;
 }
 
