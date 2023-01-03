@@ -177,26 +177,24 @@ async function dateOverlap(start, end, id, reservationList, serName, locName){
 
                 bStart = new Date(reservationList[key]['date_start']).getTime()
                 bEnd = new Date(reservationList[key]['date_end']).getTime()
-                console.log(bStart);
-                console.log(bEnd);
-                console.log('idOrigine: '+ id +' idLisato: '+ reservationList[key]['_id']);
+                console.log("siamo nel for giro: " + key)
 
-                if(id == reservationList[key]['_id']){
-                    continue
-                }else if(start >= bStart && start < bEnd){ //a tra c e d
-                    //return true
-                    count = count + 1;
-                }else if(end > bStart && end <= bEnd){//b tra c e d
-                    //return true
-                    count = count + 1;
-                }else if(bStart >= start && bStart < end){//c tra a e b
-                    //return true
-                    count = count + 1;
-                }else if(bEnd > start && bEnd <= end){//d tra a e b
-                    //return true
-                    count = count + 1;
+                if(id != reservationList[key]['_id']){
+                    if(start >= bStart && start < bEnd){ //a tra c e d
+                        //return true
+                        count = count + 1;
+                    }else if(end > bStart && end <= bEnd){//b tra c e d
+                        //return true
+                        count = count + 1;
+                    }else if(bStart >= start && bStart < end){//c tra a e b
+                        //return true
+                        count = count + 1;
+                    }else if(bEnd > start && bEnd <= end){//d tra a e b
+                        //return true
+                        count = count + 1;
+                    }
                 }
-                console.log(count + "giro: " + key)
+                console.log("count: " + count + ", giro: " + key)
                 if (count >= quantity){
                     return true
                 }
