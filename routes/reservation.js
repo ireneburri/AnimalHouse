@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Reservation = require("../models/mReservation")
+const Location = require('../models/mLocation');
 
 //Create one reservation
 router.post('/post', async (req, res)=> {
@@ -108,9 +109,9 @@ router.patch('/:id', getReservation, async (req, res)=> {
         res.reservation.mode=req.body.mode
     }
 
-    if(dateOverlap(res.reservation.date_start, res.reservation.date_end, req.params.id, req.body.reservationList, req.body.allday)){
+    if(dateOverlap(res.reservation.date_start, res.reservation.date_end, req.params.id, req.body.reservationList, req.body.service, req.body.location)){
         console.log('fata');
-        return res.json({message: 'Le date richieste si sovrappongo con un altra prenotazione'})
+        return res.json({message: 'La prenotazione è sbagliata'})
         //return res.status(500).json('Le date richieste si sovrappongo con un altra prenotazione');
     }
 
@@ -138,7 +139,7 @@ async function getReservation (req, res, next){
 }
 
 //controlla sovrapposizione solo dell'ora (forse non c'è neanche bisogno di distinguere i casi allday e non)
-function dateOverlap(start, end, id, reservationList, allday){
+async function dateOverlap(start, end, id, reservationList, serName, locName){
     console.log("sono in dateOverlap");
     start = new Date(start).getTime()
     end = new Date(end).getTime()
@@ -147,67 +148,54 @@ function dateOverlap(start, end, id, reservationList, allday){
     console.log(end);
     let bEnd
     let bStart
-    //if (allday === "true"){
-        if (start > end) {
-            return true
-        } /*else {
-            for(let key in reservationList){
-                if (reservationList[key]['allday'] == "true"){
-                console.log("sono in alldaytrue");
 
-                    bStart = new Date(reservationList[key]['date_start']).getTime()
-                    bEnd = new Date(reservationList[key]['date_end']).getTime()
-                    console.log(bStart);
-                    console.log(bEnd);
-                    console.log('idOrigine: '+ id +' idLisato: '+ reservationList[key]['_id']);
-            
-                    if(id == reservationList[key]['_id']){
-                        continue
-                    }
-                    if(start >= bStart && start <= bEnd){ //a tra c e d
-                        return true
-                    }
-                    if(end >= bStart && end <= bEnd){//b tra c e d
-                        return true
-                    }
-                    if(bStart >= start && bStart <= end){//c tra a e b
-                        return true
-                    }
-                    if(bEnd >= start && bEnd <= end){//d tra a e b
-                        return true
-                    }
-                }
-            }
-        }       */ 
-    //}
-    //else{
-        for(let key in reservationList){
-            //if (reservationList[key]['allday'] == "false"){ //non funziona
-                console.log("sono in alldayfalse");
+    if (start >= end) {
+        return true
+    } 
+
+    let count = 0;
+    let query = { name: locName };
+    const location = await Location.findOne(query);
+    let quantity = 0;
+    for (const key in location.disponibility) {
+        if (location.disponibility[key].service == serName){
+            quantity = location.disponibility[key].quantity;
+        }
+    }
+    console.log("quantity of: " + serName + " in: " + locName + "quantity: " + quantity);
+
+    for(let key in reservationList){
+        if (reservationList[key].service == serName){ //controllo solo le reservation del mio stesso servizio
+            if (reservationList[key].location == locName){ //controllo solo le reservation del mio stesso negozio
+
                 bStart = new Date(reservationList[key]['date_start']).getTime()
                 bEnd = new Date(reservationList[key]['date_end']).getTime()
                 console.log(bStart);
                 console.log(bEnd);
                 console.log('idOrigine: '+ id +' idLisato: '+ reservationList[key]['_id']);
-        
+
                 if(id == reservationList[key]['_id']){
                     continue
+                }else if(start >= bStart && start < bEnd){ //a tra c e d
+                    //return true
+                    count = count + 1;
+                }else if(end > bStart && end <= bEnd){//b tra c e d
+                    //return true
+                    count = count + 1;
+                }else if(bStart >= start && bStart < end){//c tra a e b
+                    //return true
+                    count = count + 1;
+                }else if(bEnd > start && bEnd <= end){//d tra a e b
+                    //return true
+                    count = count + 1;
                 }
-                if(start >= bStart && start < bEnd){ //a tra c e d
+                console.log(count + "giro: " + key)
+                if (count >= quantity){
                     return true
                 }
-                if(end > bStart && end <= bEnd){//b tra c e d
-                    return true
-                }
-                if(bStart >= start && bStart < end){//c tra a e b
-                    return true
-                }
-                if(bEnd > start && bEnd <= end){//d tra a e b
-                    return true
-                }
-            //}
+            }
         }
-    //}
+    }
     return false
 }
 
