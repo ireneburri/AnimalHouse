@@ -455,7 +455,7 @@ async function modifyClient(id){
 
     $.ajax({
         type: 'PATCH',
-        url: url + "/user/" + id,
+        url: url + "/user/" + id + "/" + data.username,
         crossDomain: true,
         contentType: "application/json",
         data: JSON.stringify(data),        
