@@ -12,10 +12,6 @@ function verifyToken(){
         console.log("SI "+localStorage.token)
         console.log(localStorage.username)
         
-        if (localStorage.searchbyLocationAndService == undefined){
-        console.log("prova");
-        }
-
         getAllReservations()
     }
 }
@@ -260,14 +256,15 @@ function sureDeleteRes(id){
     return false;
 }
 
-function searchByServiceUsername(){
+function searchByServiceUsernameLocation(){
     var searchLists = []
     let search = $("#searchReservation").val().toLowerCase()
     console.log(search)
     for (let i in reservationList){
         let service = reservationList[i].service.toLowerCase()
         let username = reservationList[i].username.toLowerCase()
-        if (service.includes(search) || username.includes(search)){
+        let location = reservationList[i].location.toLowerCase()
+        if (service.includes(search) || username.includes(search) || location.includes(search)){
             searchLists.push(reservationList[i])
         }
     }
