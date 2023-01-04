@@ -156,62 +156,62 @@ async function dateOverlap(start, end, id, reservationList, serName, locName){
 
     if (start >= end) {
         return true
-    } 
+    } else if (start <= end) {
+        let count = 0;
+        const location = await Location.find({ name: locName });
+        console.log("location: "+location);
+        let quantity = 0;
+        console.log("location[0]['disponibility']: "+location[0]['disponibility'])
 
-    let count = 0;
-    const location = await Location.find({ name: locName });
-    console.log("location: "+location);
-    let quantity = 0;
-    console.log("location[0]['disponibility']: "+location[0]['disponibility'])
-
-    for (let k in location[0]['disponibility']) {
-        console.log("PROVA " + k);
-        console.log("location[0]['disponibility'][k].service: " + location[0]['disponibility'][k].service);
-        if (location[0]['disponibility'][k].service == serName){
-            quantity = location[0]['disponibility'][k].quantity;
-        }
-    }
-
-    console.log("quantity of: " + serName + " in: " + locName + " quantity: " + quantity);
-
-    for(let key in reservationList){
-        if (reservationList[key].service == serName){ //controllo solo le reservation del mio stesso servizio
-            console.log("siamo dentro a if reservationList[key].service == serName");
-            console.log("reservationList[key].service: ", reservationList[key].service);
-            if (reservationList[key].location == locName){ //controllo solo le reservation del mio stesso negozio   
-                console.log("siamo dentro a if reservationList[key].location == locName");
-                console.log("reservationList[key].location: ", reservationList[key].location);
-                bStart = new Date(reservationList[key]['date_start']).getTime()
-                bEnd = new Date(reservationList[key]['date_end']).getTime()
-                console.log("siamo nel for giro: " + key)
-
-                if(id != reservationList[key]['_id']){
-                    console.log("siamo dentro a if id != reservationList[key]['_id'] ");
-                    if(start >= bStart && start < bEnd){ //a tra c e d
-                        //return true
-                        count = count + 1;
-                    }else if(end > bStart && end <= bEnd){//b tra c e d
-                        //return true
-                        count = count + 1;
-                    }else if(bStart >= start && bStart < end){//c tra a e b
-                        //return true
-                        count = count + 1;
-                    }else if(bEnd > start && bEnd <= end){//d tra a e b
-                        //return true
-                        count = count + 1;
-                    }
-                }
-                console.log("count: " + count + ", giro: " + key);
+        for (let k in location[0]['disponibility']) {
+            console.log("PROVA " + k);
+            console.log("location[0]['disponibility'][k].service: " + location[0]['disponibility'][k].service);
+            if (location[0]['disponibility'][k].service == serName){
+                quantity = location[0]['disponibility'][k].quantity;
             }
         }
-    }
-    if (count >= quantity){
-        console.log("dentro a count>=quantity");
-        console.log("quantity: " + quantity);
-        return true;
-    } else {
-        console.log("else ora dovrebbe ritornare false");
-        return false;
+
+        console.log("quantity of: " + serName + " in: " + locName + " quantity: " + quantity);
+
+        for(let key in reservationList){
+            if (reservationList[key].service == serName){ //controllo solo le reservation del mio stesso servizio
+                console.log("siamo dentro a if reservationList[key].service == serName");
+                console.log("reservationList[key].service: ", reservationList[key].service);
+                if (reservationList[key].location == locName){ //controllo solo le reservation del mio stesso negozio   
+                    console.log("siamo dentro a if reservationList[key].location == locName");
+                    console.log("reservationList[key].location: ", reservationList[key].location);
+                    bStart = new Date(reservationList[key]['date_start']).getTime()
+                    bEnd = new Date(reservationList[key]['date_end']).getTime()
+                    console.log("siamo nel for giro: " + key)
+
+                    if(id != reservationList[key]['_id']){
+                        console.log("siamo dentro a if id != reservationList[key]['_id'] ");
+                        if(start >= bStart && start < bEnd){ //a tra c e d
+                            //return true
+                            count = count + 1;
+                        }else if(end > bStart && end <= bEnd){//b tra c e d
+                            //return true
+                            count = count + 1;
+                        }else if(bStart >= start && bStart < end){//c tra a e b
+                            //return true
+                            count = count + 1;
+                        }else if(bEnd > start && bEnd <= end){//d tra a e b
+                            //return true
+                            count = count + 1;
+                        }
+                    }
+                    console.log("count: " + count + ", giro: " + key);
+                }
+            }
+        }
+        if (count >= quantity){
+            console.log("dentro a count>=quantity");
+            console.log("quantity: " + quantity);
+            return true;
+        } else {
+            console.log("else ora dovrebbe ritornare false");
+            return false;
+        }
     }
 }
 
