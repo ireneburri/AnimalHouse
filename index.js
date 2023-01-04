@@ -4,7 +4,6 @@ const cors = require('cors');
 const path = require('path');
 const pathGame = __dirname + '/game/dist/';
 
-
 require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 
 const mongoose = require('mongoose');
@@ -18,6 +17,8 @@ app.use(express.json());
 
 app.use(express.static(pathGame));
 
+app.use('/backOffice', express.static(global.rootDir +'/backOffice'));
+app.use('/backOffice', express.static(global.rootDir +'/routes/uploads'));
 
 
 /*const mongoCredentials = {

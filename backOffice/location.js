@@ -73,7 +73,7 @@ function showLocation(location){
     `
     <div class="col h-100">
         <div class="card "  id="${location.name}" >
-            <img src="../routes/uploads/${img}" class="img-fluid rounded" alt="Image of location: ${location.name}" style="width: 100%;  height: auto;">
+            <img src="${img}" class="img-fluid rounded" alt="Image of location: ${location.name}" style="width: 100%;  height: auto;">
             <div class="card-body">    
                 <h5 class="card-title"> 
                     <span class="locationName"> ${location.name} </span> <br> 
