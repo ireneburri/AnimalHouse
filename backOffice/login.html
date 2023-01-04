@@ -78,7 +78,7 @@ function login(){
             localStorage.token = result.authority;
             localStorage.username = data.username;
 
-            $(location).attr('href','./home.html');
+            $(location).attr('href','./backOffice/home.html');
         },
         error: function(err) {
             console.log("nuu");
