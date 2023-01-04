@@ -446,7 +446,7 @@ async function modifyClient(id){
         console.log("mod")
         //DA RIVEDERE
         //deleteImg(id + ".png");
-        uploadImg(imm, id)
+        await uploadImg(imm, id)
 
     }
     if ($("#modTel-"+id).val()!="") {data.tel = $("#modTel-"+id).val()}
