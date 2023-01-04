@@ -7,6 +7,9 @@ const conflictSchema = new mongoose.Schema({
     quantity: {
         type: Number,
     },
+    location: {
+        type: String,
+    },
     timeS: {
         type: Date,
     },
