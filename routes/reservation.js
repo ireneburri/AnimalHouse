@@ -115,7 +115,7 @@ router.patch('/:id', getReservation, async (req, res)=> {
     console.log(verify);
 
     //trovo quantity
-    const location = await Location.find({ name: locName });
+    const location = await Location.find({ name: req.body.location });
     console.log("location: "+location);
     let quantity = 0;
     console.log("location[0]['disponibility']: "+location[0]['disponibility'])
