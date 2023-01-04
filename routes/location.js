@@ -13,8 +13,23 @@ router.get('/', async(req, res)=> {
 })
 
 //get one
-router.get('/:id', getLocation, (req, res)=> {
+router.get('/id/:id', getLocation, (req, res)=> {
     res.json(res.location)
+})
+
+//get by name
+router.get('/name/:name', async(req, res)=>{
+    let location
+    const name=req.params.name
+    try{
+        location= await Location.find({name:name})
+        if(location==null){
+            return res.status(404).json({message : 'Cannot find location'})
+        }
+    } catch(err){
+        return res.status(500).json({message : err.message})
+    }
+    res.location=location
 })
 
 //create one
