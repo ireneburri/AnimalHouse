@@ -90,7 +90,7 @@ app.get('/front', (req, res) => {
 })
 
 app.get('/', function (req,res) {
-    res.sendFile(pathGame + 'index.html');
+    res.sendFile(global.rootDir + '/game/dist/index.html');
 });
 
 
