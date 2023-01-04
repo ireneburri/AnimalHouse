@@ -17,6 +17,7 @@ router.post('/', async (req, res)=> {
     const conflict = new Conflict({
         service: req.body.service,
         quantity: req.body.quantity,
+        location: req.body.location,
         timeS: req.body.timeS,
         timeE: req.body.timeE
     })
