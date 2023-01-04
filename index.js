@@ -18,7 +18,7 @@ app.use(express.json());
 
 app.use(express.static(GamePath));
 
-app.use('/backOffice', express.static(global.rootDir +'/public/BackOffice'));
+app.use('/backOffice', express.static(global.rootDir +'/public/backOffice'));
 
 /*const mongoCredentials = {
     user: process.env.MONGO_USER,
