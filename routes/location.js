@@ -22,7 +22,7 @@ router.get('/name/:name', async(req, res)=>{
     let location
     const name=req.params.name
     try{
-        location= await Location.find({name:name})
+        location= await Location.findOne({name:name})
         if(location==null){
             return res.status(404).json({message : 'Cannot find location'})
         }
