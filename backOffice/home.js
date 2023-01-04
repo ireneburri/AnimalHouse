@@ -47,7 +47,7 @@ function showStaff(staff){
         <div class="container" style="background-color: #A0AECD; border-radius:0.5ex;">
           <div class="row" style="padding:10px">
             <div class="col-md-4">
-              <img src="../routes/uploads/${img}" class="img-fluid rounded" alt="Image of item: ${staff.username}" style="width: 100%; height: auto;">
+              <img src="${img}" class="img-fluid rounded" alt="Image of item: ${staff.username}" style="width: 100%; height: auto;">
             </div>
             
             <div class="col-md-8">   
