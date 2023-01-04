@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const Reservation = require("../models/mReservation")
 const Location = require('../models/mLocation');
+const Conflict = require('../models/mConflict');
+
 
 //Create one reservation
 router.post('/post', async (req, res)=> {
@@ -111,17 +113,37 @@ router.patch('/:id', getReservation, async (req, res)=> {
 
     let verify = await dateOverlap(res.reservation.date_start, res.reservation.date_end, req.params.id, req.body.reservationList, req.body.service, req.body.location);
     console.log(verify);
-    if( verify == true){
-        console.log('fata');
+
+    //trovo quantity
+    const location = await Location.find({ name: locName });
+    console.log("location: "+location);
+    let quantity = 0;
+    console.log("location[0]['disponibility']: "+location[0]['disponibility'])
+
+    for (let k in location[0]['disponibility']) {
+        console.log("PROVA " + k);
+        console.log("location[0]['disponibility'][k].service: " + location[0]['disponibility'][k].service);
+        if (location[0]['disponibility'][k].service == serName){
+            quantity = location[0]['disponibility'][k].quantity;
+        }
+    }
+
+    if (count>quantity){
+        console.log('La prenotazione è sbagliata');
         return res.json({message: 'La prenotazione è sbagliata'})
-        //return res.status(500).json('Le date richieste si sovrappongo con un altra prenotazione');
-    }else if(verify == false){
+    } else if (count<=quantity){
         console.log("siamo in dateOverlap false");
         try{
             const updateReservation = await res.reservation.save()
             res.json(updateReservation)
         } catch(err){
             res.status(400).json({message: err.message}) //parametro non accettabile
+        }
+
+        if (count>0) {
+            Conflict.insertMany( [
+                { service: req.body.service, quantity: count},
+            ])
         }
     }
 });
@@ -159,7 +181,7 @@ async function dateOverlap(start, end, id, reservationList, serName, locName){
     } 
 
     let count = 0;
-    const location = await Location.find({ name: locName });
+    /*const location = await Location.find({ name: locName });
     console.log("location: "+location);
     let quantity = 0;
     console.log("location[0]['disponibility']: "+location[0]['disponibility'])
@@ -170,7 +192,7 @@ async function dateOverlap(start, end, id, reservationList, serName, locName){
         if (location[0]['disponibility'][k].service == serName){
             quantity = location[0]['disponibility'][k].quantity;
         }
-    }
+    }*/
 
     console.log("quantity of: " + serName + " in: " + locName + " quantity: " + quantity);
 
@@ -205,14 +227,15 @@ async function dateOverlap(start, end, id, reservationList, serName, locName){
             }
         }
     }
-    if (count >= quantity){
+    return count;
+    /*if (count >= quantity){
         console.log("dentro a count>=quantity");
         console.log("quantity: " + quantity);
         return true;
     } else {
         console.log("else ora dovrebbe ritornare false");
         return false;
-    }
+    }*/
 }
 
 module.exports = router
