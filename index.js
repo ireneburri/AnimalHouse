@@ -2,7 +2,7 @@ global.rootDir = __dirname ;
 //.env
 const cors = require('cors');
 const path = require('path');
-const GamePath = global.rootDir + '/game/dist/index.html';
+const pathGame = __dirname + '/game/dist/';
 
 
 require('dotenv').config({ path: path.resolve(__dirname, './.env') });
@@ -16,7 +16,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(GamePath));
+app.use(express.static(pathGame));
 
 
 
@@ -89,7 +89,7 @@ app.get('/front', (req, res) => {
 })
 
 app.get('/', function (req,res) {
-    res.sendFile(GamePath);
+    res.sendFile(pathGame + 'index.html');
 });
 
 
