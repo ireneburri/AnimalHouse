@@ -142,7 +142,7 @@ router.patch('/:id', getReservation, async (req, res)=> {
 
         if (count>0) {
             Conflict.insertMany( [
-                { service: req.body.service, quantity: count},
+                { service: req.body.service, quantity: count, location: req.body.location},
             ])
         }
     }
