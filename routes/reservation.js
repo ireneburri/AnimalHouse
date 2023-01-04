@@ -123,12 +123,12 @@ router.patch('/:id', getReservation, async (req, res)=> {
     for (let k in location[0]['disponibility']) {
         console.log("PROVA " + k);
         console.log("location[0]['disponibility'][k].service: " + location[0]['disponibility'][k].service);
-        if (location[0]['disponibility'][k].service == serName){
+        if (location[0]['disponibility'][k].service == req.body.service){
             quantity = location[0]['disponibility'][k].quantity;
         }
     }
 
-    console.log("quantity of: " + serName + " in: " + locName + " quantity: " + quantity);
+    console.log("quantity of: " + req.body.service + " in: " + req.body.location + " quantity: " + quantity);
 
     if (count>quantity){
         console.log('La prenotazione è sbagliata');
@@ -173,8 +173,6 @@ async function dateOverlap(start, end, id, reservationList, serName, locName){
     console.log(reservationList);
     console.log(start);
     console.log(end);
-    console.log(serName);
-    console.log(locName);
     let bEnd
     let bStart
 
