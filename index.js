@@ -3,6 +3,8 @@ global.rootDir = __dirname ;
 
 const cors = require('cors');
 const path = require('path');
+const GamePath = __dirname + '/game/dist/';
+
 
 require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 
@@ -14,6 +16,10 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+app.use(express.static(GamePath));
+
+
 
 /*const mongoCredentials = {
     user: process.env.MONGO_USER,
@@ -82,5 +88,9 @@ app.get('/front', (req, res) => {
         global.rootDir + '/front/src/pages/HomePage.jsx'
     )
 })
+
+app.get('/', function (req,res) {
+    res.sendFile(path + "index.html");
+});
 
 
