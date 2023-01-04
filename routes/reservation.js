@@ -111,8 +111,8 @@ router.patch('/:id', getReservation, async (req, res)=> {
         res.reservation.mode=req.body.mode
     }
 
-    let verify = await dateOverlap(res.reservation.date_start, res.reservation.date_end, req.params.id, req.body.reservationList, req.body.service, req.body.location);
-    console.log(verify);
+    let count = await dateOverlap(res.reservation.date_start, res.reservation.date_end, req.params.id, req.body.reservationList, req.body.service, req.body.location);
+    console.log(count);
 
     //trovo quantity
     const location = await Location.find({ name: req.body.location });
@@ -130,10 +130,10 @@ router.patch('/:id', getReservation, async (req, res)=> {
 
     console.log("quantity of: " + req.body.service + " in: " + req.body.location + " quantity: " + quantity);
 
-    if (count>quantity){
+    if(count>quantity){
         console.log('La prenotazione è sbagliata');
         return res.json({message: 'La prenotazione è sbagliata'})
-    } else if (count<=quantity){
+    }else if(count<=quantity){
         console.log("siamo in dateOverlap false");
         try{
             const updateReservation = await res.reservation.save()
