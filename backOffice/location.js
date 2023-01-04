@@ -185,7 +185,7 @@ function showLocation(location){
 
                         <!-- Body -->
                         
-                        <div class="modal-body">
+                        <div class="modal-body" id="modalbody-${location._id}">
 
                         <div class="callout" id="callout2-${location._id}"  style="display: none;">
                             <div class="callout-header">You can't add a service that is already provided</div>
@@ -202,7 +202,6 @@ function showLocation(location){
 
                         <form id="FormModify-${location._id}">
 
-                            <div class="mb-2" >
                                 <label class="col-sm-12 col-form-label">Services and disponibility:</label> <br>
                                 <div class="container" id="SD-${location._id}">
                                 
@@ -214,13 +213,13 @@ function showLocation(location){
                                     
                                 </div>
                                 <a href="#" class="btn" id="showAdd-${location._id}" style="border-color: #849531;color:#849531;" onclick="ShowAddServiceLocation('${location._id}', '${location.name}')"><small>Add a service</small></a>
-                            </div>  
+                            
                         </form>
                         </div>
 
-                        <div class="modal-footer">
+                        <div class="modal-footer" id="modalfooter-${location._id}">
                             <button type="reset" form="FormModify-${location._id}" onclick=minifunc() class="btn" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal">Discard</button>
-                            <button type="button" class="btn" style="background-color: #849531;" onclick='modifyServiceLocation("${location._id}", "${location.name}")'>Save changes</button>
+                            <button type="button" class="btn" style="background-color: #849531;" onclick='areYouSure("${location._id}", "${location.name}")'>Save changes</button>
                         </div>
                         </div>
                     </div>
@@ -231,12 +230,6 @@ function showLocation(location){
 
     `    
     )
-
-    /*for (let k in location.services) {
-        let x = location.services[k]
-        x = x.replace(/\s+/g, "")
-        $("#"+x+"-"+location._id).attr("checked", true)
-    }*/
 
     for (let c in location.disponibility){
         $("#services-"+location._id).append(
@@ -258,7 +251,44 @@ function showLocation(location){
     }
 }
 
- 
+async function areYouSure(locId, locName) {
+    $("#ModalSeLabel-"+locId).empty()
+    $("#ModalSeLabel-"+locId).append(
+        `
+        Save changes?
+        `
+    )
+    $("#FormModify-"+locId).children("div").children("li").children("input").attr("disabled", true)
+    $("#FormModify-"+locId).children("div").children("li").children("a").removeAttr("href")
+    $("#FormModify-"+locId).children("div").children("li").children("a").removeAttr("onclick")
+    $("#FormModify-"+locId).children("div").children("li").children("a").removeAttr("class")
+    $("#FormModify-"+locId).children("div").children("li").children("a").attr("role", "link")
+    $("#FormModify-"+locId).children("div").children("li").children("a").attr("aria-disabled", true)
+    $("#FormModify-"+locId).children("a").removeAttr("href")
+    $("#FormModify-"+locId).children("a").removeAttr("onclick")
+    $("#FormModify-"+locId).children("a").removeAttr("class")
+    $("#modalbody-"+locId).attr("style", "color:gray;") 
+
+    $("#modalbody-"+locId).append(
+        `
+        <p style="color:#7ec46b;text-align: center;"> Are you sure this changes are not in conflict with all existing reservation?<p>
+        `
+    )
+    $("#modalfooter-"+locId).empty()
+    $("#modalfooter-"+locId).append(
+        `
+        <button class="btn" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal" onclick=goCheck()>No, go to check</button>
+        <button type="button" class="btn" style="background-color: #849531;" onclick='modifyServiceLocation("${locId}", "${locName}")'>Yes, save changes</button>
+                        
+        `
+    )
+}
+
+function goCheck(){
+    console.log("href");
+    $(location).attr('href','./reservation.html');
+}
+
 function minifunc(){
     removeServiceLocList=[];
     window.location.reload();
@@ -280,8 +310,6 @@ async function verifyMod(locName, id, info){
         }
     })
     if (loc != locName){
-        //alert("You can't modify this location")
-        //swal("A Basic JS alert by a plug-in");
         $('#callout1').attr('style', 'display: block')
     }  
     else{
@@ -302,19 +330,6 @@ function modifyLocation(id){
     if ($("#modTel-"+id).val()!="") {data.tel = $("#modTel-"+id).val()}
     if ($("#modDescription-"+id).val()!="") {data.description = $("#modDescription-"+id).val()}
     if ($("#modStaff-"+id).val()!="") {data.staff = $("#modStaff-"+id).val().replace(/\s+/g, "").split(",")}
-    
-    /*let listLocService = []
-    data.disponibility = []
-    $("#SD-"+id).children("li").each(function(){
-        listLocService.push($(this).attr("id"))
-    });
-    console.log(listLocService)
-    for (const key in listLocService) {
-        console.log($("#modServiceName-"+listLocService[key]).attr("value"))
-        let disp = { "service": $("#modServiceName-"+listLocService[key]).attr("value"), 
-                     "quantity": $("#modServiceQuantity-"+listLocService[key]).val() }
-        data.disponibility.push(disp)
-    }*/
 
     if ($("#modImg-"+id).val()!="") {
 
@@ -323,20 +338,9 @@ function modifyLocation(id){
         data.img = imm.name;
 
         console.log("mod")
-        //DA RIVEDERE
-        //deleteImg(id + ".png");
         uploadImg(imm, id)
 
     }
-    //data.services=[]
-    /*if ($("#AnimalSitter-"+id).is(':checked')) {data.services.push($("#AnimalSitter-"+id).val())}
-    if ($("#VetandDoctors-"+id).is(':checked')) {data.services.push($("#VetandDoctors-"+id).val())}
-    if ($("#Grooming-"+id).is(':checked')) {data.services.push($("#Grooming-"+id).val())}
-    if ($("#Pension-"+id).is(':checked')) {data.services.push($("#Pension-"+id).val())}
-    if ($("#Training-"+id).is(':checked')) {data.services.push($("#Training-"+id).val())}
-    if ($("#Store-"+id).is(':checked')) {data.services.push($("#Store-"+id).val())}*/
-
-    //for(let i in data.services)  {console.log(data.services[i])}
     $.ajax({
         type: 'PATCH',
         url: url + "/location/" + id,
@@ -401,6 +405,7 @@ async function modifyServiceLocation(id, locName){
         newData.disponibility.push(disp)
     });
     console.log(newData);
+
 
     await $.ajax({
         type: 'PATCH',
@@ -489,88 +494,6 @@ async function modifyServiceLocation(id, locName){
         }
     }
     removeServiceLocList = []
-    /*
-    $("#SDnew-"+id).children("li").each(async function(){
-        await $.ajax({
-            type: 'PATCH',
-            url: url + "/location/disponibility/" + locName,
-            crossDomain: true,
-            contentType: "application/json",
-            data: JSON.stringify(newData),  
-            success: function(res) {
-                console.log("yay");
-                console.log(res);
-            },
-            error: function(err) {
-                console.log("nuu");
-                console.log(err);
-            },
-    
-        });
-    
-        let service = {}
-        await $.ajax({
-            type: 'GET',
-            url: url + "/service/name/" + $(".newServiceName").attr("value"),
-            crossDomain: true,
-            success: function(data) {
-                console.log(data);
-                service = data[0];
-            },
-            error: function(err) {
-                console.log(err);
-            },
-        });
-    
-        service.location.push(locName)
-        console.log(service.location)
-        $.ajax({
-            type: 'PATCH',
-            url: url + "/service/" + service._id,
-            crossDomain: true,
-            contentType: "application/json",
-            data: JSON.stringify(service),        
-            success: function(result) {
-                console.log("yay");
-                console.log(result);
-            },
-            error: function(err) {
-                console.log("nuu");
-                console.log(err);
-            }
-        })*/
-    //});
-    return false;
-}
-
-
-//IN VERITA' NON PERMETTO DI ELIMINARE UNA LOCATION:
-
-//VERIFA se vuoi eliminare una location
-function deleteLocation(id){
-    var result = confirm("Are you sure you want to delete this location?");
-    if (result) {
-        sureDeleteLocation(id);
-    }
-}
-
-
-//ELIMINA una location
-function sureDeleteLocation(id){
-    $.ajax({
-        type: 'DELETE',
-        url: url + "/location/" + id,
-        crossDomain: true,
-        success: function(res) {
-            console.log(res);
-        },
-        error: function(err) {
-            console.log(err);
-        },
-
-    }).then( ()=> {
-        deleteImg(id + ".png");
-    }).then( ()=> window.location.reload());    
     return false;
 }
 
@@ -589,82 +512,6 @@ function searchByName(){
 }
 
 async function sureDeleteServiceLocation(locName, serviceName, id){
-    //A QUESTP PUNTO DOVREI ELIMINARE L'ELEMENTO DALL'ELENCO PUNTATO
-    // E RICHIAMARE LA PATCH (CHE AUTOMATICAMENTE NON PRENDERà QUELL'ELEMENTO E AZZERA LE LISTE DI DISPONIBILITY)
-    // --> NON C'è BISOGNO DI NESSUNA DELETE
-    /*let service = {}
-    await $.ajax({
-        type: 'GET',
-        url: url + "/service/name/" + serviceName,
-        crossDomain: true,
-        success: function(data) {
-            console.log(data);
-            service = data[0];
-        },
-        error: function(err) {
-            console.log(err);
-        },
-    });
-    //console.log(service.name)
-    //console.log(serviceName)
-
-    service.location.splice(service.location.indexOf(locName), 1);
-    //if (service.location.length>0){
-        console.log(service.location)
-        await $.ajax({
-            type: 'PATCH',
-            url: url + "/service/" + service._id,
-            crossDomain: true,
-            contentType: "application/json",
-            data: JSON.stringify(service),        
-            success: function(result) {
-                console.log("yay");
-                console.log(result);
-            },
-            error: function(err) {
-                console.log("nuu");
-                console.log(err);
-            }
-        })*/
-    
-    /*} else {
-        $.ajax({
-            type: 'DELETE',
-            url: url + "/service/" + service._id,
-            crossDomain: true,
-            success: function(res) {
-                console.log(res);
-            },
-            error: function(err) {
-                console.log(err);
-            },
-    
-        })
-    }*/
-/*
-    let data = {}
-    data.disponibility = {}
-    data.disponibility.service = serviceName
-    console.log(service.name)
-    console.log(serviceName)
-
-    await $.ajax({
-        type: 'PATCH',
-        url: url + "/location/rmdisponibility/" + locName,
-        crossDomain: true,
-        contentType: "application/json",
-        data: JSON.stringify(data),  
-        success: function(res) {
-            console.log("yay");
-            console.log(res);
-        },
-        error: function(err) {
-            console.log("nuu");
-            console.log(err);
-        },
-
-    });
-*/
     let rm = {}
     rm.locName = locName;
     rm.serName = serviceName;
@@ -758,91 +605,3 @@ async function AddServiceLocation(locId, locName){
 
     console.log("PROVA");
 }
-
-/*async function AddServiceLocation(locId, locName){
-    let data = {}
-    data.disponibility = []
-    let name = $("#AddS-"+locId).val()
-    let quantity = $("#AddQ-"+locId).val()
-
-    let listLocService = []
-    data.disponibility = []
-    $("#SD-"+locId).children("li").each(function(){
-        listLocService.push($(this).attr("id"))
-    });
-    console.log(listLocService)
-    for (const key in listLocService) {
-        if($("#modServiceName-"+listLocService[key]).attr("value") == name){
-            alert("You can't add a service that is already provided");
-            return
-        }
-    }
-
-    if (name!="" && quantity!="") {
-        let disp = { "service": name, "quantity": quantity}
-        data.disponibility = disp
-    }else{
-        alert("You have to fill the forms")
-        return
-    }
-
-    let verify = false;
-    for (let c in serviceList) {
-        if (serviceList[c].name==name) {
-            verify = true;
-        }
-    }
-    if (verify == false){
-        alert("The service name should exist")
-        return
-    }
-
-    await $.ajax({
-        type: 'PATCH',
-        url: url + "/location/disponibility/" + locName,
-        crossDomain: true,
-        contentType: "application/json",
-        data: JSON.stringify(data),  
-        success: function(res) {
-            console.log("yay");
-            console.log(res);
-        },
-        error: function(err) {
-            console.log("nuu");
-            console.log(err);
-        },
-
-    });
-
-    let service = {}
-    await $.ajax({
-        type: 'GET',
-        url: url + "/service/name/" + data.disponibility.service,
-        crossDomain: true,
-        success: function(data) {
-            console.log(data);
-            service = data[0];
-        },
-        error: function(err) {
-            console.log(err);
-        },
-    });
-
-    service.location.push(locName)
-    console.log(service.location)
-    $.ajax({
-        type: 'PATCH',
-        url: url + "/service/" + service._id,
-        crossDomain: true,
-        contentType: "application/json",
-        data: JSON.stringify(service),        
-        success: function(result) {
-            console.log("yay");
-            console.log(result);
-        },
-        error: function(err) {
-            console.log("nuu");
-            console.log(err);
-        }
-    })
-}*/

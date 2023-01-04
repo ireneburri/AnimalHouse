@@ -11,6 +11,10 @@ function verifyToken(){
     } else {
         console.log("SI "+localStorage.token)
         console.log(localStorage.username)
+        
+        if (localStorage.searchbyLocationAndService == undefined){
+        console.log("prova");
+        }
 
         getAllReservations()
     }
