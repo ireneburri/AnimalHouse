@@ -4,8 +4,9 @@ import AnimalCard from '../Card/animalCard';
 import AnimalModal from '../Modal/animalModal';
 import ProfileModal from '../Modal/profileModal';
 import profileimg from '/Users/beatricezamagna/Desktop/Animal/front/src/img/profile.jpg'
-import Popover from "react-bootstrap/Popover"
 import OrderCard from '../Card/orderCard';
+import Brunella from '../../img/Brunella.webp'
+import ReservationCard from '../Card/reservationCard';
 
 const Body = styled.div`
     width: 100%;
@@ -29,7 +30,20 @@ const Container = styled.div`
     -webkit-backdrop-filter: blur(7.4px);
     border: 1px solid rgba(226, 226, 226, 1);
     color: #1b1b6b;
+`
 
+const ContainerReservation = styled.div`
+    width: 80%;
+    background: #ffffff;
+    border-radius: 20px;
+    margin-bottom: 2em;
+    background: rgba(255, 255, 255, 0.75);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(7.4px);
+    border: 1px solid rgba(226, 226, 226, 1);
+    color: #1b1b6b;
 `
 
 const ProfileContainer = styled.div`
@@ -60,7 +74,7 @@ const Labels = styled.div`
     font-size: 1em;
 `
 
-const Vip = styled.div`
+const Vip = styled.span`
     font-size: 0.8em;
     border-radius: 10px;
     background-color: #dfbe00;
@@ -85,6 +99,16 @@ const Img = styled.img`
     padding-top: 1em;
 `
 
+const BrunellaImg = styled.img`
+    margin-top: 2em;
+    margin-bottom: 2em;
+    margin-left: 2em;
+    @media (max-width: 600px) {
+        margin-left: 4em;
+        width: 70%;
+}
+`
+
 function Profile() {
 
     const [profile, setProfile] = useState('');
@@ -92,6 +116,7 @@ function Profile() {
     const [vip, setVip] = useState('');
     const [animal, setAnimals] = useState([]);
     const [order, setOrder] = useState([]);
+    const [reservation, setReservation] = useState([]);
     const [show, setShow] = useState(false);
     const [secondShow, setSecondShow] = useState(false);
 
@@ -99,6 +124,7 @@ function Profile() {
         fetchProfile();
         fetchAnimal();
         fetchOrder();
+        fetchReservation();
     }, []);
 
     const fetchProfile = async () => {
@@ -121,6 +147,22 @@ function Profile() {
         const items = await data.json();
         const filtered = items.filter((item) => item.username === user && item.completed === true);
         setOrder(filtered);
+    }
+
+    const fetchReservation = async () => {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        var todayFormat = yyyy + '-' + mm + '-' + dd;
+        console.log(todayFormat)
+
+        const data = await fetch("https://site212224.tw.cs.unibo.it/Reservation");
+        const items = await data.json();
+        const filtered = items.filter((item) => item.username === user && todayFormat <= item.date_end.substring(0, 10))
+        setReservation(filtered);
+        console.log(filtered)
     }
 
     return (
@@ -173,7 +215,7 @@ function Profile() {
                         </div>
                     </div>
 
-                    <div className="col-md-5 center">
+                    <div className="col-md-4 center">
                         <div className="d-flex flex-column align-items-center py-4">
                             MY ANIMALS
                             <div style={{ height: '17em', overflowY: 'scroll' }}>
@@ -199,7 +241,7 @@ function Profile() {
                         </div>
                     </div>
 
-                    <div className="col-md-4 border-left">
+                    <div className="col-md-5 border-left">
                         <div className="d-flex flex-column align-items-center py-4">
                             MY ORDERS
                             <div style={{ height: '17em', overflowY: 'scroll' }}>
@@ -213,20 +255,42 @@ function Profile() {
                                             date={ord.date}
                                         />
                                     ))}
-                                    
+
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-                </div>
-
-                <div className='row'>
-
                 </div>
             </Container>
 
+            <hr></hr>
+
+            <ContainerReservation>
+                <div className="row align-items-center center">
+                    <div className="col-md-7 col-lg-8 align-items-center center d-flex flex-column">
+                        MY RESERVATION
+                        <div style={{ overflowY: 'scroll', width: "90%", height: '17em'}}>
+                            <div className="row">
+                                {reservation.map(reser => (
+                                    <ReservationCard
+                                        key={reser._id}
+                                        id={reser._id}
+                                        date_start={reser.date_start}
+                                        date_end={reser.date_end}
+                                        location={reser.location}
+                                        service={reser.service}
+                                        time={reser.time}
+                                        total={reser.total}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-5 col-lg-4 align-items-center center d-flex flex-column">
+                        <BrunellaImg src={Brunella} alt="Brunella from Animal Crolssing"/>
+                    </div>
+                </div>
+            </ContainerReservation>
         </Body>
     );
 }

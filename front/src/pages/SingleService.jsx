@@ -14,9 +14,10 @@ import setMinutes from "date-fns/setMinutes";
 import addDays from "date-fns/addDays";
 import getDayOfYear from "date-fns/esm/getDayOfYear";
 
+import * as bootstrap from "bootstrap";
+import Toast from 'react-bootstrap/Toast';
 
 const Container = styled.div`
-
 `
 const Wrapper = styled.div`
     padding-top: 2em;
@@ -44,6 +45,8 @@ const Image = styled.img`
 const InfoContainer = styled.div`
     flex: 1;
     padding: 0px 30px;
+`
+const PrenoContainer = styled.div`
 `
 const Category = styled.span`
     color: white;
@@ -76,31 +79,56 @@ function SingleService() {
     const duration = datas.time
 
     const [locations, setLocations] = useState([]);
-    const [loc, setLoc] = useState("")
+    const [loc, setLoc] = useState({
+        location: ""
+    })
 
     //data attuale + 1 e orario settato alle 8:00
-    const [dateTime, setDateTime] = useState(setHours(setMinutes(new Date().setDate(new Date().getDate()), 0), 8));
+    var today = new Date()
+    var tomorrow = new Date()
+    tomorrow.setDate(today.getDate() + 1)
+    const [dateTime, setDateTime] = useState(setHours(setMinutes(new Date().setDate(tomorrow.getDate()), 0), 16));
+    console.log(dateTime.getDate())
     const [endDate, setEndDate] = useState(null);
 
     const [booking, setBooking] = useState([])
     const [bookingDays, setBookingDays] = useState([])
     const [bookingDaysForCheckFormat, setBookingDaysForCheckFormat] = useState([])
 
+    const [complete, setComplete] = useState([])
+    const [completeDays, setCompleteDays] = useState([])
+
+    const [showA, setShowA] = useState(true);
+    const toggleShowA = () => setShowA(!showA);
+
     var booked = []
 
     useEffect(() => {
-        console.log(loc)
+        console.log("stocazzo")
         fetchData();
         fetchBookings();
-        // eslint-disable-next-line
     }, [loc, dateTime]);
+
+    function handleLoc(e) {
+        const newloc = { ...loc }
+        newloc.location = e.target.value
+        setLoc(newloc)
+        // console.log(newloc)
+    }
+
+    function handleLoc2(e) {
+        const newloc = { ...loc }
+        newloc.location = e.target.value
+        setLoc(newloc)
+        // console.log(newloc.location)
+    }
 
     const onChange = (dates) => {
         const [start, end] = dates;
         setDateTime(start);
         setEndDate(end);
         //console.log(start);
-        console.log(end);
+        //console.log(end);
     }; //setta data di inizio e data di fine
 
     const fetchData = async () => {
@@ -120,79 +148,114 @@ function SingleService() {
     const fetchBookings = async () => {
         const data = await fetch("https://site212224.tw.cs.unibo.it/Reservation");
         const items = await data.json();
+        // console.log(items)
 
         for (let booking in items) {
-            if (items[booking].service === name.substring(1) && items[booking].location === loc)
-                booked.push({ start: items[booking].date_start, end: items[booking].date_end })
+            if (items[booking].mode === "In Store") {
+                // console.log('in store')
+                if (items[booking].service === name.substring(1) && items[booking].location === loc.location)
+                    booked.push({ start: items[booking].date_start, end: items[booking].date_end })
+            } else if (items[booking].mode === "Online") {
+                // console.log('online')
+                if (items[booking].service === name.substring(1))
+                    booked.push({ start: items[booking].date_start, end: items[booking].date_end })
+            }
         }
 
         booked = booked.map(e => (
             e = changeFormat(e)
         ))
 
-        console.log(booked)
+        // console.log(booked)
 
-        var arrayBooking = [];
-        var arrayBookingDays = [];
+        var arrayBooking = []; //tutte le prenotazioni in un giorno per un servizio a ore
+        var arrayBookingDays = []; //tutte le prenotazioni per un servizio a giorni
         setBookingDaysForCheckFormat(booked);
 
-        for (let i in booked) {
-            if (booked[i].start.toDateString() === dateTime.toDateString()) {
-                // se la data di inizio è = alla data che selezioni 
-                let x = booked[i].start.getHours();
-                let z = booked[i].end.getHours();
-                while (x < z) {
-                    arrayBooking.push(setHours(setMinutes(new Date(dateTime), 0), x++));
-                    //blocco tutte le ore singolarmente di un singolo appuntamento
+
+        var arrayBookingNotAvailable = []; // ore in cui il servizio non è più dispnibile
+        var arrayBookingDaysNotAvailable = []; // giorni in cui il servizio non è più disponibile
+
+        var hoursAvailability = 0
+        var daysAvailability = 0
+
+        if (!datas.allday) {
+            for (let i in booked) {
+                if (booked[i].start.toDateString() === dateTime.toDateString()) {
+                    // se la data di inizio è = alla data che selezioni 
+                    let x = booked[i].start.getHours();
+                    let z = booked[i].end.getHours();
+                    while (x < z) {
+                        arrayBooking.push(setHours(setMinutes(new Date(dateTime), 0), x++));
+                        //blocco tutte le ore singolarmente di un singolo appuntamento
+                    }
                 }
+            }
+            console.log(arrayBooking)
+            for (let h in arrayBooking) {
+                // console.log(booking[h])
+                for (let j in arrayBooking) {
+                    if (arrayBooking[h].getHours() === arrayBooking[j].getHours()) {
+                        hoursAvailability = hoursAvailability + 1
+                    }
+                }
+                console.log(arrayBooking[h])
+                console.log(hoursAvailability)
+                if (hoursAvailability >= 2) {
+                    arrayBookingNotAvailable.push(arrayBooking[h])
+                }
+                hoursAvailability = 0;
             }
         }
 
-        for (let i in booked) {
-            let x = getDayOfYear(booked[i].start);
-            let z = getDayOfYear(booked[i].end);
-            let j = 0;
-            while (x <= z) {
-                arrayBookingDays.push(addDays(booked[i].start, j++));
-                x++;
-                //blocco tutte le date di un appuntamento a giorni
+        if (datas.allday) {
+            for (let i in booked) {
+                let x = getDayOfYear(booked[i].start);
+                let z = getDayOfYear(booked[i].end);
+                let j = 0;
+                while (x <= z) {
+                    arrayBookingDays.push(addDays(booked[i].start, j++));
+                    x++;
+                    //blocco tutte le date di un appuntamento a giorni
+                }
+            }
+            console.log(arrayBookingDays)
+            for (let h in arrayBookingDays){
+                for (let j in arrayBookingDays){
+                    if (arrayBookingDays[h].getDate() === arrayBookingDays[j].getDate() 
+                    && arrayBookingDays[h].getMonth() === arrayBookingDays[j].getMonth() 
+                    && arrayBookingDays[h].getFullYear() === arrayBookingDays[j].getFullYear()){
+                        daysAvailability = daysAvailability + 1
+                    }
+                }
+                console.log(arrayBookingDays[h])
+                console.log(daysAvailability)
+                if (daysAvailability >= 2){
+                    arrayBookingDaysNotAvailable.push(arrayBookingDays[h])
+                }
+                daysAvailability = 0
             }
         }
 
         setBooking(arrayBooking);
-        console.log(arrayBooking)
         setBookingDays(arrayBookingDays);
-        // console.log(arrayBookingDays)
+
+        setComplete(arrayBookingNotAvailable);
+        setCompleteDays(arrayBookingDaysNotAvailable);
+
+        // console.log(arrayBookingDaysNotAvailable)
+        // arrayBookingDaysNotAvailable = arrayBookingDaysNotAvailable.map(e => (
+        //     e = changeFormat(e)
+        // ))
+        // console.log(arrayBookingDaysNotAvailable)
+
+        setBookingDaysForCheckFormat(arrayBookingDaysNotAvailable)
     }
 
     function addHoursToDate(date, hours) {
         return new Date(new Date(date).setHours(new Date(date).getHours() + (hours)));
     } //agagiunge x ore alla x data
-
-    function dateOverlap(start, end, bookingList) {
-        start = new Date(start).getTime()
-        end = new Date(end).getTime()
-        console.log(bookingList);
-        for (let b in bookingList) {
-            let bStart = new Date(bookingList[b]['start']).getTime()
-            let bEnd = new Date(bookingList[b]['end']).getTime()
-
-            if (start >= bStart && start <= bEnd) { //a tra c e d
-                return true
-            }
-            if (start >= bStart && start <= bEnd) {//b tra c e d
-                return true
-            }
-            if (bStart >= start && bStart <= end) {//c tra a e b
-                return true
-            }
-            if (bEnd >= start && bEnd <= end) {//d tra a e b
-                return true
-            }
-        }
-        return false
-    }
-
+    
     function dateDiffInDays(a, b) { //differenza tra due date
         const _MS_PER_DAY = 1000 * 60 * 60 * 24;
         // Discard the time and time-zone information.
@@ -202,68 +265,107 @@ function SingleService() {
         return (Math.ceil((utc2 - utc1) / _MS_PER_DAY) + 1);
     }
 
-    const handleSubmit = () => {
-        // console.log(datas.allday)
-        // console.log(Number(datas.time))
-        let start = setHours(new Date(dateTime), dateTime.getHours())
-        console.log(start)
-        var end; var total;
-        if (!datas.allday) { //stesso giorno
-            var tmp = addHoursToDate(start, Number(datas.time)) //data di fine
-            end = setHours(new Date(tmp), tmp.getHours())
-            total = datas.price;
-        } else {
-            end = setHours(endDate, 19);
-            console.log(dateDiffInDays(start, end));
-            total = datas.price * dateDiffInDays(start, end); //calcoli il prezzo per diffenza in giorni
-            console.log(total)
-        }
+    // tomorrow.setDate(today.getDate() + 1)
 
-        const body = {
-            username: localStorage.username,
-            service: datas.name,
-            time: datas.time,
-            date_start: start,
-            date_end: end,
-            location: loc,
-            total: Math.ceil(total), //arrotondare per eccesso
-            allday: datas.allday
-        }
+    function dateOverlap(start, end, bookingList) {
+        console.log(bookingList)
+        var start = new Date(start)
+        var end = new Date(end)
+        var dateDiff = dateDiffInDays(start, end)
+            for (let x = 0; x < dateDiff; x++) {
+                for (let y in bookingList){
+                    if (start.getDate() === bookingList[y].getDate() && start.getMonth() === bookingList[y].getMonth() && start.getFullYear() === bookingList[y].getFullYear())
+                        return true
+                }
+                start.setDate(start.getDate() + 1)
+            }
+        return false
+    }
 
-        let containsBookedTimes = false;
-        let containsBookedDays = false;
 
-        if (!datas.allday) {
-            for (let x = 0; x < datas.time; x++) {
-                for (let h in booking) {
-                    console.log(booking[h].getHours())
-                    if (booking[h].getHours() === (start.getHours() + x)) {
-                        containsBookedTimes = true; //prenotazioni in ore
+    const handleSubmit = (event) => {
+        if (localStorage.token) {
+            event.preventDefault();
+            let start = setHours(new Date(dateTime), dateTime.getHours())
+            var end;
+            var total;
+
+            if (!datas.allday) { //stesso giorno
+                var tmp = addHoursToDate(start, Number(datas.time)) //data di fine
+                end = setHours(new Date(tmp), tmp.getHours())
+                total = datas.price;
+            } else {
+                end = setHours(endDate, 20);
+                total = datas.price * dateDiffInDays(start, end); //calcoli il prezzo per diffenza in giorni
+            }
+
+
+            const body = {
+                username: localStorage.username,
+                service: datas.name,
+                time: datas.time,
+                date_start: start,
+                date_end: end,
+                location: loc.location,
+                total: Math.ceil(total), //arrotondare per eccesso
+                allday: datas.allday,
+                mode: datas.mode
+            }
+
+            let containsBookedTimes = false;
+            let containsBookedDays = false;
+            // let available = true;
+
+            if (!datas.allday) {
+                console.log(complete)
+                for (let x = 0; x < datas.time; x++) {
+                    for (let h in complete) {
+                        if (complete[h].getHours() === (start.getHours() + x)) {
+                            containsBookedTimes = true; //prenotazioni in ore
+                        }
                     }
                 }
             }
-        }
-        else {
-            console.log(bookingDaysForCheckFormat);
-            containsBookedDays = dateOverlap(start, end, bookingDaysForCheckFormat);
-            // prenotazioni in giorni
-        }
+            else {
+                containsBookedDays = dateOverlap(start, end, bookingDaysForCheckFormat);
+            }
 
-        if (end === undefined) {
-            console.log("alert 2")
-        }
-        else if (containsBookedTimes) {
-            console.log("alert 3")
-        }
-        else if (containsBookedDays) {
-            console.log("alert 4")
-        }
-        else {
-            console.log(body); //richiesta api
-            axios.post("http://site212224.tw.cs.unibo.it/Reservation/post",
-                body).then(res =>
-                    console.log(res)
-                ).then(() => navigate('/account'))
+            console.log(containsBookedDays)
+
+
+            if (end === undefined) {
+                var myAlert = document.getElementById('toastNotice');//select id of toast
+                var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
+                bsAlert.show();//show it
+            }
+            else if (containsBookedTimes) {
+                var myAlert = document.getElementById('toastNotice2');//select id of toast
+                var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
+                bsAlert.show();//show it
+            }
+            else if (containsBookedDays) {
+                var myAlert = document.getElementById('toastNotice4');//select id of toast
+                var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
+                bsAlert.show();//show it
+            }
+            else if (loc.location === "" || loc.location === undefined) {
+                var myAlert = document.getElementById('toastNotice3');//select id of toast
+                var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
+                bsAlert.show();//show it
+            }
+            else {
+                console.log(body); //richiesta api
+                axios.post("http://site212224.tw.cs.unibo.it/Reservation/post",
+                    body).then(res =>
+                        console.log(res)
+                        // ).then(() => navigate('/account')
+                    ).catch(error => console.log(error));
+            }
+        } else {
+            event.preventDefault();
+            var myAlert = document.getElementById('toastNotice5');//select id of toast
+            var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
+            bsAlert.show();//show it
         }
     }
 
@@ -271,77 +373,128 @@ function SingleService() {
         <Container>
             <Navbar />
             <Wrapper className='container'>
-                <ImgContainer className='col-lg-4'>
+                <ImgContainer className='col-lg-3'>
                     <Image src={immagine} />
                 </ImgContainer>
                 <InfoContainer className='col-lg-5'>
                     <Category> {datas.category} </Category>
                     <Title style={{ marginTop: '1em', marginBottom: '0px' }}> {datas.name} </Title>
                     <Desc> Description: {datas.description} </Desc>
-                    <p> Duration: {datas.allday ? "all day" : datas.time} </p>
+                    <p> Duration: {datas.allday ? "all day" : datas.time + " hour/s"} </p>
                     <Price> Price: €{datas.price} </Price>
-
-                    <LocationContainer > 
-                        {datas.mode === "At Home" || datas.mode === "online" ? null :
-                        <select id="locSelector" className="form-select" aria-label="Default select example" onChange={() => setLoc(document.getElementById("locSelector").value)}>
-                            <option value="select location" key="default" disabled > select location </option>
-                            {locations.map(loc => (
-                                <option value={loc} key={loc}>{loc}</option>
-                            ))};
-                        </select>}
+                    <LocationContainer >
+                        {datas.mode === "At Home" || datas.mode === "online" ?
+                            <div className="input-group mb-3">
+                                <span className="input-group-text" id="basic-addon1"> ADDRESS </span>
+                                <input type="text" className="form-control" placeholder="Flat 6, 10 London Road, Brighton" aria-label="address" aria-describedby="basic-addon1" onChange={(e) => handleLoc(e)} />
+                            </div> :
+                            <select id="locSelector" className="form-select" aria-label="Default select example" onChange={(e) => handleLoc2(e)}>
+                                <option value="select location" key="default" disabled > select location </option>
+                                {locations.map(loc => (
+                                    <option value={loc} key={loc}>{loc}</option>
+                                ))};
+                            </select>}
                     </LocationContainer>
                 </InfoContainer>
 
-                <div style={{marginLeft: '2em'}}>
-                    {!datas.allday && <form>
-                        <div className="section">
-                            <h4 className="section-title mb-2">Seleziona data e orario</h4>
-                            <div className="section-content">
-                                <DatePicker
-                                    selected={dateTime}
-                                    onChange={date => setDateTime(date)}
-                                    showTimeSelect
-                                    timeFormat="HH:mm"
-                                    timeIntervals={60}
-                                    timeCaption="time"
-                                    dateFormat="d MMMM yyyy - h:mm"
-                                    minTime={setHours(setMinutes(new Date(), 0), 8)}
-                                    maxTime={setHours(setMinutes(new Date(), 0), (19 - datas.time))}
+                <PrenoContainer className='col-lg-4'>
+                    <div style={{ marginLeft: '2em' }}>
+                        {!datas.allday && <form>
+                            <div className="section">
+                                <h4 className="section-title mb-2">Seleziona data e orario</h4>
+                                <div className="section-content">
+                                    <DatePicker
+                                        selected={dateTime}
+                                        onChange={date => setDateTime(date)}
+                                        showTimeSelect
+                                        timeFormat="HH:mm"
+                                        timeIntervals={60}
+                                        timeCaption="time"
+                                        dateFormat="d MMMM yyyy - h:mm"
+                                        minTime={setHours(setMinutes(new Date(), 0), 8)}
+                                        maxTime={setHours(setMinutes(new Date(), 0), (20 - datas.time))}
 
-                                    excludeTimes={
-                                        booking
-                                    }
-                                    minDate={new Date().setDate(new Date().getDate() + 1)}
-                                />
+                                        excludeTimes={
+                                            complete
+                                        }
+                                        minDate={new Date().setDate(new Date().getDate() + 1)}
+                                    />
+                                </div>
+                            </div>
+                            <hr></hr>
+
+                            <div className="section">
+                            </div>
+                            <button className="btn btn-warning" onClick={handleSubmit}> Prenota </button>
+                        </form>}
+                        {datas.allday && <form>
+
+                            <div className="section">
+                                <h4 className="section-title mb-2">Seleziona data di inizio e di fine</h4>
+                                <div className="section-content">
+                                    <DatePicker
+                                        selected={dateTime}
+                                        onChange={onChange}
+                                        startDate={dateTime}
+                                        endDate={endDate}
+                                        excludeDates={completeDays}
+                                        selectsRange
+                                        minDate={new Date().setDate(new Date().getDate() + 1)}
+                                        inline
+                                    />
+                                </div>
+                            </div>
+                            <hr></hr>
+                            <button className="btn btn-warning" onClick={handleSubmit}> Prenota </button>
+                        </form>}
+
+                        <div id="toastNotice" className="toast" style={{ marginTop: "1em", marginLeft: "1.7em" }}>
+                            <div className="toast-header">
+                                <strong className="mr-auto">AN ERROR HAS OCCURRED</strong>
+                            </div>
+                            <div className="toast-body">
+                                Please, select the end date before submitting!
                             </div>
                         </div>
-                        <hr></hr>
 
-                        <div className="section">
-                        </div>
-                        <button className="btn btn-warning" onClick={handleSubmit}> Prenota </button>
-                    </form>}
-                    {datas.allday && <form>
-
-                        <div className="section">
-                            <h4 className="section-title mb-2">Seleziona data di inizio e di fine</h4>
-                            <div className="section-content">
-                                <DatePicker
-                                    selected={dateTime}
-                                    onChange={onChange}
-                                    startDate={dateTime}
-                                    endDate={endDate}
-                                    excludeDates={bookingDays}
-                                    selectsRange
-                                    minDate={new Date().setDate(new Date().getDate() + 1)}
-                                    inline
-                                />
+                        <div id="toastNotice2" className="toast" style={{ marginTop: "1em", marginLeft: "1.7em" }}>
+                            <div className="toast-header">
+                                <strong className="mr-auto">AN ERROR HAS OCCURRED</strong>
+                            </div>
+                            <div className="toast-body">
+                                The selected date or time slot is not available or sufficient (this service needs: {datas.time} hours).
                             </div>
                         </div>
-                        <hr></hr>
-                        <button className="btn btn-warning" onClick={handleSubmit}> Prenota </button>
-                    </form>}
-                </div>
+
+                        <div id="toastNotice3" className="toast" style={{ marginTop: "1em", marginLeft: "1.7em" }}>
+                            <div className="toast-header">
+                                <strong className="mr-auto">AN ERROR HAS OCCURRED</strong>
+                            </div>
+                            <div className="toast-body">
+                                Please, select or insert the correct location before submitting!
+                            </div>
+                        </div>
+
+                        <div id="toastNotice4" className="toast" style={{ marginTop: "1em", marginLeft: "1.7em" }}>
+                            <div className="toast-header">
+                                <strong className="mr-auto">AN ERROR HAS OCCURRED</strong>
+                            </div>
+                            <div className="toast-body">
+                                The selected days are not available.
+                            </div>
+                        </div>
+
+                        <div id="toastNotice5" className="toast" style={{ marginTop: "1em", marginLeft: "1.7em" }}>
+                            <div className="toast-header">
+                                <strong className="mr-auto">AN ERROR HAS OCCURRED</strong>
+                            </div>
+                            <div className="toast-body">
+                                If you want to make a reservation, please login first!
+                            </div>
+                        </div>
+
+                    </div>
+                </PrenoContainer>
 
             </Wrapper>
             <Footer />
