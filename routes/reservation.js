@@ -128,6 +128,8 @@ router.patch('/:id', getReservation, async (req, res)=> {
         }
     }
 
+    console.log("quantity of: " + serName + " in: " + locName + " quantity: " + quantity);
+
     if (count>quantity){
         console.log('La prenotazione è sbagliata');
         return res.json({message: 'La prenotazione è sbagliata'})
@@ -193,8 +195,6 @@ async function dateOverlap(start, end, id, reservationList, serName, locName){
             quantity = location[0]['disponibility'][k].quantity;
         }
     }*/
-
-    console.log("quantity of: " + serName + " in: " + locName + " quantity: " + quantity);
 
     for(let key in reservationList){
         if (reservationList[key].service == serName){ //controllo solo le reservation del mio stesso servizio
