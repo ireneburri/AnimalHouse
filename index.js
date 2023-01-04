@@ -3,7 +3,7 @@ global.rootDir = __dirname ;
 
 const cors = require('cors');
 const path = require('path');
-const GamePath = __dirname + '/game/dist/';
+const GamePath = global.rootDir + '/game/dist/';
 
 
 require('dotenv').config({ path: path.resolve(__dirname, './.env') });
