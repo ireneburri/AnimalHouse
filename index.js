@@ -52,7 +52,6 @@ const orderRouter = require('./routes/order')
 const reservationRouter = require('./routes/reservation')
 const quizRouter = require('./routes/quiz')
 const dogFactRouter = require('./routes/dogFact')
-const conflictRouter = require('./routes/conflict')
 
 app.use('/animal', animalRouter)
 app.use('/item', itemRouter)
@@ -68,7 +67,6 @@ app.use('/reservation', reservationRouter)
 app.use('/uploads', express.static('uploads'));
 app.use('/quiz', quizRouter)
 app.use('/dogFact', dogFactRouter)
-app.use('/conflict', conflictRouter)
 
 app.listen(8000,()=>console.log("server started"))
 
