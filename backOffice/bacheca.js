@@ -123,7 +123,7 @@ function showPost(post){
         <div class="card mb-3"  id="${post._id}">
             <div class="row g-0" >
                 <div class="col-md-2">
-                    <img src="../routes/uploads/${img}" id="img-${post._id}"  value="${img}" class="img-fluid rounded" alt="Image of the post: ${post._id}" style="width: 100%; height: auto;">
+                    <img src="${img}" id="img-${post._id}"  value="${img}" class="img-fluid rounded" alt="Image of the post: ${post._id}" style="width: 100%; height: auto;">
                 </div>
                 <div class="col-md-10">
                     <div class="card-body">
@@ -335,7 +335,7 @@ function showComments(id, comment){
         <div class="card mb-3"  id="${comment._id}" >
             <div class="row g-0" >
                 <div class="col-md-2">
-                    <img src="../routes/uploads/${img}" id="img-${comment._id}" value=${img} class="img-fluid rounded" alt="Image of the post: ${comment._id}" style="width: 100%; height: auto;">
+                    <img src="${img}" id="img-${comment._id}" value=${img} class="img-fluid rounded" alt="Image of the post: ${comment._id}" style="width: 100%; height: auto;">
                 </div>
                 <div class="col-md-10">
                     <div class="card-body">

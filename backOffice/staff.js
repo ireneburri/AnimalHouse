@@ -57,7 +57,7 @@ function showStaff(staff){
     `
     <div class="col">
         <div class="card h-100" >
-            <img src="../routes/uploads/${img}" class="card-img-top" alt="Image of staff: ${staff.username}" style="width:100%;" >
+            <img src="${img}" class="card-img-top" alt="Image of staff: ${staff.username}" style="width:100%;" >
             <div class="card-body">
                 <h5 class="card-title" id="titleCard-${staff._id}">
                     <span class="staffName"> ${staff.name} ${staff.surname} </span>  

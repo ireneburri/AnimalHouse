@@ -138,7 +138,7 @@ function showService(service){
     <div class="card mb-3"  id="${service.name}" >
         <div class="row g-0" >
             <div class="col-md-2">
-                <img src="../routes/uploads/${img}" class="img-fluid rounded" alt="Image of the service: ${service.name}" style="width: 100%; height: auto;">
+                <img src="${img}" class="img-fluid rounded" alt="Image of the service: ${service.name}" style="width: 100%; height: auto;">
             </div>
             <div class="col-md-10">
                 <div class="card-body">

@@ -85,7 +85,7 @@ function showClient(client){
     <div class="card mb-3"  id="${client.username}" >
         <div class="row g-0" >
             <div class="col-md-2">
-                <img src="../routes/uploads/${img}" class="img-fluid rounded" alt="Image of client: ${client.username}" style="width: 100%; height: auto;">
+                <img src="${img}" class="img-fluid rounded" alt="Image of client: ${client.username}" style="width: 100%; height: auto;">
             </div>
             <div class="col-md-10">
                 <div class="card-body">
@@ -515,7 +515,7 @@ function openAnimal(id){
                 <div class="card mb-2 mt-2">
                     <div class="row g-0">
                         <div class="col-md-3">
-                            <img src="../routes/uploads/${img}" class="img-fluid rounded" alt="Image of client: ${animal.name}" style="width: 100%; height: auto;">
+                            <img src="${img}" class="img-fluid rounded" alt="Image of client: ${animal.name}" style="width: 100%; height: auto;">
                         </div>
                         <div class="col-md-6">
                             <div class="card-body">
