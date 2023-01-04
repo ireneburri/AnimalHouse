@@ -12,4 +12,20 @@ router.get('/', async(req, res)=> {
     }
 })
 
+//create one
+router.post('/', async (req, res)=> {
+    const conflict = new Conflict({
+        service: req.body.service,
+        quantity: req.body.quantity,
+        timeS: req.body.timeS,
+        timeE: req.body.timeE
+    })
+    try{
+        const newConflict = await conflict.save()
+        res.status(201).json(newConflict)
+    } catch(err) {
+        res.status(400).json({message: err.message})
+    }
+})
+
 module.exports = router
