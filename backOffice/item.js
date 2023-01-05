@@ -74,7 +74,7 @@ function showItem(item){
     }
 
     let img = "itemPic.png"
-    if ( item.img != img && (item.img != "" || item.img != undefined)){ 
+    if ( item.img != img && (item.img != "" && item.img != undefined)){ 
         img = item._id + ".png"
     } 
 

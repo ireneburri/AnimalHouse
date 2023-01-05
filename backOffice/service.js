@@ -124,7 +124,7 @@ function showService(service){
     }
 
     let img = "servizioPic.png"
-    if (service.img != "servizioPic.png" && (service.img != "" || service.img != undefined)){ 
+    if (service.img != "servizioPic.png" && (service.img != "" && service.img != undefined)){ 
         img = service._id + ".png"
     }
 

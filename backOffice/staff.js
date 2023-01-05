@@ -49,7 +49,7 @@ function staffs(staffList){
 function showStaff(staff){
     
     let img = "staffPic.png"
-    if (staff.img != "staffPic.png" && (staff.img != "" || staff.img != undefined)){ 
+    if (staff.img != "staffPic.png" && (staff.img != "" && staff.img != undefined)){ 
         img = staff._id + ".png"
     } 
 

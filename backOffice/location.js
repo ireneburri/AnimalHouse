@@ -65,7 +65,7 @@ function locations(locationList){
 function showLocation(location){
     
     let img = "locationPic.png"
-    if (location.img != "locationPic.png" && (location.img != "" || location.img != undefined)){ 
+    if (location.img != "locationPic.png" && (location.img != "" && location.img != undefined)){ 
         img = location._id + ".png"
     } 
 

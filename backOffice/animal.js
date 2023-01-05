@@ -50,7 +50,7 @@ function animals(animalsList){
 function showAnimal(animal){
 
     let img = "animalPic.png"
-    if ( animal.img != img && (animal.img != "" || animal.img != undefined)){ 
+    if ( animal.img != img && (animal.img != "" && animal.img != undefined)){ 
         img = animal._id + ".png"
     } 
 

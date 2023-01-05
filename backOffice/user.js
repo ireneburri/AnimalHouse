@@ -78,7 +78,7 @@ function showClient(client){
     }
 
     let img = "profilePic.png"
-    if (client.img != img && (client.img != "" || client.img != undefined)){ img = client._id + ".png"}
+    if (client.img != img && (client.img != "" && client.img != undefined)){ img = client._id + ".png"}
 
     $("#myDIV").append(
     `
