@@ -129,33 +129,33 @@ router.patch('/username/:username',  async(req, res) => {
     } catch (err) {
         return res.status(500).json({ message: err.message })
     }
-    if (req.body.username != null) {
-        res.user.username = req.body.username
+    if (user.username != null) {
+        res.user.username = user.username
     }
-    if (req.body.name != null) {
-        res.user.name = req.body.name
+    if (user.name != null) {
+        res.user.name = user.name
     }
-    if (req.body.surname != null) {
-        res.user.surname = req.body.surname
+    if (user.surname != null) {
+        res.user.surname = user.surname
     }
-    if (req.body.img != null) {
-        res.user.img = req.body.img
+    if (user.img != null) {
+        res.user.img = user.img
     }
-    if (req.body.password != null) {
+    if (user.password != null) {
         //res.user.password=req.body.password
-        res.user.password = CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY).toString()
+        user.password = CryptoJS.AES.encrypt(user.password, ENCRIPTION_KEY).toString()
     }
-    if (req.body.tel != null) {
-        res.user.tel = req.body.tel
+    if (user.tel != null) {
+        res.user.tel = user.tel
     }
-    if (req.body.residence != null) {
-        res.user.residence = req.body.residence
+    if (user.residence != null) {
+        res.user.residence = user.residence
     }
-    if (req.body.preferences != null) {
-        res.user.preferences = req.body.preferences
+    if (user.preferences != null) {
+        res.user.preferences = user.preferences
     }
-    if (req.body.vip != null) {
-        res.user.vip = req.body.vip
+    if (user.vip != null) {
+        res.user.vip = user.vip
     }
 
     try {
