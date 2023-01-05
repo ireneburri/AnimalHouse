@@ -50,6 +50,7 @@ router.post('/', auth.verifyLogin, auth.verifyAuth(auth.authLevelDict["staff"]),
         price: req.body.price,
         img: req.body.img,
         category: req.body.category,
+        species: req.body.species,
         animal: req.body.animal,
         quantity: req.body.quantity,
         description: req.body.description,
@@ -76,6 +77,9 @@ router.patch('/:id', getItem, async (req, res)=> {
     }
     if(req.body.category != null){
         res.item.category=req.body.category
+    }
+    if(req.body.species != null){
+        res.item.species=req.body.species
     }
     if(req.body.animal != null){
         res.item.animal=req.body.animal
