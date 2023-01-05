@@ -2,7 +2,6 @@ global.rootDir = __dirname ;
 //.env
 const cors = require('cors');
 const path = require('path');
-const pathGame = __dirname + '/game/dist/';
 
 require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 
@@ -15,7 +14,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(pathGame));
+app.use('/', express.static(global.rootDir + '/game/dist/index.html'));
 
 app.use('/backOffice', express.static(global.rootDir +'/backOffice'));
 app.use('/backOffice', express.static(global.rootDir +'/routes/uploads'));
@@ -31,9 +30,6 @@ const MONGO_PWD = process.env.MONGO_PWD
 const uri = `mongodb://site212224:${MONGO_PWD}@mongo_site212224?writeConcern=majority`
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true})
 
-
-//per connettere la tua applicazione ad un database locale
-//mongoose.connect('mongodb://127.0.0.1/animalHouse', { useNewUrlParser: true});
 
 //feedback se la connessione riesce
 const db= mongoose.connection
@@ -89,8 +85,10 @@ app.get('/front', (req, res) => {
     )
 })
 
-app.get('/', function (req,res) {
-    res.sendFile(global.rootDir + '/game/dist/index.html');
-});
+app.get('/', (req,res) =>{
+    res.sendFile(
+        global.rootDir + '/game/dist/index.html'
+    )
+})
 
 
