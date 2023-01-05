@@ -14,7 +14,10 @@ const ENCRIPTION_KEY = process.env.CRYPT_KEY
 //const PRIVATE_KEY = process.env.PRIV_KEY
 //const PUBLIC_KEY = process.env.PUB_KEY
 
-const publicKey = [
+const publicKey = process.env.publicKey
+const privateKey =process.env.privateKey
+
+/*const publicKey = [
     '-----BEGIN PUBLIC KEY-----',
     'MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAn0ndXQ0mI5p84idjqGOL',
     'aYmrDVTslx9E7JuOswWSDEK3lW0D63AHgSy839a/6iY5pKlCxjeYhMQdOtHyGflU',
@@ -82,8 +85,7 @@ const privateKey = ['-----BEGIN RSA PRIVATE KEY-----',
     '+Ssf90iytbUGCgdQaTMWixFEzwnxnUJ0jBoUf9SXDYdYcQfRzQ7v3mjmWxyXoXZu',
     'fHMfuQ+ZyaF0QjhaIYm6vEL8G7CmnnkNPCtIdlpsqHKQic75zgqgx0lCJOc+',
     '-----END RSA PRIVATE KEY-----',
-].join('\n');
-
+].join('\n');*/
 
 const authLevelDict = {
     "staff": 3,
