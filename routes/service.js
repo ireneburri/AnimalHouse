@@ -12,6 +12,36 @@ router.get('/', async(req, res)=> {
     }
 })
 
+
+//get tot random
+router.get('/size/:size', async(req, res) => {
+    try{
+        var size= req.params.size
+        var db = await Service.find()
+        console.log(db)
+        var service = []
+
+        var random=0
+        do{
+            random=Math.random()*db.length
+            console.log(random)
+            service.push(db[Math.floor(random)])
+            db.pop(db[Math.floor(random)])
+
+            console.log(db)
+            //console.log(quiz)
+            size=size-1
+            //console.log(size)
+
+        }while(size>0)
+        res.json(service)
+    }
+    catch(err){
+        res.status(500).json({ message: err.message })
+    }
+})
+
+
 //Get service filtered by mode
 router.get("/mode/:mode", async (request , response) => {
     const mode = request.params.mode

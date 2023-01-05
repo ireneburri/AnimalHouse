@@ -20,29 +20,20 @@ router.get('/:id', getItem, (req, res)=> {
 })
 
 //get filtered
-router.get('/animal/:animal/species/:species/size/:size', async(req, res)=> {
+router.get('/species/:species/size/:size', async(req, res)=> {
     //console.log('ao')
-    const animal = req.params.animal
-    //console.log(animal)
     const species = req.params.species
     //console.log(species)
     const size = req.params.size
     //console.log(size)
     var items
-    var moreItems
-    items = await Item.aggregate([
-        {$match: {$and: [{species: species}, {quantity: {$gt: 0}}, {size: size}]}},
-        { $sample: { size: 3}}])
-    console.log(items)
-
-    if(items.length<3){
-        moreItems = await Item.aggregate([
-            {$match: {$and: [{animal: animal}, {quantity: {$gt: 0}}]}},
-            { $sample: { size: 3-items.length}}])
-        moreItems.forEach(moreItems => {
-            items.push(moreItems)
-        })
+    if(species!=='all'){
+        items= await Item.find({$and: [{species: species}, {quantity: {$gt: 0}}, {$or: [{size: size}, {size:'all'}]}]}).limit(3)
     }
+    else{
+        items= await Item.find({quantity: {$gt: 0}}).limit(3)
+    }
+    //console.log(items)
     //console.log(items)
     try{
         res.json(items)
