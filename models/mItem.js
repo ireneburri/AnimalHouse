@@ -30,7 +30,12 @@ const itemSchema = new mongoose.Schema({
     },
     species:{
         type:String,
-        required:true
+        required:false
+    },
+    animal:{
+        type:String,
+        enum: ["For Everyone", "Mammals", "Birds", "Reptiles", "Amphibians", "Fish", "Insects", "Others"],
+        required:false
     },
     description: {
         type: String,
