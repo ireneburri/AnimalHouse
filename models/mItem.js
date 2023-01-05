@@ -19,10 +19,10 @@ const itemSchema = new mongoose.Schema({
         required: true,
     },
     size:{
-        type: [String],
+        type: String,
         enum:["Small", "Medium", "Large", "All"],
         required:false,
-        default:["Small", "Medium", "Large"],
+        default:["All"],
     },
     quantity: {
         type: Number,
