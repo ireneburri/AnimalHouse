@@ -14,7 +14,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/', express.static(global.rootDir + '/game/dist/index.html'));
+const pathGame = __dirname + '/game/dist/';
+
+app.use(express.static(pathGame));
 
 app.use('/backOffice', express.static(global.rootDir +'/backOffice'));
 app.use('/backOffice', express.static(global.rootDir +'/routes/uploads'));
@@ -85,10 +87,8 @@ app.get('/front', (req, res) => {
     )
 })
 
-app.get('/', (req,res) =>{
-    res.sendFile(
-        global.rootDir + '/game/dist/index.html'
-    )
-})
+app.get('/', function (req,res) {
+    res.sendFile(pathGame + "index.html");
+});
 
 
