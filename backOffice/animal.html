@@ -3,7 +3,7 @@
   Ogni prodotto appartiene ad una categoria (e ad una o più sottocategorie) 
   ha sempre un'immagine (con URI online o uploadata sul file system del server)  -->
 
-  <html>
+  <html lang="en">
     <head>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -58,7 +58,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-footer">
-                                <button type="reset" form="FormModify-${staff._id}" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
+                                <button type="reset" form="FormModify-${staff._id}" class="btn btn-primary" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
                                 <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=logout()>Yes</button>                             
                             </div>
                             </div>
@@ -80,7 +80,7 @@
           <div class="col">
             <!-- Button trigger modal -->
             <div class="mb-2 mt-2" style="display: flex; justify-content: right; align-items: right;">
-              <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#ModalNEW" style="background-color: #849531; color: white;">
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalNEW" style="background-color: #849531; border-color: #849531; color: white;">
                 Add a new animal
               </button> 
             </div>
@@ -95,8 +95,8 @@
         </div-->
   
         <div class="input-group" style="margin-bottom: 6px;">
-          <input type="search" class="form-control rounded" id="searchAnimal" placeholder="Search by Species or Breed" aria-label="Search" aria-describedby="search-addon">
-          <button type="button" class="btn" style="color: white; background-color: #425664;" onclick=searchBySpeciesBreed()>search</button>
+          <input type="search" class="form-control rounded" id="searchAnimal" placeholder="Search by Species or Breed" aria-label="Search an animal by species or breed">
+          <button type="button" class="btn btn-primary" style="color: white; background-color: #425664; border-color: #425664;" onclick=searchBySpeciesBreed()>search</button>
         </div>
   
         <!-- Modal -->
@@ -125,44 +125,44 @@
                     </div>
                     <div class="col">
                       <div class="input-group">
-                        <span class="input-group-text">Age</span>
+                        <label for="inputAge" class="input-group-text">Age</label>
                         <input type="number" class="form-control" id="inputAge" aria-label="Age" placeholder="Age">
                       </div>
                     </div>
                   </div>
   
                   <div class="row mb-2">
-                    <label class="col-sm-2 col-form-label">Species*</label>
+                    <label for="inputSpecies" class="col-sm-2 col-form-label">Species*</label>
                     <div class="col">
                         <input id="inputSpecies" type="text" class="form-control" placeholder="Species" aria-label="Species" required>
                     </div>
                     <div class="col">
                         <div class="input-group">
-                            <span class="input-group-text">Sex</span>
+                            <label for="inputSex" class="input-group-text">Sex</label>
                             <select id="inputSex" class="form-select" aria-label="Sex">
-                                <option>Maschio</option>
-                                <option>Femmina</option>
+                                <option>Male</option>
+                                <option>Female</option>
                             </select>  
                         </div> 
                     </div>
                   </div> 
 
                   <div class="row mb-2">
-                    <label class="col-sm-2 col-form-label">Breed</label>
+                    <label for="inputBreed" class="col-sm-2 col-form-label">Breed</label>
                     <div class="col">
                       <input id="inputBreed" type="text" class="form-control" placeholder="Breed" aria-label="Breed">
                     </div>
                     <div class="col">
                         <div class="input-group">
-                            <span class="input-group-text">Price</span>
+                            <label for="inputPrice" class="input-group-text">&euro;</label>
                             <input type="number" id="inputPrice" class="form-select" aria-label="Price">
                         </div> 
                     </div>
                   </div> 
                   <div class="row mb-2">
-                    <label class="col-sm-2 col-form-label">Breed</label>
+                    <label class="col-sm-2 col-form-label" for="inputDescription">Description</label>
                     <div class="col-sm-10">
-                      <input id="inputBreed" type="text" class="form-control" placeholder="Breed" aria-label="Breed">
+                      <textarea class="form-control" id="inputDescription" rows="2" aria-label="Description of the animal"></textarea>
                     </div>
                   </div>
   
@@ -175,7 +175,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="reset" form="FormAnimal" class="btn" data-bs-dismiss="modal" style="background-color: #A0AECD; border-color: #A0AECD;">Discard</button>
-                  <button type="button" class="btn" onclick=createAnimal() style="background-color: #849531; border-color: #849531;">Save new animal</button>
+                  <button type="button" class="btn" onclick=createAnimal() style="background-color: #849531; border-color: #849531;" aria-label="Save animal">Save new animal</button>
                 </div>
   
               </div>

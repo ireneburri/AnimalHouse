@@ -3,7 +3,7 @@
     reset password, cancellazione, preferenze e animali preferiti, punteggi dei giochi 
 -->
 
-<html>
+<html lang="en">
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -83,7 +83,7 @@
         <div class="col">
           <!-- Button trigger modal -->
           <div class="mb-2 mt-2" style="display: flex; justify-content: right; align-items: right;">
-            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#ModalNEW" style="color: white; background-color: #849531;" >
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalNEW" style="color: white; background-color: #849531;" >
               Register a new customer
             </button>
           </div>
@@ -91,8 +91,8 @@
       </div>
 
       <div class="input-group mb-2">
-        <input type="search" class="form-control rounded" id="searchClient" placeholder="Search by Name or Username" aria-label="Search" aria-describedby="search-addon">
-        <button type="button" class="btn" style="color: white; background-color: #425664;" onclick=searchByNameUsername()>search</button>
+        <input type="search" class="form-control rounded" id="searchClient" placeholder="Search by Name or Username" aria-label="Search by name or username of the client" aria-describedby="search-addon">
+        <button type="button" class="btn btn-primary" style="color: white; background-color: #425664;" onclick=searchByNameUsername()>search</button>
       </div>
 
       <!-- Modal -->
@@ -102,7 +102,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="ModalLabel">New client</h5>
+                <h5 class="modal-title" id="ModalLabelNEW">New client</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
 
@@ -114,7 +114,7 @@
                 </div>
               <form id="FormClient">
                 <div class="row mb-2">
-                  <label class="col-sm-2 col-form-label">Name</label>
+                  <label class="col-sm-2 col-form-label" for="inputName">Name</label>
                   <div class="col">
                     <input id="inputName" type="text" class="form-control" placeholder="First name" aria-label="First name">
                   </div>
@@ -124,7 +124,7 @@
                 </div>
 
                 <div class="row mb-2">
-                  <label class="col-sm-2 col-form-label">Contact</label>
+                  <label class="col-sm-2 col-form-label" for="inputTel">Contact</label>
 
                   <div class="col">
                     <input id="inputEmail" type="email" class="form-control" placeholder="Email" aria-label="Email">
@@ -140,7 +140,7 @@
                 <div class="row mb-2">
                   <label for="inputUsername" class="col-sm-2 col-form-label">Username*</label>
                   <div class="col-sm-10">
-                    <input type="username" class="form-control" id="inputUsername" placeholder="Username" aria-label="Username">
+                    <input type="username" class="form-control" id="inputUsername" placeholder="Username" aria-label="Username" required>
                   </div>
                 </div>
 
@@ -161,7 +161,7 @@
                 <div class="row mb-2">
                   <label for="inputPref" class="col-sm-3 col-form-label">Preferences*</label>
                   <div class="col-sm-9">
-                    <input type="string" class="form-control" id="inputPref" placeholder="Preferences" aria-label="Client's preferences">
+                    <input type="string" class="form-control" id="inputPref" placeholder="Preferences" aria-label="Client's preferences" required>
                   </div>
                 </div>
 

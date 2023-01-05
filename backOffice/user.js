@@ -119,13 +119,13 @@ function showClient(client){
                         </div>
                         <div class="col-md-2">
                         <div class="row g-0" >   
-                            <a href="#" class="btn" style="background-color: #A0AECD; border-color: #A0AECD; color: white; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#Modal-${client._id}">Delete</a> 
+                            <a href="#" class="btn btn-primary" style="background-color: #A0AECD; border-color: #A0AECD; color: white; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#Modal-${client._id}">Delete</a> 
                         </div>
                         <div class="row g-0" >   
-                            <a href="#" class="btn" style="background-color: #425664; border-color: #425664; color: white; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#ModalU-${client._id}"><small>Modify</small></a>
+                            <a href="#" class="btn btn-primary" style="background-color: #425664; border-color: #425664; color: white; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#ModalU-${client._id}"><small>Modify</small></a>
                         </div>
                         <div class="row g-0" >   
-                            <a href="#" class="btn" style="background-color: #849531; border-color: #849531; color: white; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#ModalAnimal-${client._id}"><small>Add animal</small></a>  
+                            <a href="#" class="btn btn-success" style="background-color: #849531; border-color: #849531; color: white; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#ModalAnimal-${client._id}"><small>Add animal</small></a>  
                         </div>
                             
                             <!-- Modal -->
@@ -135,7 +135,7 @@ function showClient(client){
                                     <div class="modal-dialog">
                                         <div class="modal-content" style="background-color:#A0AECD;color: white;">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="ModalLabel">Are you sure you want to delete this user?</h5>
+                                            <h5 class="modal-title" id="ModalLabel-${client._id}">Are you sure you want to delete this user?</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-footer">
@@ -150,7 +150,7 @@ function showClient(client){
                             <!-- Modal -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
-                                <div class="modal fade" id="ModalU-${client._id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="ModalU-${client._id}" tabindex="-1" aria-labelledby="ModalLabel-${client._id}" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                     <div class="modal-header">
@@ -162,7 +162,7 @@ function showClient(client){
                                     <div class="modal-body">
                                     <form id="FormModify-${client._id}">
                                         <div class="row mb-2">
-                                            <label class="col-sm-2 col-form-label">Name</label>
+                                            <label class="col-sm-2 col-form-label" for=""modName-${client._id}">Name</label>
                                             <div class="col">
                                                 <input id="modName-${client._id}" type="text" class="form-control" placeholder="${client.name}" aria-label="First name">
                                             </div>
@@ -172,7 +172,7 @@ function showClient(client){
                                         </div>
 
                                         <div class="row mb-2">
-                                            <label class="col-sm-2 col-form-label">Contact</label>
+                                            <label class="col-sm-2 col-form-label" "modTel-${client._id}>Contact</label>
                                             <div class="col">
                                                 <input id="modEmail-${client._id}" type="email" class="form-control" placeholder="Email" aria-label="Email">
                                             </div>
@@ -224,7 +224,7 @@ function showClient(client){
                                     </div>
                                     <div class="modal-footer">
                                         <button type="reset" form="FormModify-${client._id}" class="btn" data-bs-dismiss="modal" style="background-color: #A0AECD; border-color: #A0AECD;">Discard</button>
-                                        <button type="button" class="btn" onclick=modifyClient("${client._id}") style="background-color: #849531; border-color: #849531;">Save changes</button>
+                                        <button type="button" class="btn" onclick=modifyClient("${client._id}") style="background-color: #849531; border-color: #849531;" aria-label="save changes">Save changes</button>
                                     </div>
 
                                     </div>
@@ -236,7 +236,7 @@ function showClient(client){
                             <!-- Modal 2 -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
-                                <div class="modal fade" id="ModalAnimal-${client._id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="ModalAnimal-${client._id}" tabindex="-1" aria-labelledby="ModalLabelAnimal-${client._id}" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                     <div class="modal-header">
@@ -252,26 +252,26 @@ function showClient(client){
                                     </div>
                                     <form id="FormModifyAnimal-${client._id}">
                                         <div class="row mb-2">
-                                            <label class="col-sm-2 col-form-label">Name</label>
+                                            <label class="col-sm-2 col-form-label" for="inputName-${client._id}">Name</label>
                                             <div class="col-sm-6">
                                                 <input id="inputName-${client._id}" type="text" class="form-control" aria-label="Name" required>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="input-group">
-                                                    <span class="input-group-text">Age</span>
+                                                    <label class="input-group-text" for="inputAge-${client._id}">Age</label>
                                                     <input type="number" id="inputAge-${client._id}" class="form-control" aria-label="Age" >
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row mb-2">
-                                            <label class="col-sm-3 col-form-label">Species*</label>
+                                            <label class="col-sm-3 col-form-label" for="inputSpecies-${client._id}">Species*</label>
                                             <div class="col-sm-5">
                                                 <input id="inputSpecies-${client._id}" type="text" class="form-control" aria-label="Species" required>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="input-group">
-                                                    <span class="input-group-text">Sex</span>
+                                                    <label class="input-group-text" for="inputSpecies-${client._id}">Sex</label>
                                                     <select id="inputSex-${client._id}" class="form-select">
                                                         <option value="Femmina">F</option>
                                                         <option value="Maschio">M</option>
@@ -281,7 +281,7 @@ function showClient(client){
                                         </div>
 
                                         <div class="row mb-2">
-                                            <label class="col-sm-3 col-form-label">Breed</label>
+                                            <label class="col-sm-3 col-form-label" for="inputBreed-${client._id}">Breed</label>
                                             <div class="col-sm-9">
                                                 <input id="inputBreed-${client._id}" type="text" class="form-control" aria-label="Breed">
                                             </div>
@@ -303,7 +303,7 @@ function showClient(client){
                                     </div>
                                     <div class="modal-footer">
                                         <button type="reset" form="FormModifyAnimal-${client._id}" class="btn" data-bs-dismiss="modal" style="background-color: #A0AECD; border-color: #A0AECD;">Discard</button>
-                                        <button type="button" class="btn" onclick=addClientAnimal("${client._id}") style="background-color: #849531; border-color: #849531;">Save changes</button>
+                                        <button type="button" class="btn" onclick=addClientAnimal("${client._id}") style="background-color: #849531; border-color: #849531;" aria-label="save changes">Save changes</button>
                                     </div>
 
                                     </div>
@@ -515,7 +515,7 @@ function openAnimal(id){
                 <div class="card mb-2 mt-2">
                     <div class="row g-0">
                         <div class="col-md-3">
-                            <img src="${img}" class="img-fluid rounded" alt="Image of client: ${animal.name}" style="width: 100%; height: auto;">
+                            <img src="${img}" class="img-fluid rounded" alt="Image of the animal: ${animal.name}" style="width: 100%; height: auto;">
                         </div>
                         <div class="col-md-6">
                             <div class="card-body">
@@ -702,8 +702,8 @@ function addClientAnimal(id){
         data.img = fileInput.name
     }
     data.sex = $("#inputSex-"+id).val()
-    data.species = $("#inputSpecies-"+id).val()
-    data.breed = $("#inputBreed-"+id).val()
+    data.species = $("#inputSpecies-"+id).val().toLowerCase()
+    data.breed = $("#inputBreed-"+id).val().toLowerCase()
     data.age = $("#inputAge-"+id).val()
     data.description = $("#inputDescription-"+id).val()
     data.sale = false

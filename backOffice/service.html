@@ -59,7 +59,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" form="FormModify" class="btn btn-primary" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" aria-label="Close">No</button>
-                                <button type="button" class="btn btn-primary" style="margin:1px;background-color: #849531;color: white;" onclick=logout() aria-label="Logout">Yes</button>                             
+                                <button type="button" class="btn btn-success" style="margin:1px;background-color: #849531;color: white;" onclick=logout() aria-label="Logout">Yes</button>                             
                             </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
         </div>
         <div class="col">
           <div class="mb-2 mt-2" style="display: flex; justify-content: right; align-items: right;">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal" style="background-color: #849531; border-color: #849531; color: white" aria-label="Register a new service">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#Modal" style="background-color: #849531; border-color: #849531; color: white" aria-label="Register a new service">
               Register a new service
             </button>
           </div>
@@ -194,12 +194,12 @@
                     </div>
                   </div>
 
-                  <div class="row mb-2">
+                  <!--div class="row mb-2">
                     <label class="col-sm-2 col-form-label" for="inputLocation"> Location*</label>
                     <div class="col-sm-10">
                       <input id="inputLocation" type="text" class="form-control" placeholder="Location" aria-label="Location" required>
                     </div>
-                  </div>
+                  </div-->
 
                   <div class="mb-2">
                     <label for="inputDescription" class="form-label">Description</label>
@@ -215,7 +215,7 @@
               </div>
               <div class="modal-footer">
                 <button type="reset" form="FormPost"  class="btn btn-primary" data-bs-dismiss="modal" style="background-color: #A0AECD; border-color: #A0AECD;" aria-label="Close modal without saving">Discard</button>
-                <button type="button" class="btn btn-primary" onclick=createService() style="background-color: #849531; border-color: #849531;" aria-label="Close the modal and save changes">Save new service</button>
+                <button type="button" class="btn btn-success" onclick=createService() style="background-color: #849531; border-color: #849531;" aria-label="Close the modal and save changes">Save new service</button>
               </div>
 
             </div>
