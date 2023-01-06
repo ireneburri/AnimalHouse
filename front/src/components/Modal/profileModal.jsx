@@ -96,7 +96,7 @@ function ProfileModal(props) {
     function submitNewInfo(e) {
         Object.keys(info).forEach(k => !info[k] && delete info[k])
 
-        fetch("http://site212224.tw.cs.unibo.it/user/id/" + id, { //mi serve la patch per utente
+        fetch("https://site212224.tw.cs.unibo.it/user/id/" + id, { //mi serve la patch per utente
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"

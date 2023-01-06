@@ -23,7 +23,7 @@ const MyButton = styled.button`
 function AnimalCard (props){
 
         function deleteAnimal(){
-            axios.delete(`http://site212224.tw.cs.unibo.it/animal/${props.id}`
+            axios.delete(`https://site212224.tw.cs.unibo.it/animal/${props.id}`
             ).then(res => {
                 console.log(res)
                 window.location.reload(false);

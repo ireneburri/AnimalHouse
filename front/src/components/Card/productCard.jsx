@@ -30,7 +30,7 @@ class ProductCard extends Component {
         return (
             <div className="col-12 col-md-6 col-lg-3" >
                 <MyCard className="card" style={{ textAlign: 'center' }}>
-                    <a className="itemLink" href={'http://localhost:3000/singleproduct:' + this.props.id}>
+                    <a className="itemLink" href={'https://localhost:3000/singleproduct:' + this.props.id}>
                         <img src={dog} className="card-img-top" alt="..." />
                         <div className="card-body" >
                             <hr />

@@ -23,7 +23,7 @@ function Locations() {
     }, []);
 
     const fetchPosts = async () => {
-        const data = await fetch(`http://site212224.tw.cs.unibo.it/Location`);
+        const data = await fetch(`https://site212224.tw.cs.unibo.it/Location`);
         const fetched = await data.json();
         // console.log(fetched)
         setLocations(fetched);

@@ -18,7 +18,7 @@ function CommentForm() {
     function submit(e) {
         e.preventDefault();
         console.log(data);
-        axios.post('http://site212224.tw.cs.unibo.it/Board/', {
+        axios.post('https://site212224.tw.cs.unibo.it/Board/', {
             author: data.author,
             title: data.title,
             text: data.text,
