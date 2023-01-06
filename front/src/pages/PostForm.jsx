@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, state, setState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -23,35 +23,20 @@ function PostForm() {
 
     async function uploadImg(img, id) {
         if (img != undefined) {
-            console.log("up")
-
             var blob = img.slice(0, img.size, 'image/*');
-            let imm = new File([blob], id + ".png", { type: 'image/*' })
-            console.log(id)
-            console.log(imm)
-
-            let formData = new FormData();
-            formData.append("file", imm);
-            console.log(formData.getAll('file'))
-
-            // axios.post('http://site212224.tw.cs.unibo.it/image', {
-            //     data: formData
-            // }).then(res => {
-            //     console.log(res)
-            // })   
-
-            fetch("http://site212224.tw.cs.unibo.it/image", { //mi serve la patch per utente
-                method: "POST",
-                crossDomain: true,
-                enctype: 'multipart/form-data',
-                processData: false,
-                contentType: false,
-                data: formData,
+            let image = new File([blob], id + '.png', { type: 'image/*' })
+            var form = new FormData();
+            form.append("file", image)
+            console.log(image);
+            await axios.post("https://site212224.tw.cs.unibo.it/image/", form, {
+                headers: {
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false
+                }
             }).then((res) => {
-                console.log(res)
-            }
-            )
-            return false;
+                console.log(res);
+            })
         }
     }
 
@@ -65,7 +50,6 @@ function PostForm() {
     })
 
     function submit(e) {
-        console.log(data)
         e.preventDefault();
         axios.post('http://site212224.tw.cs.unibo.it/Board/', {
             author: data.author,
@@ -76,8 +60,8 @@ function PostForm() {
             img: data.img
         }).then(res => {
             console.log(res.data._id)
-            console.log(document.getElementById("inputImg").files[0])
-            uploadImg(document.getElementById("inputImg").files[0], res.data._id);
+            console.log(document.getElementById("inputImg").files.item(0))
+            uploadImg(document.getElementById("inputImg").files.item(0), res.data._id);
         })
     }
 
@@ -107,7 +91,7 @@ function PostForm() {
                     </div>
                     <div>
                         <label className="form-label" htmlFor="customFile">Picture</label>
-                        <input id="inputImg" type="file" className="form-control" onChange={(e) => handle(e)} />
+                        <input id="inputImg" type="file" className="form-control" name="file" onChange={(e) => handle(e)} />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="title" className="form-label">Title</label>

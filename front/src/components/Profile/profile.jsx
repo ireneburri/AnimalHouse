@@ -113,12 +113,19 @@ function Profile() {
 
     const [profile, setProfile] = useState('');
     const user = localStorage.getItem("username");
+    const id = localStorage.getItem('userid');
+    const userid = id.substring(1, (id.length - 1))
     const [vip, setVip] = useState('');
     const [animal, setAnimals] = useState([]);
     const [order, setOrder] = useState([]);
     const [reservation, setReservation] = useState([]);
     const [show, setShow] = useState(false);
     const [secondShow, setSecondShow] = useState(false);
+
+    let profilepic;
+    var url = userid + ".png"
+    console.log(url)
+    profilepic = <img src={url} alt="in"/>
 
     useEffect(() => {
         fetchProfile();
@@ -174,7 +181,7 @@ function Profile() {
                         <div className="d-flex flex-column align-items-center py-4">
                             MY PROFILE
                             <Img
-                                src={profileimg}
+                                src={profilepic}
                             />
                             <div className='mt-3'>
                                 <div className="font-weight-bold"> @{user} {profile.vip ? <Vip> VIP </Vip> : null}</div>

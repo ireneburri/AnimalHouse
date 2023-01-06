@@ -77,10 +77,12 @@ function SinglePost() {
                     <PostContainer>
                         <Comment
                             key={post._id}
+                            id={post._id}
                             title={post.title}
                             author={post.author}
                             text={post.text}
                             date={post.data}
+                            comment={post.comment}
                         />
                     </PostContainer>
                     <span style={{margin: "2em"}}> Commenti al post: </span>
@@ -90,9 +92,11 @@ function SinglePost() {
                                 {comments.map(comment => (
                                     <Comment
                                         key={comment._id}
+                                        id={comment._id}
                                         author={comment.author}
                                         text={comment.text}
                                         date={comment.data}
+                                        comment={comment.comment}
                                     />
                                 ))}
                             </div>

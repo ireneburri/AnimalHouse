@@ -8,12 +8,22 @@ const MyCard = styled.div`
 `
 
 function Comment(props) {
+
+    let img;
+    if (props.comment) {
+        img = null
+    } else {
+        var url = props.id + ".png"
+        console.log(url)
+        img = <img src={url} alt="in"/>
+    }
+
     return (
         <MyCard className="card">
             <div className="card-header">
                 {props.title}
             </div>
-            <img src={dog} alt="dog" />
+            {img}
             <div className="card-body">
                 <blockquote className="blockquote mb-0">
                     <p> {props.text} </p>

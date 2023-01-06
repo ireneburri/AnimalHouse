@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 
 const MyModal = styled.div`
@@ -55,14 +56,37 @@ const CloseButton = styled.button`
 `
 
 function ProfileModal(props) {
+    var userid = window.localStorage.getItem('userid')
+    var id = userid.substring(1, userid.length - 1)
 
+    async function uploadImg(img, id) {
+        if (img != undefined) {
+            var blob = img.slice(0, img.size, 'image/*');
+            let image = new File([blob], id + '.png', { type: 'image/*' })
+            var form = new FormData();
+            form.append("file", image)
+            console.log(image);
+            await axios.post("https://site212224.tw.cs.unibo.it/image/", form, {
+                headers: {
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false
+                }
+            }).then((res) => {
+                console.log(res);
+            })
+
+        }
+    }
+    
     const [info, setInfo] = useState({
         name: "",
         surname: "",
         username: "",
         password: "",
         residence: "",
-        tel: ""
+        tel: "",
+        img: ""
     })
 
     if (!props.show) {
@@ -71,9 +95,6 @@ function ProfileModal(props) {
 
     function submitNewInfo(e) {
         Object.keys(info).forEach(k => !info[k] && delete info[k])
-        var userid = window.localStorage.getItem('userid')
-        var id = userid.substring(1, userid.length - 1)
-
 
         fetch("http://site212224.tw.cs.unibo.it/user/id/" + id, { //mi serve la patch per utente
             method: "PATCH",
@@ -88,11 +109,13 @@ function ProfileModal(props) {
                     password: info.password ? info.password : null,
                     residence: info.residence ? info.residence : null,
                     tel: info.tel ? info.tel : null,
+                    img: info.img ? info.img : null
                 }
             )
         }).then((res) => {
-            console.log(info)
-            window.location.reload(false);
+            console.log(res)
+            uploadImg(document.getElementById("inputImg").files.item(0), id);
+            // window.location.reload(false);
         }
         )
     }
@@ -101,7 +124,9 @@ function ProfileModal(props) {
     function handle(e) {
         const newdata = { ...info }
         newdata[e.target.id] = e.target.value
-
+        if (document.getElementById("inputImg").files[0] !== undefined) {
+            newdata.img = document.getElementById("inputImg").files[0].name
+        }
         setInfo(newdata)
         console.log(newdata)
     }
@@ -141,7 +166,7 @@ function ProfileModal(props) {
 
                     <div style={{ padding: '1em' }}>
                         <label className="form-label" htmlFor="customFile">Immagine Profilo</label>
-                        <input type="file" className="form-control" id="file" />
+                        <input type="file" className="form-control" id="inputImg" onChange={(e) => handle(e)}/>
                     </div>
 
                     <div className="modal-footer" style={{ padding: '1em', display: 'flex', justifyContent: 'flex-end' }}>
