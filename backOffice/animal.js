@@ -1,13 +1,6 @@
 const url = "https://site212224.tw.cs.unibo.it"
 var animalsList = []
 
-function logout(){
-    var result = confirm("Are you sure you want to logout?");
-    if (result) {
-        localStorage.clear();
-        $(location).attr('href','./login.html');
-    }
-}
 
 //document ready GET ALL CLIENTS
 $( document ).ready( verifyToken() );

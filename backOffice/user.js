@@ -3,14 +3,6 @@ const url = "https://site212224.tw.cs.unibo.it"
 var clientsList = []
 var animalList = []
 
-function logout(){
-    var result = confirm("Are you sure you want to logout?");
-    if (result) {
-        localStorage.clear();
-        $(location).attr('href','./login.html');
-    }
-}
-
 //document ready GET ALL CLIENTS
 $( document ).ready( verifyToken() );
 
@@ -132,18 +124,21 @@ function showClient(client){
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
                                 <div class="modal fade" id="Modal-${client._id}" tabindex="-1" aria-labelledby="ModalLabel-${client._id}" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content" style="background-color:#A0AECD;color: white;">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="ModalLabel-${client._id}">Are you sure you want to delete this user?</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
-                                            <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=sureDeleteClient("${client._id}")>Yes</button>                             
-                                        </div>
-                                        </div>
+                                <div class="modal-dialog">
+                                    <div class="modal-content" style="background-color:#A0AECD;">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="ModalLabel" style="color: black;">Delete</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close the modal"></button>
                                     </div>
+                                    <div class="modal-body">
+                                        <p style="color: black;">Are you sure you want to delete this client?</p>
+                                    </div>
+                                    <div class="modal-footer">                            
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="background-color: #425664; border-color: #425664;"  aria-label="Don't delete the client">No</button>
+                                        <button type="button" class="btn btn-success" onclick=sureDeleteClient("${client._id}") style="margin:1px; background-color: #849531; border-color: #849531;"  aria-label="Delete the client">Yes</button>
+                                    </div>
+                                    </div>
+                            </div>
                                 </div>
                             </div>
 
@@ -539,18 +534,21 @@ function openAnimal(id){
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
                                 <div class="modal fade" id="Modal-${animal._id}" tabindex="-1" aria-labelledby="ModalLabel-${animal._id}" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content" style="background-color:#A0AECD;color: white;">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="ModalLabel">Are you sure you want to delete this animal's user?</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
-                                            <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=sureDeleteAnimal("${animal._id}")>Yes</button>                             
-                                        </div>
-                                        </div>
-                                    </div>
+                                <div class="modal-dialog">
+                                <div class="modal-content" style="background-color:#A0AECD;">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ModalLabel" style="color: black;">Delete</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close the modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p style="color: black;">Are you sure you want to delete this animal?</p>
+                                </div>
+                                <div class="modal-footer">                            
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="background-color: #425664; border-color: #425664;"  aria-label="Don't delete the animal">No</button>
+                                    <button type="button" class="btn btn-success" onclick=sureDeleteAnimal("${animal._id}") style="margin:1px; background-color: #849531; border-color: #849531;"  aria-label="Delete the animal">Yes</button>
+                                </div>
+                                </div>
+                            </div>
                                 </div>
                             </div>
                             <a href="#" class="btn btn-primary" style="background-color: #425664; border-color: #425664; float:right; margin:3px;" data-bs-toggle="modal" data-bs-target="#ModalAnimalMOD-${animal._id}"><small>Modify</small></a><br>

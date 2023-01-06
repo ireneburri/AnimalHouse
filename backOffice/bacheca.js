@@ -4,13 +4,6 @@ var commentsList = []
 var categoryList = []
 var staffList = []
 
-function logout(){
-    var result = confirm("Are you sure you want to logout?");
-    if (result) {
-        localStorage.clear();
-        $(location).attr('href','./login.html');
-    }
-}
 
 //document ready => getAllPost
 $( document ).ready( verifyToken() );
@@ -142,7 +135,7 @@ function showPost(post){
                                 </p>
                             </div>
                             <div class="col-md-2">
-                                <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#ModalD-${post._id}" style="background-color: #A0AECD; color: white; float:right; margin:1px;"><small>Delete</small></a>
+                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalD-${post._id}" style="background-color: #A0AECD; color: white; float:right; margin:1px;"><small>Delete</small></a>
                                 <!-- Modal -->
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
@@ -154,8 +147,8 @@ function showPost(post){
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
-                                                <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=sureDeletePost("${post._id}")>Yes</button>                             
+                                                <button type="button" class="btn btn-primary" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
+                                                <button type="button" class="btn btn-success" style="margin:1px;background-color: #849531;color: white;" onclick=sureDeletePost("${post._id}")>Yes</button>                             
                                             </div>
                                             </div>
                                         </div>
@@ -183,7 +176,7 @@ function showPost(post){
                                                 <form id="FormModify-${post._id}">
 
                                                     <div class="row mb-2">
-                                                        <label class="col-sm-2 col-form-label">Title</label>
+                                                        <label class="col-sm-2 col-form-label" for="modTitle-${post._id}">Title</label>
                                                         <div class="col-sm-10">
                                                             <input id="modTitle-${post._id}" type="text" class="form-control" placeholder="${post.title}" aria-label="Post's title">
                                                         </div>
@@ -195,14 +188,14 @@ function showPost(post){
                                                     </div>
 
                                                     <div class="mb-2" id="mod-${post._id}">
-                                                        <input style="accent-color: red;" type="checkbox" id="modImg-${post._id}" name="img">
+                                                        <input style="accent-color: red;" type="checkbox" id="modImg-${post._id}" name="img" for="modImg-${post._id}">
                                                         <label for="modImg-${post._id}"> Delete the post image </label>
                                                     </div>
                                                 </form>
 
                                                 <div class="modal-footer">
-                                                    <button type="reset" form="FormModify-${post._id}" class="btn" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal" >Discard</button>
-                                                    <button type="button" class="btn" style="background-color: #849531; border-color: #849531;" onclick=modifyPost("${post._id}")>Save changes</button>
+                                                    <button type="reset" form="FormModify-${post._id}" class="btn btn-primary" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal" >Discard</button>
+                                                    <button type="button" class="btn btn-success" style="background-color: #849531; border-color: #849531;" onclick=modifyPost("${post._id}")>Save changes</button>
                                                     
                                                 </div>
 
@@ -256,8 +249,8 @@ function writeComment(id, category){
                                     </form>
                                 </div>
                                 <div class="col-md-1">
-                                    <button type="button" style="float:right; margin:1px;background-color: #849531;color:white;" class="btn" onclick='createCom("${id}","${category}")'>Post</button>
-                                    <button type="reset" form="formComm-${id}" style="float:right; margin:1px;background-color: #A0AECD; border-color: #A0AECD; color:white;" class="btn" >X</button> 
+                                    <button type="button" style="float:right; margin:1px;background-color: #849531;color:white;" class="btn btn-success" onclick='createCom("${id}","${category}")'>Post</button>
+                                    <button type="reset" form="formComm-${id}" style="float:right; margin:1px;background-color: #A0AECD; border-color: #A0AECD; color:white;" class="btn btn-primary" >X</button> 
                                 </div>
                             </div>
                         </div>
@@ -354,26 +347,29 @@ function showComments(id, comment){
                                 </p>
                             </div>
                             <div class="col-md-2">
-                                <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#ModalD-${comment._id}" style="background-color: #A0AECD; color: white; float:right; margin:1px;"><small>Delete</small></a>
+                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalD-${comment._id}" style="background-color: #A0AECD; color: white; float:right; margin:1px;"><small>Delete</small></a>
                                 <!-- Modal -->
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
                                     <div class="modal fade" id="ModalD-${comment._id}" tabindex="-1" aria-labelledby="ModalLabelD-${comment._id}" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content" style="background-color:#A0AECD;color: white;">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="ModalLabel">Are you sure you want to delete this comment?</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
-                                                <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=sureDeletePost("${comment._id}")>Yes</button>                             
-                                            </div>
-                                            </div>
+                                    <div class="modal-dialog">
+                                        <div class="modal-content" style="background-color:#A0AECD;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="ModalLabel" style="color: black;">Delete</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close the modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p style="color: black;">Are you sure you want to delete this comment?</p>
+                                        </div>
+                                        <div class="modal-footer">                            
+                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="background-color: #425664; border-color: #425664;"  aria-label="Don't delete the comment">No</button>
+                                            <button type="button" class="btn btn-success" onclick=sureDeletePost("${comment._id}") style="margin:1px; background-color: #849531; border-color: #849531;"  aria-label="Delete the comment">Yes</button>
+                                        </div>
                                         </div>
                                     </div>
+                                    </div>
                                 </div>
-                                <a href="#" class="btn" style="float:right; margin:1px;background-color: #425664; border-color: #425664; color:white;" data-bs-toggle="modal" data-bs-target="#Modal-${comment._id}"><small>Modify</small></a>
+                                <a href="#" class="btn btn-primary" style="float:right; margin:1px;background-color: #425664; border-color: #425664; color:white;" data-bs-toggle="modal" data-bs-target="#Modal-${comment._id}"><small>Modify</small></a>
                                 
                                 <!-- Modal -->
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -392,14 +388,14 @@ function showComments(id, comment){
                                                 <form id="FormModify-${comment._id}">
 
                                                     <div class="row mb-2">
-                                                        <label class="col-sm-3 col-form-label">Title</label>
+                                                        <label class="col-sm-3 col-form-label" for="modTitle-${comment._id}">Title</label>
                                                         <div class="col-sm-9">
                                                             <input id="modTitle-${comment._id}" type="text" class="form-control" placeholder="${comment.title}" aria-label="Post's title">
                                                         </div>
                                                     </div>   
 
                                                     <div class="mb-2">
-                                                        <label for="modText-${comment._id}" class="form-label">Text</label>
+                                                        <label for="modText-${comment._id}" class="form-label" for="modText-${comment._id}">Text</label>
                                                         <textarea class="form-control" id="modText-${comment._id}" rows="2" aria-label="Text of the post">${comment.text}</textarea>
                                                     </div>
                                                     
@@ -412,8 +408,8 @@ function showComments(id, comment){
 
 
                                                 <div class="modal-footer">
-                                                    <button type="reset" form="FormModify-${comment._id}" class="btn" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal" >Discard</button>
-                                                    <button type="button" class="btn" style="background-color: #849531;" onclick=modifyPost("${comment._id}")>Save changes</button>
+                                                    <button type="reset" form="FormModify-${comment._id}" class="btn btn-primary" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal" >Discard</button>
+                                                    <button type="button" class="btn btn-success" style="background-color: #849531;" onclick=modifyPost("${comment._id}")>Save changes</button>
                                                     
                                                 </div>
 

@@ -2,13 +2,6 @@ const url = "https://site212224.tw.cs.unibo.it"
 var servicesList = []
 locationList = []
 
-function logout(){
-    var result = confirm("Are you sure you want to logout?");
-    if (result) {
-        localStorage.clear();
-        $(location).attr('href','./login.html');
-    }
-}
 
 //document ready => getAllService
 $( document ).ready( verifyToken() );

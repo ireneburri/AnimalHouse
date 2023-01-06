@@ -65,13 +65,13 @@ function showStaff(staff){
 
 
                 <div class="row mb-2">
-                <a href="#" class="btn" style="float:right; margin:1px;background-color: #425664; border-color: #425664; color:white;" data-bs-toggle="modal" data-bs-target="#Modal-${staff._id}"><small>Modify</small></a>
+                <a href="#" class="btn btn-primary" style="float:right; margin:1px;background-color: #425664; border-color: #425664; color:white;" data-bs-toggle="modal" data-bs-target="#Modal-${staff._id}"><small>Modify</small></a>
                 </div>
 
                 <!-- Modal -->
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
-                    <div class="modal fade" id="Modal-${staff._id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="Modal-${staff._id}" tabindex="-1" aria-labelledby="ModalLabel-${staff._id}" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                             <div class="modal-header">
