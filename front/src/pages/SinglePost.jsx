@@ -80,7 +80,7 @@ function SinglePost() {
                             title={post.title}
                             author={post.author}
                             text={post.text}
-                            data={post.data}
+                            date={post.data}
                         />
                     </PostContainer>
                     <span style={{margin: "2em"}}> Commenti al post: </span>
@@ -92,7 +92,7 @@ function SinglePost() {
                                         key={comment._id}
                                         author={comment.author}
                                         text={comment.text}
-                                        data={comment.data}
+                                        date={comment.data}
                                     />
                                 ))}
                             </div>
@@ -100,7 +100,7 @@ function SinglePost() {
                     </CommentsContainer>
                 </PostandComments>
 
-                <FormContainer>
+                <FormContainer style={{margin: '2em'}}>
                     <CommentForm />
                 </FormContainer>
 

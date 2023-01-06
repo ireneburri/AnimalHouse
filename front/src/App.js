@@ -26,6 +26,7 @@ function App() {
 	return (
 		<div className="app" style={{ height: '100%', width: '100%' }}>
 			<Router basename='/front'>
+			{/* <Router> */}
 				{/* < CartContext.Provider value={{cart, setCart}}> */}
 					<Routes>
 						<Route exact path="/" element={<HomePage />} />

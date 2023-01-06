@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const MyModal = styled.div`
@@ -64,7 +64,7 @@ function ProfileModal(props) {
         residence: "",
         tel: ""
     })
-    
+
     if (!props.show) {
         return null;
     }
@@ -72,10 +72,10 @@ function ProfileModal(props) {
     function submitNewInfo(e) {
         Object.keys(info).forEach(k => !info[k] && delete info[k])
         var userid = window.localStorage.getItem('userid')
-        var id  = userid.substring(1, userid.length-1)
-        
-        
-            fetch("http://site212224.tw.cs.unibo.it/user/id/" + id, { //mi serve la patch per utente
+        var id = userid.substring(1, userid.length - 1)
+
+
+        fetch("http://site212224.tw.cs.unibo.it/user/id/" + id, { //mi serve la patch per utente
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"

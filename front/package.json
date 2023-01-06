@@ -22,6 +22,7 @@
         "react": "^18.2.0",
         "react-bootstrap": "^2.5.0",
         "react-datepicker": "^4.8.0",
+        "react-document-title": "^2.0.3",
         "react-dom": "^18.2.0",
         "react-intersection-observer": "^9.4.0",
         "react-router-dom": "^6.4.2",
@@ -54,5 +55,4 @@
             "last 1 safari version"
         ]
     }
-
 }
