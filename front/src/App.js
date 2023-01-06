@@ -25,9 +25,9 @@ import SingleAnimal from './pages/SingleAnimal';
 function App() {
 	return (
 		<>
-			<Router>
+			<Router basename='/front'>
 				<Routes>
-					<Route path="/" element={<HomePage />} />
+					<Route path="/home" element={<HomePage />} />
 					<Route path="/signup" element={<SignUp />} />
 					<Route path="/commerce" element={<Commerce />} />
 					<Route path="/animalcommerce" element={<AnimalCommerce />} />
