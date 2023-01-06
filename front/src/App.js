@@ -24,7 +24,7 @@ import SingleAnimal from './pages/SingleAnimal';
 
 function App() {
 	return (
-		<div className="app" style={{ height: '100%', width: '100%' }}>
+		<>
 			<Router>
 				<Routes>
 					<Route path="/" element={<HomePage />} />
@@ -49,8 +49,7 @@ function App() {
 					</Route>
 				</Routes>
 			</Router>
-		</div>
-
+		</>
 	);
 }
 
