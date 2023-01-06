@@ -79,7 +79,7 @@ app.listen(8000, () => console.log("server started"))
 
 app.get('/backOffice', (req, res) => {
     res.sendFile(
-        global.rootDir + ''
+        global.rootDir + '/backOffice/login.html'
     )
 })
 
