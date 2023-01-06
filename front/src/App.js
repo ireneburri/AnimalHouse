@@ -25,7 +25,7 @@ import SingleAnimal from './pages/SingleAnimal';
 function App() {
 	return (
 		<>
-			<Router basename='front'>
+			<Router basename='/front'>
 				<Routes>
 					<Route path="/home" element={<HomePage />} />
 					<Route path="/signup" element={<SignUp />} />
