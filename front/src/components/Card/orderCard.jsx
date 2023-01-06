@@ -1,8 +1,6 @@
 import React from 'react';
 
 function OrderCard(props) {
-
-
     return (
         <div className="min-h-screen w-full bg-gray-300" style={{ margin: "1em", width: "90%" }}>
             <div className="max-w-screen-md mx-auto px-10 pt-20" >

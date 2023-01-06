@@ -44,6 +44,7 @@ function CommentForm() {
     return (
         <div>
             <form onSubmit={(e) => submit(e)}>
+                <h3> ADD A COMMENT </h3>
                 <div className="mb-3">
                     <label htmlFor="author" className="form-label">Author</label>
                     <input type="text" value={window.localStorage.getItem('username')} className="form-control" id="author" aria-describedby="emailHelp" onChange={(e) => handle(e)} readOnly/>

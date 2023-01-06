@@ -20,30 +20,65 @@ function PostForm() {
 
     const paramPage = useParams();
     const category = paramPage.category;
-    const username = localStorage.getItem("username");
+
+    async function uploadImg(img, id) {
+        if (img != undefined) {
+            console.log("up")
+
+            var blob = img.slice(0, img.size, 'image/*');
+            let imm = new File([blob], id + ".png", { type: 'image/*' })
+            console.log(id)
+            console.log(imm)
+
+            let formData = new FormData();
+            formData.append("file", imm);
+            console.log(formData.getAll('file'))
+
+            // axios.post('http://site212224.tw.cs.unibo.it/image', {
+            //     data: formData
+            // }).then(res => {
+            //     console.log(res)
+            // })   
+
+            fetch("http://site212224.tw.cs.unibo.it/image", { //mi serve la patch per utente
+                method: "POST",
+                crossDomain: true,
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                data: formData,
+            }).then((res) => {
+                console.log(res)
+            }
+            )
+            return false;
+        }
+    }
 
     const [data, setData] = useState({
         author: "",
         title: "",
         text: "",
         category: "",
-        comment: ""
+        comment: "",
+        img: "",
     })
 
     function submit(e) {
+        console.log(data)
         e.preventDefault();
-        console.log(data);
         axios.post('http://site212224.tw.cs.unibo.it/Board/', {
             author: data.author,
             title: data.title,
             text: data.text,
             category: data.category,
-            comment: data.comment
+            comment: data.comment,
+            img: data.img
+        }).then(res => {
+            console.log(res.data._id)
+            console.log(document.getElementById("inputImg").files[0])
+            uploadImg(document.getElementById("inputImg").files[0], res.data._id);
         })
-            .then(res => {
-                console.log(res.data)
-                window.location.href = `/pinboard${category}`
-            })
     }
 
     function handle(e) {
@@ -52,6 +87,9 @@ function PostForm() {
         newdata.author = window.localStorage.getItem('username')
         newdata.category = category.substring(1)
         newdata.comment = false
+        if (document.getElementById("inputImg").files[0] !== undefined) {
+            newdata.img = document.getElementById("inputImg").files[0].name
+        }
         setData(newdata)
         console.log(newdata)
     }
@@ -61,10 +99,15 @@ function PostForm() {
             <Navbar />
             <div style={{ textAlign: 'center', justifyContent: 'center', marginTop: '1rem', fontSize: '30px' }}> YOU ARE CURRENTLY PUBLISHING ON THE '{category.substring(1).toUpperCase()}' PINBOARD </div>
             <Form>
-                <form onSubmit={(e) => submit(e)}>
+                {/* <form onSubmit={(e) => submit(e)}> */}
+                <form>
                     <div className="mb-3">
                         <label htmlFor="author" className="form-label">Author</label>
-                        <input value={window.localStorage.getItem('username')} type="text" className="form-control" id="author" aria-describedby="emailHelp" onChange={(e) => handle(e)} readOnly/>
+                        <input value={window.localStorage.getItem('username')} type="text" className="form-control" id="author" aria-describedby="emailHelp" onChange={(e) => handle(e)} readOnly />
+                    </div>
+                    <div>
+                        <label className="form-label" htmlFor="customFile">Picture</label>
+                        <input id="inputImg" type="file" className="form-control" onChange={(e) => handle(e)} />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="title" className="form-label">Title</label>
@@ -75,7 +118,7 @@ function PostForm() {
                         <input type="text" className="form-control" id="text" onChange={(e) => handle(e)} />
                     </div>
                     <hr />
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary" onClick={(e) => submit(e)}>Submit</button>
                 </form>
             </Form>
             <Footer />
