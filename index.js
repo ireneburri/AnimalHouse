@@ -19,7 +19,7 @@ app.use(express.static(pathGame));
 
 /*const pathFront = __dirname + '/front/build/'
 app.use(express.static(pathFront))*/
-app.use('/front',express.static(path.join(__dirname, 'front/build')));
+app.use('/front',express.static(path.join(__dirname, 'build')));
 app.use('/front', express.static(global.rootDir + '/routes/uploads'));
 
 app.use('/backOffice', express.static(global.rootDir + '/backOffice'));
@@ -89,7 +89,7 @@ app.get('/backOffice', (req, res) => {
     res.sendFile(pathFront + "index.html");
 });*/
 app.get('/front/*', function (req, res) {
-    res.sendFile(path.join(__dirname, 'front/build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });
 
 app.get('/', function(req, res) {
