@@ -19,6 +19,7 @@ app.use(express.static(pathGame));
 
 const pathFront = __dirname + '/front/build/'
 app.use(express.static(pathFront))
+app.use('/front/build', express.static(global.rootDir + '/routes/uploads'));
 
 app.use('/backOffice', express.static(global.rootDir + '/backOffice'));
 app.use('/backOffice', express.static(global.rootDir + '/routes/uploads'));
