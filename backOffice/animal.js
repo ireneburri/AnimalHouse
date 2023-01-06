@@ -1,13 +1,6 @@
 const url = "https://site212224.tw.cs.unibo.it"
 var animalsList = []
 
-function logout(){
-    var result = confirm("Are you sure you want to logout?");
-    if (result) {
-        localStorage.clear();
-        $(location).attr('href','./login.html');
-    }
-}
 
 //document ready GET ALL CLIENTS
 $( document ).ready( verifyToken() );
@@ -92,23 +85,26 @@ function showAnimal(animal){
                         </div>
 
                         <div class="col-md-1">
-                            <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#Modal-${animal._id}" style="background-color: #A0AECD; border-color: #A0AECD; color:white; float:right; margin:1px;"><small>Delete</small></a>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal-${animal._id}" style="background-color: #A0AECD; border-color: #A0AECD; color:white; float:right; margin:1px;"><small>Delete</small></a>
                             <!-- Modal -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
                                 <div class="modal fade" id="Modal-${animal._id}" tabindex="-1" aria-labelledby="ModalLabel-${animal._id}" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content" style="background-color:#A0AECD;color: white;">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="ModalLabel">Are you sure you want to delete this animal?</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
-                                            <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=sureDeleteAnimal("${animal._id}")>Yes</button>                             
-                                        </div>
-                                        </div>
+                                <div class="modal-dialog">
+                                    <div class="modal-content" style="background-color:#A0AECD;">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="ModalLabel-${animal._id}" style="color: black;">Delete</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close the modal"></button>
                                     </div>
+                                    <div class="modal-body">
+                                        <p style="color: black;">Are you sure you want to delete this animal?</p>
+                                    </div>
+                                    <div class="modal-footer">                            
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="background-color: #425664; border-color: #425664;"  aria-label="Don't delete the service">No</button>
+                                        <button type="button" class="btn btn-success" onclick=sureDeleteAnimal("${animal._id}") style="margin:1px; background-color: #849531; border-color: #849531;"  aria-label="Delete the service">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
                                 </div>
                             </div>
                             <a href="#" class="btn btn-primary" style="float:right; margin:1px;background-color: #425664; border-color: #425664;" data-bs-toggle="modal" data-bs-target="#ModalMOD-${animal._id}"><small>Modify</small></a>
@@ -116,7 +112,7 @@ function showAnimal(animal){
                             <!-- Modal -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
-                                <div class="modal fade" id="ModalMOD-${animal._id}" tabindex="-1" aria-labelledby="ModalLabelMOD" aria-hidden="true">
+                                <div class="modal fade" id="ModalMOD-${animal._id}" tabindex="-1" aria-labelledby="ModalLabel-${animal._id}" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                         <div class="modal-header">
@@ -130,26 +126,26 @@ function showAnimal(animal){
                                             <form id="FormModify-${animal._id}">
 
                                                 <div class="row mb-2">
-                                                    <label class="col-sm-2 col-form-label">Name</label>
+                                                    <label class="col-sm-2 col-form-label" for="modName-${animal._id}">Name</label>
                                                     <div class="col-sm-5">
                                                         <input id="modName-${animal._id}" type="text" class="form-control" placeholder="${animal.name}" aria-label="Animal name">
                                                     </div>
                                                     <div class="col-sm-5">
                                                         <div class="input-group">
-                                                            <span class="input-group-text">Age</span>
+                                                            <label class="input-group-text" for="modAge-${animal._id}">Age</label>
                                                             <input type="number" class="form-control" id="modAge-${animal._id}" aria-label="Age" value="${animal.age}">
                                                         </div>
                                                     </div>
                                                 </div>                                     
 
                                                 <div class="row mb-2">
-                                                    <label class="col-sm-2 col-form-label">Species</label>
+                                                    <label class="col-sm-2 col-form-label" for="modSpecies-${animal._id}">Species</label>
                                                     <div class="col">
                                                         <input id="modSpecies-${animal._id}" type="text" class="form-control" placeholder="${animal.species}" aria-label="Species">
                                                     </div>
                                                     <div class="col">
                                                         <div class="input-group">
-                                                            <span class="input-group-text">Sex</span>
+                                                            <label class="input-group-text" for="modSex-${animal._id}">Sex</label>
                                                             <select id="modSex-${animal._id}" class="form-select" aria-label="Sex">
                                                                 <option>Male</option>
                                                                 <option>Female</option>
@@ -159,7 +155,7 @@ function showAnimal(animal){
                                                 </div> 
 
                                                 <div class="row mb-2">
-                                                    <label class="col-sm-2 col-form-label">Breed</label>
+                                                    <label class="col-sm-2 col-form-label" for="modBreed-${animal._id}">Breed</label>
                                                     <div class="col-sm-5">
                                                         <input id="modBreed-${animal._id}" type="text" class="form-control" placeholder="${animal.breed}" aria-label="Animal breed">                                                    
                                                     </div>  
@@ -167,7 +163,7 @@ function showAnimal(animal){
                                                         <div class="input-group">
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control" id="modPrice-${animal._id}" aria-label="Price" placeholder="${animal.price}">
-                                                                <span class="input-group-text">&euro;</span>
+                                                                <label for="modPrice-${animal._id}" class="input-group-text">&euro;</label>
                                                             </div>
                                                         </div> 
                                                     </div>
@@ -188,7 +184,7 @@ function showAnimal(animal){
 
                                         <div class="modal-footer">
                                             <button type="reset" form="FormModify-${animal._id}" class="btn" data-bs-dismiss="modal" style="background-color: #A0AECD; border-color: #A0AECD;">Discard</button>
-                                            <button type="button" class="btn" onclick=modifyAnimal("${animal._id}") style="background-color: #849531; border-color: #849531;">Save changes</button>
+                                            <button type="button" class="btn" onclick=modifyAnimal("${animal._id}") style="background-color: #849531; border-color: #849531;" aria-label="Save changes">Save changes</button>
                                             
                                         </div>
 
@@ -222,8 +218,8 @@ function createAnimal(){
     if ($("#inputImg").val() != "") {
         data.img = fileInput.files.item(0).name
     }
-    data.species = $("#inputSpecies").val()
-    data.breed = $("#inputBreed").val()
+    data.species = $("#inputSpecies").val().toLowerCase()
+    data.breed = $("#inputBreed").val().toLowerCase()
     data.age = $("#inputAge").val()
     data.description = $("#inputDescription").val()
     data.sex = $("#inputSex").val()

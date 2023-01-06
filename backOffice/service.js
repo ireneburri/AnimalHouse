@@ -2,13 +2,6 @@ const url = "https://site212224.tw.cs.unibo.it"
 var servicesList = []
 locationList = []
 
-function logout(){
-    var result = confirm("Are you sure you want to logout?");
-    if (result) {
-        localStorage.clear();
-        $(location).attr('href','./login.html');
-    }
-}
 
 //document ready => getAllService
 $( document ).ready( verifyToken() );
@@ -185,7 +178,7 @@ function showService(service){
                                         </div>
                                         <div class="modal-footer">                            
                                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="background-color: #425664; border-color: #425664;"  aria-label="Don't delete the service">No</button>
-                                            <button type="button" class="btn btn-primary" onclick=sureDeleteService("${service._id}") style="margin:1px; background-color: #849531; border-color: #849531;"  aria-label="Delete the service">Yes</button>
+                                            <button type="button" class="btn btn-success" onclick=sureDeleteService("${service._id}") style="margin:1px; background-color: #849531; border-color: #849531;"  aria-label="Delete the service">Yes</button>
                                         </div>
                                         </div>
                                     </div>
@@ -310,7 +303,7 @@ function showService(service){
 
                                         <div class="modal-footer">
                                             <button type="reset" form="FormModify-${service._id}" class="btn" data-bs-dismiss="modal" style="background-color: #A0AECD; border-color: #A0AECD;"  aria-label="Close the modal without saving">Discard</button>
-                                            <button type="button" class="btn btn-primary" onclick=modifyService("${service._id}") style="background-color: #849531; border-color: #849531;"  aria-label="Close the modal and save changes">Save changes</button>
+                                            <button type="button" class="btn" onclick=modifyService("${service._id}") style="background-color: #849531; border-color: #849531;"  aria-label="Close the modal and save changes">Save changes</button>
                                             
                                         </div>
 

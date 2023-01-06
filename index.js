@@ -1,4 +1,4 @@
-global.rootDir = __dirname ;
+global.rootDir = __dirname;
 //.env
 const cors = require('cors');
 const path = require('path');
@@ -15,11 +15,13 @@ app.use(cors());
 app.use(express.json());
 
 const pathGame = __dirname + '/game/dist/';
-
 app.use(express.static(pathGame));
 
-app.use('/backOffice', express.static(global.rootDir +'/backOffice'));
-app.use('/backOffice', express.static(global.rootDir +'/routes/uploads'));
+const pathFront = __dirname + '/front/build/'
+app.use(express.static(pathFront))
+
+app.use('/backOffice', express.static(global.rootDir + '/backOffice'));
+app.use('/backOffice', express.static(global.rootDir + '/routes/uploads'));
 
 
 /*const mongoCredentials = {
@@ -30,13 +32,13 @@ app.use('/backOffice', express.static(global.rootDir +'/routes/uploads'));
 const MONGO_PWD = process.env.MONGO_PWD
 
 const uri = `mongodb://site212224:${MONGO_PWD}@mongo_site212224?writeConcern=majority`
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
 //feedback se la connessione riesce
-const db= mongoose.connection
-db.on('error', (error)=> console.log(error))
-db.once('open', () => {console.log('Connected to the database')})
+const db = mongoose.connection
+db.on('error', (error) => console.log(error))
+db.once('open', () => { console.log('Connected to the database') })
 
 
 
@@ -72,7 +74,7 @@ app.use('/uploads', express.static('uploads'));
 app.use('/quiz', quizRouter)
 app.use('/dogFact', dogFactRouter)
 
-app.listen(8000,()=>console.log("server started"))
+app.listen(8000, () => console.log("server started"))
 
 
 app.get('/backOffice', (req, res) => {
@@ -81,14 +83,10 @@ app.get('/backOffice', (req, res) => {
     )
 })
 
-app.get('/front', (req, res) => {
-    res.sendFile(
-        global.rootDir + '/front/src/pages/HomePage.jsx'
-    )
-})
-
-app.get('/', function (req,res) {
-    res.sendFile(pathGame + "index.html");
+app.get('/front', function(req, res) {
+    res.sendFile(pathFront + "index.html");
 });
 
-
+app.get('/', function(req, res) {
+    res.sendFile(pathGame + "index.html");
+});

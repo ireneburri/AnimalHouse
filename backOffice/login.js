@@ -46,7 +46,8 @@ function login(){
         error: function(err) {
             console.log("nuu");
             localStorage.clear()
-            alert("Wrong Username or Password")
+            //alert("Wrong Username or Password")
+            $('.callout').attr('style', 'display: block')
             console.log(err);
         }
 

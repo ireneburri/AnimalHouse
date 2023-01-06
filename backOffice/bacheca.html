@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -52,8 +52,8 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-footer">
-                                <button type="reset" form="FormModify-${staff._id}" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
-                                <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=logout()>Yes</button>                             
+                                <button type="reset" form="FormModify-${staff._id}" class="btn btn-primary" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
+                                <button type="button" class="btn btn-success" style="margin:1px;background-color: #849531;color: white;" onclick=logout()>Yes</button>                             
                             </div>
                             </div>
                         </div>
@@ -75,8 +75,9 @@
           <select class="form-select"  id="categoryPost" aria-label="select the category" onchange=boardCategory()>
             <span id="categoryPost">
               <option value="None">HomeBoard</option>
-              <option value="Eccolo qua">Eccolo Qua</option>
-              <option value="Cerco Partner">Cerco Partner</option>
+              <option value="Review">Review</option>
+              <option value="Stray Animals">Stray Animals</option>
+              <option value="Stray Animals">Finding Partners</option>
             </span>
           </select>
         </div>
@@ -133,8 +134,8 @@
                   </form> 
                 </div>
                 <div class="col-md-1">
-                  <button type="button" style="float:right; margin:1px;background-color: #849531;color:white;" class="btn" onclick=createPost() >Post</button>
-                  <button type="reset" id="btn_x" form="FormPost" style="float:right; margin:1px;background-color: #A0AECD; border-color: #A0AECD; color:white;" class="btn">X</button>
+                  <button type="button" style="float:right; margin:1px;background-color: #849531;color:white;" class="btn btn-success" onclick=createPost() >Post</button>
+                  <button type="reset" id="btn_x" form="FormPost" style="float:right; margin:1px;background-color: #A0AECD; border-color: #A0AECD; color:white;" class="btn btn-primary">X</button>
                 </div>
                
               </div>
@@ -158,6 +159,7 @@
     <link href="style.css" rel="stylesheet" type="text/css">
     <script src="bacheca.js"></script> 
     <script src="image.js"></script> 
+    <script src="tool.js"></script> 
 
   </body>
 </html>

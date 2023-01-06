@@ -1,14 +1,6 @@
 const url = "https://site212224.tw.cs.unibo.it"
 var itemsList = []
 
-function logout(){
-    var result = confirm("Are you sure you want to logout?");
-    if (result) {
-        localStorage.clear();
-        $(location).attr('href','./login.html');
-    }
-}
-
 //document ready GET ALL CLIENTS
 $( document ).ready( verifyToken() );
 
@@ -103,8 +95,11 @@ function showItem(item){
                                 <span style="color: green">&nbsp;&euro;&nbsp;</span>
                                 <span class="itemPrice">${item.price} </span><br>  
                                 
-                                <span style="color: gray">Suitable for: </span>
+                                <span style="color: gray">Suitable for animal: </span>
                                 <span class="itemAnimal"> ${item.animal}</span> <br>
+
+                                <span style="color: gray">Suitable for species: </span>
+                                <span class="itemSpecies"> ${item.species}</span> <br>
                             
                                 <span style="color: gray">Item's brand: </span>
                                 <span class="itemBrand">${item.brand} </span> <br>
@@ -114,23 +109,26 @@ function showItem(item){
                             </p>
                         </div>
                         <div class="col-md-2">
-                            <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#Modal-${item._id}" style="background-color: #A0AECD; border-color: #A0AECD; color:white; float:right; margin:1px;"><small>Delete</small></a>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal-${item._id}" style="background-color: #A0AECD; border-color: #A0AECD; color:white; float:right; margin:1px;"><small>Delete</small></a>
                             <!-- Modal -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
                                 <div class="modal fade" id="Modal-${item._id}" tabindex="-1" aria-labelledby="ModalLabel-${item._id}" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content" style="background-color:#A0AECD;color: white;">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="ModalLabel">Are you sure you want to delete this item?</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn" style="background-color: #425664; border-color: #425664; color:white" data-bs-dismiss="modal" >No</button>
-                                            <button type="button" class="btn" style="margin:1px;background-color: #849531;color: white;" onclick=sureDeleteItem("${item._id}")>Yes</button>                             
-                                        </div>
-                                        </div>
-                                    </div>
+                                <div class="modal-dialog">
+                                <div class="modal-content" style="background-color:#A0AECD;">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ModalLabel-${item._id}" style="color: black;">Delete</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close the modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p style="color: black;">Are you sure you want to delete this item?</p>
+                                </div>
+                                <div class="modal-footer">                            
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="background-color: #425664; border-color: #425664;"  aria-label="Don't delete the service">No</button>
+                                    <button type="button" class="btn btn-success" onclick= ("${item._id}") style="margin:1px; background-color: #849531; border-color: #849531;"  aria-label="Delete the service">Yes</button>
+                                </div>
+                                </div>
+                            </div>
                                 </div>
                             </div>
                             <a href="#" class="btn btn-primary" style="background-color: #425664; border-color: #425664; float:right; margin:1px;" data-bs-toggle="modal" data-bs-target="#ModalMOD-${item._id}"><small>Modify</small></a>
@@ -138,7 +136,7 @@ function showItem(item){
                             <!-- Modal -->
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
-                                <div class="modal fade" id="ModalMOD-${item._id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="ModalMOD-${item._id}" tabindex="-1" aria-labelledby="ModalLabel-${item._id}" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                         <div class="modal-header">
@@ -152,13 +150,13 @@ function showItem(item){
                                             <form id="FormModify-${item._id}">
 
                                                 <div class="row mb-2">
-                                                    <label class="col-sm-3 col-form-label">Name</label>
+                                                    <label class="col-sm-3 col-form-label" for="modName-${item._id}">Name</label>
                                                     <div class="col-sm-5">
                                                         <input id="modName-${item._id}" type="text" class="form-control" placeholder="${item.name}" aria-label="Item name">
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="input-group">
-                                                            <span class="input-group-text">&numero;</span>
+                                                            <label for="modQuantity-${item._id}" class="input-group-text">&numero;</label>
                                                             <input type="number" class="form-control" id="modQuantity-${item._id}" aria-label="Quantity" placeholder="${item.quantity}">
                                                         </div>
                                                     </div>
@@ -184,14 +182,14 @@ function showItem(item){
                                                     <div class="col-sm-9">
                                                         <select id="modAnimal-${item._id}" class="form-select" aria-label="Animal">
                                                             <option selected>${item.animal}</option>
-                                                            <option>Per Tutti</option>
-                                                            <option>Mammiferi</option>
-                                                            <option>Uccelli</option>
-                                                            <option>Rettili</option>
-                                                            <option>Anfibi</option>
-                                                            <option>Pesci</option>
-                                                            <option>Insetti</option>
-                                                            <option>Altro</option>
+                                                            <option>For Everyone</option>
+                                                            <option>Mammals</option>
+                                                            <option>Birds</option>
+                                                            <option>Reptiles</option>
+                                                            <option>Amphibians</option>
+                                                            <option>Fish</option>
+                                                            <option>Insects</option>
+                                                            <option>Others</option>
                                                         </select>  
                                                     </div>                       
                                                 </div> 
@@ -204,8 +202,15 @@ function showItem(item){
                                                     <div class="col-sm-4">
                                                         <div class="input-group">
                                                                 <input type="text" class="form-control" id="modPrice-${item._id}" aria-label="Price" placeholder="${item.price}">
-                                                        <span class="input-group-text">&euro;</span>
+                                                        <label for="modPrice-${item._id}" class="input-group-text">&euro;</label>
                                                         </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-2">
+                                                    <label for="modSpecies-${item._id}" class="col-sm-3 col-form-label">Species</label>
+                                                    <div class="col-sm-9">
+                                                        <input id="modSpecies-${item._id}" type="text" class="form-control" placeholder="${item.species}" aria-label="Item species">
                                                     </div>
                                                 </div>
 
@@ -276,6 +281,7 @@ function modifyItem(id){
     }
     if ($("#modCategory-"+id).val()!="") {data.category = $("#modCategory-"+id).val()}
     if ($("#modAnimal-"+id).val()!="") {data.animal = $("#modAnimal-"+id).val()}
+    if ($("#modSpecies-"+id).val()!="") {data.species = $("#modSpecies-"+id).val()}
     if ($("#modQuantity-"+id).val()!="") {data.quantity = $("#modQuantity-"+id).val()}
     if ($("#modDescription-"+id).val()!="") {data.description = $("#modDescription-"+id).val()}
     if ($("#modBrand-"+id).val()!="") {data.brand = $("#modBrand-"+id).val()}
@@ -315,6 +321,7 @@ function createItem(){
     }
     data.category = $("#inputCategory").val()
     data.animal = $("#inputAnimal").val()
+    data.species = $("#inputSpecies").val()
     data.quantity = $("#inputQuantity").val()
     data.description = $("#inputDescription").val()
     data.brand = $("#inputBrand").val()
@@ -341,6 +348,7 @@ function createItem(){
             img: data.img,
             category: data.category,
             animal: data.animal,
+            species: data.species,
             quantity: data.quantity,
             description: data.description,
             brand: data.brand,

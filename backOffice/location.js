@@ -104,15 +104,15 @@ function showLocation(location){
                 
                 
                 <!--a href="#" class="btn" style="float:right; margin:1px;background-color: #A0AECD; border-color: #A0AECD; color:white;" onclick=deleteLocation("${location._id}")><small>Delete</small></a-->
-                <button id="openModal"  onclick="verifyMod('${location.name}', '${location._id}', 'true')"  class="btn" style="float:left; margin:1px;background-color: #425664; border-color: #425664; color:white;"><small>Modify Info</small></button>
-                <button id="openModal"  onclick="verifyMod('${location.name}', '${location._id}', 'false')"  class="btn" style="float:left; margin:1px;background-color: #425664; border-color: #425664; color:white;"><small>Modify Services</small></button>
+                <button id="openModal"  onclick="verifyMod('${location.name}', '${location._id}', 'true')"  class="btn btn-primary" style="float:left; margin:1px;background-color: #425664; border-color: #425664; color:white;"><small>Modify Info</small></button>
+                <button id="openModal"  onclick="verifyMod('${location.name}', '${location._id}', 'false')"  class="btn btn-primary" style="float:left; margin:1px;background-color: #425664; border-color: #425664; color:white;"><small>Modify Services</small></button>
             </div>     
                     
 
             <!-- Modal -->
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
-                <div class="modal fade" id="Modal-${location._id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                <div class="modal fade" id="Modal-${location._id}" tabindex="-1" aria-labelledby="ModalLabel-${location._id}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header">
@@ -126,20 +126,20 @@ function showLocation(location){
                         <form id="FormModifySe-${location._id}">
 
                             <div class="row mb-2">                                               
-                                <label class="col-sm-2 col-form-label" style="color:gray;">Name</label>
+                                <label class="col-sm-2 col-form-label" for="modName-${location._id}" style="color:gray;">Name</label>
                                 <div class="col-sm-10">
                                     <input id="modName-${location._id}" type="text" class="form-control" placeholder="${location.name}" aria-label="location name" disabled>
                                 </div>
                             </div>   
 
                             <div class="row mb-2">
-                                <label class="col-sm-2 col-form-label">Contact</label>
+                                <label class="col-sm-2 col-form-label"  for="modAddress-${location._id}">Contact</label>
                                 <div class="col">
                                     <input id="modAddress-${location._id}" type="address" class="form-control" placeholder="${location.address}" aria-label="Address">
                                 </div>
                                 <div class="col">
                                     <div class="input-group">
-                                        <span class="input-group-text">&phone;</span>
+                                        <label  for="modTel-${location._id}" class="input-group-text">&phone;</label>
                                         <input type="tel" class="form-control" id="modTel-${location._id}" aria-label="Telephone number" placeholder="${location.tel}">
                                     </div>
                                 </div>
@@ -163,8 +163,8 @@ function showLocation(location){
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal">Discard</button>
-                            <button type="button" class="btn" style="background-color: #849531;" onclick=modifyLocation("${location._id}")>Save changes</button>
+                            <button type="button" class="btn btn-primary" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal">Discard</button>
+                            <button type="button" class="btn btn-success" style="background-color: #849531;" onclick=modifyLocation("${location._id}")>Save changes</button>
                             
                         </div>
                         </div>
@@ -175,7 +175,7 @@ function showLocation(location){
             <!-- Modal -->
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
-                <div class="modal fade" id="ModalSe-${location._id}" tabindex="-1" aria-labelledby="ModalSeLabel" aria-hidden="true">
+                <div class="modal fade" id="ModalSe-${location._id}" tabindex="-1" aria-labelledby="ModalSeLabel-${location._id}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header">
@@ -212,14 +212,14 @@ function showLocation(location){
                                 <div class="container" id="Add-${location._id}">
                                     
                                 </div>
-                                <a href="#" class="btn" id="showAdd-${location._id}" style="border-color: #849531;color:#849531;" onclick="ShowAddServiceLocation('${location._id}', '${location.name}')"><small>Add a service</small></a>
+                                <a href="#" class="btn btn-success" id="showAdd-${location._id}" style="border-color: #849531;background-color: #849531;color:black;" onclick="ShowAddServiceLocation('${location._id}', '${location.name}')"><small>Add a service</small></a>
                             
                         </form>
                         </div>
 
                         <div class="modal-footer" id="modalfooter-${location._id}">
-                            <button type="reset" form="FormModify-${location._id}" onclick=minifunc() class="btn" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal">Discard</button>
-                            <button type="button" class="btn" style="background-color: #849531;" onclick='areYouSure("${location._id}", "${location.name}")'>Save changes</button>
+                            <button type="reset" form="FormModify-${location._id}" onclick=minifunc() class="btn btn-primary" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal">Discard</button>
+                            <button type="button" class="btn btn-success" style="background-color: #849531;" onclick='areYouSure("${location._id}", "${location.name}")'>Save changes</button>
                         </div>
                         </div>
                     </div>
@@ -242,9 +242,9 @@ function showLocation(location){
         $("#SD-"+location._id).append(
             `
             <li class="mb-2" id="${location.disponibility[c]._id}">   
-                <span id="modServiceName-${location.disponibility[c]._id}" value="${location.disponibility[c].service}">${location.disponibility[c].service} </span>
-                <input id="modServiceQuantity-${location.disponibility[c]._id}" type="number" min="0" value="${location.disponibility[c].quantity}" style="border-radius: 7px; border-width: thin;">    
-                <a href="#" class="btn" style="border-color: #A0AECD; color:#A0AECD;" onclick="sureDeleteServiceLocation('${location.name}', '${location.disponibility[c].service}', '${location.disponibility[c]._id}')"><small>Remove</small></a>
+                <span id="modServiceName-${location.disponibility[c]._id}" value="${location.disponibility[c].service}" aria-label="service name">${location.disponibility[c].service} </span>
+                <input id="modServiceQuantity-${location.disponibility[c]._id}" type="number" min="0" value="${location.disponibility[c].quantity}" style="border-radius: 7px; border-width: thin;" aria-label="service quantity">    
+                <a href="#" class="btn btn-primary" style="border-color: #A0AECD; background-color: #A0AECD;color:black;" onclick="sureDeleteServiceLocation('${location.name}', '${location.disponibility[c].service}', '${location.disponibility[c]._id}')"><small>Remove</small></a>
             </li>
             `
         )
@@ -277,8 +277,8 @@ async function areYouSure(locId, locName) {
     $("#modalfooter-"+locId).empty()
     $("#modalfooter-"+locId).append(
         `
-        <button class="btn" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal" onclick=goCheck()>No, go to check</button>
-        <button type="button" class="btn" style="background-color: #849531;" onclick='modifyServiceLocation("${locId}", "${locName}")'>Yes, save changes</button>
+        <button class="btn btn-primary" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal" onclick=goCheck()>No, go to check</button>
+        <button type="button" class="btn btn-success" style="background-color: #849531;" onclick='modifyServiceLocation("${locId}", "${locName}")'>Yes, save changes</button>
                         
         `
     )
@@ -526,9 +526,9 @@ function ShowAddServiceLocation(locId, locName){
         ` 
             <hr>
             <form>
-            <input id="AddS-${locId}" type="text" placeholder="Service name" style="border-radius: 7px; border-width: thin;" required>    
-            <input id="AddQ-${locId}" type="number" min="0" placeholder="Quantity at a time" style="border-radius: 7px; border-width: thin;" required>    
-            <a href="#" class="btn" onclick="AddServiceLocation('${locId}', '${locName}')" style="background-color: #849531;"><small>&check;</small></a>
+            <input id="AddS-${locId}" type="text" placeholder="Service name" aria-label="service name" style="border-radius: 7px; border-width: thin;" required>    
+            <input id="AddQ-${locId}" type="number" min="0" aria-label="service quantity" placeholder="Quantity at a time" style="border-radius: 7px; border-width: thin;" required>    
+            <a href="#" class="btn btn-success" onclick="AddServiceLocation('${locId}', '${locName}')" style="background-color: #849531;"><small>&check;</small></a>
             <!--button class="btn" type="reset" style="background-color: #849531;"><small>X</small></button-->
             </form>
             <hr>
@@ -595,8 +595,8 @@ async function AddServiceLocation(locId, locName){
     $("#SDnew-"+locId).append(
         ` 
         <li class="mb-2" class="withoutId">   
-            <span class="newServiceName" value="${name}">${name} </span>
-            <input class="newServiceQuantity" type="number" min="0" value="${quantity}" style="border-radius: 7px; border-width: thin;">
+            <span class="newServiceName" value="${name}" aria-label="service name">${name} </span>
+            <input class="newServiceQuantity" aria-label="service quantity" type="number" min="0" value="${quantity}" style="border-radius: 7px; border-width: thin;">
         </li>
         `
     )
