@@ -335,7 +335,7 @@ function createService(){
     if ($("#inputImg").val() != "") {
         data.img = fileInput.files.item(0).name
     }
-    data.location = $("#inputLocation").val().replace(/\s+/g, "").split(",")
+    //data.location = $("#inputLocation").val().replace(/\s+/g, "").split(",")
     data.category = $("#inputCategory").val()
     data.price = $("#inputPrice").val()
     data.description = $("#inputDescription").val()
