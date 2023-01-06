@@ -25,32 +25,29 @@ import SingleAnimal from './pages/SingleAnimal';
 function App() {
 	return (
 		<div className="app" style={{ height: '100%', width: '100%' }}>
-			<Router basename='/front'>
-			{/* <Router> */}
-				{/* < CartContext.Provider value={{cart, setCart}}> */}
-					<Routes>
-						<Route exact path="/" element={<HomePage />} />
-						<Route exact path="/signup" element={<SignUp />} />
-						<Route exact path="/commerce" element={<Commerce />} />
-						<Route exact path="/animalcommerce" element={<AnimalCommerce />} />
-						<Route exact path="/singleproduct:id" element={<SingleProduct />} />
-						<Route exact path="/animal:id" element={<SingleAnimal />} />
-						<Route exact path="/pinboards" element={<Pinboards />} />
-						<Route exact path="/services:service" element={<Services />} />
-						<Route exact path="/singleservice:name" element={<SingleService />} />
-						<Route exact path="/locations" element={<Locations />} />
-						<Route exact path="/login" element={<Login />} />
-						<Route exact path="/cart" element={<Cart />} />
+			<Router>
+				<Routes>
+					<Route path="/" element={<HomePage />} />
+					<Route path="/signup" element={<SignUp />} />
+					<Route path="/commerce" element={<Commerce />} />
+					<Route path="/animalcommerce" element={<AnimalCommerce />} />
+					<Route path="/singleproduct:id" element={<SingleProduct />} />
+					<Route path="/animal:id" element={<SingleAnimal />} />
+					<Route path="/pinboards" element={<Pinboards />} />
+					<Route path="/services:service" element={<Services />} />
+					<Route path="/singleservice:name" element={<SingleService />} />
+					<Route path="/locations" element={<Locations />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/cart" element={<Cart />} />
 
-
-						<Route element={<ProtectedRoutes />}>
-							<Route exact path="/pinboard:page" element={<SinglePinboard />} />
-							<Route exact path="/form:category" element={<Form />} />
-							<Route exact path="/singlepost:post" element={<SinglePost />} />
-							<Route exact path="/account" element={<ProfilePage />} />
-							<Route exact path="/thanks" element={<Thanks />} />
-						</Route>
-					</Routes>
+					<Route element={<ProtectedRoutes />}>
+						<Route path="/pinboard:page" element={<SinglePinboard />} />
+						<Route path="/form:category" element={<Form />} />
+						<Route path="/singlepost:post" element={<SinglePost />} />
+						<Route path="/account" element={<ProfilePage />} />
+						<Route path="/thanks" element={<Thanks />} />
+					</Route>
+				</Routes>
 			</Router>
 		</div>
 
