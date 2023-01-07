@@ -27,6 +27,7 @@ function getAllAnimal(){
         success: function(data) {
             console.log(data);
             animalList = data;
+            console.log(animalList)
         },
         error: function(err) {
             console.log(err);
@@ -247,7 +248,7 @@ function showClient(client){
                                     </div>
                                     <form id="FormModifyAnimal-${client._id}">
                                         <div class="row mb-2">
-                                            <label class="col-sm-2 col-form-label" for="inputName-${client._id}">Name</label>
+                                            <label class="col-sm-2 col-form-label" for="inputName-${client._id}">Name*</label>
                                             <div class="col-sm-6">
                                                 <input id="inputName-${client._id}" type="text" class="form-control" aria-label="Name" required>
                                             </div>
@@ -268,8 +269,8 @@ function showClient(client){
                                                 <div class="input-group">
                                                     <label class="input-group-text" for="inputSpecies-${client._id}">Sex</label>
                                                     <select id="inputSex-${client._id}" class="form-select">
-                                                        <option value="Femmina">F</option>
-                                                        <option value="Maschio">M</option>
+                                                        <option value="Female">F</option>
+                                                        <option value="Male">M</option>
                                                     </select>  
                                                 </div>
                                             </div>
@@ -389,9 +390,9 @@ function createClient(){
             console.log(err);
         }
 
-    }).then( ()=>{
-        uploadImg(fileInput.files.item(0) , result_id);
-        //window.location.reload()
+    }).then( async ()=>{
+        await uploadImg(fileInput.files.item(0) , result_id);
+        window.location.reload()
     }
     );    
     return false;
@@ -410,17 +411,18 @@ function sureDeleteClient(id){
             console.log(err);
         },
 
-    }).then( ()=> {
+    }).then( async ()=> {
         for (let key in animalList) {
+            console.log(animalList[key])
             if (animalList[key].client_id == id) {
+                console.log(animalList[key].client_id)
                 sureDeleteAnimal(animalList[key]._id)
             }
         };
-        deleteImg(id + ".png");
-        
-    })/*.then( ()=>{
+        await deleteImg(id + ".png");
         window.location.reload();
-    })   */
+        
+    })
     return false;
 }
 
@@ -463,7 +465,7 @@ async function modifyClient(id){
             console.log(err);
         }
 
-    })//.then( ()=> window.location.reload());    
+    }).then( ()=> window.location.reload());    
     return false;
 }
 
@@ -568,7 +570,7 @@ function openAnimal(id){
                                     <div class="modal-body">
                                     <form id="FormModifyAnimal-${animal._id}">
                                         <div class="row mb-2">
-                                            <label class="col-sm-2 col-form-label">Name</label>
+                                            <label class="col-sm-2 col-form-label">Name*</label>
                                             <div class="col-sm-6">
                                                 <input id="modName-${animal._id}" type="text" class="form-control" aria-label="Name" placeholder="${animal.name}">
                                             </div>
@@ -590,8 +592,8 @@ function openAnimal(id){
                                                     <span class="input-group-text">Sex</span>
                                                     <select id="modSex-${animal._id}" class="form-select">
                                                         <option disabled selected> ${animal.sex} </option>
-                                                        <option value="Femmina">F</option>
-                                                        <option value="Maschio">M</option>
+                                                        <option value="Female">F</option>
+                                                        <option value="Male">M</option>
                                                     </select>  
                                                 </div>
                                             </div>
@@ -684,16 +686,18 @@ function changeClientAnimal(id){
             console.log(err);
         }
 
-    })//.then( ()=> window.location.reload());    
+    }).then( ()=> window.location.reload());    
     return false;
 }
 
 
 function addClientAnimal(id){
+    console.log(id)
     let data = {}
-
-    const fileInput = document.getElementById('inputImg-'+id).files.item(0);
-    console.log(fileInput)
+    if ($("#inputImg-"+id) != undefined ) {
+        const fileInput = document.getElementById('inputImg-'+id).files.item(0);
+        console.log(fileInput)
+    }
 
     data.name = $("#inputName-"+id).val()
     if ($("#inputImg").val() != "") {
@@ -743,11 +747,10 @@ function addClientAnimal(id){
             console.log(err);
         }
 
-    }).then( ()=>{
-        uploadImg(fileInput, result_id);
-    })/*.then( ()=>{
+    }).then( async ()=>{
+        await uploadImg(fileInput, result_id);
         window.location.reload();
-    })  */
+    })
     return false;
 }
 
@@ -764,11 +767,9 @@ function sureDeleteAnimal(id){
             console.log(err);
         },
 
-    }).then( ()=> {
-        deleteImg(id + ".png");
-       
-    })/*.then ( ()=> {
+    }).then( async ()=> {
+        await deleteImg(id + ".png");
         window.location.reload();
-    })   ; */
+    })
     return false;
 }

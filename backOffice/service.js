@@ -178,7 +178,7 @@ function showService(service){
                                         </div>
                                         <div class="modal-footer">                            
                                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="background-color: #425664; border-color: #425664;"  aria-label="Don't delete the service">No</button>
-                                            <button type="button" class="btn btn-success" onclick=sureDeleteService("${service._id}") style="margin:1px; background-color: #849531; border-color: #849531;"  aria-label="Delete the service">Yes</button>
+                                            <button type="button" class="btn btn-success" onclick='sureDeleteService("${service._id}", "${service.name}")' style="margin:1px; background-color: #849531; border-color: #849531;"  aria-label="Delete the service">Yes</button>
                                         </div>
                                         </div>
                                     </div>
@@ -325,7 +325,7 @@ function showService(service){
 
 
 //CREATE a service
-function createService(){
+async function createService(){
     let data = {}
 
     const fileInput = document.querySelector('input[type="file"]');
@@ -335,7 +335,7 @@ function createService(){
     if ($("#inputImg").val() != "") {
         data.img = fileInput.files.item(0).name
     }
-    //data.location = $("#inputLocation").val().replace(/\s+/g, "").split(",")
+    data.location = $("#inputLocation").val().replace(/\s+/g, "").split(",")
     data.category = $("#inputCategory").val()
     data.price = $("#inputPrice").val()
     data.description = $("#inputDescription").val()
@@ -362,16 +362,13 @@ function createService(){
         if(verify == false) {break}
     }
     if (verify == false) {
-        //alert("The location's name doesn't mach any real location")
-        
         $('.callout').attr('style', 'display: block')
         $('.callout-header').text("The location's name doesn't match any existing location")
         return
     }
-    
     let result_id = ""
 
-    $.ajax({
+    await $.ajax({
         type: 'POST',
         url: url + "/service",
         crossDomain: true,
@@ -397,39 +394,43 @@ function createService(){
             console.log("nuu");
             console.log(err);
         }
+    })
 
-    }).then( ()=> {
-        uploadImg(fileInput.files.item(0) , result_id);
-    }).then( ()=>{
-        for (const key in data.location) {
-            let body = {}
-            body.disponibility = { "service": data.name, "quantity": 1}
-            $.ajax({
-                type: 'PATCH',
-                url: url + "/location/disponibility/" + data.location[key],
-                crossDomain: true,
-                contentType: "application/json",
-                data: JSON.stringify(body),        
-                success: function(result) {
-                    console.log("yay");
-                    console.log(result);
-                },
-                error: function(err) {
-                    console.log("nuu");
-                    console.log(err);
-                }
+    await uploadImg(fileInput.files.item(0) , result_id);
+
+    for (const key in data.location) {
+        let body = {}
+        body.disponibility = []
+        let disp = {"service": data.name, "quantity": "1"}
+        body.disponibility.push(disp);
+
+        console.log(data.location[key]);
+        console.log(body.disponibility);
         
-            })
-        }
-    });/*.then( ()=> {
-        window.location.reload()
-    });*/
+        await $.ajax({
+            type: 'PATCH',
+            url: url + "/location/disponibility/" + data.location[key],
+            crossDomain: true,
+            contentType: "application/json",
+            data: JSON.stringify(body),        
+            success: function(result) {
+                console.log("yay");
+                console.log(result);
+            },
+            error: function(err) {
+                console.log("nuu");
+                console.log(err);
+            }
+    
+        })
+    }
+    window.location.reload()
     return false;
 }
 
 
 //MODIFICA un servizio
-function modifyService(id){
+async function modifyService(id){
     let data = {}
 
     if ($("#modMode-"+id).val()!="") {data.mode = $("#modMode-"+id).val()}
@@ -477,7 +478,7 @@ function modifyService(id){
     }
 */
 
-    $.ajax({
+    await $.ajax({
         type: 'PATCH',
         url: url + "/service/" + id,
         crossDomain: true,
@@ -492,20 +493,24 @@ function modifyService(id){
             console.log(err);
         }
 
-    })//.then( ()=> window.location.reload());    
+    }).then( ()=> window.location.reload());    
     return false;
 }
 
 
 //ELIMINA un servizio
-function sureDeleteService(id, name){
+async function sureDeleteService(id, name){
+    console.log(name);
     let locations = []
     locations = $("#serviceLocation-"+id).attr("value").replace(/\s+/g, "").split(",")
     console.log(locations)
+    debugger
     for (const key in locations) {
         let data = {}
         data.disponibility = {}
         data.disponibility.service = name
+        console.log(data.disponibility);
+        debugger
         $.ajax({
             type: 'PATCH',
             url: url + "/location/rmdisponibility/" + locations[key],
@@ -524,7 +529,7 @@ function sureDeleteService(id, name){
         });
     }
 
-    $.ajax({
+    await $.ajax({
         type: 'DELETE',
         url: url + "/service/" + id,
         crossDomain: true,
@@ -535,9 +540,9 @@ function sureDeleteService(id, name){
             console.log(err);
         },
 
-    }).then( ()=> {
-        deleteImg(id + ".png");
-    }) 
+    })
+    await deleteImg(id + ".png");
+    window.location.reload()
     return false;
 }
 

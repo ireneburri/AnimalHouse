@@ -261,11 +261,10 @@ function createAnimal(){
             console.log(err);
         }
 
-    }).then( ()=> {
-        uploadImg(fileInput.files.item(0) , result_id);
-    })/*.then( ()=> {
+    }).then( async ()=> {
+        await uploadImg(fileInput.files.item(0) , result_id);
         window.location.reload()
-    });  */   
+    }) 
     return false;
 }
 
@@ -309,7 +308,7 @@ function modifyAnimal(id){
             console.log(err);
         }
 
-    })//.then( ()=> window.location.reload());    
+    }).then( ()=> window.location.reload());    
     return false;
 }
 
@@ -327,8 +326,9 @@ function sureDeleteAnimal(id){
             console.log(err);
         },
 
-    }).then( ()=> {
-        deleteImg(id + ".png");
+    }).then( async ()=> {
+        await deleteImg(id + ".png");
+        window.location.reload()
     }) 
     return false;
 }

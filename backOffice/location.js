@@ -322,7 +322,7 @@ async function verifyMod(locName, id, info){
 }
 
 //MODIFICA una location
-function modifyLocation(id){
+async function modifyLocation(id){
     let data = {}
 
     if ($("#modName-"+id).val()!="") {data.name = $("#modName-"+id).val()}
@@ -341,7 +341,7 @@ function modifyLocation(id){
         uploadImg(imm, id)
 
     }
-    $.ajax({
+    await $.ajax({
         type: 'PATCH',
         url: url + "/location/" + id,
         crossDomain: true,
@@ -356,7 +356,8 @@ function modifyLocation(id){
             console.log(err);
         }
 
-    })//.then( ()=> window.location.reload());    
+    })
+    window.location.reload()   
     return false;
 }
 
@@ -392,7 +393,8 @@ async function modifyServiceLocation(id, locName){
             console.log(err);
         }
 
-    })//.then( ()=> window.location.reload()); 
+    })
+    window.location.reload() 
 
     let newData = {}
     newData.disponibility = []

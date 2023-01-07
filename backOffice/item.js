@@ -125,7 +125,7 @@ function showItem(item){
                                 </div>
                                 <div class="modal-footer">                            
                                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="background-color: #425664; border-color: #425664;"  aria-label="Don't delete the service">No</button>
-                                    <button type="button" class="btn btn-success" onclick= ("${item._id}") style="margin:1px; background-color: #849531; border-color: #849531;"  aria-label="Delete the service">Yes</button>
+                                    <button type="button" class="btn btn-success" onclick=sureDeleteItem("${item._id}") style="margin:1px; background-color: #849531; border-color: #849531;"  aria-label="Delete the service">Yes</button>
                                 </div>
                                 </div>
                             </div>
@@ -167,20 +167,20 @@ function showItem(item){
                                                     <div class="col-sm-9">
                                                         <select id="modCategory-${item._id}" class="form-select" aria-label="Category">
                                                             <option selected>${item.category}</option>
-                                                            <option>Cibo</option>
-                                                            <option>Prodotti Sanitari</option>
-                                                            <option>Giochi</option>
-                                                            <option>Accessori</option>
-                                                            <option>Case e Cucce</option>
-                                                            <option>Per Cuccioli</option>
+                                                            <option>Food</option>
+                                                            <option>Health Products</option>
+                                                            <option>Toys</option>
+                                                            <option>Accessories</option>
+                                                            <option>Houses And Kennels</option>
+                                                            <option>For Puppies</option>
                                                         </select>   
                                                     </div>                       
                                                 </div> 
 
                                                 <div class="row mb-2">
-                                                    <label class="col-sm-3 col-form-label">Animal</label>
+                                                    <label class="col-sm-3 col-form-label">Animal*</label>
                                                     <div class="col-sm-9">
-                                                        <select id="modAnimal-${item._id}" class="form-select" aria-label="Animal">
+                                                        <select id="modAnimal-${item._id}" class="form-select" aria-label="Animal" required>
                                                             <option selected>${item.animal}</option>
                                                             <option>For Everyone</option>
                                                             <option>Mammals</option>
@@ -262,7 +262,7 @@ function showItem(item){
 }
 
 //MODIFY
-function modifyItem(id){
+async function modifyItem(id){
     let data = {}
 
     if ($("#modName-"+id).val()!="") {data.name = $("#modName-"+id).val()}
@@ -276,7 +276,7 @@ function modifyItem(id){
         console.log("mod")
         //DA RIVEDERE
         //deleteImg(id + ".png");
-        uploadImg(imm, id);
+        await uploadImg(imm, id);
 
     }
     if ($("#modCategory-"+id).val()!="") {data.category = $("#modCategory-"+id).val()}
@@ -302,7 +302,7 @@ function modifyItem(id){
             console.log(err);
         }
 
-    })//.then( ()=> window.location.reload());    
+    }).then( ()=> window.location.reload());    
     return false;
 }
 
@@ -333,7 +333,7 @@ function createItem(){
         $('.callout-header').text('Fill the mandatory fields')
         return
     }
-
+    data.size="All"
     let result_id = ""
 
     $.ajax({
@@ -350,6 +350,7 @@ function createItem(){
             animal: data.animal,
             species: data.species,
             quantity: data.quantity,
+            size: data.size,
             description: data.description,
             brand: data.brand,
             vip: data.vip,
@@ -364,11 +365,10 @@ function createItem(){
             console.log(err);
         }
 
-    }).then( ()=> {
-        uploadImg(fileInput.files.item(0) , result_id);
-    })/*.then( ()=> {
+    }).then( async ()=> {
+        await uploadImg(fileInput.files.item(0) , result_id);
         window.location.reload()
-    });  */   
+    })
     return false;
 }
 
@@ -386,9 +386,10 @@ function sureDeleteItem(id){
             console.log(err);
         },
 
-    }).then( ()=> {
-        deleteImg(id + ".png");
-    }) 
+    }).then( async ()=> {
+        await deleteImg(id + ".png");
+        window.location.reload()
+    })
     return false;
 }
 

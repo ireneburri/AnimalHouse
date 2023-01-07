@@ -586,6 +586,7 @@ function sureModifyPost(id){
         $('#Modal-' + id).modal('hide');
         $('#ModalD-' + id).modal('hide');
         //boardCategory()
+        window.location.reload()
     }); 
     return false;
 }
