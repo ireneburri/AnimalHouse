@@ -2,7 +2,7 @@ global.rootDir = __dirname;
 //.env
 const cors = require('cors');
 const path = require('path');
-const history = require('connect-history-api-fallback');
+//const history = require('connect-history-api-fallback');
 require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 
 const mongoose = require('mongoose');
@@ -13,10 +13,10 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-/*
+
 const pathGame = __dirname + '/game/dist/';
 app.use(express.static(pathGame));
-*/
+
 /*const pathFront = __dirname + '/front/build/'
 app.use(express.static(pathFront))*/
 app.use('/front',express.static(path.join(__dirname, 'build')));
@@ -84,18 +84,14 @@ app.get('/backOffice', (req, res) => {
         global.rootDir + '/backOffice/login.html'
     )
 })
-
-/*app.get('/front', function(req, res) {
-    res.sendFile(pathFront + "index.html");
-});*/
 app.get('/front/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });
-/*
 app.get('/', function(req, res) {
     res.sendFile(pathGame + "index.html");
 });
- */
+
+/*
 const staticFileMiddleware = express.static(path.join(__dirname + '/dist'));
 
 app.use(staticFileMiddleware);
@@ -108,10 +104,4 @@ app.use(staticFileMiddleware);
 app.get('/', function (req, res) {
     res.render(path.join(__dirname + '/dist/index.html'));
 });
-/*
-var server = app.listen(process.env.PORT || 8080, function () {
-    var port = server.address().port;
-    console.log("App now running on port", port);
-});
-
- */
+*/
