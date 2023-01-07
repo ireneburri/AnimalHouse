@@ -12,7 +12,7 @@
 
     <div v-if="isHidden" class="row questionContainer">
 
-      <img :src="imgUrl" class=" col-xl-6">
+      <img :src="imgUrl" class=" col-xl-6" alt="{{animal.name}}">
       <div class="col-xl-6">
         <p>{{question}}</p>
         <div class="optionsContainer" style="margin-bottom:1rem">

@@ -3,7 +3,7 @@
   <main class="curiosityPage">
     <div class="row" style="width: 90%; margin: 0 auto">
       <div class="col-md-6 changeAnimal">
-        <img v-bind:src="animalImg">
+        <img v-bind:src="animalImg" alt="{{animalName}}">
         <button class="btn btn-primary" style="margin:0.5rem 0; background-color:var(--dark-alt); border-color: var(--light);" @click="switchAnimal">switch
           for {{ animalChange }} facts</button>
       </div>
@@ -33,7 +33,8 @@ export default {
       fact:'click the button for a dog fact',
       animal:true,
       animalChange:'cat',
-      animalImg:'/images/jake.png'
+      animalImg:'/images/jake.png',
+      animalName:'Jake the Dog'
     }
   },
   methods:{
@@ -41,10 +42,12 @@ export default {
       this.animal=!this.animal
       if(this.animal){
         this.animalChange='cat'
+        this.animalName='Jake the Dog'
         this.fact='click the button for a dog fact'
         this.animalImg='/images/jake.png'
 
       }else{
+        this.animalName='Cake the Cat'
         this.animalChange='dog'
         this.fact='click the button for a cat fact'
         this.animalImg='/images/cake.png'

@@ -1,14 +1,13 @@
 <template>
-  <div style="display: inline-block; max-width: 20rem; margin:0 auto">
+  <a v-bind:href="link" style="display: inline-block; max-width: 20rem; margin:0 auto">
     <div class="serviceComponent">
       <div>{{name}}</div>
-      <img :src="img">
+      <img :src="img" alt="{{name}}">
       <div>{{category}}</div>
-      <div>{{time}}</div>
       <div>{{mode}}</div>
       <div>{{price}}</div>
     </div>
-  </div>
+  </a>
 </template>
 
 <script>
@@ -21,6 +20,13 @@ export default {
     time:String,
     price:Number,
     mode:String,
+  },
+  computed:{
+    link(){
+      const link =`https://site212224.tw.cs.unibo.it/front/singleservice:${this.name}`
+      return link
+
+    }
   }
 }
 </script>

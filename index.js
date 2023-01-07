@@ -27,6 +27,8 @@ app.use('/front', express.static(global.rootDir + '/routes/uploads'));
 app.use('/backOffice', express.static(global.rootDir + '/backOffice'));
 app.use('/backOffice', express.static(global.rootDir + '/routes/uploads'));
 
+app.use('/', express.static(global.rootDir + '/routes/uploads'));
+
 
 /*const mongoCredentials = {
     user: process.env.MONGO_USER,
@@ -80,14 +82,13 @@ app.use('/dogFact', dogFactRouter)
 
 app.listen(8000, () => console.log("server started"))
 
-/*
+
 app.get('/backOffice', (req, res) => {
     res.sendFile(
         global.rootDir + '/backOffice/login.html'
     )
 })
 
- */
 app.get('/front/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });

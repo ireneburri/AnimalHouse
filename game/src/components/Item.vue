@@ -1,22 +1,29 @@
 <template>
-  <div style="display: inline-block; max-width: 20rem; margin:0 auto">
+  <a v-bind:href="link" style="display: inline-block; max-width: 20rem; margin:0 auto">
     <div class="itemComponent">
       <div>{{name}}</div>
-      <img :src="img">
+      <img :src="img" alt="{{name}}">
       <div>for {{size}} sizes</div>
-      <div>{{price}}$</div>
+      <div>price: {{price}} $</div>
     </div>
-  </div>
+  </a>
 </template>
 
 <script>
 export default {
   name: "vueItem",
   props:{
+    id: String,
     name:String,
     img:String,
     size:String,
     price:Number
+  },
+  computed:{
+    link(){
+      const link= `https://site212224.tw.cs.unibo.it/front/singleproduct:${this.id}`
+      return link
+    }
   }
 }
 </script>
