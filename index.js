@@ -91,10 +91,11 @@ app.get('/backOffice', (req, res) => {
 app.get('/front/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });
+/*
 app.get('/', function(req, res) {
     res.sendFile(pathGame + "index.html");
 });
-
+*/
 
 const staticFileMiddleware = express.static(path.join(__dirname + '/dist'));
 
