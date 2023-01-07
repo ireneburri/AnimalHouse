@@ -1,27 +1,28 @@
 <template>
-<div style="display: inline-block; max-width: 20rem; margin:0.5rem auto">
+<a :href="link" style="display: inline-block; max-width: 20rem; margin:0.5rem auto">
   <div class="petComponent">
     <div>{{name}}</div>
-    <img :src="img">
+    <img :src="img" alt="{{name}}">
     <div>age: {{age}}</div>
     <div>{{sex}}</div>
     <div>{{returnBreed}}</div>
     <div>price: {{price}} $</div>
   </div>
-</div>
+</a>
 </template>
 
 <script>
 export default {
   name: "vuePet",
   props:{
+    id: String,
     name: String,
     img:String,
     age:Number,
     sex:String,
     species:String,
     breed:String,
-    price:Number
+    price:Number,
   },
   computed:{
     returnBreed(){
@@ -29,6 +30,10 @@ export default {
         return this.species
       }
       return this.breed
+    },
+    link(){
+      const link = `https://site212224.tw.cs.unibo.it/front/animal:${this.id}`
+      return link
     }
   }
 }

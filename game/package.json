@@ -1,6 +1,7 @@
 {
   "name": "app",
   "version": "0.1.0",
+  "homepage": "https://site212224.tw.cs.unibo.it",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

@@ -80,6 +80,7 @@
           <div class="row petContainer">
             <Pet v-for="pet in pets"
                  :key="pet._id"
+                 :id="pet._id"
                  :name="pet.name"
                  :img="pet.img"
                  :age="pet.age"
@@ -98,6 +99,7 @@
           <div class="row itemContainer">
             <Item v-for="item in items"
                   :key="item._id"
+                  :id="item._id"
                   :name="item.name"
                   :img="item.img"
                   :size="item.size"
@@ -105,14 +107,13 @@
                   class="col-lg-4"
             ></Item>
           </div>
-          <h4 v-if="services.length">Services for {{name}}:</h4>
+          <h4 v-if="services.length>0">Services for {{name}}:</h4>
           <div class="row serviceContainer">
             <Location v-for="service in services"
-                      :key="service._id"
+                      :key="service.name"
                       :name="service.name"
                       :img="service.img"
                       :category="service.category"
-                      :time="service.time"
                       :price="service.price"
                       :mode="service.mode"
                       class="col-lg-4"
@@ -122,7 +123,7 @@
 
       </div>
       <div class="oak" :class="setContainer2">
-        <img src="../../public/images/oakSquared2.png" :class="oak" class="oakImg">
+        <img src="../../public/images/oakSquared2.png" :class="oak" class="oakImg" alt="Professor Oak ">
         <div class="oakLine">{{oakLine}}</div>
         <div class="buttonsContainer container" v-if="!isVisible">
           <button @click="goBack" class="btn btn-primary" style=" background-color:var(--dark-alt); border-color: var(--light);">go back</button>
@@ -184,7 +185,8 @@ export default {
           this.name='your pet'
         }
         //console.log(this.type)
-        this.pets= await axios.get(`http://site212224.tw.cs.unibo.it/animal/type/${this.type}`)
+        const typeLowerCase= this.type.toLowerCase()
+        this.pets= await axios.get(`https://site212224.tw.cs.unibo.it/animal/type/${typeLowerCase}`)
             .then((response)=>{
               return response.data
             })
@@ -195,14 +197,15 @@ export default {
         }
         //console.log(this.species)
 
-        this.items = await axios.get(`http://site212224.tw.cs.unibo.it/item/species/${this.species}/size/${this.size}`)
+        this.items = await axios.get(`https://site212224.tw.cs.unibo.it/item/species/${this.species}/size/${this.size}`)
             .then((response)=>{
               return response.data
             })
         //console.log(this.items)
 
-        this.services = await axios.get(`http://site212224.tw.cs.unibo.it/service/size/3`)
+        this.services = await axios.get(`https://site212224.tw.cs.unibo.it/service/size/3`)
             .then((response)=>{
+              console.log(response.data)
               return response.data
             }).catch(err=>{
               console.log(err)
@@ -230,7 +233,7 @@ export default {
       this.$router.push('/login')
     },
     async searchPets(){
-      this.pets= await axios.get(`http://site212224.tw.cs.unibo.it/animal/type/all`)
+      this.pets= await axios.get(`https://site212224.tw.cs.unibo.it/animal/type/all`)
           .then((response)=>{
             return response.data
           }).catch(err=>{
@@ -238,7 +241,7 @@ export default {
           })
     },
     async searchItems(){
-      this.items= await axios.get(`http://site212224.tw.cs.unibo.it/item/species/all/size/all`)
+      this.items= await axios.get(`https://site212224.tw.cs.unibo.it/item/species/all/size/all`)
           .then((response)=>{
             return response.data
           }).catch(err=>{

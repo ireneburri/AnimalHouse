@@ -11,6 +11,10 @@ import SignUp from "../views/SignUp"
 import Logout from "@/views/logout";
 const router= createRouter({
     history: createWebHistory(),
+    root:  '/',
+    mode: 'html5',
+    linkActiveClass: "active",
+    hashbang: false,
     routes: [
         {
             path:'/',

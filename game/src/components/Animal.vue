@@ -1,6 +1,6 @@
 <template>
   <div class="aContainer row" style="margin:auto auto">
-  <img v-bind:src="animal.img" class="col-xl-6">
+  <img v-bind:src="animal.img" class="col-xl-6" alt="{{animal.name}}">
 
   <div class="dataContainer col-xl-4">
     <div>name: {{animal.name}}</div>
