@@ -13,10 +13,10 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-
+/*
 const pathGame = __dirname + '/game/dist/';
 app.use(express.static(pathGame));
-
+*/
 /*const pathFront = __dirname + '/front/build/'
 app.use(express.static(pathFront))*/
 app.use('/front',express.static(path.join(__dirname, 'build')));
@@ -91,7 +91,17 @@ app.get('/backOffice', (req, res) => {
 app.get('/front/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });
-
+/*
 app.get('/', function(req, res) {
     res.sendFile(pathGame + "index.html");
+});
+ */
+const buildLocation = 'dist';
+app.use(express.static(`${buildLocation}`));
+app.use((req, res, next) => {
+    if (!req.originalUrl.includes(buildLocation)) {
+        res.sendFile(`${__dirname}/${buildLocation}/index.html`);
+    } else {
+        next();
+    }
 });
