@@ -1,8 +1,8 @@
 <template>
   <main class="container quizPage">
-
+    <h1 class="pageTitle">AnimalQuiz</h1>
     <div v-if="!isHidden" class="container startQuiz">
-      <h1 class="pageTitle">AnimalQuiz</h1>
+
       <div class="container startContainer">
         <p>Test your animal knowledge with this tricky true or false quiz!</p>
         <p v-if="!user">Attention! Since you are not logged in, your score will not be saved.</p>
@@ -12,8 +12,8 @@
 
     <div v-if="isHidden" class="row questionContainer">
 
-      <img :src="imgUrl" class=" col-md-6">
-      <div class="col-md-6" style="margin: auto auto">
+      <img :src="imgUrl" class=" col-xl-6">
+      <div class="col-xl-6">
         <p>{{question}}</p>
         <div class="optionsContainer" style="margin-bottom:1rem">
           <button :disabled="isDisabled" :class="vero" @click="answeredTrue" type="button" class="optionButton">true</button>
@@ -51,6 +51,7 @@
 <script>
 import axios from "axios";
 import createQuestion from "@/features/createQuestion";
+import {mapGetters} from "vuex";
 export default{
   name: 'vueQuiz',
   data(){
@@ -78,7 +79,7 @@ export default{
   methods:{
     async setQuestion(){
       //api request of two animal from
-      this.twoAnimals=await axios.get('http://localhost:8000/quiz/size/2')
+      this.twoAnimals=await axios.get('https://site212224.tw.cs.unibo.it/quiz/size/2')
           .then((response)=>{
             const animalOne = response.data[0]
             const animalTwo = response.data[1]
@@ -96,7 +97,7 @@ export default{
 
       //set the question
       const par = Math.floor(Math.random() * 10)
-      if ((this.twoAnimals.animalOne.id === this.twoAnimals.animalTwo) || (Math.floor(Math.random() * 2) % 2 === 0)) {
+      if ((this.twoAnimals.animalOne.id === this.twoAnimals.animalTwo.id) || (Math.floor(Math.random() * 2) % 2 === 0)) {
         this.animal= this.twoAnimals.animalOne
       }else{
         this.animal= this.twoAnimals.animalTwo
@@ -163,13 +164,15 @@ export default{
       this.setQuestion()
     },
     async OpenCloseFun(){
-      /*
+
       if(this.user && this.user.score<this.score){
-        await axios.post(`https://site212224.tw.cs.unibo.it/user/${localStorage.getItem('username')}`,{
+        console.log('ao:', this.user.username)
+        console.log(this.score)
+        await axios.patch(`https://site212224.tw.cs.unibo.it/user/username/${this.user.username}`,{
           score:this.score
         })
       }
-      */
+
       console.log('user id: ', this.user)
       this.OpenClose=!this.OpenClose;
     },
@@ -180,6 +183,9 @@ export default{
     login(){
       this.$router.push('/login')
     }
+  },
+  computed:{
+    ...mapGetters(['user'])
   },
 }
 </script>
@@ -196,28 +202,31 @@ export default{
     padding-bottom: 40px;
   }
 }
-.optionsContainer{
-  display: flex;
-  justify-content: space-evenly;
-}
-.questionContainer{
-  color:white;
+.startContainer{
   width: 70%;
-  margin: 0 auto;
+  height: 90%;
+  margin: auto auto;
   background-color: var(--dark-alt);
   border-radius: 20px;
-  .correct{
-    background-color: green;
-    border:1px solid var(--primary) !important;
-    font-weight:bold;
-    color:white
-  }
-  .incorrect {
-    border: 1px solid var(--primary) !important;
-    font-weight: bold;
-    color: white;
-    background-color: red;
-  }
+  padding:40px;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+}
+.next{
+  background-color: white;
+  border: none;
+  color: var(--dark-alt);
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline;
+  font-size: 125%;
+  width:40%;
+  border-radius: 20px;
+  position:relative;
+  margin-top:2rem
 }
 .buttonStart{
   background-color: white;
@@ -245,37 +254,32 @@ export default{
   border-radius: 20px;
   margin: 0 auto;
 }
-.questionImg{
-  width: 100%;
-  height: 50%;
-  object-fit: contain;
-  margin-bottom:10px;
+.optionsContainer{
+  display: flex;
+  justify-content: space-evenly;
 }
-.startContainer{
-  width: 70%;
-  height: 90%;
-  margin: auto auto;
+.questionContainer{
+  color:white;
   background-color: var(--dark-alt);
   border-radius: 20px;
-  padding:40px;
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  color: white;
-}
-.next{
-  background-color: white;
-  border: none;
-  color: var(--dark-alt);
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline;
-  font-size: 125%;
-  width:40%;
-  border-radius: 20px;
-  position:relative;
-  margin-top:2rem
+  .correct{
+    background-color: green;
+    border:1px solid var(--primary) !important;
+    font-weight:bold;
+    color:white
+  }
+  .incorrect {
+    border: 1px solid var(--primary) !important;
+    font-weight: bold;
+    color: white;
+    background-color: red;
+  }
+  img{
+    max-height:25rem;
+    object-fit: contain;
+    margin-bottom:10px;
+    padding:1rem
+  }
 }
 @media (max-width: 768px) {
   .startContainer{

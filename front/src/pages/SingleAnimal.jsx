@@ -137,7 +137,7 @@ function SingleAnimal() {
     }
 
     function deleteAnimal() {
-        axios.delete(`http://site212224.tw.cs.unibo.it/animal/${items._id}`
+        axios.delete(`https://site212224.tw.cs.unibo.it/animal/${items._id}`
         ).then(res => {
             console.log(res)
         })

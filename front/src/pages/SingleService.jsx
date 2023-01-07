@@ -365,7 +365,7 @@ function SingleService() {
             }
             else {
                 console.log(body); //richiesta api
-                axios.post("http://site212224.tw.cs.unibo.it/Reservation/post",
+                axios.post("https://site212224.tw.cs.unibo.it/Reservation/post",
                     body).then(res =>
                         console.log(res)
                         // ).then(() => navigate('/account')

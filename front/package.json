@@ -1,7 +1,7 @@
 {
     "name": "front",
     "version": "0.1.0",
-    "homepage": "/front",
+    "homepage": "https://site212224.tw.cs.unibo.it/front",
     "private": true,
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.2.0",

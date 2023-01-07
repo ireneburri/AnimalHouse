@@ -34,7 +34,7 @@ function Thanks() {
             currentCart.forEach((item) => {
                 item.items.quantity = item.items.quantity - item.quantity
                 console.log(item.items)
-                fetch(`http://site212224.tw.cs.unibo.it/item/${item.items._id}`, {
+                fetch(`https://site212224.tw.cs.unibo.it/item/${item.items._id}`, {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json"
@@ -44,7 +44,7 @@ function Thanks() {
             })
 
             if (vipItem) { //imposta l'utente a vip se ha acquistato qualcosa di vip
-                fetch("http://site212224.tw.cs.unibo.it/user/id/" + id, { //per farlo funzionare va cambiata la patch
+                fetch("https://site212224.tw.cs.unibo.it/user/id/" + id, { //per farlo funzionare va cambiata la patch
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json"
@@ -64,7 +64,7 @@ function Thanks() {
             })
 
             console.log(listItems);
-            axios.post('http://site212224.tw.cs.unibo.it/Order/', {
+            axios.post('https://site212224.tw.cs.unibo.it/Order/', {
                 client_id: '638a43569d836700070fa273',
                 username: username,
                 products: listItems,

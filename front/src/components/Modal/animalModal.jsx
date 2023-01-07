@@ -74,7 +74,7 @@ function AnimalModal(props) {
 
     function submitNewInfo(e) {
         console.log(info);
-        axios.post('http://site212224.tw.cs.unibo.it/animal/', {
+        axios.post('https://site212224.tw.cs.unibo.it/animal/', {
             name: info.name,
             breed: info.breed,
             sex: info.sex,

@@ -127,7 +127,7 @@ function Login() {
 
         if (filtered.length > 0) {
             window.localStorage.setItem('cart', filtered[0].products[0])
-            axios.delete(`http://site212224.tw.cs.unibo.it/Order/${filtered[0]._id}`
+            axios.delete(`https://site212224.tw.cs.unibo.it/Order/${filtered[0]._id}`
             ).then(res => {
                 // console.log(res)
             })
@@ -136,7 +136,7 @@ function Login() {
 
     async function hangleRegistration(e) {
         e.preventDefault()
-        axios.post('http://site212224.tw.cs.unibo.it/user/', {
+        axios.post('https://site212224.tw.cs.unibo.it/user/', {
             name: credRegistration.name,
             surname: credRegistration.surname,
             username: credRegistration.username,

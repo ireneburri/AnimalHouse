@@ -135,7 +135,7 @@ function Profile() {
     }, []);
 
     const fetchProfile = async () => {
-        const data = await fetch(`http://site212224.tw.cs.unibo.it/User/username/${user}`);
+        const data = await fetch(`https://site212224.tw.cs.unibo.it/User/username/${user}`);
         const fetched = await data.json();
         setProfile(fetched[0]);
         setVip(fetched[0].vip)

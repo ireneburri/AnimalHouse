@@ -27,7 +27,7 @@ function Navbar() {
       console.log(strcart);
 
       console.log(listItems);
-      axios.post('http://site212224.tw.cs.unibo.it/Order/', {
+      axios.post('https://site212224.tw.cs.unibo.it/Order/', {
         client_id: '638a43569d836700070fa273',
         username: username,
         products: listItems,
