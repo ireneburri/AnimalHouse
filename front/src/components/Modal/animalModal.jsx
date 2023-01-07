@@ -93,7 +93,7 @@ function AnimalModal(props) {
     function handle(e) {
         const newdata = { ...info }
         newdata[e.target.id] = e.target.value
-        newdata.client_id = localStorage.getItem('username')
+        newdata.client_id = localStorage.getItem('userid')
         newdata.sale = false
         newdata.age = parseFloat(document.getElementById('age').value)
         setInfo(newdata)
@@ -118,9 +118,9 @@ function AnimalModal(props) {
                         <div className="form-group col-lg-6 col-md-6" style={{ padding: '1em' }}>
                             <label htmlFor="inputEmail4">sex</label>
                             <select type="text" className="form-control" id="sex" placeholder="sex" onChange={(e) => handle(e)} >
-                                <option value='' key=''> sex </option>
-                                <option value='Maschio' key='Maschio'> male </option>
-                                <option value='Femmina' key='Femmina'> female </option>
+                                <option value='' key=''> Sex </option>
+                                <option value='Male' key='Male'> Male </option>
+                                <option value='Female' key='Female'> Female </option>
                             </select>
                         </div>
                         <div className="form-group col-lg-6 col-md-6" style={{ padding: '1em' }}>

@@ -113,8 +113,7 @@ function Profile() {
 
     const [profile, setProfile] = useState('');
     const user = localStorage.getItem("username");
-    const id = localStorage.getItem('userid');
-    const userid = id.substring(1, (id.length - 1))
+    const userid = localStorage.getItem('userid');
     const [vip, setVip] = useState('');
     const [animal, setAnimals] = useState([]);
     const [order, setOrder] = useState([]);
@@ -139,13 +138,12 @@ function Profile() {
         const fetched = await data.json();
         setProfile(fetched[0]);
         setVip(fetched[0].vip)
-        localStorage.setItem("userid", JSON.stringify(fetched[0]._id))
     }
 
     const fetchAnimal = async () => {
         const data = await fetch("https://site212224.tw.cs.unibo.it/animal");
         const items = await data.json();
-        const filtered = items.filter((item) => item.client_id === user);
+        const filtered = items.filter((item) => item.client_id === userid);
         setAnimals(filtered);
     }
 
@@ -209,6 +207,11 @@ function Profile() {
                                             <Labels> {profile.tel} </Labels>
                                         </div>
                                     </div>
+
+                                    <div className="row mt-2">
+                                        <div> Game Score: {profile.score} </div>
+                                    </div>
+
 
                                     <div className="mt-4">
                                         <ProfileButton type="button" onClick={(e) => setShow(true)}>

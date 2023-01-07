@@ -69,6 +69,24 @@ const Price = styled.span`
 const LocationContainer = styled.div`
     margin-top: 1em;
 `
+const Vip = styled.span`
+    font-size: 0.8em;
+    border-radius: 10px;
+    background-color: #dfbe00;
+    color: #160505;
+    border: none;
+    background-color: rgba(255, 215, 0, 0.5);
+    backdrop-filter: blur(30px);
+    color: black;
+    letter-spacing: 2px;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-left: 1em;
+    text-transform: uppercase;
+    &:hover{
+        background-color: rgba(255, 215, 0, 0.6);
+    }
+`
 
 function SingleService() {
     const navigate = useNavigate();
@@ -142,10 +160,16 @@ function SingleService() {
     }
 
     const fetchDisponibility = async () => {
-        const items = await fetch(`https://site212224.tw.cs.unibo.it/Location/name/NegozioZero`);
+        const items = await fetch(`https://site212224.tw.cs.unibo.it/location/`);
         const fetched = await items.json();
+        const filtered = fetched.filter(location => location.name === loc.location);
+        console.log(filtered)
 
-        console.log("fetched")
+        if (filtered[0] !== undefined) {
+            const disponibility = filtered[0].disponibility
+            const filteredDispo = disponibility.filter(dispo => dispo.service === name.substring(1))
+            setDispo(filteredDispo[0].quantity)
+        }
     }
 
     const changeFormat = (e) => {
@@ -210,7 +234,7 @@ function SingleService() {
                 }
                 console.log(arrayBooking[h])
                 console.log(hoursAvailability)
-                if (hoursAvailability >= 2) {
+                if (hoursAvailability >= dispo) {
                     arrayBookingNotAvailable.push(arrayBooking[h])
                 }
                 hoursAvailability = 0;
@@ -229,17 +253,17 @@ function SingleService() {
                 }
             }
             console.log(arrayBookingDays)
-            for (let h in arrayBookingDays){
-                for (let j in arrayBookingDays){
-                    if (arrayBookingDays[h].getDate() === arrayBookingDays[j].getDate() 
-                    && arrayBookingDays[h].getMonth() === arrayBookingDays[j].getMonth() 
-                    && arrayBookingDays[h].getFullYear() === arrayBookingDays[j].getFullYear()){
+            for (let h in arrayBookingDays) {
+                for (let j in arrayBookingDays) {
+                    if (arrayBookingDays[h].getDate() === arrayBookingDays[j].getDate()
+                        && arrayBookingDays[h].getMonth() === arrayBookingDays[j].getMonth()
+                        && arrayBookingDays[h].getFullYear() === arrayBookingDays[j].getFullYear()) {
                         daysAvailability = daysAvailability + 1
                     }
                 }
                 console.log(arrayBookingDays[h])
                 console.log(daysAvailability)
-                if (daysAvailability >= 2){
+                if (daysAvailability >= dispo) {
                     arrayBookingDaysNotAvailable.push(arrayBookingDays[h])
                 }
                 daysAvailability = 0
@@ -264,7 +288,7 @@ function SingleService() {
     function addHoursToDate(date, hours) {
         return new Date(new Date(date).setHours(new Date(date).getHours() + (hours)));
     } //agagiunge x ore alla x data
-    
+
     function dateDiffInDays(a, b) { //differenza tra due date
         const _MS_PER_DAY = 1000 * 60 * 60 * 24;
         // Discard the time and time-zone information.
@@ -281,13 +305,13 @@ function SingleService() {
         var start = new Date(start)
         var end = new Date(end)
         var dateDiff = dateDiffInDays(start, end)
-            for (let x = 0; x < dateDiff; x++) {
-                for (let y in bookingList){
-                    if (start.getDate() === bookingList[y].getDate() && start.getMonth() === bookingList[y].getMonth() && start.getFullYear() === bookingList[y].getFullYear())
-                        return true
-                }
-                start.setDate(start.getDate() + 1)
+        for (let x = 0; x < dateDiff; x++) {
+            for (let y in bookingList) {
+                if (start.getDate() === bookingList[y].getDate() && start.getMonth() === bookingList[y].getMonth() && start.getFullYear() === bookingList[y].getFullYear())
+                    return true
             }
+            start.setDate(start.getDate() + 1)
+        }
         return false
     }
 
@@ -386,7 +410,8 @@ function SingleService() {
                     <Image src={immagine} />
                 </ImgContainer>
                 <InfoContainer className='col-lg-5'>
-                    <Category> {datas.category} </Category>
+                    <Category> {datas.category}</Category>
+                    {datas.vip ? <Vip> VIP </Vip> : null}
                     <Title style={{ marginTop: '1em', marginBottom: '0px' }}> {datas.name} </Title>
                     <Desc> Description: {datas.description} </Desc>
                     <p> Duration: {datas.allday ? "all day" : datas.time + " hour/s"} </p>

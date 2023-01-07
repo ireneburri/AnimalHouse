@@ -56,8 +56,7 @@ const CloseButton = styled.button`
 `
 
 function ProfileModal(props) {
-    var userid = window.localStorage.getItem('userid')
-    var id = userid.substring(1, userid.length - 1)
+    var id = window.localStorage.getItem('userid')
 
     async function uploadImg(img, id) {
         if (img != undefined) {
@@ -115,7 +114,10 @@ function ProfileModal(props) {
         }).then((res) => {
             console.log(res)
             uploadImg(document.getElementById("inputImg").files.item(0), id);
-            // window.location.reload(false);
+            if (info.username !== "" && info.username !== null && info.username !== undefined){
+                localStorage.setItem("username", info.username)
+            }
+            window.location.reload(false);
         }
         )
     }

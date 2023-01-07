@@ -42,6 +42,7 @@ function Services() {
                         title={service.name}
                         description={service.description}
                         subtitle={service.mode}
+                        vip={service.vip}
                     />
                 ))}
             </ServicesContainer>

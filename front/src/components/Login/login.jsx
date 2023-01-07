@@ -107,6 +107,12 @@ function Login() {
             localStorage.setItem("username", credLoginIn.username)
             localStorage.setItem("token", res.data.authority)
 
+            axios.get('https://site212224.tw.cs.unibo.it/user/username/' + credLoginIn.username, {
+
+            }).then((res) =>
+                localStorage.setItem("userid", res.data[0]._id)
+            )
+
             //permette di tornare nella pagina che ti ha reindireizzato alla pagina di login
             if (location.state?.from) {
                 navigate(location.state.from)
