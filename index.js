@@ -80,14 +80,13 @@ app.use('/dogFact', dogFactRouter)
 
 app.listen(8000, () => console.log("server started"))
 
-/*
+
 app.get('/backOffice', (req, res) => {
     res.sendFile(
         global.rootDir + '/backOffice/login.html'
     )
 })
 
- */
 app.get('/front/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });
