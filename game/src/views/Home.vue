@@ -4,7 +4,7 @@
 
     <div class="row">
       <div class=" containerOne" :class="setContainer">
-        <form class="form-signin" @submit.prevent="handleSubmit" v-if="isVisible">
+        <form class="form-signin" @submit.prevent="handleSubmit" v-if="isVisible" style="width:100%">
           <div v-if="errors.length" style="color:red">
             <b>Please correct the following error(s):</b>
             <ul>
@@ -322,7 +322,7 @@ form{
       font-size: 2rem;
     }
   }
-  .col-4{
+  .col-md-6{
     padding:0.4rem 0.9rem
   }
   form{
