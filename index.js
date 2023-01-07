@@ -27,6 +27,8 @@ app.use('/front', express.static(global.rootDir + '/routes/uploads'));
 app.use('/backOffice', express.static(global.rootDir + '/backOffice'));
 app.use('/backOffice', express.static(global.rootDir + '/routes/uploads'));
 
+app.use('/', express.static(global.rootDir + '/routes/uploads'));
+
 
 /*const mongoCredentials = {
     user: process.env.MONGO_USER,
