@@ -2,7 +2,7 @@ global.rootDir = __dirname;
 //.env
 const cors = require('cors');
 const path = require('path');
-
+const history = require('connect-history-api-fallback');
 require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 
 const mongoose = require('mongoose');
@@ -96,12 +96,22 @@ app.get('/', function(req, res) {
     res.sendFile(pathGame + "index.html");
 });
  */
-const buildLocation = 'dist';
-app.use(express.static(`${buildLocation}`));
-app.use((req, res, next) => {
-    if (!req.originalUrl.includes(buildLocation)) {
-        res.sendFile(`${__dirname}/${buildLocation}/index.html`);
-    } else {
-        next();
-    }
+const staticFileMiddleware = express.static(path.join(__dirname + '/dist'));
+
+app.use(staticFileMiddleware);
+app.use(history({
+    disableDotRule: true,
+    verbose: true
+}));
+app.use(staticFileMiddleware);
+
+app.get('/', function (req, res) {
+    res.render(path.join(__dirname + '/dist/index.html'));
 });
+/*
+var server = app.listen(process.env.PORT || 8080, function () {
+    var port = server.address().port;
+    console.log("App now running on port", port);
+});
+
+ */
