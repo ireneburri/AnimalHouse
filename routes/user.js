@@ -34,6 +34,19 @@ router.get('/id/:id', getUser, (req, res) => {
     res.json(res.user)
 })
 
+//get top ten
+router.get('/topTen', async(req, res)=> {
+    try{
+        var users = await User.find().sort({score:-1})
+        users.lenght=10
+        res.json(users)
+    } catch(err) {
+        res.status(500).json({message: err.message})
+    }
+
+
+})
+
 //get one by username
 router.get('/username/:username', async(req, res) => {
     const username = req.params.username
