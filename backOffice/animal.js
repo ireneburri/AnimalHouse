@@ -44,7 +44,8 @@ function showAnimal(animal){
 
     let img = "animalPic.png"
     if ( animal.img != img && (animal.img != "" && animal.img != undefined)){ 
-        img = animal._id + ".png"
+        //img = animal._id + ".png"
+        img = "63b9fa8c8a941ae73743cdd0.png"
     } 
 
     $("#myDIV").append(
