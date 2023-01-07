@@ -4,13 +4,10 @@
     <nav class="container scrollMenu">
       <a href="#risk">Risk And Benefits</a>
       <a href="#disease">Deseases</a>
-      <a href="rightPet">Pick The right Pet</a>
+      <a href="#rightPet">Pick The right Pet</a>
       <a href="#health">Pet Health</a>
       <a href="#hygiene">Hygiene</a>
-      <a href="kids">Kids Around Pets</a>
-      <a href="#home">Risk And Benefits</a>
-      <a href="#contact">Deseases</a>
-      <a href="#h">Pet Health</a>
+      <a href="#kids">Kids Around Pets</a>
     </nav>
     <div class="paragraph" id="risk">
           <h3>Understand the Risks and Benefits of Pets</h3>
