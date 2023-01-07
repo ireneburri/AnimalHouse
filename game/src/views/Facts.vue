@@ -1,7 +1,7 @@
 <template>
 
   <main class="curiosityPage">
-    <div class="row">
+    <div class="row" style="width: 90%; margin: 0 auto">
       <div class="col-md-6 changeAnimal">
         <img v-bind:src="animalImg">
         <button class="btn btn-primary" style="margin:0.5rem 0; background-color:var(--dark-alt); border-color: var(--light);" @click="switchAnimal">switch
@@ -11,12 +11,12 @@
       <div v-if="animal" class="col-md-6 comicCloud">
 
         <p>{{fact}}</p>
-        <button class="btn btn-primary" style="margin:0.5rem 0; background-color:var(--dark-alt); border-color: var(--light);" @click="setDogFacts">Dog Facts</button>
+        <button class="btn btn-animal" @click="setDogFacts">Dog Facts</button>
       </div>
-      <div v-else class="col-md-6 comicCloud">
-        <img src="/images/comic_cloud.png">
+
+      <div v-else class="col-md-6 comicCloud" style="padding:3rem">
         <p>{{fact}}</p>
-        <button class="btn btn-primary" style="margin:0.5rem 0; background-color:var(--dark-alt); border-color: var(--light);" @click="setCatFacts">Cat Facts</button>
+        <button class="btn btn-animal" @click="setCatFacts">Cat Facts</button>
       </div>
     </div>
 
@@ -60,7 +60,7 @@ export default {
     },
     async setDogFacts() {
 
-      this.fact = await axios.get('http://localhost:8000/dogFact/random')
+      this.fact = await axios.get('https://site212224.tw.cs.unibo.it/dogFact/random')
           .then((response) => {
             console.log(response.data)
             return response.data.dogFact
@@ -72,52 +72,48 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.curiosityPage{
-}
-.comicCloud img{
-  width:100%
-}
 .comicCloud{
-  background-image: url("../../public/images/comic_cloud.png");
-  background-repeat: no-repeat;
-  background-size: contain;
+  background-color: white;
+  border:1rem solid var(--dark-alt);
+  border-radius: 20rem;
   color:var(--dark);
-}
-.comicCloud p{
-  text-align:center;
-  vertical-align: middle;
-  margin-top: 7rem;
+  p{
+    text-align:center;
+    vertical-align: middle;
+    margin-top: 20%;
+  }
+  .btn-animal{
+    margin:0.5rem 0;
+    background-color:var(--dark-alt);
+    border-color: var(--light);
+    color:white;
+  }
 }
 .changeAnimal{
   display:flex;
   flex-direction: column;
   width: 40%;
+  img {
+    max-width: 40rem;
+  }
 }
+@media (max-width: 1160px) {
+  .comicCloud{
+    padding:3rem;
+    p{
+      margin-top:10%
+    }
+    .btn-animal{
+      margin:0
+    }
+  }
+  @media (max-width: 1160px) {
 
-.changeAnimal img{
-  width:100%;
-  height: 100%;
+  }
 }
 @media (max-width: 768px) {
-  .changeAnimal{
-    order:13
-  }
   .comicCloud{
     order:-1;
-    background-image: none;
-    background-color: var(--dark);
-    border:1px solid var(--dark-alt);
-    color:var(--light);
-    border-radius: 1rem;
-    width: 90%;
-    margin: 0 auto;
-    padding: 1rem 0;
-    p{
-      margin-top: 1rem;
-    }
-    button{
-      color:var(--light)
-    }
   }
   .changeAnimal{
     width: 100%;

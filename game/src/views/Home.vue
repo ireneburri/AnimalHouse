@@ -73,6 +73,10 @@
         </form>
         <div v-else>
           <h4 v-if="pets.length">Animals similar to {{name}} in sale:</h4>
+          <div  v-else>
+            We couldn't find any animal similar to {{name}}.. Do you want to do a more generic search?
+            <button @click="searchPets" class="btn btn-primary" style="margin:0.5rem 0; background-color:var(--dark-alt); border-color: var(--light);" > search again </button>
+          </div>
           <div class="row petContainer">
             <Pet v-for="pet in pets"
                  :key="pet._id"
@@ -87,6 +91,10 @@
             />
           </div>
           <h4 v-if="items.length">Items for {{name}}:</h4>
+          <div  v-else>
+            We couldn't find any product similar to {{name}}.. Do you want to do a more generic search?
+            <button @click="searchItems" class="btn btn-primary" style="margin:0.5rem 0; background-color:var(--dark-alt); border-color: var(--light);" > search again </button>
+          </div>
           <div class="row itemContainer">
             <Item v-for="item in items"
                   :key="item._id"
@@ -161,8 +169,10 @@ export default {
   methods:{
     async handleSubmit(){
 
-      if(this.species===''){
-        this.errors.push('Species or breed required.');
+      if(this.type===''){
+        if(this.errors.length===0){
+          this.errors.push('Species or breed required.');
+        }
       }else{
         this.errors=[]
         this.isVisible=false
@@ -174,7 +184,7 @@ export default {
           this.name='your pet'
         }
         //console.log(this.type)
-        this.pets= await axios.get(`http://localhost:8000/animal/type/${this.type}`)
+        this.pets= await axios.get(`http://site212224.tw.cs.unibo.it/animal/type/${this.type}`)
             .then((response)=>{
               return response.data
             })
@@ -185,13 +195,13 @@ export default {
         }
         //console.log(this.species)
 
-        this.items = await axios.get(`http://localhost:8000/item/species/${this.species}/size/${this.size}`)
+        this.items = await axios.get(`http://site212224.tw.cs.unibo.it/item/species/${this.species}/size/${this.size}`)
             .then((response)=>{
               return response.data
             })
         //console.log(this.items)
 
-        this.services = await axios.get(`http://localhost:8000/service/size/3`)
+        this.services = await axios.get(`http://site212224.tw.cs.unibo.it/service/size/3`)
             .then((response)=>{
               return response.data
             }).catch(err=>{
@@ -218,6 +228,22 @@ export default {
     },
     animalLink(){
       this.$router.push('/login')
+    },
+    async searchPets(){
+      this.pets= await axios.get(`http://site212224.tw.cs.unibo.it/animal/type/all`)
+          .then((response)=>{
+            return response.data
+          }).catch(err=>{
+            console.log(err)
+          })
+    },
+    async searchItems(){
+      this.items= await axios.get(`http://site212224.tw.cs.unibo.it/item/species/all/size/all`)
+          .then((response)=>{
+            return response.data
+          }).catch(err=>{
+            console.log(err)
+          })
     }
   }
 

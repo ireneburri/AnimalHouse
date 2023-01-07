@@ -7,10 +7,27 @@
     </div>
   </div>
 </template>
-<script setup>
+<script>
+import axios from "axios";
+export default {
+  name:'vueApp',
+  async created() {
+    console.log('username: ', localStorage.getItem('username'))
+    if(localStorage.getItem('username')!==null){
+      this.user=await axios.get(`https://site212224.tw.cs.unibo.it/user/username/${localStorage.getItem('username')}`)
+          .then((response)=>{
+            localStorage.setItem('username', response.data[0].username)
+            this.$store.dispatch('user', response.data[0])
+          })
+    }
+  }
+}
+</script>
+<script  setup>
 import Sidebar from './components/sidebar.vue'
 import Header from './components/Header'
 </script>
+
 <style>
 :root {
   --primary: #DABDAC;
@@ -57,21 +74,15 @@ button {
   margin: 0 auto;
   width: 100%
 }
-@media (max-width: 768px) {
-  *{
-    font-size: 0.8rem;
-  }
+@media (max-width: 1024px) {
+
   .App main {
     padding-left: 5.3rem;
   }
-
-  html, body{
-    overflow-x: hidden;
+  @media (max-width: 1024px) {
+    html, body{
+      overflow-x: hidden;
+    }
   }
 }
 </style>
-<script>
-export default{
-  name:'App',
-}
-</script>
