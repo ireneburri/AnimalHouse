@@ -117,7 +117,7 @@ router.patch('/id/:id', getUser, async(req, res) => {
 })
 
 //update one by username
-rrouter.patch('/id/:id', getUser, async(req, res) => {
+router.patch('/id/:id', getUser, async(req, res) => {
 
     if (req.body.username != null) {
         res.user.username = req.body.username
