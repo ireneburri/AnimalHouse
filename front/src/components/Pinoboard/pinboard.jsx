@@ -76,7 +76,7 @@ function Pinboard() {
                 </PostContainer>
 
                 <ButtonContainer>
-                    <Button href={`https://localhost:3000/form:${page.substring(1)}`}>
+                    <Button href={`/front/form:${page.substring(1)}`}>
                         POST SOMETHING!
                     </Button>
                 </ButtonContainer>

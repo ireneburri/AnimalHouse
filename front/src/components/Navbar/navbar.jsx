@@ -49,40 +49,40 @@ function Navbar() {
 
   let login;
   if (!localStorage.getItem("token")) {
-    login = <Nav.Link href="/login" style={{paddingRight:'1em'}}> LOGIN </Nav.Link >;
+    login = <Nav.Link href="/front/login" style={{paddingRight:'1em'}}> LOGIN </Nav.Link >;
   } else {
     login = <Nav.Link onClick={handleLogout} style={{paddingRight:'1em'}}> LOGOUT </Nav.Link>;
   }
 
   let account;
   if (!localStorage.getItem("token")) {
-    account = <Nav.Link href="/login" style={{paddingRight:'1em'}}> ACCOUNT </Nav.Link>;
+    account = <Nav.Link href="/front/login" style={{paddingRight:'1em'}}> ACCOUNT </Nav.Link>;
   } else {
-    account = <Nav.Link href="/account" style={{paddingRight:'1em'}}> ACCOUNT </Nav.Link>;
+    account = <Nav.Link href="/front/account" style={{paddingRight:'1em'}}> ACCOUNT </Nav.Link>;
   }
 
   return (
 
     <MyNavbar bg="light" expand="lg">
       <Container fluid>
-        <MyNavbar.Brand href="/" className='logo'>ANIMAL HOUSE</MyNavbar.Brand>
+        <MyNavbar.Brand href="/front/home" className='logo'>ANIMAL HOUSE</MyNavbar.Brand>
         <MyNavbar.Toggle aria-controls="basic-navbar-nav" />
         <MyNavbar.Collapse className='collapse'>
           <Nav className="me-auto">
             <NavDropdown className="menuItems" id="nav-dropdown-light-example" title="ECOMMERCE">
-              <NavDropdown.Item href="/commerce"> PRODUCTS </NavDropdown.Item>
-              <NavDropdown.Item href="/animalcommerce"> CUBS </NavDropdown.Item>
+              <NavDropdown.Item href="/front/commerce"> PRODUCTS </NavDropdown.Item>
+              <NavDropdown.Item href="/front/animalcommerce"> CUBS </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link className="menuItems" href="/pinboards">PINBOARDS</Nav.Link >
-            <Nav.Link className="menuItems" href="/locations">LOCATIONS</Nav.Link >
+            <Nav.Link className="menuItems" href="/front/pinboards">PINBOARDS</Nav.Link >
+            <Nav.Link className="menuItems" href="/front/locations">LOCATIONS</Nav.Link >
             <NavDropdown className="menuItems" id="nav-dropdown-light-example" title="SERVICES">
-              <NavDropdown.Item href="/services:At%20Home"> AT HOME </NavDropdown.Item>
-              <NavDropdown.Item href="/services:Online"> ON LINE </NavDropdown.Item>
-              <NavDropdown.Item href="/services:In%20Store"> IN STORE </NavDropdown.Item>
+              <NavDropdown.Item href="/front/services:At%20Home"> AT HOME </NavDropdown.Item>
+              <NavDropdown.Item href="/front/services:Online"> ON LINE </NavDropdown.Item>
+              <NavDropdown.Item href="/front/services:In%20Store"> IN STORE </NavDropdown.Item>
             </NavDropdown>
 
             <div className='account'>
-              <Nav.Link className="menuItems" style={{paddingRight:'1em'}} href="/cart">CART</Nav.Link >
+              <Nav.Link className="menuItems" style={{paddingRight:'1em'}} href="/front/cart">CART</Nav.Link >
               {account}
               {login}
             </div>

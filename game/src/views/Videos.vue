@@ -22,7 +22,7 @@
         <button @click="setDolphin(15)" :disabled="isDisabled(15)" class="animaLink">dolphin</button>
       </div>
 
-      <div class="row" style="display:table;   background-color: var(--dark); width: 100%; margin:0 auto" v-if="isVisible">
+      <div class="row" style="  background-color: var(--dark); width: 100%; margin:0 auto" v-if="isVisible">
         <div class="col-md-6">
           <div class="container ytContainer">
             <iframe class="yt" sameSite="Strict" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen v-if="isVisible" v-bind:src="video"  />
@@ -219,12 +219,6 @@ export default{
   }
   .ytContainer{
     margin: 1rem 0
-  }
-}
-@media (min-width:1024px){
-  .row, .col-md-6{
-    display: table-cell;
-    vertical-align: top;
   }
 }
 </style>

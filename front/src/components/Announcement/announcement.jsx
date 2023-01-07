@@ -15,7 +15,7 @@ const Container = styled.div`
 function Announcement(){
     return (
         <Container>
-            Super Deal! Free Shipping on orders over €50
+            
         </Container>
 
     );

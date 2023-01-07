@@ -89,10 +89,6 @@ function PostForm() {
                         <label htmlFor="author" className="form-label">Author</label>
                         <input value={window.localStorage.getItem('username')} type="text" className="form-control" id="author" aria-describedby="emailHelp" onChange={(e) => handle(e)} readOnly />
                     </div>
-                    <div>
-                        <label className="form-label" htmlFor="customFile">Picture</label>
-                        <input id="inputImg" type="file" className="form-control" name="file" onChange={(e) => handle(e)} />
-                    </div>
                     <div className="mb-3">
                         <label htmlFor="title" className="form-label">Title</label>
                         <input type="text" className="form-control" id="title" onChange={(e) => handle(e)} />
@@ -100,6 +96,10 @@ function PostForm() {
                     <div className="mb-3">
                         <label htmlFor="text" className="form-label">Text</label>
                         <input type="text" className="form-control" id="text" onChange={(e) => handle(e)} />
+                    </div>
+                    <div>
+                        <label className="form-label" htmlFor="customFile">Picture</label>
+                        <input id="inputImg" type="file" className="form-control" name="file" onChange={(e) => handle(e)} />
                     </div>
                     <hr />
                     <button type="submit" className="btn btn-primary" onClick={(e) => submit(e)}>Submit</button>

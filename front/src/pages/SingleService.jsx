@@ -106,7 +106,6 @@ function SingleService() {
     var booked = []
 
     useEffect(() => {
-        console.log("stocazzo")
         fetchData();
         fetchDisponibility();
         fetchBookings();
@@ -368,7 +367,7 @@ function SingleService() {
                 axios.post("https://site212224.tw.cs.unibo.it/Reservation/post",
                     body).then(res =>
                         console.log(res)
-                        // ).then(() => navigate('/account')
+                    ).then(() => navigate('/account')
                     ).catch(error => console.log(error));
             }
         } else {

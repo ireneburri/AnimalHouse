@@ -22,7 +22,7 @@ const itemSchema = new mongoose.Schema({
         type: String,
         enum:["Small", "Medium", "Large", "All"],
         required:false,
-        default:["All"],
+        default: "All",
     },
     quantity: {
         type: Number,

@@ -117,45 +117,82 @@ router.patch('/id/:id', getUser, async(req, res) => {
 })
 
 //update one by username
-router.patch('/username/:username',  async(req, res) => {
+router.patch('/id/:id', getUser, async(req, res) => {
 
-    const username=req.params.username
-    let user
-    try {
-        user = await User.findOne({username:username})
-        if (user == null) {
-            return res.status(404).json({ message: 'Cannot find user' })
-        }
-    } catch (err) {
-        return res.status(500).json({ message: err.message })
+    if (req.body.username != null) {
+        res.user.username = req.body.username
     }
-    if (user.username != null) {
-        res.user.username = user.username
+    if (req.body.name != null) {
+        res.user.name = req.body.name
     }
-    if (user.name != null) {
-        res.user.name = user.name
+    if (req.body.surname != null) {
+        res.user.surname = req.body.surname
     }
-    if (user.surname != null) {
-        res.user.surname = user.surname
+    if (req.body.img != null) {
+        res.user.img = req.body.img
     }
-    if (user.img != null) {
-        res.user.img = user.img
-    }
-    if (user.password != null) {
+    if (req.body.password != null) {
         //res.user.password=req.body.password
-        user.password = CryptoJS.AES.encrypt(user.password, ENCRIPTION_KEY).toString()
+        res.user.password = CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY).toString()
     }
-    if (user.tel != null) {
-        res.user.tel = user.tel
+    if (req.body.tel != null) {
+        res.user.tel = req.body.tel
     }
-    if (user.residence != null) {
-        res.user.residence = user.residence
+    if (req.body.residence != null) {
+        res.user.residence = req.body.residence
     }
-    if (user.preferences != null) {
-        res.user.preferences = user.preferences
+    if (req.body.preferences != null) {
+        res.user.preferences = req.body.preferences
     }
-    if (user.vip != null) {
-        res.user.vip = user.vip
+    if (req.body.vip != null) {
+        res.user.vip = req.body.vip
+    }
+    if (req.body.score != null) {
+        res.user.score = req.body.score
+    }
+
+    try {
+        const updateUser = await res.user.save()
+        res.json(updateUser)
+    } catch (err) {
+        res.status(400).json({ message: err.message }) //parametro non accettabile
+    }
+
+})
+
+//update one by username
+router.patch('/username/:username',  getUserByUsername, async(req, res) => {
+    console.log()
+    if (req.body.username != null) {
+        res.user.username = req.body.username
+    }
+    if (req.body.name != null) {
+        res.user.name = req.body.name
+    }
+    if (req.body.surname != null) {
+        res.user.surname = req.body.surname
+    }
+    if (req.body.img != null) {
+        res.user.img = req.body.img
+    }
+    if (req.body.password != null) {
+        //res.user.password=req.body.password
+        res.user.password = CryptoJS.AES.encrypt(req.body.password, ENCRIPTION_KEY).toString()
+    }
+    if (req.body.tel != null) {
+        res.user.tel = req.body.tel
+    }
+    if (req.body.residence != null) {
+        res.user.residence = req.body.residence
+    }
+    if (req.body.preferences != null) {
+        res.user.preferences = req.body.preferences
+    }
+    if (req.body.vip != null) {
+        res.user.vip = req.body.vip
+    }
+    if (req.body.score != null) {
+        res.user.score = req.body.score
     }
 
     try {
@@ -195,5 +232,18 @@ async function getUser(req, res, next) {
     res.user = user
     next()
 }
-
+async function getUserByUsername (req, res, next){
+    const username=req.params.username
+    let user
+    try {
+        user = await User.findOne({username:username})
+        if (user == null) {
+            return res.status(404).json({ message: 'Cannot find user' })
+        }
+    } catch (err) {
+        return res.status(500).json({ message: err.message })
+    }
+    res.user=user
+    next()
+}
 module.exports = router
