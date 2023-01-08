@@ -14,6 +14,8 @@ import setMinutes from "date-fns/setMinutes";
 import addDays from "date-fns/addDays";
 import getDayOfYear from "date-fns/esm/getDayOfYear";
 
+import ball from '../img/63ba0f6d8a941ae73743cf0e.png'
+
 import * as bootstrap from "bootstrap";
 import Toast from 'react-bootstrap/Toast';
 
@@ -102,6 +104,7 @@ function SingleService() {
     })
 
     const [dispo, setDispo] = useState("")
+    const [id, setId] = useState("")
 
     //data attuale + 1 e orario settato alle 8:00
     var today = new Date()
@@ -121,6 +124,10 @@ function SingleService() {
     const toggleShowA = () => setShowA(!showA);
 
     var booked = []
+
+    let img;
+    var url = id + ".png"
+    img = <Image src={url} alt="product photo" style={{height: '20em', width: 'auto', paddingTop: '2em'}}/>
 
     useEffect(() => {
         fetchData();
@@ -152,6 +159,7 @@ function SingleService() {
 
         setDatas(fetched[0])
         setLocations(fetched[0].location);
+        setId(fetched[0].id)
     }
 
     const fetchDisponibility = async () => {
@@ -377,7 +385,7 @@ function SingleService() {
             <Navbar />
             <Wrapper className='container'>
                 <ImgContainer className='col-lg-3'>
-                    <Image src={immagine} />
+                    {img}
                 </ImgContainer>
                 <InfoContainer className='col-lg-5'>
                     <Category> {datas.category}</Category>

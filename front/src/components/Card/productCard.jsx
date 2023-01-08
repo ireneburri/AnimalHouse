@@ -9,7 +9,7 @@ const MyCard = styled.div`
     transition: all 0.4s ease;
     &:hover{
         box-shadow: 3px 3px 3px 3px rgb(207, 207, 207);
-        transform: scale(1.05);
+        transform: scale(1);
     }
     @media (max-width: 1024px) {
         width: 100%;
@@ -28,13 +28,12 @@ class ProductCard extends Component {
     render() {
 
         let img;
-
         var url = this.props.id + ".png"
         img = <img src={url} alt="product photo" style={{height: '10em', width: 'auto', paddingTop: '2em'}}/>
 
         return (
-            <div className="col-12 col-md-6 col-lg-3" >
-                <MyCard className="card" style={{ textAlign: 'center' }}>
+            <div className="col" >
+                <MyCard className="card col" style={{ textAlign: 'center', width: '13em'}}>
                     <a className="itemLink" href={'/front/singleproduct:' + this.props.id}>
                         {img}
                         <div className="card-body" >

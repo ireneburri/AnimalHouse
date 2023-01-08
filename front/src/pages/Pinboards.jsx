@@ -69,7 +69,7 @@ function Pinboards() {
                             <p className="card-text">
                                 If you have found a stray animal or are looking for a lost animal maybe this is the right place!
                             </p>
-                            <a href="/front/pinboard:Stray%Animals" className="btn btn-primary" style={{backgroundColor: "#4d96d2", border: 'none'}}>
+                            <a href="/front/pinboard:Stray%20Animals" className="btn btn-primary" style={{backgroundColor: "#4d96d2", border: 'none'}}>
                                 VISIT
                             </a>
                         </div>

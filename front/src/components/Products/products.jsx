@@ -12,21 +12,14 @@ flex-direction: column;
 
 const ItemsContainer = styled.div`
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: none;
-`
-
-const Items = styled.div`
-    width: 70%;
-    margin: none;
+    flex-direction: row;
 `
 
 function Products() {
 
     const [items, setItems] = useState([]);  //conservo quello originale
     const [filtered, setFiltered] = useState([]); //con questo posso lavorare in modo più sicuro
-    const [activeCat, setActiveCat] = useState('');
+    const [activeCat, setActiveCat] = useState('All');
 
     useEffect(() => {
         fetchItems();
@@ -45,7 +38,6 @@ function Products() {
                 <Filter items={items} setFiltered={setFiltered} activeCat={activeCat} setActiveCat={setActiveCat}/>
             </div>
             <ItemsContainer>
-                <Items>
                     <div className="row">
                         {filtered.map(item => (
                             <ProductCard
@@ -58,7 +50,6 @@ function Products() {
                             />
                         ))}
                     </div>
-                </Items>
             </ItemsContainer>
         </Container>
     );

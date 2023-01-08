@@ -6,6 +6,8 @@ import Post from '../Card/postCard';
 const Container = styled.div`
     justify-content: center;
     align-items: center;
+    display: flex;
+    flex-direction: column;
 `
 const PostContainer = styled.div`
     justify-content: center;

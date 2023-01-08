@@ -26,11 +26,17 @@ function LocationCard(props) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    let img;
+    var url = props.id + ".png"
+    img = <img src={url} alt="product photo" style={{height: '10em', width: 'auto'}}/>
+
+
     return (
-            <div className="card col-12 col-md-6 col-lg-3">
-                <div className="card-body">
+            <div className="card col-12 col-md-6 col-lg-3" style={{justifiyContent: 'center', alignItems: 'center'}}>
+                <div className="card-body" >
                     <h5 className="card-title">{props.name}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">{props.address}</h6>
+                    {img}
                     <p className="card-text">{props.description}</p>
                     <div>
                         <Button onClick={handleShow}>
