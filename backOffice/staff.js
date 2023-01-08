@@ -7,11 +7,11 @@ $( document ).ready( verifyToken() );
 
 
 function verifyToken(){
-    if (localStorage.token==undefined){
+    if (localStorage.tokenB==undefined){
         $(staff).attr('href','./login.html');
     } else {
-        console.log("SI "+localStorage.token)
-        console.log(localStorage.username)
+        console.log("SI "+localStorage.tokenB)
+        console.log(localStorage.usernameB)
 
         getAllStaff()
     }
@@ -89,7 +89,7 @@ function showStaff(staff){
     
     `)
 
-    if (localStorage.username == staff.username){
+    if (localStorage.usernameB == staff.username){
         $("#titleCard-"+staff._id).html("<a href='home.html' class='staffName' aria-label='link to your home page' style='color: #A0AECD;'>" + staff.name + " " + staff.surname + "</a>")
     }
 }

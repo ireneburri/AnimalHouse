@@ -9,11 +9,11 @@ var staffList = []
 $( document ).ready( verifyToken() );
 
 function verifyToken(){
-    if (localStorage.token==undefined){
+    if (localStorage.tokenB==undefined){
         $(location).attr('href','./login.html');
     } else {
-        console.log("SI "+localStorage.token)
-        console.log(localStorage.username)
+        console.log("SI "+localStorage.tokenB)
+        console.log(localStorage.usernameB)
         getAllStaff()
         getAllPost()
     }
@@ -440,7 +440,7 @@ function createPost(){
     let data = {}
 
     data.title = $("#inputTitle").val()
-    data.author = localStorage.username
+    data.author = localStorage.usernameB
     data.text = $("#inputText").val()
     data.img = "logoPic.png"
     data.comment = "false"
@@ -497,7 +497,7 @@ function createCom(id, category){
     let data = {}
 
     data.title = $("#inputT-"+id).val()
-    data.author = localStorage.username
+    data.author = localStorage.usernameB
     data.text = $("#inputX-"+id).val()
     data.img = "logoPic.png"
     data.post_id = id

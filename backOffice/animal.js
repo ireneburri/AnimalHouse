@@ -6,11 +6,11 @@ var animalsList = []
 $( document ).ready( verifyToken() );
 
 function verifyToken(){
-    if (localStorage.token==undefined){
+    if (localStorage.tokenB==undefined){
         $(location).attr('href','./login.html');
     } else {
-        console.log("SI "+localStorage.token)
-        console.log(localStorage.username)
+        console.log("SI "+localStorage.tokenB)
+        console.log(localStorage.usernameB)
 
         getAllAnimal()
     }
