@@ -502,13 +502,13 @@ async function sureDeleteService(id, name){
     let locations = []
     locations = $("#serviceLocation-"+id).attr("value").replace(/\s+/g, "").split(",")
     console.log(locations)
-    debugger
+    
     for (const key in locations) {
         let data = {}
         data.disponibility = {}
         data.disponibility.service = name
         console.log(data.disponibility);
-        debugger
+        
         $.ajax({
             type: 'PATCH',
             url: url + "/location/rmdisponibility/" + locations[key],
