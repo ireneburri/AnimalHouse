@@ -439,10 +439,8 @@ async function modifyService(id){
     if ($("#modCategory-"+id).val()!="") {data.category = $("#modCategory-"+id).val()}
     if ($("#modPrice-"+id).val()!="") {data.price = $("#modPrice-"+id).val()}
     if ($("#modImg-"+id).val()!="") {
-        data.img = imm.name;
-
-
         let imm = document.getElementById("modImg-"+id).files.item(0);
+        data.img = imm.name;
         uploadImg(imm, id)
 
     }
