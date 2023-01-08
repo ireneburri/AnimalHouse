@@ -1,5 +1,5 @@
 async function uploadImg(img, id){
-    if (img != undefined){
+    if (img != undefined && img != null){
         console.log("up")
         
         var blob = img.slice(0, img.size, 'image/*'); 

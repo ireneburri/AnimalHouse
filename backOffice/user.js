@@ -747,9 +747,7 @@ function addClientAnimal(id){
         }
 
     }).then( async ()=>{
-        if(fileInput != 0){
-            await uploadImg(fileInput, result_id);
-        }
+        await uploadImg(fileInput, result_id);
         window.location.reload();
     })
     return false;
