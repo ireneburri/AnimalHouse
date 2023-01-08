@@ -144,7 +144,9 @@ router.patch('/rmdisponibility/:name', async (req, res)=> {
             }
         }
         console.log(index)
-        loc.disponibility.splice(index, 1);
+        if (index != -1){
+            loc.disponibility.splice(index, 1);
+        }
         console.log(loc.disponibility)
     }
     

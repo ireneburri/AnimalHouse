@@ -20,12 +20,15 @@ const upload = multer({storage: storage})
 
 //UPLOAD DI UN IMMAGINE
 router.post('/', upload.single("file"), async (req, res)=> {
+    console.log(req.file);
     try{
+        console.log("try");
         //res.status(200).json(req.file)
-        console.log(req.file);
         res.json({ message: "Successfully uploaded files" });
+        console.log("Successfully uploaded files" );
     } catch(err) {
         res.status(400).json({message: err.message})
+        console.log(err.message );
     }
 })
 
