@@ -5,10 +5,10 @@ var orderList = []
 $( document ).ready( verifyToken() );
 
 function verifyToken(){
-    if (localStorage.tokenBB==undefined){
+    if (localStorage.tokenB==undefined){
         $(location).attr('href','./login.html');
     } else {
-        console.log("SI "+localStorage.tokenBB)
+        console.log("SI "+localStorage.tokenB)
         console.log(localStorage.usernameB)
 
         getAllOrder()
