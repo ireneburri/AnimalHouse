@@ -1,19 +1,19 @@
 <template>
   <div class="aContainer row" style="margin:auto auto">
-  <img v-bind:src="animal.img" class="col-xl-6" alt="{{animal.name}}">
+  <img v-bind:src="animal.img" class="col-lg-6" alt="{{animal.name}}">
 
   <div class="dataContainer col-xl-4">
-    <div>name: {{animal.name}}</div>
-    <div>type: {{animal.type}}</div>
-    <div>active time: {{animal.active_time}}</div>
-    <div>minimum length: {{animal.length_min}}</div>
-    <div>maximum length: {{animal.length_max}}</div>
-    <div>minimum weight: {{animal.weight_min}}</div>
-    <div>maximum weight: {{animal.weight_max}}</div>
-    <div>lifespan: {{animal.lifespan}}</div>
-    <div>habitat: {{animal.habitat}}</div>
-    <div>diet: {{animal.diet}}</div>
-    <div>curiosity: {{animal.curiosity}}</div>
+    <div><b>name:</b> {{animal.name}}</div>
+    <div><b>type:</b> {{animal.type}}</div>
+    <div><b>active time: {{animal.active_time}}</b></div>
+    <div><b>minimum length:</b> {{animal.length_min}}</div>
+    <div><b>maximum length:</b> {{animal.length_max}}</div>
+    <div><b>minimum weight:</b> {{animal.weight_min}}</div>
+    <div><b>maximum weight:</b> {{animal.weight_max}}</div>
+    <div><b>lifespan:</b> {{animal.lifespan}}</div>
+    <div><b>habitat:</b> {{animal.habitat}}</div>
+    <div><b>diet:</b> {{animal.diet}}</div>
+    <div><b>curiosity:</b> {{animal.curiosity}}</div>
   </div>
   </div>
 </template>

@@ -82,7 +82,6 @@
                  :key="pet._id"
                  :id="pet._id"
                  :name="pet.name"
-                 :img="pet.img"
                  :age="pet.age"
                  :sex="pet.sex"
                  :species="pet.species"
@@ -101,7 +100,6 @@
                   :key="item._id"
                   :id="item._id"
                   :name="item.name"
-                  :img="item.img"
                   :size="item.size"
                   :price="item.price"
                   class="col-lg-4"
@@ -111,8 +109,8 @@
           <div class="row serviceContainer">
             <Location v-for="service in services"
                       :key="service.name"
+                      :id="service._id"
                       :name="service.name"
-                      :img="service.img"
                       :category="service.category"
                       :price="service.price"
                       :mode="service.mode"
@@ -127,7 +125,7 @@
         <div class="oakLine">{{oakLine}}</div>
         <div class="buttonsContainer container" v-if="!isVisible">
           <button @click="goBack" class="btn btn-primary" style=" background-color:var(--dark-alt); border-color: var(--light);">go back</button>
-          <button @click="animalLink" class="btn btn-primary" style=" background-color:var(--dark-alt); border-color: var(--light);">Animal House</button>
+          <a href="https://site212224.tw.cs.unibo.it/front/home" class="btn btn-primary" style=" background-color:var(--dark-alt); border-color: var(--light);">Animal House</a>
         </div>
 
       </div>
@@ -190,7 +188,7 @@ export default {
             .then((response)=>{
               return response.data
             })
-        //console.log(this.pets)
+        console.log(this.pets)
         //transform a possible breed in a species
         if(this.pets.length>0){
           this.species=this.pets[0].species
@@ -290,6 +288,7 @@ main{
   flex-direction: column;
   font-size: 1rem;
   color:var(--dark);
+  padding:0 6rem
 }
 form{
   text-align: left;

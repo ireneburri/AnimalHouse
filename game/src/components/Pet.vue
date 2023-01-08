@@ -17,12 +17,11 @@ export default {
   props:{
     id: String,
     name: String,
-    img:String,
     age:Number,
     sex:String,
     species:String,
     breed:String,
-    price:Number,
+    price:String,
   },
   computed:{
     returnBreed(){
@@ -34,6 +33,9 @@ export default {
     link(){
       const link = `https://site212224.tw.cs.unibo.it/front/animal:${this.id}`
       return link
+    },
+    img(){
+      return `${this.id}.png`
     }
   }
 }

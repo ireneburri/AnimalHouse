@@ -26,6 +26,7 @@
         <div class="form-group">
           <label>Password</label>
           <input type="password" class="form-control" v-model="password" placeholder="Password"/>
+          <p v-if="error.length>0" style="color:red">{{error}}</p>
         </div>
 
         <div class="form-group">
@@ -49,22 +50,28 @@ export default {
       email:'',
       password:'',
       password_confirm:'',
-      username:''
+      username:'',
+      error:''
     }
   },
   methods:{
     async handleSubmit(){
-      const response = await axios.post('https://site212224.tw.cs.unibo.it/user', {
-        first_name: this.first_name,
-        last_name: this.last_name,
-        username: this.username,
-        email: this.email,
-        password: this.password,
-        password_confirm: this.password_confirm
-      })
-      console.log(response)
-      this.$router.push('/login')
-    }
+      if(this.password.length<8){
+        this.error='password must be at least 8 characters long'
+      }else{
+        const response = await axios.post('https://site212224.tw.cs.unibo.it/user', {
+          name: this.first_name,
+          surname: this.last_name,
+          username: this.username,
+          email: this.email,
+          password: this.password,
+          password_confirm: this.password_confirm
+        })
+        console.log(response)
+        this.$router.push('/login')
+      }
+      }
+
   }
 
 

@@ -75,6 +75,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+main{
+  width: 80%;
+  margin-left:auto;
+  margin-right:auto;
+}
 .comicCloud{
   background-color: white;
   border:1rem solid var(--dark-alt);
@@ -101,6 +106,11 @@ export default {
   }
 }
 @media (max-width: 1160px) {
+  main{
+    width: 100%;
+    margin-left:0;
+    margin-right:0
+  }
   .comicCloud{
     padding:3rem;
     p{

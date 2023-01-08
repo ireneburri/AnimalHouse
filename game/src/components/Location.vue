@@ -15,7 +15,7 @@ export default {
   name: "vueLocation",
   props:{
     name:String,
-    img:String,
+    id:String,
     category:String,
     time:String,
     price:Number,
@@ -25,7 +25,9 @@ export default {
     link(){
       const link =`https://site212224.tw.cs.unibo.it/front/singleservice:${this.name}`
       return link
-
+    },
+    img(){
+      return `${this.id}.png`
     }
   }
 }

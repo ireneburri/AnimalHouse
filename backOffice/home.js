@@ -93,7 +93,7 @@ function showStaff(staff){
 
                                     <div class="mb-2">
                                         <label for="modImg-${staff._id}" class="form-label">Select new immagine</label>
-                                        <input class="form-control" type="file" id="modImg-${staff._id}" placeholder="${staff.img}">
+                                        <input class="form-control" type="file" accept=".png" id="modImg-${staff._id}" placeholder="${staff.img}">
                                     </div>     
                                 </form>
 

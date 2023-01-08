@@ -15,7 +15,6 @@ export default {
   props:{
     id: String,
     name:String,
-    img:String,
     size:String,
     price:Number
   },
@@ -23,6 +22,9 @@ export default {
     link(){
       const link= `https://site212224.tw.cs.unibo.it/front/singleproduct:${this.id}`
       return link
+    },
+    img(){
+      return `${this.id}.png`
     }
   }
 }

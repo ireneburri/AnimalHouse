@@ -27,7 +27,7 @@
         <span class="text">Curiosity</span>
       </router-link>
 
-      <router-link class="button" to="/quiz">
+      <router-link class="button" to="/animalQuiz">
         <span class="material-icons">pets</span>
         <span class="text">Quiz</span>
       </router-link>
