@@ -29,8 +29,8 @@ class ProductAnimalCard extends Component {
 
         let img;
         var url = this.props.id + ".png"
-        console.log(url)
-        img = <img src={url} alt="product photo" />
+        img = <img src={url} alt="product photo" style={{height: '10em', width: 'auto', paddingTop: '2em'}}/>
+
 
         return (
             <div className="col-12 col-md-6 col-lg-3" >

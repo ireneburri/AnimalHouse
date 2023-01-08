@@ -11,7 +11,6 @@ function OrderCard(props) {
                         <ul>
                             {props.products.map(prod => (
                                 <li key={prod}> {JSON.parse(prod).name} - {JSON.parse(prod).quantity} </li>
-                                // console.log(JSON.parse(prod))
                             ))}
                         </ul>
                         <hr />

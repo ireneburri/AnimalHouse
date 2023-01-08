@@ -10,6 +10,8 @@ import Footer from '../components/Footer/footer';
 import { ButtonGroup } from 'react-bootstrap';
 import SimilarProducts from '../components/Similar/similarProducts';
 // import {CartContext} from '../UserContext';
+import ball from '../img/63ba10688a941ae73743cf22.png'
+
 
 
 const Container = styled.div`
@@ -104,13 +106,12 @@ const Vip = styled.span`
 function SingleProduct() {
     const data = useParams();
     const id = data.id.substring(1)
-    console.log(id)
     const { items } = useFetch(`https://site212224.tw.cs.unibo.it/item/${id}`);
 
     let img;
     var url = id + ".png"
-    console.log(url)
-    img = <img src={url} alt="product photo"/>
+    img = <img src={url} alt="product photo" style={{height: '22em', width: 'auto', paddingTop: '2em'}}/>
+
 
     let disponibility;
     if (items.quantity > 0) {
@@ -145,7 +146,6 @@ function SingleProduct() {
             currentCart.push({ items: items, quantity: document.getElementById("quant").value });
 
             window.localStorage.setItem('cart', JSON.stringify(currentCart));
-            console.log(currentCart)
         }
 
     }

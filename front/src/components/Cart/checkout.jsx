@@ -43,8 +43,7 @@ function Checkout(props) {
     const id = props.id
     let img;
     var url = id + ".png"
-    console.log(url)
-    img = <img src={url} alt="product photo"/>
+    img = <img src={url} alt="product photo" style={{height: '10em', width: 'auto'}}/>
 
     function removeItem() {
         const getCurrentCart = window.localStorage.getItem('cart');
@@ -59,7 +58,6 @@ function Checkout(props) {
         const currentCart = JSON.parse(getCurrentCart);
 
         currentCart.find((item) => item.items._id === props.id).quantity = document.getElementById(id).value;
-        console.log(currentCart);
         window.localStorage.setItem('cart', JSON.stringify(currentCart));
     }
 

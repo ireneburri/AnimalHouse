@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useFetch, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import AnimalCard from '../Card/animalCard';
 import AnimalModal from '../Modal/animalModal';
 import ProfileModal from '../Modal/profileModal';
-import profileimg from '/Users/beatricezamagna/Desktop/Animal/front/src/img/profile.jpg'
 import OrderCard from '../Card/orderCard';
 import Brunella from '../../img/Brunella.webp'
 import Celeste from '../../img/Celeste.png'
 import ReservationCard from '../Card/reservationCard';
 import BarChart from '../BarChart/BarChart'
-// import Classifica from '../classifica/classifica';
+import axios from 'axios';
+
 
 const Body = styled.div`
     width: 100%;
@@ -22,7 +22,7 @@ const Body = styled.div`
     `
 
 const Container = styled.div`
-    width: 80%;
+    width: 90%;
     background: #ffffff;
     border-radius: 20px;
     margin: none;
@@ -68,6 +68,26 @@ const ProfileContainer = styled.div`
 `
 
 const ProfileButton = styled.button`
+    display: inline-block;
+    padding-left: 1em;
+    padding-right: 1em;
+    border: 0;
+    text-decoration: none;
+    border-radius: 15px;
+    background-color: rgba(97, 196, 229, 0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(30px);
+    color: black;
+    font-size: 14px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+    &:hover{
+        background-color: rgba(97, 196, 229, 0.6);
+    }
+`
+
+const GameButton = styled.a`
     display: inline-block;
     padding-left: 1em;
     padding-right: 1em;
@@ -140,73 +160,30 @@ function Profile() {
     const user = localStorage.getItem("username");
     const userid = localStorage.getItem('userid');
     const [vip, setVip] = useState('');
+
     const [animal, setAnimals] = useState([]);
     const [order, setOrder] = useState([]);
     const [reservation, setReservation] = useState([]);
+
+    const [first, setFirst] = useState(null)
+    const [second, setSecond] = useState(null)
+    const [third, setThird] = useState(null)
+    const [firstscore, setFirstScore] = useState(null)
+    const [secondscore, setSecondScore] = useState(null)
+    const [thirdscore, setThirdScore] = useState(null)
+
     const [show, setShow] = useState(false);
     const [secondShow, setSecondShow] = useState(false);
 
     let imgprofile;
     var url = userid + ".png"
-    console.log(url)
-    imgprofile = <img src={url} alt="in" />
-
-    // const Data = [
-    //     {
-    //         id: 1,
-    //         year: 2016,
-    //         userGain: 80000,
-    //         userLost: 823
-    //     },
-    //     {
-    //         id: 2,
-    //         year: 2017,
-    //         userGain: 45677,
-    //         userLost: 345
-    //     },
-    //     {
-    //         id: 3,
-    //         year: 2018,
-    //         userGain: 78888,
-    //         userLost: 555
-    //     },
-    //     {
-    //         id: 4,
-    //         year: 2019,
-    //         userGain: 90000,
-    //         userLost: 4555
-    //     },
-    //     {
-    //         id: 5,
-    //         year: 2020,
-    //         userGain: 4300,
-    //         userLost: 234
-    //     }
-    // ];
-
-    // const [chartData, setChartData] = useState({
-    //     labels: Data.map((data) => data.year),
-    //     datasets: [
-    //         {
-    //             label: "Users Gained ",
-    //             data: Data.map((data) => data.userGain),
-    //             backgroundColor: [
-    //                 "rgba(75,192,192,1)",
-    //                 "#ecf0f1",
-    //                 "#50AF95",
-    //                 "#f3ba2f",
-    //                 "#2a71d0"
-    //             ],
-    //             borderColor: "black",
-    //             borderWidth: 2
-    //         }
-    //     ]
-    // });
+    imgprofile = <img src={url} alt="product photo" style={{ height: '10em', width: 'auto', paddingTop: '2em' }} />
 
     useEffect(() => {
         fetchProfile();
         fetchAnimal();
         fetchOrder();
+        fetchPodium();
         fetchReservation();
     }, []);
 
@@ -231,6 +208,18 @@ function Profile() {
         setOrder(filtered);
     }
 
+    const fetchPodium = async () => {
+        const data = await fetch("https://site212224.tw.cs.unibo.it/user/topTen");
+        const items = await data.json();
+
+        setFirst(items[0].username)
+        setSecond(items[1].username)
+        setThird(items[2].username)
+        setFirstScore(items[0].score)
+        setSecondScore(items[1].score)
+        setThirdScore(items[2].score)
+    }
+
     const fetchReservation = async () => {
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
@@ -238,13 +227,11 @@ function Profile() {
         var yyyy = today.getFullYear();
 
         var todayFormat = yyyy + '-' + mm + '-' + dd;
-        console.log(todayFormat)
 
         const data = await fetch("https://site212224.tw.cs.unibo.it/Reservation");
         const items = await data.json();
         const filtered = items.filter((item) => item.username === user && todayFormat <= item.date_end.substring(0, 10))
         setReservation(filtered);
-        console.log(filtered)
     }
 
     return (
@@ -301,10 +288,10 @@ function Profile() {
                         </div>
                     </div>
 
-                    <div className="col-md-4 center">
-                        <div className="d-flex flex-column align-items-center py-4">
+                    <div className="col-md-5 center">
+                        <div className="d-flex flex-column align-items-center py-4" >
                             MY ANIMALS
-                            <div style={{ height: '17em', overflowY: 'scroll' }}>
+                            <div style={{ height: '24em', overflowY: 'scroll' }}>
                                 <div className="row">
                                     {animal.map(animal => (
                                         <AnimalCard
@@ -326,8 +313,8 @@ function Profile() {
                         </div>
                     </div>
 
-                    <div className="col-md-5 border-left">
-                        <div className="d-flex flex-column align-items-center py-4">
+                    <div className="col-md-4 border-left py-4">
+                        <div className="d-flex flex-column align-items-center">
                             MY ORDERS
                             <div style={{ height: '17em', overflowY: 'scroll' }}>
                                 <div className="row">
@@ -357,7 +344,6 @@ function Profile() {
                         <div style={{ overflowY: 'scroll', width: "90%", height: '17em' }}>
                             <div className="row">
                                 {reservation.map(reser => (
-                                    // console.log(new Date(reser.date_start).getHours())
                                     <ReservationCard
                                         key={reser._id}
                                         id={reser._id}
@@ -382,10 +368,20 @@ function Profile() {
                 <div className="row align-items-center center">
                     <div className="col-md-7 col-lg-8 align-items-center center d-flex flex-column">
                         GAME CHART
-                        {/* <BarChart chartData={chartData} /> */}
+                        <BarChart
+                            first={first}
+                            second={second}
+                            third={third}
+                            firstscore={firstscore}
+                            secondscore={secondscore}
+                            thirdscore={thirdscore}
+                        />
                     </div>
                     <div className="col-md-5 col-lg-4 align-items-center center d-flex flex-column">
                         <CelesteImg src={Celeste} alt="Celeste from Animal Crolssing" style={{ height: '15em', width: 'auto', paddingRight: '2em' }} />
+                        <GameButton href="/">
+                            VAI AL GIOCO
+                        </GameButton>
                     </div>
                 </div>
             </GameContainer>
