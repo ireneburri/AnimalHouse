@@ -29,6 +29,9 @@ router.get('/species/:species/size/:size', async(req, res)=> {
     var items
     if(species!=='all'){
         items= await Item.find({$and: [{species: species}, {quantity: {$gt: 0}}, {$or: [{size: size}, {size:'All'}]}]}).limit(3)
+        if(items.length===0){
+            items= await Item.find({$and: [{species: species}, {quantity: {$gt: 0}}]}).limit(3)
+        }
     }
     else{
         items= await Item.find({quantity: {$gt: 0}}).limit(3)
