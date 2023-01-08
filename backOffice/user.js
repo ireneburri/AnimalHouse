@@ -656,8 +656,8 @@ function changeClientAnimal(id){
 
     if ($("#modName-"+id).val()!="") {data.name = $("#modName-"+id).val()}
     if ($("#modAge-"+id).val()!="") {data.age = $("#modAge-"+id).val()}
-    if ($("#modSpecies-"+id).val()!="") {data.species = $("#modSpecies-"+id).val()}
-    if ($("#modBreed-"+id).val()!="") {data.breed = $("#modBreed-"+id).val()}
+    if ($("#modSpecies-"+id).val()!="") {data.species = $("#modSpecies-"+id).val().toLowerCase()}
+    if ($("#modBreed-"+id).val()!="") {data.breed = $("#modBreed-"+id).val().toLowerCase()}
     if ($("#modSex-"+id).val()!="") {data.sex = $("#modSex-"+id).val()}
     if ($("#modDescription-"+id).val()!="") {data.description = $("#modDescription-"+id).val()}
     if ($("#modImg-"+id).val()!="") {
