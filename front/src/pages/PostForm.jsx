@@ -23,6 +23,14 @@ function PostForm() {
     const category = paramPage.category;
     const navigate = useNavigate();
 
+    function controlFile() {
+        console.log('eccoci')
+        if (document.getElementById("inputImg").files[0].size > 100000) {
+            alert("File is too big!");
+            document.getElementById("inputImg").value = "";
+        };
+    };
+
     async function uploadImg(img, id) {
         if (img != undefined) {
             var blob = img.slice(0, img.size, 'image/*');
@@ -95,7 +103,7 @@ function PostForm() {
                     </div>
                     <div>
                         <label className="form-label" htmlFor="customFile">Picture</label>
-                        <input id="inputImg" type="file" className="form-control" name="file" onChange={(e) => handle(e)} />
+                        <input id="inputImg" type="file" className="form-control" name="file" onChange={(e) => { handle(e); controlFile() }} />
                     </div>
                     <hr />
                     <button type="submit" className="btn btn-primary" onClick={(e) => submit(e)}>Submit</button>
