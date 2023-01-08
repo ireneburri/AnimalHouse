@@ -127,7 +127,7 @@ function showPassword(pass){
     }
 }
 
-function modifyStaff(id){
+async function modifyStaff(id){
     let data = {}
 
     if ($("#modPass-"+id).val()!="") {data.password = $("#modPass-"+id).val()}
@@ -137,8 +137,8 @@ function modifyStaff(id){
         data.img = imm.name;
 
         //DA RIVEDERE
-        //deleteImg(id + ".png");
-        uploadImg(imm, id)
+        await deleteImg(id + ".png");
+        await uploadImg(imm, id)
 
     }
 

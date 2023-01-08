@@ -152,7 +152,7 @@ function showLocation(location){
 
                             <div class="mb-2">
                                 <label for="modStaff-${location._id}" style="color:gray;" class="col-sm-2 form-label">Staff</label>
-                                <textarea class="form-control" id="modStaff-${location._id}" rows="1" aria-label="Staff of the store" disabled>${location.staff}</textarea>
+                                <textarea class="form-control" id="modStaff-${location._id}" rows="1" aria-label="Staff of the store" placeholdeer="${location.staff}" disabled></textarea>
                             </div>  
 
                             <div class="mb-3">
