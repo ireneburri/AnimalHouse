@@ -28,7 +28,7 @@ const router= createRouter({
             component: About
         },
         {
-            path:'/quiz',
+            path:'/animalQuiz',
             name: 'Quiz',
             component: Quiz
         },

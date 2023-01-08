@@ -19,6 +19,7 @@ export default {
     handleYes(){
       localStorage.removeItem('token')
       localStorage.removeItem('username')
+      localStorage.removeItem('userid')
       console.log(localStorage.getItem('token'))
       this.$store.dispatch('user', null)
       this.$router.push('/')
