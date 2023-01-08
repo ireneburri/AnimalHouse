@@ -38,8 +38,8 @@ function login(){
             console.log("yay");
             console.log(result); //token
 
-            localStorage.token = result.authority;
-            localStorage.username = data.username;
+            localStorage.tokenB = result.authority;
+            localStorage.usernameB = data.username;
 
             $(location).attr('href','./home.html');
         },
