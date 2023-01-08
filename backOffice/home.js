@@ -82,6 +82,10 @@ function showStaff(staff){
                             <!-- Body -->
                             
                             <div class="modal-body">
+                                <div class="callout" id="callout" style="display: none;">
+                                    <div class="callout-header"></div>
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
+                                </div>
                                 <form id="FormModify-${staff._id}">
 
                                     <div class="row mb-2">
@@ -133,6 +137,14 @@ async function modifyStaff(id){
     if ($("#modPass-"+id).val()!="") {data.password = $("#modPass-"+id).val()}
     if ($("#modImg-"+id).val()!="") {
         let imm = document.getElementById("modImg-"+id).files.item(0);
+
+        console.log(imm.size);
+        if(imm.size > 100000){
+            $('#callout').attr('style', 'display: block')
+            $('.callout-header').text('The input file must be smaller tan 100 KB')
+            return false;
+        };
+
         console.log(imm)
         data.img = imm.name;
 
