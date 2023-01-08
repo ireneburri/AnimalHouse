@@ -449,7 +449,7 @@ async function modifyClient(id){
         console.log(imm)
         if(imm.size > 100000){
             $('#callout-'+id).attr('style', 'display: block')
-            $('#callout-header').text('The input file must be smaller than 100 KB')
+            $('.callout-header').text('The input file must be smaller than 100 KB')
             return false;
         };
         data.img = imm.name;
