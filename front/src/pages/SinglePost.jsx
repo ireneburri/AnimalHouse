@@ -95,6 +95,7 @@ function SinglePost() {
                                         key={comment._id}
                                         id={comment._id}
                                         author={comment.author}
+                                        title={comment.title}
                                         text={comment.text}
                                         date={comment.data}
                                         comment={comment.comment}
