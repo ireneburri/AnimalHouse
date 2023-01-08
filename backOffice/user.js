@@ -697,12 +697,10 @@ function addClientAnimal(id){
     if ($("#inputImg-"+id).val() != "" ) {
         const fileInput = document.getElementById('inputImg-'+id).files.item(0);
         console.log(fileInput)
+        data.img = fileInput.name
     }
 
     data.name = $("#inputName-"+id).val()
-    if ($("#inputImg").val() != "") {
-        data.img = fileInput.name
-    }
     data.sex = $("#inputSex-"+id).val()
     data.species = $("#inputSpecies-"+id).val().toLowerCase()
     data.breed = $("#inputBreed-"+id).val().toLowerCase()
