@@ -141,7 +141,7 @@ async function modifyStaff(id){
         console.log(imm.size);
         if(imm.size > 100000){
             $('#callout').attr('style', 'display: block')
-            $('.callout-header').text('The input file must be smaller tan 100 KB')
+            $('.callout-header').text('The input file must be smaller than 100 KB')
             return false;
         };
 

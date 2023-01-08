@@ -156,6 +156,10 @@ function showClient(client){
 
                                     <!-- Body -->
                                     <div class="modal-body">
+                                    <div class="callout" id="callout-${client._id}" style="display: none;">
+                                        <div class="callout-header"></div>
+                                        <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
+                                    </div>
                                     <form id="FormModify-${client._id}">
                                         <div class="row mb-2">
                                             <label class="col-sm-2 col-form-label" for=""modName-${client._id}">Name</label>
@@ -242,9 +246,9 @@ function showClient(client){
 
                                     <!-- Body -->
                                     <div class="modal-body">
-                                    <div class="callout" id="calloutmod" style="display: none;">
-                                    <div class="callout-header"></div>
-                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
+                                    <div class="callout" id="calloutmod-${client._id}" style="display: none;">
+                                        <div class="callout-header"></div>
+                                        <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
                                     </div>
                                     <form id="FormModifyAnimal-${client._id}">
                                         <div class="row mb-2">
@@ -343,6 +347,11 @@ function showPassword(id, pass){
 function createClient(){
     let data = {}
     const fileInput = document.querySelector('input[type="file"]');
+    if(fileInput.files.item(0).size > 100000){
+        $('#callout').attr('style', 'display: block')
+        $('.callout-header').text('The input file must be smaller than 100 KB')
+        return false;
+    };
 
     data.name = $("#inputName").val()
     data.surname = $("#inputSurname").val()
@@ -438,6 +447,11 @@ async function modifyClient(id){
     if ($("#modImg-"+id).val()!="") {
         let imm = document.getElementById("modImg-"+id).files.item(0);
         console.log(imm)
+        if(imm.size > 100000){
+            $('#callout-'+id).attr('style', 'display: block')
+            $('#callout-header').text('The input file must be smaller than 100 KB')
+            return false;
+        };
         data.img = imm.name;
 
         console.log("mod")
@@ -568,6 +582,10 @@ function openAnimal(id){
 
                                     <!-- Body -->
                                     <div class="modal-body">
+                                    <div class="callout" id="callout-${animal._id}" style="display: none;">
+                                        <div class="callout-header"></div>
+                                        <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
+                                    </div>
                                     <form id="FormModifyAnimal-${animal._id}">
                                         <div class="row mb-2">
                                             <label class="col-sm-2 col-form-label">Name*</label>
@@ -662,6 +680,11 @@ function changeClientAnimal(id){
     if ($("#modDescription-"+id).val()!="") {data.description = $("#modDescription-"+id).val()}
     if ($("#modImg-"+id).val()!="") {
         let imm = document.getElementById("modImg-"+id).files.item(0);
+        if(imm.size > 100000){
+            $('#callout-'+id).attr('style', 'display: block')
+            $('.callout-header').text('The input file must be smaller than 100 KB')
+            return false;
+        };
         console.log(imm)
         data.img = imm.name;
 
@@ -697,6 +720,11 @@ function addClientAnimal(id){
     let fileInput = 0
     if ($("#inputImg-"+id).val() != "" ) {
         fileInput = document.getElementById('inputImg-'+id).files.item(0);
+        if(fileInput.size > 100000){
+            $('#calloutmod-'+id).attr('style', 'display: block')
+            $('.calloutmod-header').text('The input file must be smaller than 100 KB')
+            return false;
+        };
         console.log(fileInput)
         data.img = fileInput.name
     }

@@ -126,6 +126,10 @@ function showAnimal(animal){
                                         <!-- Body -->
                                         
                                         <div class="modal-body">
+                                        <div class="callout" id="callout-${animal._id}" style="display: none;">
+                                            <div class="callout-header"></div>
+                                            <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
+                                        </div>
                                             <form id="FormModify-${animal._id}">
 
                                                 <div class="row mb-2">
@@ -214,6 +218,11 @@ function createAnimal(){
     let data = {}
 
     const fileInput = document.querySelector('input[type="file"]');
+    if(fileInput.files.item(0).size > 100000){
+        $('#callout').attr('style', 'display: block')
+        $('.callout-header').text('The input file must be smaller than 100 KB')
+        return false;
+    };
 
     data.sale = true
     data.name = $("#inputName").val()
@@ -282,6 +291,12 @@ function modifyAnimal(id){
 
         let imm = document.getElementById("modImg-"+id).files.item(0);
         console.log(imm)
+        if(imm.size > 100000){
+            $('#callout').attr('style', 'display: block')
+            $('.callout-header').text('The input file must be smaller than 100 KB')
+            return false;
+        };
+        
         data.img = imm.name;
 
         console.log("mod")

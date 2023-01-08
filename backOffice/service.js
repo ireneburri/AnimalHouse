@@ -202,7 +202,7 @@ function showService(service){
                                         
                                         <div class="modal-body">
                                         
-                                        <div class="callout" id="callout" style="display: none;">
+                                        <div class="callout" id="callout-${service._id}" style="display: none;">
                                             <div class="callout-header"></div>
                                             <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
                                         </div>
@@ -329,6 +329,11 @@ async function createService(){
     let data = {}
 
     const fileInput = document.querySelector('input[type="file"]');
+    if(fileInput.files.item(0).size > 100000){
+        $('#callout').attr('style', 'display: block')
+        $('.callout-header').text('The input file must be smaller than 100 KB')
+        return false;
+    };
 
     data.mode = $("#inputMode").val()
     data.name = $("#inputName").val()
@@ -440,6 +445,11 @@ async function modifyService(id){
     if ($("#modPrice-"+id).val()!="") {data.price = $("#modPrice-"+id).val()}
     if ($("#modImg-"+id).val()!="") {
         let imm = document.getElementById("modImg-"+id).files.item(0);
+        if(imm.size > 100000){
+            $('#callout-'+id).attr('style', 'display: block')
+            $('.callout-header').text('The input file must be smaller than 100 KB')
+            return false;
+        };
         data.img = imm.name;
         uploadImg(imm, id)
 
@@ -450,8 +460,8 @@ async function modifyService(id){
         data.allday = false;
         data.time = $("#modTime-"+id).val()
     }else if ($("#modAllday-"+id).val()=="true"){
-            data.allday = true;
-            data.time = ""
+        data.allday = true;
+        data.time = ""
     }
 
     if ($("#modVip-"+id).val()=="VIP") {data.vip = true} else {data.vip = false}

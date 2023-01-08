@@ -123,6 +123,10 @@ function showLocation(location){
                         <!-- Body -->
                         
                         <div class="modal-body">
+                        <div class="callout" id="callout-${location._id}" style="display: none;">
+                            <div class="callout-header"></div>
+                            <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
+                        </div>
                         <form id="FormModifySe-${location._id}">
 
                             <div class="row mb-2">                                               
@@ -335,6 +339,11 @@ async function modifyLocation(id){
 
         let imm = document.getElementById("modImg-"+id).files.item(0);
         console.log(imm)
+        if(imm.size > 100000){
+            $('#callout-'+id).attr('style', 'display: block')
+            $('.callout-header').text('The input file must be smaller than 100 KB')
+            return false;
+        };
         data.img = imm.name;
 
         console.log("mod")

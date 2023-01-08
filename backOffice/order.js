@@ -101,7 +101,7 @@ function showProducts(id, product){
         <hr>
         <div class="row">
             <div class="col-xl-10">
-                <p>${product.name}</p>
+                <p>${product.name} x ${product.quantity}</p>
             </div>
             <div class="col-xl-2">
                 <p class="float-end">&euro;${product.singleprice}</p>
