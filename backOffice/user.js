@@ -694,7 +694,7 @@ function changeClientAnimal(id){
 function addClientAnimal(id){
     console.log(id)
     let data = {}
-    if ($("#inputImg-"+id) != undefined ) {
+    if ($("#inputImg-"+id).val() != "" ) {
         const fileInput = document.getElementById('inputImg-'+id).files.item(0);
         console.log(fileInput)
     }
