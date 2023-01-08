@@ -239,7 +239,7 @@ export default function SummaryPage() {
                                     </div>
 
                                     <div className="d-flex justify-content-between">
-                                        <MyButton href="/thanks">Checkout</MyButton>
+                                        <MyButton href="/front/thanks">Checkout</MyButton>
                                     </div>
                                 </MDBCol>
                             </MDBRow>

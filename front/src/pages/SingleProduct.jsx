@@ -107,16 +107,21 @@ function SingleProduct() {
     console.log(id)
     const { items } = useFetch(`https://site212224.tw.cs.unibo.it/item/${id}`);
 
+    let img;
+    var url = id + ".png"
+    console.log(url)
+    img = <img src={url} alt="product photo"/>
+
     let disponibility;
     if (items.quantity > 0) {
-        disponibility = 
-        <AmountContainer>
-            <Amount type="number" id="quant" name="quant" min="1" max={items.quantity} defaultValue="1" />
-            <Button onClick={(e) => addToCart(e)}>
-                Add to cart
-            </Button>
-            <div style={{ marginTop: "10px" }}> Current availability: {items.quantity} units </div>
-        </AmountContainer>;
+        disponibility =
+            <AmountContainer>
+                <Amount type="number" id="quant" name="quant" min="1" max={items.quantity} defaultValue="1" />
+                <Button onClick={(e) => addToCart(e)}>
+                    Add to cart
+                </Button>
+                <div style={{ marginTop: "10px" }}> Current availability: {items.quantity} units </div>
+            </AmountContainer>;
     } else {
         disponibility = <AmountContainer> THIS ITEM IS NOT AVAILABLE AT THE MOMENT. </AmountContainer>;
     }
@@ -151,11 +156,11 @@ function SingleProduct() {
             <Announcement />
             <Wrapper className='container'>
                 <ImgContainer>
-                    <Image src={immagine} />
+                    {img}
                 </ImgContainer>
                 <InfoContainer>
                     <Category> {items.category} </Category>
-                    <Title style={{ marginTop: '20px', marginBottom: '0px' }}> {items.name} {items.vip?<Vip>VIP</Vip>:null}</Title>
+                    <Title style={{ marginTop: '20px', marginBottom: '0px' }}> {items.name} {items.vip ? <Vip>VIP</Vip> : null}</Title>
                     <Brand style={{ marginTop: '0px' }}> {items.brand} </Brand>
                     <Desc> Product description: {items.description} </Desc>
                     <Price> Price: €{items.price} </Price>
@@ -167,9 +172,9 @@ function SingleProduct() {
                 </InfoContainer>
 
             </Wrapper>
-            
-            <SimilarProducts category={items.category} id={id}/>
-            
+
+            <SimilarProducts category={items.category} id={id} />
+
             <Footer />
 
         </Container>

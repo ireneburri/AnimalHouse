@@ -117,7 +117,7 @@ function ProfileModal(props) {
             if (info.username !== "" && info.username !== null && info.username !== undefined){
                 localStorage.setItem("username", info.username)
             }
-            window.location.reload(false);
+            // window.location.reload(false);
         }
         )
     }

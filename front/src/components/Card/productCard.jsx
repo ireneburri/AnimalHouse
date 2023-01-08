@@ -25,17 +25,23 @@ const Vip = styled.span`
 `
 
 class ProductCard extends Component {
-    
     render() {
+
+        let img;
+
+        var url = this.props.id + ".png"
+        console.log(url)
+        img = <img src={url} alt="product photo" />
+
         return (
             <div className="col-12 col-md-6 col-lg-3" >
                 <MyCard className="card" style={{ textAlign: 'center' }}>
                     <a className="itemLink" href={'/front/singleproduct:' + this.props.id}>
-                        <img src={dog} className="card-img-top" alt="..." />
+                        {img}
                         <div className="card-body" >
                             <hr />
                             <h5 className="card-title" > {this.props.nome} </h5>
-                            <div className="card-text" > €{this.props.prezzo} {this.props.vip?<Vip>VIP</Vip>:null} </div>
+                            <div className="card-text" > €{this.props.prezzo} {this.props.vip ? <Vip>VIP</Vip> : null} </div>
                         </div>
                     </a>
                 </MyCard>

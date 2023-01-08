@@ -16,7 +16,6 @@ function Thanks() {
     var vipItem = false
 
     var userid = window.localStorage.getItem('userid')
-    var id  = userid.substring(1, userid.length-1)
 
     useEffect(() => {
         if (!currentCart) {
@@ -44,13 +43,10 @@ function Thanks() {
             })
 
             if (vipItem) { //imposta l'utente a vip se ha acquistato qualcosa di vip
-                fetch("https://site212224.tw.cs.unibo.it/user/id/" + id, { //per farlo funzionare va cambiata la patch
-                    method: "PATCH",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ vip: "true" }),
+                axios.patch("https://site212224.tw.cs.unibo.it/user/id/" + userid, {
+                    vip: "true",
                 }).then((res) => {
+                    console.log(res)
                 })
             }
 

@@ -116,6 +116,11 @@ function SingleAnimal() {
         location: ""
     })
 
+    let img;
+    var url = id + ".png"
+    console.log(url)
+    img = <img src={url} alt="product photo"/>
+
     function handleLoc(e) {
         const newloc = { ...loc }
         newloc.location = e.target.value
@@ -170,7 +175,7 @@ function SingleAnimal() {
             <Announcement />
             <Wrapper className='container'>
                 <ImgContainer>
-                    <Image src={immagine} />
+                    {img}
                 </ImgContainer>
                 <InfoContainer>
                     <Category> {items.species} - {items.breed} </Category>

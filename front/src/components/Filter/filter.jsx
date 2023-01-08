@@ -49,10 +49,12 @@ function Filter({setActiveCat, activeCat, setFiltered, items}){
     return(
         <FilterContainer>
             <Button onClick={() => setActiveCat('All')}> ALL </Button>
-            <Button onClick={() => setActiveCat('Case e Cucce')}> CASE E CUCCE </Button>
-            <Button onClick={() => setActiveCat('Giochi')}> GIOCHI </Button>
-            <Button onClick={() => setActiveCat('Accessori')}> ACCESSORIES </Button>
-            <Button onClick={() => setActiveCat('Cubs')}> CUBS </Button>
+            <Button onClick={() => setActiveCat('Food')}> FOOD </Button>
+            <Button onClick={() => setActiveCat('Health Products')}> HEALTH PRODUCTS </Button>
+            <Button onClick={() => setActiveCat('Toys')}> TOYS </Button>
+            <Button onClick={() => setActiveCat('Accessories')}> ACCESSORIES </Button>
+            <Button onClick={() => setActiveCat('Houses And Kennels')}> HOUSES AND KENNELS </Button>
+            <Button onClick={() => setActiveCat('For Puppies')}> FOR PUPPIES </Button>
         </FilterContainer>
     )
 }

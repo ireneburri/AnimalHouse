@@ -76,7 +76,6 @@ function Navbar() {
             <Nav.Link className="menuItems" href="/front/pinboards">PINBOARDS</Nav.Link >
             <Nav.Link className="menuItems" href="/front/locations">LOCATIONS</Nav.Link >
             <NavDropdown className="menuItems" id="nav-dropdown-light-example" title="SERVICES">
-              <NavDropdown.Item href="/front/services:At%20Home"> AT HOME </NavDropdown.Item>
               <NavDropdown.Item href="/front/services:Online"> ON LINE </NavDropdown.Item>
               <NavDropdown.Item href="/front/services:In%20Store"> IN STORE </NavDropdown.Item>
             </NavDropdown>

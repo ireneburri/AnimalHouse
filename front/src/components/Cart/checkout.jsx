@@ -41,6 +41,10 @@ const Mytd = styled.td`
 function Checkout(props) {
 
     const id = props.id
+    let img;
+    var url = id + ".png"
+    console.log(url)
+    img = <img src={url} alt="product photo"/>
 
     function removeItem() {
         const getCurrentCart = window.localStorage.getItem('cart');
@@ -63,13 +67,7 @@ function Checkout(props) {
         <tr>
             <th scope="row">
                 <div className="d-flex align-items-center">
-                    <img
-                        src="https://i.imgur.com/2DsA49b.webp"
-                        className="rounded-3"
-                        style={{ width: "120px" }}
-                        alt="Book"
-                    />
-                    
+                    {img}
                 </div>
             </th>
 

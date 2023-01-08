@@ -41,10 +41,6 @@ function AnimalCard (props){
                             <div> Sex: {props.sex} </div>
                             <div> Age: {props.age} </div>
                         </div>
-
-                        <div className="col-lg-5" style={{ alignItems: "flex-end" }}>
-                            <img src={dogimg} className="card-img-top" alt="..." />
-                        </div>
                         
                         <div className="col-lg-1" style={{marginTop: '0.5em'}}>
                             <MyButton onClick={() => deleteAnimal()}> X </MyButton>

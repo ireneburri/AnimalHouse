@@ -25,13 +25,18 @@ const Vip = styled.span`
 `
 
 class ProductAnimalCard extends Component {
-    
     render() {
+
+        let img;
+        var url = this.props.id + ".png"
+        console.log(url)
+        img = <img src={url} alt="product photo" />
+
         return (
             <div className="col-12 col-md-6 col-lg-3" >
                 <MyCard className="card" style={{ textAlign: 'center' }}>
                     <a className="itemLink" href={'/front/animal:' + this.props.id}>
-                        <img src={dog} className="card-img-top" alt="..." />
+                        {img}
                         <div className="card-body" >
                             <hr />
                             <h5 className="card-title" > {this.props.nome} </h5>

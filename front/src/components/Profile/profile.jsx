@@ -6,7 +6,10 @@ import ProfileModal from '../Modal/profileModal';
 import profileimg from '/Users/beatricezamagna/Desktop/Animal/front/src/img/profile.jpg'
 import OrderCard from '../Card/orderCard';
 import Brunella from '../../img/Brunella.webp'
+import Celeste from '../../img/Celeste.png'
 import ReservationCard from '../Card/reservationCard';
+import BarChart from '../BarChart/BarChart'
+// import Classifica from '../classifica/classifica';
 
 const Body = styled.div`
     width: 100%;
@@ -33,6 +36,19 @@ const Container = styled.div`
 `
 
 const ContainerReservation = styled.div`
+    width: 80%;
+    background: #ffffff;
+    border-radius: 20px;
+    margin-bottom: 2em;
+    background: rgba(255, 255, 255, 0.75);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(7.4px);
+    border: 1px solid rgba(226, 226, 226, 1);
+    color: #1b1b6b;
+`
+const GameContainer = styled.div`
     width: 80%;
     background: #ffffff;
     border-radius: 20px;
@@ -92,7 +108,7 @@ const Vip = styled.span`
     }
 `
 
-const Img = styled.img`
+const Img = styled.div`
     font-size: 1em;
     border-radius: 100%;
     width: 40%;
@@ -100,6 +116,15 @@ const Img = styled.img`
 `
 
 const BrunellaImg = styled.img`
+    margin-top: 2em;
+    margin-bottom: 2em;
+    margin-left: 2em;
+    @media (max-width: 600px) {
+        margin-left: 4em;
+        width: 70%;
+}
+`
+const CelesteImg = styled.img`
     margin-top: 2em;
     margin-bottom: 2em;
     margin-left: 2em;
@@ -121,10 +146,62 @@ function Profile() {
     const [show, setShow] = useState(false);
     const [secondShow, setSecondShow] = useState(false);
 
-    let profilepic;
+    let imgprofile;
     var url = userid + ".png"
     console.log(url)
-    profilepic = <img src={url} alt="in"/>
+    imgprofile = <img src={url} alt="in" />
+
+    // const Data = [
+    //     {
+    //         id: 1,
+    //         year: 2016,
+    //         userGain: 80000,
+    //         userLost: 823
+    //     },
+    //     {
+    //         id: 2,
+    //         year: 2017,
+    //         userGain: 45677,
+    //         userLost: 345
+    //     },
+    //     {
+    //         id: 3,
+    //         year: 2018,
+    //         userGain: 78888,
+    //         userLost: 555
+    //     },
+    //     {
+    //         id: 4,
+    //         year: 2019,
+    //         userGain: 90000,
+    //         userLost: 4555
+    //     },
+    //     {
+    //         id: 5,
+    //         year: 2020,
+    //         userGain: 4300,
+    //         userLost: 234
+    //     }
+    // ];
+
+    // const [chartData, setChartData] = useState({
+    //     labels: Data.map((data) => data.year),
+    //     datasets: [
+    //         {
+    //             label: "Users Gained ",
+    //             data: Data.map((data) => data.userGain),
+    //             backgroundColor: [
+    //                 "rgba(75,192,192,1)",
+    //                 "#ecf0f1",
+    //                 "#50AF95",
+    //                 "#f3ba2f",
+    //                 "#2a71d0"
+    //             ],
+    //             borderColor: "black",
+    //             borderWidth: 2
+    //         }
+    //     ]
+    // });
 
     useEffect(() => {
         fetchProfile();
@@ -178,9 +255,9 @@ function Profile() {
                     <div className="col-md-3 border-right">
                         <div className="d-flex flex-column align-items-center py-4">
                             MY PROFILE
-                            <Img
-                                src={profilepic}
-                            />
+                            <Img>
+                                {imgprofile}
+                            </Img>
                             <div className='mt-3'>
                                 <div className="font-weight-bold"> @{user} {profile.vip ? <Vip> VIP </Vip> : null}</div>
                             </div>
@@ -277,7 +354,7 @@ function Profile() {
                 <div className="row align-items-center center">
                     <div className="col-md-7 col-lg-8 align-items-center center d-flex flex-column">
                         MY RESERVATION
-                        <div style={{ overflowY: 'scroll', width: "90%", height: '17em'}}>
+                        <div style={{ overflowY: 'scroll', width: "90%", height: '17em' }}>
                             <div className="row">
                                 {reservation.map(reser => (
                                     // console.log(new Date(reser.date_start).getHours())
@@ -296,14 +373,26 @@ function Profile() {
                         </div>
                     </div>
                     <div className="col-md-5 col-lg-4 align-items-center center d-flex flex-column">
-                        <BrunellaImg src={Brunella} alt="Brunella from Animal Crolssing"/>
+                        <BrunellaImg src={Brunella} alt="Brunella from Animal Crolssing" />
                     </div>
                 </div>
             </ContainerReservation>
 
+            <GameContainer>
+                <div className="row align-items-center center">
+                    <div className="col-md-7 col-lg-8 align-items-center center d-flex flex-column">
+                        GAME CHART
+                        {/* <BarChart chartData={chartData} /> */}
+                    </div>
+                    <div className="col-md-5 col-lg-4 align-items-center center d-flex flex-column">
+                        <CelesteImg src={Celeste} alt="Celeste from Animal Crolssing" style={{ height: '15em', width: 'auto', paddingRight: '2em' }} />
+                    </div>
+                </div>
+            </GameContainer>
+
             <ProfileModal show={show} onClose={() => setShow(false)} />
             <AnimalModal secondShow={secondShow} onClose={() => setSecondShow(false)} />
-            
+
         </Body>
     );
 }
