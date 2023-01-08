@@ -15,7 +15,7 @@ function Comment(props) {
         img = null
     } else {
         var url = props.id + ".png"
-        img = <img src={url} alt="product photo" style={{height: 'auto', width: '20em'}}/>
+        img = <img src={url} alt="product photo" style={{height: 'auto', width: '20em', paddingTop: '1em', paddingLeft: '1em'}}/>
     }
 
     return (

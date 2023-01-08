@@ -291,7 +291,7 @@ function Profile() {
                     <div className="col-md-5 center">
                         <div className="d-flex flex-column align-items-center py-4" >
                             MY ANIMALS
-                            <div style={{ height: '24em', overflowY: 'scroll' }}>
+                            <div style={{ height: '24em', width: '100%', overflowY: 'scroll' }}>
                                 <div className="row">
                                     {animal.map(animal => (
                                         <AnimalCard

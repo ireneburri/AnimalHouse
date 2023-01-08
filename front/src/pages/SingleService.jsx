@@ -127,12 +127,14 @@ function SingleService() {
 
     let img;
     var url = id + ".png"
+    console.log(url)
     img = <Image src={url} alt="product photo" style={{height: '20em', width: 'auto', paddingTop: '2em'}}/>
 
     useEffect(() => {
         fetchData();
         fetchDisponibility();
         fetchBookings();
+
     }, [loc, dateTime]);
 
     function handleLoc(e) {
@@ -159,7 +161,7 @@ function SingleService() {
 
         setDatas(fetched[0])
         setLocations(fetched[0].location);
-        setId(fetched[0].id)
+        setId(fetched[0]._id)
     }
 
     const fetchDisponibility = async () => {
