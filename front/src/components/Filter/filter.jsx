@@ -38,12 +38,10 @@ function Filter({setActiveCat, activeCat, setFiltered, items}){
     useEffect(() => {
         if(activeCat === 'All'){
             setFiltered(items);
-            console.log(items)
             return;
         }
         const filtered = items.filter((item) => item.category === activeCat);
         setFiltered(filtered);
-        console.log(filtered)
     }, [activeCat, setFiltered, items]);
     
     return(

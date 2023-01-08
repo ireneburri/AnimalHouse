@@ -108,7 +108,6 @@ function SingleService() {
     var tomorrow = new Date()
     tomorrow.setDate(today.getDate() + 1)
     const [dateTime, setDateTime] = useState(setHours(setMinutes(new Date().setDate(tomorrow.getDate()), 0), 8));
-    console.log(dateTime)
     const [endDate, setEndDate] = useState(null);
 
     const [booking, setBooking] = useState([])
@@ -133,22 +132,18 @@ function SingleService() {
         const newloc = { ...loc }
         newloc.location = e.target.value
         setLoc(newloc)
-        // console.log(newloc)
     }
 
     function handleLoc2(e) {
         const newloc = { ...loc }
         newloc.location = e.target.value
         setLoc(newloc)
-        // console.log(newloc.location)
     }
 
     const onChange = (dates) => {
         const [start, end] = dates;
         setDateTime(start);
         setEndDate(end);
-        //console.log(start);
-        //console.log(end);
     }; //setta data di inizio e data di fine
 
     const fetchData = async () => {
@@ -163,7 +158,6 @@ function SingleService() {
         const items = await fetch(`https://site212224.tw.cs.unibo.it/location/`);
         const fetched = await items.json();
         const filtered = fetched.filter(location => location.name === loc.location);
-        console.log(filtered)
 
         if (filtered[0] !== undefined) {
             const disponibility = filtered[0].disponibility
@@ -181,15 +175,12 @@ function SingleService() {
     const fetchBookings = async () => {
         const data = await fetch("https://site212224.tw.cs.unibo.it/Reservation");
         const items = await data.json();
-        // console.log(items)
 
         for (let booking in items) {
             if (items[booking].mode === "In Store") {
-                // console.log('in store')
                 if (items[booking].service === name.substring(1) && items[booking].location === loc.location)
                     booked.push({ start: items[booking].date_start, end: items[booking].date_end })
             } else if (items[booking].mode === "Online") {
-                // console.log('online')
                 if (items[booking].service === name.substring(1))
                     booked.push({ start: items[booking].date_start, end: items[booking].date_end })
             }
@@ -198,8 +189,6 @@ function SingleService() {
         booked = booked.map(e => (
             e = changeFormat(e)
         ))
-
-        // console.log(booked)
 
         var arrayBooking = []; //tutte le prenotazioni in un giorno per un servizio a ore
         var arrayBookingDays = []; //tutte le prenotazioni per un servizio a giorni
@@ -224,16 +213,12 @@ function SingleService() {
                     }
                 }
             }
-            console.log(arrayBooking)
             for (let h in arrayBooking) {
-                // console.log(booking[h])
                 for (let j in arrayBooking) {
                     if (arrayBooking[h].getHours() === arrayBooking[j].getHours()) {
                         hoursAvailability = hoursAvailability + 1
                     }
                 }
-                console.log(arrayBooking[h])
-                console.log(hoursAvailability)
                 if (hoursAvailability >= dispo) {
                     arrayBookingNotAvailable.push(arrayBooking[h])
                 }
@@ -252,7 +237,6 @@ function SingleService() {
                     //blocco tutte le date di un appuntamento a giorni
                 }
             }
-            console.log(arrayBookingDays)
             for (let h in arrayBookingDays) {
                 for (let j in arrayBookingDays) {
                     if (arrayBookingDays[h].getDate() === arrayBookingDays[j].getDate()
@@ -261,8 +245,6 @@ function SingleService() {
                         daysAvailability = daysAvailability + 1
                     }
                 }
-                console.log(arrayBookingDays[h])
-                console.log(daysAvailability)
                 if (daysAvailability >= dispo) {
                     arrayBookingDaysNotAvailable.push(arrayBookingDays[h])
                 }
@@ -275,12 +257,6 @@ function SingleService() {
 
         setComplete(arrayBookingNotAvailable);
         setCompleteDays(arrayBookingDaysNotAvailable);
-
-        // console.log(arrayBookingDaysNotAvailable)
-        // arrayBookingDaysNotAvailable = arrayBookingDaysNotAvailable.map(e => (
-        //     e = changeFormat(e)
-        // ))
-        // console.log(arrayBookingDaysNotAvailable)
 
         setBookingDaysForCheckFormat(arrayBookingDaysNotAvailable)
     }
@@ -301,7 +277,6 @@ function SingleService() {
     // tomorrow.setDate(today.getDate() + 1)
 
     function dateOverlap(start, end, bookingList) {
-        console.log(bookingList)
         var start = new Date(start)
         var end = new Date(end)
         var dateDiff = dateDiffInDays(start, end)
@@ -350,7 +325,6 @@ function SingleService() {
             // let available = true;
 
             if (!datas.allday) {
-                console.log(complete)
                 for (let x = 0; x < datas.time; x++) {
                     for (let h in complete) {
                         if (complete[h].getHours() === (start.getHours() + x)) {
@@ -363,7 +337,6 @@ function SingleService() {
                 containsBookedDays = dateOverlap(start, end, bookingDaysForCheckFormat);
             }
 
-            console.log(containsBookedDays)
 
 
             if (end === undefined) {
@@ -387,11 +360,8 @@ function SingleService() {
                 bsAlert.show();//show it
             }
             else {
-                console.log(body); //richiesta api
                 axios.post("https://site212224.tw.cs.unibo.it/Reservation/post",
-                    body).then(res =>
-                        console.log(res)
-                    ).then(() => navigate('/account')
+                    body).then(() => navigate('/account')
                     ).catch(error => console.log(error));
             }
         } else {

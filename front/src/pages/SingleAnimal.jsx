@@ -109,7 +109,6 @@ const Vip = styled.span`
 function SingleAnimal() {
     const data = useParams();
     const id = data.id.substring(1)
-    console.log(id)
     const [locations, setLocations] = useState([])
     const { items } = useFetch(`https://site212224.tw.cs.unibo.it/animal/id/${id}`);
     const [loc, setLoc] = useState({
@@ -118,14 +117,12 @@ function SingleAnimal() {
 
     let img;
     var url = id + ".png"
-    console.log(url)
-    img = <img src={url} alt="product photo"/>
+    img = <img src={url} alt="product photo" style={{height: '22em', width: 'auto', paddingTop: '2em'}}/>
 
     function handleLoc(e) {
         const newloc = { ...loc }
         newloc.location = e.target.value
         setLoc(newloc)
-        console.log(newloc)
     }
 
     useEffect(() => {
@@ -138,14 +135,11 @@ function SingleAnimal() {
         const data = await fetch(`https://site212224.tw.cs.unibo.it/Location`);
         const fetched = await data.json();
         setLocations(fetched);
-        console.log(fetched)
     }
 
     function deleteAnimal() {
         axios.delete(`https://site212224.tw.cs.unibo.it/animal/${items._id}`
-        ).then(res => {
-            console.log(res)
-        })
+        )
     }
 
 

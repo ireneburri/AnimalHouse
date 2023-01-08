@@ -103,7 +103,6 @@ function Login() {
             username: credLoginIn.username,
             password: credLoginIn.password
         }).then((res) => {
-            // console.log(res);
             localStorage.setItem("username", credLoginIn.username)
             localStorage.setItem("token", res.data.authority)
 
@@ -135,7 +134,6 @@ function Login() {
             window.localStorage.setItem('cart', filtered[0].products[0])
             axios.delete(`https://site212224.tw.cs.unibo.it/Order/${filtered[0]._id}`
             ).then(res => {
-                // console.log(res)
             })
         }
     }
@@ -150,7 +148,6 @@ function Login() {
             tel: credRegistration.telephone,
             residence: credRegistration.residence
         }).then(res => {
-            // console.log(res);
             localStorage.setItem("username", credRegistration.username)
 
             //permette di tornare nella pagina che ti ha reindireizzato alla pagina di login

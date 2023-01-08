@@ -4,6 +4,8 @@ import ProductCard from '../Card/productCard';
 import Filter from '../Filter/filter';
 
 const Container = styled.div`
+display: flex;
+flex-direction: column;
     align-items: center;
     justify-content: center;
 `

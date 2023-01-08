@@ -4,6 +4,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import Footer from '../components/Footer/footer';
 import Navbar from '../components/Navbar/navbar';
+import { useNavigate } from 'react-router-dom';
 // import Newsletter from '../components/Newsletter/newsletter';
 
 const Container = styled.div`
@@ -20,6 +21,7 @@ function PostForm() {
 
     const paramPage = useParams();
     const category = paramPage.category;
+    const navigate = useNavigate();
 
     async function uploadImg(img, id) {
         if (img != undefined) {
@@ -27,15 +29,12 @@ function PostForm() {
             let image = new File([blob], id + '.png', { type: 'image/*' })
             var form = new FormData();
             form.append("file", image)
-            console.log(image);
             await axios.post("https://site212224.tw.cs.unibo.it/image/", form, {
                 headers: {
                     enctype: 'multipart/form-data',
                     processData: false,
                     contentType: false
                 }
-            }).then((res) => {
-                console.log(res);
             })
         }
     }
@@ -59,10 +58,8 @@ function PostForm() {
             comment: data.comment,
             img: data.img
         }).then(res => {
-            console.log(res.data._id)
-            console.log(document.getElementById("inputImg").files.item(0))
             uploadImg(document.getElementById("inputImg").files.item(0), res.data._id);
-        })
+        }).then(() => navigate('/pinboards'))
     }
 
     function handle(e) {
@@ -75,7 +72,6 @@ function PostForm() {
             newdata.img = document.getElementById("inputImg").files[0].name
         }
         setData(newdata)
-        console.log(newdata)
     }
 
     return (

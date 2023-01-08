@@ -65,6 +65,7 @@ function AnimalModal(props) {
         species: "",
         sale: "",
         client_id: "",
+        img: "",
 
     })
 
@@ -72,8 +73,24 @@ function AnimalModal(props) {
         return null;
     }
 
+    async function uploadImg(img, id) {
+        if (img != undefined) {
+            var blob = img.slice(0, img.size, 'image/*');
+            let image = new File([blob], id + '.png', { type: 'image/*' })
+            var form = new FormData();
+            form.append("file", image)
+            await axios.post("https://site212224.tw.cs.unibo.it/image/", form, {
+                headers: {
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false
+                }
+            })
+        }
+    }
+
     function submitNewInfo(e) {
-        console.log(info);
+        e.preventDefault();
         axios.post('https://site212224.tw.cs.unibo.it/animal/', {
             name: info.name,
             breed: info.breed,
@@ -84,9 +101,8 @@ function AnimalModal(props) {
             client_id: info.client_id,
             sale: info.sale
         }).then(res => {
-            console.log(res)
-            window.location.reload(false);
-        })
+            uploadImg(document.getElementById("inputImg").files.item(0), res.data._id);
+        }).then(() => window.location.reload(false))
     }
 
 
@@ -95,9 +111,11 @@ function AnimalModal(props) {
         newdata[e.target.id] = e.target.value
         newdata.client_id = localStorage.getItem('userid')
         newdata.sale = false
+        if (document.getElementById("inputImg").files[0] !== undefined) {
+            newdata.img = document.getElementById("inputImg").files[0].name
+        }
         newdata.age = parseFloat(document.getElementById('age').value)
         setInfo(newdata)
-        // console.log(newdata)
     }
 
     return (
@@ -140,8 +158,8 @@ function AnimalModal(props) {
                     </div>
 
                     <div style={{ padding: '1em' }}>
-                        <label className="form-label" htmlFor="customFile">Profile Picture</label>
-                        <input type="file" className="form-control" id="file" />
+                        <label className="form-label" htmlFor="customFile">Picture</label>
+                        <input id="inputImg" type="file" className="form-control" name="file" onChange={(e) => handle(e)} />
                     </div>
 
                     <div className="modal-footer" style={{ padding: '1em', display: 'flex', justifyContent: 'flex-end' }}>

@@ -17,16 +17,12 @@ function Navbar() {
   var vipItem = false
 
   const handleLogout = () => {
-    console.log(currentCart)
     if (currentCart !== null && currentCart !== []) {
-      console.log('sticazzi')
       var sum = currentCart.reduce(function (acc, obj) { return acc + obj.items.price * obj.quantity; }, 0);
 
       var strcart = JSON.stringify(currentCart);
       listItems.push(strcart);
-      console.log(strcart);
 
-      console.log(listItems);
       axios.post('https://site212224.tw.cs.unibo.it/Order/', {
         client_id: '638a43569d836700070fa273',
         username: username,
@@ -36,7 +32,6 @@ function Navbar() {
         vip: vipItem,
         completed: 'false'
       }).then((res) => {
-        console.log(res);
         localStorage.clear();
         window.location.reload(false);
       })

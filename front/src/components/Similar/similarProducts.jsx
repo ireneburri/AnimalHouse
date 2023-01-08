@@ -30,9 +30,7 @@ function SimilarProducts(props) {
         async () => {
             const data = await fetch("https://site212224.tw.cs.unibo.it/item");
             const items = await data.json();
-            console.log(items)
             const filtered = items.filter((item) => item.category === props.category && item._id !== props.id && item.quantity > 0);
-            console.log(filtered)
             setAdvice(filtered.slice(0, 2));
         })
 

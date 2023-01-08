@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import dog from '../../img/dog.jpg'
 
+
 const MyCard = styled.div`
     margin: 2em;
 
@@ -14,8 +15,7 @@ function Comment(props) {
         img = null
     } else {
         var url = props.id + ".png"
-        console.log(url)
-        img = <img src={url} alt="in"/>
+        img = <img src={url} alt="product photo" style={{height: 'auto', width: '20em'}}/>
     }
 
     return (

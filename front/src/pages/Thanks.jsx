@@ -26,13 +26,11 @@ function Thanks() {
 
         if (currentCart.filter(item => item.items.vip === true).length > 0) {
             vipItem = true
-            console.log(vipItem)
         }
 
         if (currentCart) { //diminuisce la quantità di elementi disponibili per un certo prodotto
             currentCart.forEach((item) => {
                 item.items.quantity = item.items.quantity - item.quantity
-                console.log(item.items)
                 fetch(`https://site212224.tw.cs.unibo.it/item/${item.items._id}`, {
                     method: "PATCH",
                     headers: {
@@ -45,8 +43,6 @@ function Thanks() {
             if (vipItem) { //imposta l'utente a vip se ha acquistato qualcosa di vip
                 axios.patch("https://site212224.tw.cs.unibo.it/user/id/" + userid, {
                     vip: "true",
-                }).then((res) => {
-                    console.log(res)
                 })
             }
 
@@ -56,10 +52,8 @@ function Thanks() {
                 var obj = {name: item.items.name, quantity: item.quantity, singleprice: item.items.price}
                 var strobj = JSON.stringify(obj)
                 listItems.push(strobj);
-                console.log(strobj)
             })
 
-            console.log(listItems);
             axios.post('https://site212224.tw.cs.unibo.it/Order/', {
                 client_id: '638a43569d836700070fa273',
                 username: username,
@@ -69,7 +63,6 @@ function Thanks() {
                 vip: vipItem,
                 completed: 'true'
             }).then((res) => {
-                console.log(res);
                 localStorage.removeItem('cart');
         })
         }

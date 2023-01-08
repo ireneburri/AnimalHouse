@@ -17,7 +17,6 @@ function CommentForm() {
 
     function submit(e) {
         e.preventDefault();
-        console.log(data);
         axios.post('https://site212224.tw.cs.unibo.it/Board/', {
             author: data.author,
             title: data.title,
@@ -26,7 +25,6 @@ function CommentForm() {
             comment: data.comment
         })
             .then(res => {
-                console.log(res.data)
                 window.location.reload(false);
             })
     }
@@ -38,7 +36,6 @@ function CommentForm() {
         newdata.comment = true
         newdata[e.target.id] = e.target.value
         setData(newdata)
-        console.log(newdata)
     }
 
     return (

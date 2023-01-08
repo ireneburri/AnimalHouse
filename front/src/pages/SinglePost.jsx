@@ -5,6 +5,7 @@ import Footer from '../components/Footer/footer';
 import Navbar from '../components/Navbar/navbar';
 import Comment from '../components/Card/commentCard';
 import CommentForm from '../components/Form/commentForm';
+import ball from '../img/63ba0f6d8a941ae73743cf0e.png'
 
 const Container = styled.div`
     display: flex;

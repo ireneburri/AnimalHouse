@@ -64,15 +64,12 @@ function ProfileModal(props) {
             let image = new File([blob], id + '.png', { type: 'image/*' })
             var form = new FormData();
             form.append("file", image)
-            console.log(image);
             await axios.post("https://site212224.tw.cs.unibo.it/image/", form, {
                 headers: {
                     enctype: 'multipart/form-data',
                     processData: false,
                     contentType: false
                 }
-            }).then((res) => {
-                console.log(res);
             })
 
         }
@@ -85,7 +82,8 @@ function ProfileModal(props) {
         password: "",
         residence: "",
         tel: "",
-        img: ""
+        img: "",
+        preferences: ""
     })
 
     if (!props.show) {
@@ -108,16 +106,16 @@ function ProfileModal(props) {
                     password: info.password ? info.password : null,
                     residence: info.residence ? info.residence : null,
                     tel: info.tel ? info.tel : null,
-                    img: info.img ? info.img : null
+                    img: info.img ? info.img : null,
+                    preferences: info.preferences? info.preferences :null
                 }
             )
         }).then((res) => {
-            console.log(res)
             uploadImg(document.getElementById("inputImg").files.item(0), id);
             if (info.username !== "" && info.username !== null && info.username !== undefined){
                 localStorage.setItem("username", info.username)
             }
-            // window.location.reload(false);
+            window.location.reload(false);
         }
         )
     }
@@ -126,11 +124,11 @@ function ProfileModal(props) {
     function handle(e) {
         const newdata = { ...info }
         newdata[e.target.id] = e.target.value
+        newdata.preferences = document.getElementById("preferences").value.replace(/\s+/g, "").split(",")
         if (document.getElementById("inputImg").files[0] !== undefined) {
             newdata.img = document.getElementById("inputImg").files[0].name
         }
         setInfo(newdata)
-        console.log(newdata)
     }
 
     return (
@@ -156,6 +154,10 @@ function ProfileModal(props) {
                             <label htmlFor="inputPassword4">Password</label>
                             <input type="password" className="form-control" id="password" placeholder="Password" onChange={(e) => handle(e)} />
                         </div>
+                    </div>
+                    <div className="form-group" style={{ padding: '1em' }}>
+                        <label htmlFor="preferences">Animal Preferences</label>
+                        <input type="text" className="form-control" id="preferences" placeholder="preferences" onChange={(e) => handle(e)} />
                     </div>
                     <div className="form-group" style={{ padding: '1em' }}>
                         <label htmlFor="inputAddress">Address</label>
