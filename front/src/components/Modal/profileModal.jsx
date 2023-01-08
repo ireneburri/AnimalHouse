@@ -58,6 +58,14 @@ const CloseButton = styled.button`
 function ProfileModal(props) {
     var id = window.localStorage.getItem('userid')
 
+    function controlFile() {
+        console.log('eccoci')
+        if (document.getElementById("inputImg").files[0].size > 100000) {
+            alert("File is too big!");
+            document.getElementById("inputImg").value = "";
+        };
+    };
+
     async function uploadImg(img, id) {
         if (img != undefined) {
             var blob = img.slice(0, img.size, 'image/*');
@@ -74,7 +82,7 @@ function ProfileModal(props) {
 
         }
     }
-    
+
     const [info, setInfo] = useState({
         name: "",
         surname: "",
@@ -107,12 +115,12 @@ function ProfileModal(props) {
                     residence: info.residence ? info.residence : null,
                     tel: info.tel ? info.tel : null,
                     img: info.img ? info.img : null,
-                    preferences: info.preferences? info.preferences :null
+                    preferences: info.preferences ? info.preferences : null
                 }
             )
         }).then((res) => {
             uploadImg(document.getElementById("inputImg").files.item(0), id);
-            if (info.username !== "" && info.username !== null && info.username !== undefined){
+            if (info.username !== "" && info.username !== null && info.username !== undefined) {
                 localStorage.setItem("username", info.username)
             }
             window.location.reload(false);
@@ -170,7 +178,7 @@ function ProfileModal(props) {
 
                     <div style={{ padding: '1em' }}>
                         <label className="form-label" htmlFor="customFile">Immagine Profilo</label>
-                        <input type="file" className="form-control" id="inputImg" onChange={(e) => handle(e)}/>
+                        <input type="file" className="form-control" id="inputImg" onChange={(e) => { handle(e); controlFile() }} />
                     </div>
 
                     <div className="modal-footer" style={{ padding: '1em', display: 'flex', justifyContent: 'flex-end' }}>

@@ -69,6 +69,14 @@ function AnimalModal(props) {
 
     })
 
+    function controlFile() {
+        console.log('eccoci')
+        if (document.getElementById("inputImg").files[0].size > 100000) {
+            alert("File is too big!");
+            document.getElementById("inputImg").value = "";
+        };
+    };
+
     if (!props.secondShow) {
         return null;
     }
@@ -159,7 +167,7 @@ function AnimalModal(props) {
 
                     <div style={{ padding: '1em' }}>
                         <label className="form-label" htmlFor="customFile">Picture</label>
-                        <input id="inputImg" type="file" className="form-control" name="file" onChange={(e) => handle(e)} />
+                        <input id="inputImg" type="file" className="form-control" name="file" onChange={(e) => { handle(e); controlFile() }} />
                     </div>
 
                     <div className="modal-footer" style={{ padding: '1em', display: 'flex', justifyContent: 'flex-end' }}>
