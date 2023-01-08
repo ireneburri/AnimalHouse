@@ -694,8 +694,9 @@ function changeClientAnimal(id){
 function addClientAnimal(id){
     console.log(id)
     let data = {}
+    let fileInput = 0
     if ($("#inputImg-"+id).val() != "" ) {
-        const fileInput = document.getElementById('inputImg-'+id).files.item(0);
+        fileInput = document.getElementById('inputImg-'+id).files.item(0);
         console.log(fileInput)
         data.img = fileInput.name
     }
@@ -746,7 +747,9 @@ function addClientAnimal(id){
         }
 
     }).then( async ()=>{
-        await uploadImg(fileInput, result_id);
+        if(fileInput != 0){
+            await uploadImg(fileInput, result_id);
+        }
         window.location.reload();
     })
     return false;
