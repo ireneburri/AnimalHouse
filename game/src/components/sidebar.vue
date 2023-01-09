@@ -17,11 +17,6 @@
         <span class="text">Home</span>
       </router-link>
 
-      <router-link class="button" to="/about">
-        <span class="material-icons">visibility</span>
-        <span class="text">About</span>
-      </router-link>
-
       <router-link class="button" to="/curiosity">
         <span class="material-icons">cruelty_free</span>
         <span class="text">Curiosity</span>
@@ -45,6 +40,11 @@
       <router-link class="button" to="/facts">
         <span class="material-icons">lightbulb</span>
         <span class="text">Facts</span>
+      </router-link>
+
+      <router-link class="button" to="/about">
+        <span class="material-icons">visibility</span>
+        <span class="text">About</span>
       </router-link>
 
       <router-link v-if="!user" class="button" to="/login">
