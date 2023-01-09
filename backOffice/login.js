@@ -8,6 +8,7 @@ function getAllStaff(){
         type: 'GET',
         url: url + "/staff",
         crossDomain: true,
+        headers:{authority: localStorage['tokenB']},
         success: function(data) {
             console.log(data);
             staffList = data;

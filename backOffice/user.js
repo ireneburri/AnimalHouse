@@ -41,6 +41,7 @@ function getAllClient(){
         type: 'GET',
         url: url + "/user",
         crossDomain: true,
+        headers:{authority: localStorage['tokenB']},
         success: function(data) {
             console.log(data);
             clientsList = data;

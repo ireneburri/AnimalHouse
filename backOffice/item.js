@@ -355,7 +355,6 @@ function createItem(){
         url: url + "/item",
         crossDomain: true,
         contentType: "application/json",
-        headers:{authority: localStorage['tokenB']},
         data: JSON.stringify({
             name: data.name,
             price: data.price,
