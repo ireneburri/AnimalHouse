@@ -100,8 +100,7 @@ function showLocation(location){
                     </ul> 
                 </li>
             </ul>
-            <div class="card-body">
-                
+            <div class="card-footer">
                 
                 <!--a href="#" class="btn" style="float:right; margin:1px;background-color: #A0AECD; border-color: #A0AECD; color:white;" onclick=deleteLocation("${location._id}")><small>Delete</small></a-->
                 <button id="openModal"  onclick="verifyMod('${location.name}', '${location._id}', 'true')"  class="btn btn-primary" style="float:left; margin:1px;background-color: #425664; border-color: #425664; color:white;"><small>Modify Info</small></button>
