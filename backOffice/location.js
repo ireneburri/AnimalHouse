@@ -299,7 +299,13 @@ function minifunc(){
 
 
 async function verifyMod(locName, id, info){
-    if (locName == "Online") { $('#Modal-'+id).modal('show'); }
+    if (locName == "Online") {  
+        if (info == "true") {
+            $('#Modal-'+id).modal('show');
+        } else {
+            $('#ModalSe-'+id).modal('show');
+        } 
+    }
     else if (locName != "Online"){
         await $.ajax({
             type: 'GET',
