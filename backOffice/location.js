@@ -299,27 +299,30 @@ function minifunc(){
 
 
 async function verifyMod(locName, id, info){
-    await $.ajax({
-        type: 'GET',
-        url: url + "/staff/username/"+ localStorage.usernameB,
-        crossDomain: true,
-        success: function(data) {
-            console.log(data);
-            loc = data[0].location[0];
-            console.log(loc)
-        },
-        error: function(err) {
-            console.log(err);
-        }
-    })
-    if (loc != locName){
-        $('#callout1').attr('style', 'display: block')
-    }  
-    else{
-        if (info == "true") {
-            $('#Modal-'+id).modal('show');
-        } else {
-            $('#ModalSe-'+id).modal('show');
+    if (locName == "Online") { $('#Modal-'+id).modal('show'); }
+    else if (locName != "Online"){
+        await $.ajax({
+            type: 'GET',
+            url: url + "/staff/username/"+ localStorage.usernameB,
+            crossDomain: true,
+            success: function(data) {
+                console.log(data);
+                loc = data[0].location[0];
+                console.log(loc)
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        })
+        if (loc != locName){
+            $('#callout1').attr('style', 'display: block')
+        }  
+        else{
+            if (info == "true") {
+                $('#Modal-'+id).modal('show');
+            } else {
+                $('#ModalSe-'+id).modal('show');
+            }
         }
     }
 }
