@@ -54,7 +54,7 @@ export default {
     },
   },
   async created(){
-    await axios.get('http://localhost:8000/quiz/img/size/8')
+    await axios.get('https://site212224.tw.cs.unibo.it/quiz/img/size/8')
         .then((response)=>{
               this.cardItems= response.data
 
