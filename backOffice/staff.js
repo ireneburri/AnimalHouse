@@ -8,7 +8,7 @@ $( document ).ready( verifyToken() );
 
 function verifyToken(){
     if (localStorage.tokenB==undefined){
-        $(staff).attr('href','./login.html');
+        $(location).attr('href','./login.html');
     } else {
         console.log("SI "+localStorage.tokenB)
         console.log(localStorage.usernameB)
