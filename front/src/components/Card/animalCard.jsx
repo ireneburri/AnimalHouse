@@ -31,7 +31,7 @@ function AnimalCard(props) {
 
     var img;
     var url = props.id + ".png"
-    img = <img src={url} alt="animal photo" style={{ height: '10em', width: 'auto', paddingTop: '2em' }} />
+    img = <img src={url} className="card-img-top" alt="animal photo" style={{ height: '10em', width: 'auto', paddingTop: '2em' }} />
 
     return (
         // <div className="min-h-screen w-full bg-gray-300" style={{ margin: "1em", width: "90%"}}>
@@ -56,12 +56,15 @@ function AnimalCard(props) {
 
         // </div>
 
-        <div className="card" style={{width: '80%', paddingLeft: '1em'}}>
-            <img className="card-img-top" src={dogimg} alt="Card image cap" />
-                <div className="card-body">
-                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <div className="card" style={{ width: '80%', paddingLeft: '1em' }}>
+            {img}
+            <div className="card-body">
+            <h5>{props.name}</h5>
+                <div> Breed: {props.breed} </div>
+                <div> Sex: {props.sex} </div>
+                <div> Age: {props.age} </div>
                 <MyButton onClick={() => deleteAnimal()}> DELETE ANIMAL </MyButton>
-                </div>
+            </div>
         </div>
     );
 }
