@@ -52,7 +52,11 @@ const SaveButton = styled.button`
         transition: all 0.4s ease;
     }
 `
-
+const Cart = styled.div`
+    border: 1px solid teal;
+    align-items: center;
+    justify-content: center;
+`
 const Myth = styled.th`
     @media (max-width: 480px) {
         display: none;
@@ -69,15 +73,17 @@ export default function SummaryPage() {
     const getCurrentCart = window.localStorage.getItem('cart');
     const currentCart = JSON.parse(getCurrentCart);
 
-    function saveChanges(e){
+    function saveChanges(e) {
         window.location.reload(false);
     }
 
     if (currentCart === null || currentCart.length === 0) {
         return (
-            <div>
-                il tuo carrello è vuoto
-            </div>
+            <Cart>
+                <h3>
+                    Your cart is empty! Visit out shop!
+                </h3>
+            </Cart>
         )
     }
 
@@ -186,6 +192,7 @@ export default function SummaryPage() {
                                                 label="Name on card"
                                                 placeholder="John Smiths"
                                                 size="lg"
+                                                required
                                             />
                                             <MDBInput
                                                 label="Expiration"
@@ -193,6 +200,7 @@ export default function SummaryPage() {
                                                 size="lg"
                                                 maxLength={7}
                                                 minLength={7}
+                                                required
                                             />
                                         </MDBCol>
 
@@ -203,6 +211,7 @@ export default function SummaryPage() {
                                                 size="lg"
                                                 minLength="19"
                                                 maxLength="19"
+                                                required
                                             />
                                             <MDBInput
                                                 label="Cvv"
@@ -211,6 +220,7 @@ export default function SummaryPage() {
                                                 minLength="3"
                                                 maxLength="3"
                                                 type="password"
+                                                required
                                             />
                                         </MDBCol>
                                     </MDBRow>

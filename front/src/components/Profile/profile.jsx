@@ -177,7 +177,7 @@ function Profile() {
 
     let imgprofile;
     var url = userid + ".png"
-    imgprofile = <img src={url} alt="product photo" style={{ height: '10em', width: 'auto', paddingTop: '2em' }} />
+    imgprofile = <img src={url} alt="profile photo" style={{ height: '10em', width: 'auto', paddingTop: '2em' }} />
 
     useEffect(() => {
         fetchProfile();
@@ -246,7 +246,8 @@ function Profile() {
                                 {imgprofile}
                             </Img>
                             <div className='mt-3'>
-                                <div className="font-weight-bold"> @{user} {profile.vip ? <Vip> VIP </Vip> : null}</div>
+                                <div className="font-weight-bold"> @{user} </div> 
+                                <div>{profile.vip ? <Vip> VIP </Vip> : null}</div>
                             </div>
                             <div className="col-md-7 border-right">
                                 <ProfileContainer className="">
@@ -292,7 +293,7 @@ function Profile() {
                         <div className="d-flex flex-column align-items-center py-4" >
                             MY ANIMALS
                             <div style={{ height: '24em', width: '100%', overflowY: 'scroll' }}>
-                                <div className="row">
+                                <div className="row py-2" style={{paddingLeft: '2em'}}>
                                     {animal.map(animal => (
                                         <AnimalCard
                                             key={animal._id}
@@ -317,7 +318,7 @@ function Profile() {
                         <div className="d-flex flex-column align-items-center">
                             MY ORDERS
                             <div style={{ height: '17em', overflowY: 'scroll' }}>
-                                <div className="row">
+                                <div className="row" style={{paddingRight: '2em'}}>
                                     {order.map(ord => (
                                         <OrderCard
                                             key={ord._id}

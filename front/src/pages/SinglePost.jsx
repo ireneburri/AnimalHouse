@@ -86,7 +86,7 @@ function SinglePost() {
                             comment={post.comment}
                         />
                     </PostContainer>
-                    <span style={{margin: "2em"}}> Commenti al post: </span>
+                    <span style={{margin: "2em"}}> Comments: </span>
                     <CommentsContainer>
                         <Comments>
                             <div>

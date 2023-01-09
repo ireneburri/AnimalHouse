@@ -364,7 +364,7 @@ function SingleService() {
                 var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
                 bsAlert.show();//show it
             }
-            else if (loc.location === "" || loc.location === undefined) {
+            else if (loc.location === "" || loc.location === undefined || loc.location === "select location") {
                 var myAlert = document.getElementById('toastNotice3');//select id of toast
                 var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
                 bsAlert.show();//show it
@@ -403,7 +403,7 @@ function SingleService() {
                                 <input type="text" className="form-control" placeholder="Flat 6, 10 London Road, Brighton" aria-label="address" aria-describedby="basic-addon1" onChange={(e) => handleLoc(e)} />
                             </div> :
                             <select id="locSelector" className="form-select" aria-label="Default select example" onChange={(e) => handleLoc2(e)}>
-                                <option value="select location" key="default" disabled > select location </option>
+                                <option value="select location" key="default" > select location </option>
                                 {locations.map(loc => (
                                     <option value={loc} key={loc}>{loc}</option>
                                 ))};
@@ -415,7 +415,7 @@ function SingleService() {
                     <div style={{ marginLeft: '2em' }}>
                         {!datas.allday && <form>
                             <div className="section">
-                                <h4 className="section-title mb-2">Seleziona data e orario</h4>
+                                <h4 className="section-title mb-2">SSelect day and time:</h4>
                                 <div className="section-content">
                                     <DatePicker
                                         selected={dateTime}
@@ -439,12 +439,12 @@ function SingleService() {
 
                             <div className="section">
                             </div>
-                            <button className="btn btn-warning" onClick={handleSubmit}> Prenota </button>
+                            <button className="btn btn-warning" onClick={handleSubmit}> book </button>
                         </form>}
                         {datas.allday && <form>
 
                             <div className="section">
-                                <h4 className="section-title mb-2">Seleziona data di inizio e di fine</h4>
+                                <h4 className="section-title mb-2">Select start and end day:</h4>
                                 <div className="section-content">
                                     <DatePicker
                                         selected={dateTime}
