@@ -3,13 +3,14 @@ const router = express.Router()
 const Staff = require("../models/mStaff")
 
 const CryptoJS = require("crypto-js");
+const auth = require("./auth")
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, './.env') })
 
 const ENCRIPTION_KEY = process.env.CRYPT_KEY
 
 //get all
-router.get('/', async(req, res)=> {
+router.get('/', auth.verifyLogin, auth.verifyAuth(auth.authLevelDict["staff"]), async(req, res)=> {
     try{
         const staffs = await Staff.find()
         for (let key in staffs) {
@@ -48,7 +49,7 @@ router.get('/id/:id', getStaff, (req, res)=> {
 })
 
 //create one
-router.post('/', async (req, res)=> {
+router.post('/', auth.verifyLogin, auth.verifyAuth(auth.authLevelDict["staff"]), async (req, res)=> {
     const staff = new Staff({
         username: req.body.username,
         name: req.body.name,

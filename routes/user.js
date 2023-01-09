@@ -8,12 +8,13 @@ require('dotenv').config({ path: path.resolve(__dirname, './.env') })
 //per criptare e decriptare le password nel database:
 const CryptoJS = require("crypto-js");
 const ENCRIPTION_KEY = process.env.CRYPT_KEY
+const auth = require("./auth")
 
 const User = require("../models/mUser")
 
 
 //get all
-router.get('/', async(req, res) => {
+router.get('/', auth.verifyLogin, auth.verifyAuth(auth.authLevelDict["staff"]), async(req, res) => {
     try {
         const users = await User.find()
         for (let key in users) {

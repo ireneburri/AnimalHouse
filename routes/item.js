@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const Item = require("../models/mItem")
-const auth = require("./auth")
 
 //get all
 router.get('/', async(req, res)=> {
@@ -47,7 +46,7 @@ router.get('/species/:species/size/:size', async(req, res)=> {
 
 
 //create one
-router.post('/', auth.verifyLogin, auth.verifyAuth(auth.authLevelDict["staff"]), async (req, res)=> {
+router.post('/', async (req, res)=> {
     const item = new Item({
         name: req.body.name,
         price: req.body.price,
