@@ -1,7 +1,7 @@
 <template>
 <main>
   <div class="text-center">
-    <h3>Log Out</h3>
+    <h2>Logout</h2>
     <p>Are you sure you want to log out?</p>
     <button @click="handleYes" class="btn btn-primary" style="background-color: var(--dark-alt); border: 1px solid var(--dark)">yes</button>
   </div>

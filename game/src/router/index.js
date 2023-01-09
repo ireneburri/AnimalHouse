@@ -66,7 +66,7 @@ const router= createRouter({
             path:'/logout',
             name: 'Logout',
             component: Logout
-        },
+        }
     ]
 })
 export default router

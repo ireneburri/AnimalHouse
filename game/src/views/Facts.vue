@@ -1,6 +1,7 @@
 <template>
 
   <main class="curiosityPage">
+    <h2 class="pageTitle">Fun Facts</h2>
     <div class="row" style="width: 90%; margin: 0 auto">
       <div class="col-md-6 changeAnimal">
         <img v-bind:src="animalImg" alt="{{animalName}}">

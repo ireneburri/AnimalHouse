@@ -1,8 +1,9 @@
+
 <template>
   <main>
   <div class="text-center">
     <form class="form-signin" @submit.prevent="handleSubmit">
-    <h3>Login</h3>
+    <h2>Login</h2>
 
       <div class="form-group">
         <label>Username</label>

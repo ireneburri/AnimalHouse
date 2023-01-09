@@ -1,6 +1,7 @@
 <template>
 
   <main style="padding-left: 6rem">
+    <h2 class="pageTitle">Funny Videos</h2>
     <div class="header">
 
       <div class="container scrollMenu">

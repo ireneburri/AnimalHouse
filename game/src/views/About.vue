@@ -1,14 +1,9 @@
+
+
 <template>
+
   <main class="aboutPage">
           <h2 class="pageTitle">How to Stay Healthy Around Pets</h2>
-    <nav class="container scrollMenu">
-      <a href="#risk">Risk And Benefits</a>
-      <a href="#disease">Deseases</a>
-      <a href="#rightPet">Pick The right Pet</a>
-      <a href="#health">Pet Health</a>
-      <a href="#hygiene">Hygiene</a>
-      <a href="#kids">Kids Around Pets</a>
-    </nav>
     <div class="paragraph" id="risk">
           <h3>Understand the Risks and Benefits of Pets</h3>
           <div>There are many health benefits of owning a pet.
@@ -157,6 +152,7 @@ nav {
 
 }
 </style>
+
 <script>
 export default {
   name: 'vueAbout'

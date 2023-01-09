@@ -21,6 +21,46 @@ router.get('/:id', getQuiz, (req, res) => {
     res.json(res.quiz)
 })
 
+
+//get array og img
+router.get('/img/size/:size', async(req, res) => {
+    try{
+        var size= req.params.size
+        console.log(size)
+        var db= await Quiz.find()
+        var quiz=[]
+        var random=0
+
+        do{
+
+            random=Math.floor(Math.random()*db.length)
+            console.log('random: ', random)
+            //console.log('random:', db[Math.floor(random)]["img"])
+            console.log('prescelto:', db[random])
+            quiz.push(db[random])
+            //db.pop(db[random])
+            db.splice(random, 1);
+            console.log('db aggiornato:', db)
+
+            //console.log(db)
+            //console.log(quiz)
+            size=size-1
+            //console.log(size)
+
+
+        }while(size>0)
+        console.log(quiz)
+        res.json(quiz)
+
+
+    }
+    catch(err){
+        res.status(500).json({ message: err.message })
+    }
+
+
+})
+
 //get a tot
 router.get('/size/:size', async(req, res) => {
     try{
