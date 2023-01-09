@@ -71,8 +71,8 @@ function showLocation(location){
 
     $("#myDIV").append(
     `
-    <div class="col h-100">
-        <div class="card "  id="${location.name}" >
+    <div class="col">
+        <div class="card h-100"  id="${location.name}" >
             <img src="${img}" class="img-fluid rounded" alt="Image of location: ${location.name}" style="width: 100%;  height: auto;">
             <div class="card-body">    
                 <h5 class="card-title"> 
