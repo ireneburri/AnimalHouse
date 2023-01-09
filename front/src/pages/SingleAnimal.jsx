@@ -189,7 +189,7 @@ function SingleAnimal() {
                         </select>
                         <hr></hr>
                         <Button id="button" onClick={(e) => Reservation(e)}>
-                            Add to cart
+                            Book
                         </Button>
                     </AddContainer>
 
