@@ -155,7 +155,7 @@ function showLocation(location){
 
                             <div class="mb-2">
                                 <label for="modStaff-${location._id}" style="color:gray;" class="col-sm-2 form-label">Staff</label>
-                                <textarea class="form-control" id="modStaff-${location._id}" rows="1" aria-label="Staff of the store" placeholdeer="${location.staff}" disabled></textarea>
+                                <textarea class="form-control" id="modStaff-${location._id}" rows="1" aria-label="Staff of the store" placeholder="${location.staff}" disabled></textarea>
                             </div>  
 
                             <div class="mb-3">
@@ -166,7 +166,7 @@ function showLocation(location){
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal">Discard</button>
+                            <button type="reset" form="FormModify-${location._id}" class="btn btn-primary" style="background-color: #A0AECD; border-color: #A0AECD;" data-bs-dismiss="modal">Discard</button>
                             <button type="button" class="btn btn-success" style="background-color: #849531;" onclick=modifyLocation("${location._id}")>Save changes</button>
                             
                         </div>
