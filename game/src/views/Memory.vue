@@ -16,7 +16,7 @@
     <button v-if="newPlayer" @click="startGame" class="memoryButton">
       <img src="/images/play.svg" alt="Restart Icon" /> Start Game
     </button>
-    <button v-else @click="restartGame" class="btn memoryButton" role="button" type="button">
+    <button v-else @click="restartGame" class="memoryButton" role="button" type="button">
       <img src="/images/restart.svg" alt="Restart Icon" /> Restart Game
     </button>
   </main>
@@ -42,7 +42,8 @@ export default {
       cardItems: [],
       cardItem:null,
       remainingCards:16,
-      wait:0
+      wait:0,
+      var:1
     }
   },
   computed: {
@@ -59,7 +60,6 @@ export default {
               this.cardItems= response.data
 
               this.cardItems.forEach(item => {
-                console.log(item.img)
                 this.cardList.push({
                   value: item.img,
                   name: item.name,
@@ -98,6 +98,7 @@ export default {
       this.restartGame()
     },
     restartGame(){
+      this.var=1
       this.shuffleCards()
       this.cardList = this.cardList.map((card, index) => {
         return {
@@ -132,6 +133,7 @@ export default {
         this.userSelection[0] = payload
       }
       this.remainingCards=this.remainingPairs()
+
       watch(
           this.userSelection,
           currentValue => {
@@ -159,11 +161,13 @@ export default {
   watch: {
     remainingCards: {
       handler() {
-        if(this.remainingCards===0){
-          if(this.wait===1){
+        if(this.remainingCards===1){
+          if(this.var===0){
             launchConfetti()
           }
-
+          else{
+            this.var=0
+          }
         }
       },
       deep: true
@@ -197,8 +201,8 @@ main {
   margin-bottom: 2rem;
 }
 .memoryButton {
-  background-color: orange;
-  color: white;
+  background-color: var(--dark-alt);
+  color: var(--light);
   padding: 0.75rem 1rem;
   display: flex;
   align-items: center;
