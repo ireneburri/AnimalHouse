@@ -1,5 +1,4 @@
 <template>
-
   <header class="pad">
       <h1 class="websiteTitle" style="width: fit-content;">AnimalHouse</h1>
     <a href="https://site212224.tw.cs.unibo.it/front/home" class="btn shopButton" >Go to the shop</a>
@@ -41,6 +40,9 @@ header{
 @media (max-width: 768px) {
   .websiteTitle{
     font-size: 2rem;
+  }
+  header{
+    padding-left: 5.3rem;
   }
 }
 </style>

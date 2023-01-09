@@ -44,7 +44,7 @@ import Header from './components/Header'
   padding: 0;
   box-sizing: border-box;
   font-family: 'Fira sans', sans-serif;
-  font-size: 1rem;
+  font-size: 1.15rem;
 }
 
 body {
@@ -68,6 +68,13 @@ button {
   padding: 0 2rem;
   margin-top: 3rem;
 }
+.pageTitle{
+  text-align: center;
+  color: var(--dark);
+  font-size: 200%;
+  text-decoration: underline;
+  margin-bottom:1rem
+}
 .pageContent{
   display:flex;
   flex-direction: column;
@@ -75,13 +82,22 @@ button {
   width: 100%
 }
 @media (max-width: 1024px) {
+  *{
+    font-size: 1rem;
+  }
 
   .App main {
     padding-left: 5.3rem;
   }
-  @media (max-width: 1024px) {
+  .pageTitle{
+    font-size: 150%;
+  }
+  @media (max-width: 768px) {
     html, body{
       overflow-x: hidden;
+    }
+    .pageTitle{
+      font-size: 150%;
     }
   }
 }

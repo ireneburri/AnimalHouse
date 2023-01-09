@@ -2,7 +2,7 @@
   <main>
     <div class="text-center">
       <form class="form-signin" @submit.prevent="handleSubmit">
-        <h3>Sign Up</h3>
+        <h2>SignUp</h2>
         <div class="form-group">
           <label>First Name</label>
           <input type="text" class="form-control" v-model="first_name" placeholder="First Name"/>

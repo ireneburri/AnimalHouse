@@ -1,6 +1,5 @@
 <template>
   <main class="homePage">
-    <!--<h3 v-if="user">hi, {{ user.username }}</h3>-->
 
     <div class="row">
       <div class=" containerOne" :class="setContainer">

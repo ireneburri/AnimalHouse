@@ -1,5 +1,8 @@
+
+
 <template>
   <main class="contactPage">
+    <h2 class="pageTitle">Curiosity</h2>
 
     <div class="row">
       <div class="col-sm-2">
@@ -30,6 +33,12 @@
               <input class="form-check-input" type="radio" name="typeAnimal" v-model="type" id="reptileAnimal" value="reptile">
               <label class="form-check-label" for="allAnimal">
                 Reptile
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="typeAnimal" v-model="type" id="fishAnimal" value="fish">
+              <label class="form-check-label" for="fishAnimal">
+                Fish
               </label>
             </div>
           </div>

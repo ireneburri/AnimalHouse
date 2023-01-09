@@ -1,6 +1,6 @@
 <template>
-  <main class="container quizPage">
-    <h1 class="pageTitle">AnimalQuiz</h1>
+  <main class="quizPage">
+    <h2 class="pageTitle">AnimalQuiz</h2>
     <div v-if="!isHidden" class="container startQuiz">
 
       <div class="container startContainer">
@@ -192,10 +192,6 @@ export default{
 </script>
 
 <style lang="scss">
-.quizPage{
-  color: black;
-  font-size: 150%;
-}
 .startQuiz{
   margin: 0 auto;
   text-align:center;

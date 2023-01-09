@@ -8,6 +8,10 @@ export default {
       type: Boolean,
       default: false
     },
+    name:{
+      type:String,
+      required:true
+    },
     position: {
       type: Number,
       required: true
@@ -45,9 +49,9 @@ export default {
 </script>
 
 <template>
-  <div class="card" :class="flippedStyles" @click="selectCard">
+  <div type="button" role="button" class="card" :class="flippedStyles" @click="selectCard" >
     <div class="card-face is-front">
-      <img class="cardImg" v-bind:src="`/images/${value}.png`" :alt="value" />
+      <img class="cardImg" v-bind:src="value" :alt="name" />
       <img v-if="matched" src="../../public/images/checkmark.svg" class="icon-checkmark" />
     </div>
     <div class="card-face is-back"></div>
@@ -92,9 +96,24 @@ export default {
   right: 5px;
   bottom: 5px;
 }
-@media (max-width: 1024px) {
+.cardImg{
+  width:6.5rem;
+  height:6.5rem;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+@media (max-width: 660px) {
   .cardImg{
-    width:3rem
+    width:4.5rem;
+    height: 4.5rem;
+    border-radius: 0.7rem;
+  }
+  @media (max-width: 490px) {
+    .cardImg{
+      width:3.5rem;
+      height: 3.7rem;
+      border-radius: 0.5rem;
+    }
   }
 }
 </style>
